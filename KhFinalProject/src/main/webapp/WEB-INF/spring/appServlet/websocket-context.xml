@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd">
+	
+	
+	<!-- 웹소켓 서버 등록하기(서버의 주소값을 매핑시켜주는 것) -->
+	<websocket:handlers>
+		<!-- path : 주소(매핑값) / handler : 등록된 서버의 이름(아이디값) -->
+		<websocket:mapping path="/chatting" handler="chattingServer"/>
+	</websocket:handlers>
+	<bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	
+
+</beans>
