@@ -7,11 +7,11 @@
 	
 	
 	<!-- 웹소켓 서버 등록하기(서버의 주소값을 매핑시켜주는 것) -->
-	<websocket:handlers>
-		<!-- path : 주소(매핑값) / handler : 등록된 서버의 이름(아이디값) -->
+	<!-- <websocket:handlers>
+		path : 주소(매핑값) / handler : 등록된 서버의 이름(아이디값)
 		<websocket:mapping path="/chatting" handler="chattingServer"/>
 	</websocket:handlers>
-	<bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<bean class="com.fasterxml.jackson.databind.ObjectMapper"/> -->
 	
 
 </beans>

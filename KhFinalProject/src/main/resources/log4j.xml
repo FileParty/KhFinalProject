@@ -26,7 +26,7 @@
 	</logger>
 	
 	<!-- Application Loggers -->
-	<logger name="com.kh.final">
+	<logger name="com.kh.fp">
 		<level value="info" />
 	</logger>
 	
