@@ -1,4 +1,4 @@
-package com.kh.fp.controller.buniness;
+package com.kh.fp.controller.business;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+
+ 	* {
+              /*모든 요소 초기화*/
+              border-collapse: collapse;
+              margin: 0px;
+              padding: 0px;
+              text-decoration: none;
+              color: black;
+              list-style: none;
+          }
+          
+ 	/* .row{
+ 		border : solid 1px black;
+ 	}
+ 	
+ 	.col-5{
+ 		border : solid 1px red;
+ 	} */
+ 	.food-category{
+ 		
+ 	}
