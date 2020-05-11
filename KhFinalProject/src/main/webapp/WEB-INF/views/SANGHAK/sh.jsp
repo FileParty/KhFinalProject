@@ -303,11 +303,11 @@ main {
                                           <input type="text" style="width:90px;height:30px;"> -
                                           <input type="text" style="width:90px;height:30px;"> -
                                           <input type="text" style="width:90px;height:30px;"><br> <br>
-     주소 &nbsp<b style="color:red">*</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     주소 &nbsp;&nbsp;&nbsp;<b style="color:red">*</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                            <input type="text" style="width:160px;height:30px;"> &nbsp;&nbsp; <button onsubmit="" style="border:2px solid lightgray;padding: 5px;background-color: #ddd;">우편번호 조회</button><br><br>
-                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                            <input type="text" style="width:300px;height:30px;"><br> <br>
-                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                         &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                           <input type="text" style="width:300px;height:30px;"><br> <br>
                                           배송시 요청사항&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="width:300px;height:30px;"><br> <br>
                                      
