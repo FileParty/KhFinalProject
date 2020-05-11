@@ -1,23 +1,28 @@
 @charset "UTF-8";
 
 
- 	* {
-              /*모든 요소 초기화*/
+  	* {
+              /* 모든 요소 초기화 */
               border-collapse: collapse;
               margin: 0px;
               padding: 0px;
               text-decoration: none;
               color: black;
               list-style: none;
-          }
+           
+          } 
+
+/* *{
+	border : 1px solid red;
+} */
           
- 	/* .row{
+ 	 .row{
  		border : solid 1px black;
  	}
  	
  	.col-5{
  		border : solid 1px red;
- 	} */
- 	.food-category{
+ 	} 
+  	.food-category{
  		
- 	}
+ 	} 
