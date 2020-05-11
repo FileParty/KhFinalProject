@@ -3,8 +3,11 @@
 	<%@include file="../common/header.jsp" %>
     <section style="width:1366px;height:768px;">
  	<div class="container" >
- 		<div class="row">
+ 	
+ 		<div class="row" >
+ 		
  		<%@ include file="sideBar.jsp" %>
+ 		
             <div class="col-lg-10" id="main">
             
                     <ul class="ss nav nav-tabs nav-justified">
@@ -12,11 +15,11 @@
                 		<li class="nav-item"><a href="${path }/licensee/orderEnd" class="list nav-link  ">주문 완료(결제 완료)</a></li>
                     </ul>
                     
-                    <div class="col-12 s-order-history" style="border:1px solid black;height:550px;width:1000px;">
+                    <div class="col-12 s-order-history">
 	
                     	<table>
                     	
-                    		<tr style="font-size:20px;">
+                    		<tr>
                     			<th>주문일시</th>
                     			<th>메뉴명</th>
                     			<th>주문금액</th>
@@ -26,45 +29,83 @@
 								<th>상세보기</th>
                     		</tr>
                     		
-                    		<tr>
-                    			<td>20-04-12</td>
-                    			<td>후라이드 치킨</td>
-                    			<td>18,000원</td>
-                    			<td>서울시 강남구 남도빌딩</td>
-                    			<td>010-1234-1234</td>
-                    			<td><input type="button" value="승인"><input type="button" value="거절"></td>
-                    			<td><input type="button" value="상세보기"></td>
-                    		</tr>
+                    		<c:forEach items="${list }" var="o">
+	                    		<tr>
+	                    			<td><c:out value="${o.O_DATE }"/></td>
+	                    			<td><c:out value="${o.O_NO }"/></td>
+	                    			<td><c:out value="${o.O_ORIPRICE }"/></td>
+	                    			<td><c:out value="${o.O_ADDR}"/></td>
+	                    			<td><c:out value="${o.O_DATE }"/></td>
+	                    			<c:if test="${o.O_STATUS eq '주문대기' }">
+	                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
+	                    			</c:if>
+	                    			<td><input type="button" value="상세보기"></td>
+	                    		</tr>
+                    		</c:forEach>
                     	</table>                    	
                     </div>
+                    
+                    <div>
+                    	${pageBar }
+                    </div>
+                    
                  </div>   
             </div>
+            
    		</div>
    	</section>
    	
    	   <style>
-   	  *{
+   	   
+   	  /* *{
    	  	border : 1px solid red;
    	  } 
-   	   
+   	    */
       a.list{
       	 font-weight: 700;
       	 color:black;
       }
-      div#main{
-      	margin-left:200px;
+
+      
+      #main{
+      	margin-left:250px;
       	margin-top:150px;
-      	border:1px solid black;
   		width:1000px;
       	height:600px;
-      }
-      table tr th,td{
-      	text-align:center;
-      }
-      table tr td {
-      	padding:20 0 0 10;
+      	padding : 0;
       }
       
+      .s-order-history{
+      	height:400px;
+      	width:1000px;
+      	padding : 0;
+      	margin-top : 30px;
+      }
+      
+      table{
+      	width : 100%;
+      	border-top : 3px solid #168;
+      }
+      
+      table th {
+      color: #168;
+      background: #f0f6f9;
+      text-align: center;
+      }
+      
+      table th, table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-weight: 550;
+      }
+      
+      input[type="button"]{
+      	  border-radius: 20px;
+      	  background-color: #f0f6f9;
+      	  color: #168;
+      	  border-style: hidden;
+      }
 
       </style>
    	
