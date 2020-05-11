@@ -10,6 +10,7 @@
 	<a href="${path }/licensee/mypage">사업자 마페</a>
 	<a href="${path }/menu/menuList.do">메뉴 리스트</a>
 	<a href="${path }/pay/paylist.do">결제 리스트</a>
+	<a href="${path }/menu/menuDetailView">메뉴 상세화면</a>
 
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
