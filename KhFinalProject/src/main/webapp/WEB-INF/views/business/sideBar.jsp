@@ -58,10 +58,10 @@
    <div class="col-lg-2" id="side">
                 
                     <ul class="list-group" >
-                        <li class="list-group"><a class="menu list-group-item disabled" href="#">매장
+                        <li class="list-group"><a class="menu list-group-item disabled" href="#">가맹점
                         <img src="http://blogfiles.naver.net/20160309_167/jugiya3_1457484081373SoXNf_JPEG/attachImage_62923672.jpeg" style="width:40px;height:40px;"></a>
                         </li>
-                      	<li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/storeEnroll">매장 등록</a></li>
+                      	<li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/storeEnroll">가맹점 등록</a></li>
                       	<li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/menuStatus">메뉴 운영</a></li>
                       	<li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/storeInfo">업체 정보</a></li>
                         <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/companyStatus">매장 정보</a></li>

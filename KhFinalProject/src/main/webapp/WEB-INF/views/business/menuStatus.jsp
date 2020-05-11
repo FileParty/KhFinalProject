@@ -8,10 +8,9 @@
       }
       div.menu {
       	border:1px solid black;
-      	width:200px;
-      	height:230px;
-      	margin-left:20px;
-      	
+      	width:300px;
+      	height:500px;
+      	margin-left:20px;      	
       }
       div.row1 {
       	margin-left:30px;
@@ -22,7 +21,7 @@
  
       </style>
 	<%@include file="../common/header.jsp" %>
-    <section style="width:1366px;height:768px;">
+    <section style="width:1366px;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>

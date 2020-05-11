@@ -21,9 +21,6 @@
       	margin-top:150px;
       
       }
-      form#form{
-
-      }
       div#map{
       	width:400px;
       	height:200px;
@@ -33,18 +30,18 @@
   
       </style>
 <%@include file="../common/header.jsp" %>
-    <section style="width:1366px;height:768px;">
+    <section style="width:1366px;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
                     <ul class="ss nav nav-tabs nav-justified">  
-						<li class="nav-item"><a href="${path }/licensee/storeEnroll" class="list nav-link active">매장 등록</a></li>
-						<li class="nav-item"><a href="${path}/licensee/storeStatus" class="list nav-link ">매장 등록 관리</a></li>
+						<li class="nav-item"><a href="${path }/licensee/storeEnroll" class="list nav-link active">가맹점 등록</a></li>
+						<li class="nav-item"><a href="${path}/licensee/storeStatus" class="list nav-link ">가맹점 등록 관리</a></li>
                     </ul>
                     <div class="content">
                   		<br>
-                    <form action="#" align=center id="form">
+                    <form action="#" align=center>
                     	<p>사업자 번호 &nbsp;</p>
                     	<input type="text">
                     	<br><br>

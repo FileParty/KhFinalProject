@@ -39,11 +39,11 @@
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
                     <ul class="ss nav nav-tabs nav-justified">
-						<li class="nav-item"><a href="${path }/licensee/storeEnroll" class="list nav-link">매장 등록</a></li>
-						<li class="nav-item"><a href="${path }/licensee/storeStatus" class="list nav-link active">매장 등록 관리</a></li>
+						<li class="nav-item"><a href="${path }/licensee/storeEnroll" class="list nav-link">가맹점 등록</a></li>
+						<li class="nav-item"><a href="${path }/licensee/storeStatus" class="list nav-link active">가맹점 등록 관리</a></li>
                     </ul>
                     <div class="content">
-                    <form action="#" align=center id="form">
+                    <form action="#" align=center>
                     	<p>사업자 번호 &nbsp;</p>
                     	<input type="text" value="123-123-1234" disabled>
                     	<br><br>
@@ -67,9 +67,7 @@
                     	<br><br>
                     	<p>승인 상태&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     		<select id="food1" disabled>
-                    		<option for="food1">요청</option>
                     		<option for="food1">승인</option>
-                    		<option for="food1">거절</option>
                     	</select>
                     </form>
                     </div>
