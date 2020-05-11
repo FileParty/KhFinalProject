@@ -2,19 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<link rel="stylesheets" type="text/css" href="resources/css/menulist.css"/>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</head>
-<body>
 	<section>
+	
 	<div style="position:fixed; left:1200px; top:16px;" class="text-center">
 		 	<span class="text-center d-block">
 		 		최근 본 상품
@@ -54,86 +48,21 @@
 		 	</button>
 	</div>
 	
-		<script>
-			$(function(){
-	
-				$(".category").hover(function(){
-					/* $(this).find("h2").css("background-color", "black");
-					$(this).find("h2").css("color", "white"); */
-					$(this).find("h2").attr("style", "cursor:pointer");
-					$(this).find("h2").addClass("text-white");
-					$(this).find("h2").addClass("bg-dark");
-				},function(){
-					/* $(this).find("h2").css("background-color", "white");
-					$(this).find("h2").css("color", "black"); */
-					$(this).find("h2").removeClass("text-white");
-					$(this).find("h2").removeClass("bg-dark");
-				});
-				
-				$(".food-category").hover(function(){
-					$(this).attr("style", "cursor:pointer; height:130px; opacity:0.4;");
-				}, function(){
-					$(this).attr("style", "cursor:pointer; height:130px;");
-				});
-				
-				//dropdown 선택시 바꾸게 하기
-				$(".dropdown-item").click(function(){
-					var val = $(this).html();
-					console.log(val);
-					$(this).parent().prev().html(val);
-				});
-				
-				//메뉴 클릭시 controller로 넘겨주기
-				$(".category").click(function(){
-					//매핑값 설정
-					var category = $(this).attr("id");
-					console.log(category);
-					//cateogry 같이 넘겨주기
-					//location.replace("category/categorylist.do?"+category);
-				})
-				
-				//foodcategory 클릭시 controller로 넘겨주기
-				$(".food-category").click(function(){
-					
-					//매핑값 설정 해주세요 ^^
-					
-					//location.replace("");
-				});
-				
-				//메뉴 호버시 포인터
-				$(".list-group-item").hover(function(){
-					$(this).attr("style", "cursor:pointer;");
-				}, function(){
-					$(this).attr("style", "cursor:pointer;");
-				});
-				
-				//메뉴 클릭시 active 변화
-				$(".list-group-item").click(function(){
-					$(this).siblings().removeClass("active");
-					$(this).addClass("active");
-				});
-			})
-		</script>
+
 		<div class="container mt-3">
 			<div class="row">
-			<div class="col">
-				<ul class="list-group d-flex flex-row justify-content-center">
-				  <li class="list-group-item active" id="category-chicken">치킨</li>
-				  <li class="list-group-item" id="category-pizza">피자</li>
-				  <li class="list-group-item" id="category-chinese">중국집</li>
-				  <li class="list-group-item" id="category-snack">분식</li>
-				  <li class="list-group-item" id="category-korean">한식</li>
-				  <li class="list-group-item" id="category-bugger">햄버거</li>
-				  <li class="list-group-item" id="category-japanese">일식</li>
-				</ul>
-			</div>	
-				<!-- <div class="col category m-0 p-0 text-center" id="category-chicken"><h2>치킨</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-piza"><h2>피자</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-chinese"><h2>중국집</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-snack"><h2>분식</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-korean"><h2>한식</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-bugger"><h2>햄버거</h2></div>
-				<div class="col category m-0 p-0 text-center" id="category-japanese"><h2>일식</h2></div> -->
+				<div class="col">
+					<ul class="list-group d-flex flex-row justify-content-center">
+					  <li class="list-group-item active" id="category-chicken">치킨</li>
+					  <li class="list-group-item" id="category-pizza">피자</li>
+					  <li class="list-group-item" id="category-chinese">중국집</li>
+					  <li class="list-group-item" id="category-snack">분식</li>
+					  <li class="list-group-item" id="category-korean">한식</li>
+					  <li class="list-group-item" id="category-bugger">햄버거</li>
+					  <li class="list-group-item" id="category-japanese">일식</li>
+					</ul>
+				</div>	
+			
 			</div>
 			
 			<div class="row mt-5">
@@ -167,28 +96,7 @@
 			</div>
 		</div>
 		
-		 <style>
-		 	* {
-                /*모든 요소 초기화*/
-                border-collapse: collapse;
-                margin: 0px;
-                padding: 0px;
-                text-decoration: none;
-                color: black;
-                list-style: none;
-            }
-            
-		 	/* .row{
-		 		border : solid 1px black;
-		 	}
-		 	
-		 	.col-5{
-		 		border : solid 1px red;
-		 	} */
-		 	.food-category{
-		 		
-		 	}
-		 </style>
+	
 		 
 		 <div class="container mt-3  p-1">
 		 <c:forEach begin="1" end="5" step="1" var="i">
@@ -306,16 +214,8 @@
 			</div>
 		</div>
 		
-		<script>
-		//선택된 페이지 변화 
-			$(function(){
-				$(".page-item").click(function(){
-					$(this).siblings().removeClass("active");
-					$(this).addClass("active");		
-				});
-			})
-		</script>
+		
 	</section>
-
-</body>
-</html>
+	
+<jsp:include page="/WEB-INF/views/menu/menulistjs.jsp"/>	
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
