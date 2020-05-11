@@ -111,7 +111,14 @@
 		 	<c:forEach begin="1" end="2" step="1" var="j">
 		 		<div class="food-category col-5 d-flex align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
  					<div class="mr-4 ml-2">
- 						<img src="${pageContext.request.contextPath }/resources/images/food.jpg" class="img-thumbnail shadow-lg" style="height:115px; width:115px;"/> 
+ 						<c:if test="${j==1}">
+ 							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LOGIMG()}" class="img-thumbnail shadow-lg" style="height:115px; width:115px;"/>												
+						</c:if>
+						
+						<c:if test="${j==2}">
+							<img src="${pageContext.request.contextPath }/resources/img/${list.get(i*j-1).getS_LOGIMG()}" class="img-thumbnail shadow-lg" style="height:115px; width:115px;"/>		 								
+						</c:if>
+ 						 
  					</div>
  				
  					
@@ -119,10 +126,10 @@
  						<div class="category-title">
  							<span class="h-4">
  								<c:if test="${j==1}">							
- 									<c:out value="${list.get(2*(i-1)).getTitle()}"/>
+ 									<c:out value="${list.get(2*(i-1)).getS_NAME()}"/>
 	 							</c:if>
  								<c:if test="${j==2}">		 								
- 									<c:out value="${list.get(i*j-1).getTitle()}"/>
+ 									<c:out value="${list.get(i*j-1).getS_NAME()}"/>
  								</c:if>
  							</span>
  						</div>
@@ -134,14 +141,14 @@
  									<c:if test="${j==1}">
  										<span class="mr-2 text-warning">		
 	 										★						
-	 										<c:out value="${list.get(2*(i-1)).getScore()}"/>
+	 										<c:out value="${list.get(2*(i-1)).getS_SCORE()}"/>
 	 									</span>
 	 								</c:if>
 	 								
 	 								<c:if test="${j==2}">
 	 									<span class="mr-2 text-warning">
 	 										★
-	 										<c:out value="${list.get(i*j-1).getScore()}"/>
+	 										<c:out value="${list.get(i*j-1).getS_SCORE()}"/>
 	 									</span>
 	 								</c:if>
  								</div>
@@ -153,13 +160,13 @@
  								<div>
  									<c:if test="${j==1}">
  										<span>
- 											리뷰 <c:out value="${list.get(2*(i-1)).getReviewCount()}"/>
+ 											리뷰 <c:out value="${list.get(2*(i-1)).getS_REVIEWCOUNT()}"/>
  										</span>
  									</c:if>
  									
  									<c:if test="${j==2}">
  										<span>
- 											리뷰 <c:out value="${list.get(i*j-1).getReviewCount()}"/>
+ 											리뷰 <c:out value="${list.get(i*j-1).getS_REVIEWCOUNT()}"/>
  										</span>
  									</c:if>								
  								</div>		 										 		
@@ -169,11 +176,11 @@
  						<div class="category-deliveryInfo mt-1">
  							<span class="text-secondary">
  								<c:if test="${j==1}">
- 									<c:out value="${list.get(2*(i-1)).getDeleveryMinCharge()}"/> 이상 배달
+ 									<c:out value="${list.get(2*(i-1)).getS_LIMITPRICE()}"/> 이상 배달
  								</c:if>
  								
  								<c:if test="${j==2}">
- 									<c:out value="${list.get(i*j-1).getDeleveryMinCharge()}"/> 이상 배달
+ 									<c:out value="${list.get(i*j-1).getS_LIMITPRICE()}"/> 이상 배달
  								</c:if>
  							</span>
  						</div>
@@ -185,10 +192,10 @@
  											
  							<span class="ml-5 text-secondary">
  								<c:if test="${j==1}">
- 									<c:out value="${list.get(2*(i-1)).getDeleveryTime()}"/>~<c:out value="${list.get(2*(i-1)).getDeleveryTime()+5}분"/>
+ 									<c:out value="${list.get(2*(i-1)).getS_TIME()}"/>~<c:out value="${list.get(2*(i-1)).getS_TIME()+5}분"/>
  								</c:if>
  								<c:if test="${j==2}">
- 									<c:out value="${list.get(i*j-1).getDeleveryTime()}"/>~<c:out value="${list.get(2*(i-1)).getDeleveryTime()+5}분"/>
+ 									<c:out value="${list.get(i*j-1).getS_TIME()}"/>~<c:out value="${list.get(2*(i-1)).getS_TIME()+5}분"/>
  								</c:if>
  							</span>
  						</div>
@@ -221,8 +228,9 @@
 			</div>
 		</div>
 		
-		
 	</section>
 	
-<jsp:include page="/WEB-INF/views/menu/menulistjs.jsp"/>	
+<jsp:include page="/WEB-INF/views/menu/menulistjs.jsp">
+	<jsp:param name="cate" value="${cate}"></jsp:param>
+</jsp:include>	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
