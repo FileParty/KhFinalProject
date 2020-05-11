@@ -8,68 +8,68 @@ public class LicenseeController {
 	
 	@RequestMapping("/licensee/mypage")
 	public String myPage() {
-		return "sung/mypage";
+		return "business/mypage";
 	}
 	@RequestMapping("/licensee/storeEnroll")
 	public String storeEnroll() {
 		//매장등록
-		return "sung/storeEnroll";
+		return "business/storeEnroll";
 	}
 	@RequestMapping("/licensee/storeStatus")
 	public String storeStatus() {
 		//매장관리
-		return "sung/storeStatus";
+		return "business/storeStatus";
 	}
 
 	@RequestMapping("/licensee/menuStatus")
 	public String menuStatus() {
 		//메뉴운영
-		return "sung/menuStatus";
+		return "business/menuStatus";
 	}
 	@RequestMapping("/licensee/menuEnroll")
 	public String menuEnroll() {
 		//메뉴등록
-		return "sung/menuEnroll";
+		return "business/menuEnroll";
 	}
 	@RequestMapping("/licensee/storeInfo")
 	public String storeInfo() {
 		//업체정보
-		return "sung/storeInfo";
+		return "business/storeInfo";
 	}
 	@RequestMapping("/licensee/storeInfoEnroll")
 	public String storeInfoEnroll() {
 		//업체정보등록
-		return "sung/storeInfoEnroll";
+		return "business/storeInfoEnroll";
 	}
 	@RequestMapping("/licensee/companyStatus")
 	public String companyStatus() {
 		//가맹점등록정보
-		return "sung/companyStatus";
+		return "business/companyStatus";
 	}
 	@RequestMapping("/licensee/companyEnroll")
 	public String companyEnroll() {
 		//가맹점등록
-		return "sung/companyEnroll";
+		return "business/companyEnroll";
 	}
 	@RequestMapping("/licensee/calculate")
 	public String calculate() {
 		//정산내역
-		return "sung/calculate";
+		return "business/calculate";
 	}
 	@RequestMapping("/licensee/order")
 	public String order() {
 		//주문내역
-		return "sung/order";
+		return "business/order";
 	}
 	@RequestMapping("/licensee/orderEnd")
 	public String orderEnd() {
 		//주문완료내역
-		return "sung/orderEnd";
+		return "business/orderEnd";
 	}
 	@RequestMapping("/licensee/review")
 	public String review() {
 		//리뷰관리
-		return "sung/review";
+		return "business/review";
 	}
 	
 

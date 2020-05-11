@@ -4,12 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link rel="stylesheet" href="${path }/resources/css/menulist.css" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheets" type="text/css" href="resources/css/menulist.css"/>
+
+<style>
+	/* *{
+	border : 1px solid red;
+}
+          */ 
+</style>
 
 	<section>
 	
-	<div style="position:fixed; left:1200px; top:16px;" class="text-center">
+	<div style="position:fixed; left:1700px; top:200px;" class="text-center">
 		 	<span class="text-center d-block">
 		 		최근 본 상품
 		 	</span>
@@ -127,14 +134,14 @@
  									<c:if test="${j==1}">
  										<span class="mr-2 text-warning">		
 	 										★						
-	 										<c:out value="${list.get(2*(i-1)).getStar()}"/>
+	 										<c:out value="${list.get(2*(i-1)).getScore()}"/>
 	 									</span>
 	 								</c:if>
 	 								
 	 								<c:if test="${j==2}">
 	 									<span class="mr-2 text-warning">
 	 										★
-	 										<c:out value="${list.get(i*j-1).getStar()}"/>
+	 										<c:out value="${list.get(i*j-1).getScore()}"/>
 	 									</span>
 	 								</c:if>
  								</div>
