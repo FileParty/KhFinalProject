@@ -1,4 +1,4 @@
-package com.kh.fp.licensee.controller;
+package com.kh.fp.controller.buniness;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
