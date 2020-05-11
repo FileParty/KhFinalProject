@@ -29,8 +29,6 @@
         div#side {
             border: 1px soild black;
             margin-top:150px;
-            position: fixed;
-            width:200px;
         }
       
         a.menu{
@@ -39,7 +37,6 @@
             border-left: none;
             border-right: none;
             border-bottom:none;
-            width: 120px;
             color:black;
         }
   		a.menuDetail{
@@ -47,10 +44,8 @@
             border-left: none;
             border-right: none;
             font-size:13px;
-            width: 120px;
              color:black;
             font-weight: 400;
-            margin-left:30px;
   		}
 
     </style>

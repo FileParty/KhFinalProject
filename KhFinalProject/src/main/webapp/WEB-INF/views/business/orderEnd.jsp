@@ -6,7 +6,6 @@
       	 color:black;
       }
       div#main{
-      	margin-left:200px;
       	border:1px solid black;
       	height:700px;
       }

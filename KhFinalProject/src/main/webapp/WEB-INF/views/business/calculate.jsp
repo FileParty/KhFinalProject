@@ -10,8 +10,7 @@
       	 color:black;
       }
  div#main{
-      	margin-left:200px;
-      	margin-top:150px;
+	   	margin-top:150px;
       	height:600px;
       	width:500px;
       	border : 1px solid black;

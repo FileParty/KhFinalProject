@@ -6,17 +6,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
    <style>
 	
-	span#menu{
-		cursor:pointer;
-	}
 
 	 div#main{
-      	margin-left:200px;
       	margin-top:150px;
       }
       div.col-12{
-      	height:600px;
       	width:900px;
+      	height:968px;
       	border:1px solid black;
       }
       th#h2{
@@ -35,7 +31,7 @@
        padding:0 0 20 0;
       }
       .btnC {
-      margin-left:400px;
+      margin-left:300px;
       }
       </style>
 	<%@ include file="../common/header.jsp" %>
@@ -55,19 +51,19 @@
                     <br>                 
 
                     	<div class="col-12">
-                    		<div class="addC">
-                    	  <button type="button" class="btnC" onclick="addC();">카테고리 추가</button> 
+                    	   <button type="button" class="btnC" onclick="addCategory();">카테고리 추가</button> 
                     	   <button type="button" class="btn btn-primary btnC1" data-toggle="modal" data-target="#myModal">추가옵션 등록</button>
-                    	  <br>
-                    	  </div>
-                    	  <form action="#" align=center id="form">   
-                    	  <div class="menu-container">
-               				</div>           
+                    		<form action="#" method="post" id="menu-container">
+                    		<div class="addCategory">
+                    	    </div>
                     	  </form>
-                    	</div>
-                    	
+                    	</div>                    				  
+						</div>
+                    </div>
+            	</div> <!-- 컨테이너 -->
+            		
 
-						
+						<!-- 추가옵션 등록 모달 -->
 						  <div class="modal" id="myModal">
 						    <div class="modal-dialog">
 						      <div class="modal-content">
@@ -80,14 +76,14 @@
 						          	<select id="plusOption">
 						          		<option for="plusOption" value="필수">필수</option>
 						          	</select>
-						          	<button type="button" class="btn btn-outline-success plus"  onclick="plusOptions();">옵션 추가</button>						     
+						          	<button type="button" class="btn btn-outline-success plus"  onclick="e_option();">옵션 추가</button>						     
 						          	<br>
 						          	<div id="option1-container">
 						          	</div>				
 						          	<select style=""id="plusOption">
 						          		<option for="plusOption" value="선택">선택</option>
 						          	</select>	         
-						          	<button type="button" class="btn btn-outline-success plus1" onclick="plusOptions1();">옵션 추가</button> 					          	
+						          	<button type="button" class="btn btn-outline-success plus1" onclick="a_option();">옵션 추가</button> 					          	
 						          	<br>
 						          	<div id="option2-container"></div>	
 						        	<button type="submit" class="btn btn-outline-danger" >등록</button>
@@ -96,7 +92,7 @@
 						      </div>
 						    </div>
 						  </div>
-						  
+						  <!-- 메뉴등록 모달 -->
 						  <div class="modal" id="myModal2">
 						    <div class="modal-dialog">
 						      <div class="modal-content">
@@ -104,71 +100,61 @@
 						          <h4 class="modal-title">메뉴 등록</h4>
 						        </div>
 						        <div class="modal-body" align=center>						        
-						        	<form>
-						        		<input type="text" placeholder="메뉴명">
-						        		<input type="number" placeholder="메뉴가격">
-						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명"></textarea>
-						        		<input type="file">						         
+						        		<input type="text" placeholder="메뉴명" class="menu-name">
+						        		<input type="number" placeholder="메뉴가격" class="menu-price">
+						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail"></textarea>
+						        		<input type="file">	
+						        		<input  type="hidden" value="" id="hid" >					         
 						        		<br>	
-						        	<button type="submit" class="btn btn-outline-danger" >등록</button>
-						        	</form>
+						        	<button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>
 						        </div>
 						      </div>
 						    </div>
-						  </div>					  
-						</div>
-                    </div>
-            	</div>
+						  </div>	
 		<script>
-			function addC() {
+			var num = 0;
+			var nums = 0;
+			var num2 =0;
+			function addCategory() {
+			
 				var category = $("<input>").attr({
-					'type':'text',
-					'placeholder':'카테고리를 입력하세요.',
-					'id':'category'
+					'class':'category'+num,
+					'name':'category',
+					'placeholder':'카테고리를 입력해주세요.'
 				}).css({
-					'margin-left':'350'
+					'width':'400',
+					'border':'1px soild black'
 				})
-				var btn = $("<button>").attr({
+				var menuAdd = $("<button>").attr({
 					'type':'button',
-					'onclick':'plusC();'
+					'class':'btn btn-outline-primary test'+num,
+					'data-toggle':'modal',
+					'data-target':'#myModal2',
+					'onclick':'menuBtn();'
 				})
-				btn.html('등록');
-				$(".addC").append($("<br>"));
-				$(".addC").append(category);
-				$(".addC").append(btn);
-				$(".btnC").hide();
-				$(".btnC1").css('margin-left','380');
+				menuAdd.html('메뉴등록');
+				$(".addCategory").append($("<br>"));
+				$(".addCategory").append(category);
+				$(".addCategory").append(menuAdd);
+				menuBtn();
+				num++;
+			}
+			function menuBtn() {
+				
+				 var vl = $(".category"+(num-1)).val();
+				var s = $(".category"+(num-1));
+				console.log(vl);
+				var hid = $("#hid").val(vl);
+				var name = $("input[value='+hid+']");
+				$("input[value='+vl+']")
+				var clas = name.prop('tagName');
+				console.log('히드',clas);
+				console.log('네임',name);
+				console.log('네임2',s); 
+				
 			}
 			
-			function plusC() {
-				var span = $("<span>").attr({
-					'name':'category',
-					'id':'categorys'
-				})//스팬 생성
-				var category = $("#category").val();
-				//카테고리 인풋
-				var button = $("<button>").attr({
-					'type':'button',
-					
-					
-					'class':'btn btn-outline-primary btnC2',
-					'data-toggle':'modal',
-					'data-target':'#myModal2'
-				}).css('margin-left','500')
-				//메뉴등록 버튼
-				
-				span.html(category+"▼").css({
-					'border':'1px solid black',
-					'width':'100%',
-					'display':'block',
-					'cursor':'pointer'
-					});
-				button.html('메뉴등록');
-				span.append(button);
-				$(".menu-container").append(span);
-				$("#category").val("");
-			}
-			function plusOptions() {
+			function c_toption() {
 				var text = $("<input>").attr({
 					'type':'text',
 					'name':'essential',
@@ -179,17 +165,45 @@
 				});				
 				$("#option1-container").append(text).append(number);				
 			}
-			function plusOptions1() {
+			function a_option() {
 				var texts = $("<input>").attr({
 					'type':'text',
 					'name':'plus'
 				})
 				var numbers = $("<input>").attr({
 					'type':'number',
-					'name':'price1'
+					'name':'price2'
 				})
 				$("#option2-container").append(texts).append(numbers);				
 			}
+			function menu_enroll() {
+				console.log('등록모달1',num);
+				var hid = $("#hid").val();
+				var menuName = $(".menu-name").val();
+				var menuPrice = $(".menu-price").val();
+				var menuDetail = $(".menu-detail").val();
+				var inputN = $("<input>").attr({
+					'type':'text',
+					'name':'menuName',
+					'value':menuName
+				})
+				var inputP = $("<input>").attr({
+					'type':'number',
+					'name':'menuPrice',
+					'value':menuPrice
+				})
+				var textD = $("<textarea>").attr({
+					'cols':'20',
+					'rows':'1',
+					'name':'menuDetail',
+				}).html(menuDetail);
+				var div = $("<div>");
+				div.append(inputN).append($("<br>"));
+				div.append(inputP).append($("<br>"));
+				div.append(textD).append($("<br>"));
+				$(".category"+(num-1)).next().after(div);
+			}
+
 
 		</script>
     </section>
