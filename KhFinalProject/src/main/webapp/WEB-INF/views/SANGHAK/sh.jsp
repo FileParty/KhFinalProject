@@ -357,7 +357,7 @@ main {
 <tr>
 <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
 
-  <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;" >&nbsp;&nbsp;원&nbsp; 
+  <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;text-align:right;" >&nbsp;&nbsp;원&nbsp; 
     <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">쿠폰변경</button> 
     <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
     <br> 
@@ -366,7 +366,7 @@ main {
 
 <tr>
   <td style="padding-right:40px;">빠짐 포인트</td>
-    <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;" >&nbsp;&nbsp;원&nbsp; 
+    <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;text-align:right;" >&nbsp;&nbsp;원&nbsp; 
       <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">전액사용</button> 
       <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
       <br>
@@ -375,7 +375,7 @@ main {
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;" >&nbsp;&nbsp;원&nbsp; 
+      <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;text-align:right;" >&nbsp;&nbsp;원&nbsp; 
         <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">전액사용</button> 
         <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
         <br> 
@@ -845,10 +845,6 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 
 
 
-
-<div class="footer">
-  <h2>Footer</h2>
-</div>
  
 </body>
 <script>
@@ -858,4 +854,5 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
   });
  
 </script>
-</html>
+<br><br>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
