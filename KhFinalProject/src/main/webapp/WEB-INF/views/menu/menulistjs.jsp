@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +9,10 @@
 </head>
 <body>
 
-	
 	<script>
+
 	$(function(){
-		
+				
 		$(".category").hover(function(){
 			/* $(this).find("h2").css("background-color", "black");
 			$(this).find("h2").css("color", "white"); */
@@ -48,12 +49,13 @@
 		})
 		
 		//foodcategory 클릭시 controller로 넘겨주기
-		$(".food-category").click(function(){
+		/* $(".food-category").click(function(){
 			
 			//매핑값 설정 해주세요 ^^
-			
-			//location.replace("");
-		});
+			var category = $(this).val();
+			console.log(category);
+			location.replace($(path)+"/food/foodlist.do?category=");
+		}); */
 		
 		//메뉴 호버시 포인터
 		$(".list-group-item").hover(function(){
@@ -63,9 +65,19 @@
 		});
 		
 		//메뉴 클릭시 active 변화
-		$(".list-group-item").click(function(){
-			$(this).siblings().removeClass("active");
-			$(this).addClass("active");
+		$(".list-group-item").click(function(e){
+			var menuCategory = $(this).html();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/menu/menuCategory.do",
+				data: {"menuCategory":menuCategory},
+				success: function(data){
+					console.log(data);
+					$(e.target).siblings().removeClass("active");
+					$(e.target).addClass("active");
+				}
+			});
+			
 		});
 	})
 	
