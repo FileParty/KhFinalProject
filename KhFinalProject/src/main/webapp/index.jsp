@@ -6,6 +6,6 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
-	
+	<a href="${path }/licensee/mypage">사업자 마페</a>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
