@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +7,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <!--============================================================결제하기버튼css======================================================================-->
   <style>
     @import url("https://fonts.googleapis.com/css?family=Mukta:700");
@@ -102,10 +102,11 @@ color: #fff;
 @supports (display: grid) {
 
 #container {
-  grid-area: main;
+  
   display: flex;
   align-self: center;
   justify-content:center;
+  height: 54px;
 }
 }
   </style>
@@ -359,7 +360,7 @@ main {
   <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;" >&nbsp;&nbsp;원&nbsp; 
     <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">쿠폰변경</button> 
     <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
-    <br> <hr>
+    <br> 
   </td>
 </tr>
 
@@ -368,7 +369,7 @@ main {
     <td width="680px"><input type="text" style="width:200px;height:30px;background-color: #ddd;" >&nbsp;&nbsp;원&nbsp; 
       <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">전액사용</button> 
       <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
-      <br> <hr>
+      <br>
     </td>
   </tr>
   
@@ -380,7 +381,8 @@ main {
         <br> 
       </td>
     </tr>
-    <tr><td colspan="2"><p>기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 30,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
+ 
+    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 30,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
 </table>
 <div style="display:flex; justify-content:center;padding-left: 550px;">
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
@@ -464,7 +466,10 @@ main {
   
     <!-- Modal content-->
     <div class="modal-content">
-      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
       <div class="modal-body">
        <table width=810>
           <tr>
@@ -475,8 +480,8 @@ main {
            </td>
          </tr>
          <tr>
-           <td align=center>
-             <textarea name="tos" rows=15 cols=100>
+           <td>
+             <textarea name="tos" rows=15 cols=100 style="width:540px;">
 제1조(목적)
 이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -704,7 +709,7 @@ main {
           </tr>
           <tr>
             <td>
-              <input type="checkbox">이용약관에 동의합니다.<br><br><br><br>
+              <input type="checkbox" >이용약관에 동의합니다.<br><br><br><br>
             </td>
           </tr>
           <tr>
@@ -715,8 +720,8 @@ main {
            </td>
          </tr>
          <tr>
-           <td align=center>
-             <textarea name="tos" rows=15 cols=100>
+           <td>
+             <textarea name="tos" rows=15 cols=100 style="width:540px;">
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -826,12 +831,13 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
     
   </div>
 </div>
+
 
 
 
