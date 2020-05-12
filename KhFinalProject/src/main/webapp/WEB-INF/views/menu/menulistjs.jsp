@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +65,7 @@
 		});
 		
 		//메뉴 클릭시 active 변화
+		//페이지리스트 출력 ajax 처리
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
 			
@@ -73,8 +74,46 @@
 				data: {"menuCategory":menuCategory},
 				success: function(data){
 					console.log(data);
+									
 					$(e.target).siblings().removeClass("active");
-					$(e.target).addClass("active");
+					$(e.target).addClass("active");					
+					
+					for(var i=0; i<10; i++){
+						$(".category-"+i).removeClass("invisible");
+					}
+					
+					$.each(data, function(i,v){1					
+						for(var i=0; i<v.length; i++){
+							var info = v[i];
+							console.log(info);
+							console.log(info['s_NAME']);
+							
+							var img = $(".log-img-"+i);
+							
+							//로고 이미지
+							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+							
+							//상호명
+							$(".name-"+i).html(info['s_NAME']);
+							
+							//별점
+							$(".score-"+i).html('★'+parseFloat(info['s_SCORE']));
+							
+							//리뷰
+							$(".review-"+i).html(info['s_REVIEWCOUNT']);
+							
+							//최소 배달 금액
+							$(".limit-price-"+i).html(info['s_LIMITPRICE']);
+							
+							//배달 시간
+							$(".time-"+i).html(info['s_TIME']);
+						}
+						
+						//unvisibility 처리
+						for(var i=v.length; i<10; i++){			
+							$('.category-'+i).addClass('invisible')
+						}
+					});
 				}
 			});
 			

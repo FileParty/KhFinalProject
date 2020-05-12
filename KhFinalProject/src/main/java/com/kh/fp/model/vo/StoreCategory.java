@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StroeCategory {
+public class StoreCategory {
 	
 	private int mt_no;
 	private String mt_name;

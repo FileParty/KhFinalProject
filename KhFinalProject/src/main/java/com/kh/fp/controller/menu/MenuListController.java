@@ -1,5 +1,6 @@
 package com.kh.fp.controller.menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.model.service.menuList.MenuListService;
-import com.kh.fp.model.vo.MenuList;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.Store;
 
 @Controller
 public class MenuListController {
@@ -32,29 +33,43 @@ public class MenuListController {
 	private MenuListService service;
 	
 	@RequestMapping("/menu/menuList.do")
-	public String foodList(Model m) {		
-		List<MenuList> list = service.selectMenuList();
+	public String foodList(Model m, 
+			@RequestParam(value="menuCategory") String category
+			) {		
+		List<Store> storeList = service.selectMenuList(category);
+		
+		/*
+		 * List<Review> reviewList = new ArrayList<Review>();
+		 * 
+		 * for(Store s : storeList) { Review r = service.selectReview(s.getS_NO());
+		 * 
+		 * reviewList.add(r); }
+		 */
+		
 		
 		/*
 		 * for(int i=0; i<20; i++) { MenuList category = new MenuList("돌돌이 닭갈비", i, 244,
 		 * 13000, 34,"몰라",0,"ss","ss"); list.add(category); }
 		 */
 				
-		m.addAttribute("list", list);
-			
+		m.addAttribute("list", storeList);
 		return "menu/menulist";
 	}
 	
 	//카테고리 눌럿을때
 	@RequestMapping("/menu/menuCategory.do")
 	@ResponseBody
-	public Map menuCategory(ModelAndView mv, 
-			@RequestParam(value="menuCategory") String category
+	public Map menuCategory(
+			@RequestParam(value="menuCategory") String category			
 			) {
 		
-		List<MenuList> list = service.selectMenuList(category);
+		List<Store> list = service.selectMenuList(category);
 		
-		Map<String, Object> map = new HashMap();
+		for(Store s : list) {
+			System.out.println(s);
+		}
+		Map map = new HashMap();
+		
 		map.put("list", list);
 		
 		return map;

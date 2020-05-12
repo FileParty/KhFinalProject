@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="menuList">
   <select id="selectMenuList" resultType="menuList">
-  	select * from shop_tb
+  	select * from store where s_no between 1 and 7
   </select>
  
  <select id="selectMenuListCategory" resultType="menuList" parameterType="string">
- 	select * from shop_tb where s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+ 	select * from store where s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
  </select>
 </mapper>
