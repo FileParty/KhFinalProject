@@ -126,10 +126,10 @@
    		
    		function order_detail(no){
    			$.ajax({
-   				url : "${path}/}/licensee/getdetailorder",
+   				url : "${path}/licensee/getdetailorder",
    				data : {no:no},
    				success : function(data){
-   					
+   					console.log(data);
    				}
    			})
    		}

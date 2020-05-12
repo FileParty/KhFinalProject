@@ -9,5 +9,9 @@
   	<select id="getOrderInfoAll" parameterType="_int" resultType="_int">
   		select count(*) from order_info where s_no=#{no}
   	</select>
+  	
+  	<select id="getDetailOrder" parameterType="_int" resultType="map" >
+		select O_STATUS,O_DATE,ME_NAME,me_price,O_ADDR,sd_array,O_ORIPRICE from ORDER_INFO JOIN order_menu USING(O_NO) JOIN MENU USING(ME_NO) WHERE O_NO = #{no}
+  	</select>
   
 </mapper>

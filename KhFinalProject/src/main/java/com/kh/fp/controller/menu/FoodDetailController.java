@@ -13,5 +13,9 @@ public class FoodDetailController {
 		mv.setViewName("menu/menuDatail");
 		return mv;
 	}
-
+	
+	@RequestMapping("/common/juso")
+	public String juso() {
+		return "common/juso";
+	}
 }

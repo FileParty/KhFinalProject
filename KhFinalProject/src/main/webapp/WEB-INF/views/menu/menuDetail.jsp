@@ -11,23 +11,22 @@
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
-                    <span>${store['storeName']}</span>
+                    <span>${store['s_name']}</span>
                 </div>
                 <div class="s-store-info"> 
 
                     <div class="s-store-img">
-                        <img src="#" width="100px" height="100px" style="cursor: pointer;">
+                        <img src="${path }/resources/upload/store/${store['s_logimg']}" width="100px" height="100px" style="cursor: pointer;">
                     </div>
 
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span>${store['avgStar']}</span></li>
-                            <li>운영시간<span>${store['openTime'] }</span> ~ ${store['endTime']}</li>
-                            <li>최소주문 금액 <span>${store['minPrice']}</span></li>
-                            <li>결제 <span></span>${store['typePrice']}</li>
-                            <li>배달시간 <span>${store['deliveryTime']}</span></li>
-                            <li>배달할인 <span>${store['deliverySalePrice']}</span></li>
+                            <li><i class="fa fa-star"></i><span>${store['s_score']}</span></li>
+                            <li>운영시간<span><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></li>
+                            <li>최소주문 금액 <span>${store['s_limitprice']}</span></li>
+                            <li>결제 <span></span>${store['s_payopt']}</li>
+                            <li>배달시간 <span>${store['s_time']}분</span></li>
                         </ul>
 
                     </div>
@@ -41,7 +40,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review()">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -55,12 +54,12 @@
                             <div class="s-store-menu">
 
                                 <div class="s-store-scroll">
-                                	<c:forEach items="${store['menu']}" var="tm">
-	                                	<c:if test="${tm['menuType'] eq 'title' }">
+                                	<c:forEach items="${store['bestMenu']}" var="bm">
+	                                	<c:if test="${bm['me_best'] eq 'Y' }">
 		                                    <div class="s-store-menu-content">
-		                                        <img src="${path }/resources/upload/menu/${tm['menuImg']}" width="100px" height="100px">
-		                                        <h6 style="margin-top: 5px;">${tm['menuName']}</h6>
-		                                        <span><fmt:formatNumber pattern="###,###,###원" value="${tm['menuPrice']}"/></span>
+		                                        <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
+		                                        <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
+		                                        <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
 		                                    </div>
 	                                    </c:if>
                                     </c:forEach>
@@ -69,11 +68,12 @@
                             </div>
 
                             <div class="s-store-menu-bar">
-                            
-                                <div class="s-store-menu-nav">인기메뉴</div>
+                            <c:forEach items="${store['storeCategory']}" var="sc">
+                                <div class="s-store-menu-nav">${sc['mt_name'] }</div>
                                 <div class="s-store-menu-nav-content-title">
-                                
-                                    <div class="s-store-menu-nav-content">
+                                </div>
+                            </c:forEach>
+                                    <!-- <div class="s-store-menu-nav-content">
                                         <div>
                                             <span>
                                                 <strong>빅맥세트</strong><br>
@@ -84,45 +84,8 @@
                                         <div>
                                             <img src="#" width="100px" height="100px">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     
-                                   
-                                </div>
-                                <div class="s-store-menu-nav">1인분 주문</div>
-                                <div class="s-store-menu-nav-content-title">
-                                    <div class="s-store-menu-nav-content">
-                                        <div>
-                                            <span>
-                                                <strong>빅맥세트</strong><br>
-                                                햄버거+감튀+콜라<br>
-                                                8,000원
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <img src="#" width="100px" height="100px">
-                                        </div>
-                                    </div>
-                                  
-                                   
-                                </div>
-                                <div class="s-store-menu-nav">추천메뉴</div>
-                                <div class="s-store-menu-nav-content-title">
-                                    <div class="s-store-menu-nav-content">
-                                        <div>
-                                            <span>
-                                                <strong>빅맥세트</strong><br>
-                                                햄버거+감튀+콜라<br>
-                                                8,000원
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <img src="#" width="100px" height="100px">
-                                        </div>
-                                    </div>
-                                 
-                                    
-                                   
-                                </div>
                             </div>
 
 
@@ -144,7 +107,7 @@
                                     <span>리뷰 <strong>121</strong>개</span><span>사장님 댓글 <strong>21</strong>개</span>
                                 </div>
                                 <div>
-                                    사진 리뷰만 :
+                                사진 리뷰만 :
                                     <label class="switch">
                                         <input type="checkbox">
                                         <span class="slider round"></span>
@@ -206,15 +169,15 @@
                                 <table class="s-store-detail-content">
                                     <tr>
                                         <td>영업시간</td>
-                                        <td>13:00 - 00:30</td>
+                                        <td><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></td>
                                     </tr>
                                     <tr>
                                         <td>전화번호</td>
-                                        <td>050712916367 (요기요 제공 번호)</td>
+                                        <td>${store['s_phone']}</td>
                                     </tr>
                                     <tr>
                                         <td>주소</td>
-                                        <td>인천 서구 심곡동 337-5 103호</td>
+                                        <td>${store['s_addr'] }</td>
                                     </tr>
                                 </table>
 
@@ -223,11 +186,11 @@
                                 <table class="s-store-detail-content">
                                     <tr>
                                         <td>최소주문금액</td>
-                                        <td>15,000원</td>
+                                        <td><fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원</td>
                                     </tr>
                                     <tr>
                                         <td>결제수단</td>
-                                        <td>신용카드 , 현금 , 요기서결제</td>
+                                        <td>${store['s_payopt'] }</td>
                                     </tr>
                                 </table>
                             
@@ -236,11 +199,11 @@
                                 <table class="s-store-detail-content">
                                     <tr>
                                         <td>상호명</td>
-                                        <td>티바두마리치킨</td>
+                                        <td>${store['s_name'] }</td>
                                     </tr>
                                     <tr>
                                         <td>사업자등록번호</td>
-                                        <td>725-01-00329</td>
+                                        <td>${store['b_businesscode']}</td>
                                     </tr>
                                 </table>
                                 
@@ -248,7 +211,7 @@
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
-                                        <td>닭고기 (국내산), 치킨무 (국내산), 황금감자 (네덜란드산), 치즈스틱 (독일/미국 혼합산)</td>
+                                        <td>${store['s_oriFoodInfo'] }</td>
                                     </tr>
                                 </table>
 
@@ -280,6 +243,9 @@
                         <!-- <div  id="order-content-2">
                             <div class="s-store-order-button">
                                 <h4>국물떡볶이</h4><br>
+                                <input type="hidden" name="imgName" value="">
+                                <input type="hidden" name="menuPrice" value="">
+                                <input type="hidden" name="count" value="1">
                                 <div>
                                     <button class="btn btn-success" >X</button>
                                     <div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">1</strong>&nbsp;<button class="btn btn-success">+</button></div>
@@ -295,7 +261,7 @@
                     </div>
 
                     <div class="s-store-order-delivery">
-                        <h6>최소 주문금액 : 5,000원 이상</h6>
+                        <h6>최소 주문금액 : <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원 이상</h6>
                     </div>
 
                     <div class="s-store-order-price">
@@ -332,6 +298,10 @@
                 height : "auto",
                 overflowY : "hidden"
             });
+        }
+        
+        function review(){
+        	
         }
     
     </script>
