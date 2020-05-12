@@ -93,9 +93,8 @@
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1_1"style="width:91px;height:30px;"> -
-              <input type="text" id="phone_1_2" style="width:91px;height:30px;"> -
-              <input type="text" id="phone_1_3" style="width:91px;height:30px;"><br> <br></td>
+            <td><br><input type="text" id="phone_1"style="width:300px;height:30px;">
+              <br> <br></td>
           </tr>
         
           </table>
@@ -121,9 +120,7 @@
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2_1" style="width:91px;height:30px;"> -
-    <input type="text" id="phone_2_2"  style="width:91px;height:30px;"> -
-    <input type="text"  id="phone_2_3" style="width:91px;height:30px;"><br></td>
+  <td><br><input type="text"  id="phone_2" style="width:300px;height:30px;"><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
@@ -889,17 +886,14 @@ main {
 
       $('#name_2').val($('#name_1').val());
 
-      $('#phone_2_1').val($('#phone_1_1').val());
-      $('#phone_2_2').val($('#phone_1_2').val());
-      $('#phone_2_3').val($('#phone_1_3').val());
+      $('#phone_2').val($('#phone_1').val());
+     
 
     } else{
 
     $('#name_2').val('');
 
-    $('#phone_2_1').val('');
-    $('#phone_2_2').val('');
-    $('#phone_2_3').val('');
+    $('#phone_2').val('');
 
       }
 
