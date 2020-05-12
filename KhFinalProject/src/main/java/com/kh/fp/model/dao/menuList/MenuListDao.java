@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.kh.fp.model.vo.MenuList;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.Store;
 
 public interface MenuListDao {
 
-	List<MenuList> selectMenuList(SqlSessionTemplate session);
-	List<MenuList> selectMenuList(SqlSessionTemplate session, String category);
+	List<Store> selectMenuList(SqlSessionTemplate session);
+	List<Store> selectMenuList(SqlSessionTemplate session, String category);
+	
+	Review selectReview(SqlSessionTemplate session, int s_no);
 }
