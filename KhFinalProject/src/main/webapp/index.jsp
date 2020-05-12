@@ -6,9 +6,10 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <section>
+
 	<div class="topnav">
 		<a href="${path }/licensee/mypage">사업자 피파 바페도아닌 마페</a>
-		<a href="${path }/menu/menuList.do">메뉴 리스트</a>
+		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
 		<a href="${path }/pay/paylist.do">결제 리스트</a>
 		<a href="${path }/menu/menuDetailView">메뉴 상세화면</a>
 		<a href="${path }/mypage/mypage.do">마이페이지</a>
@@ -38,6 +39,7 @@
 				</c:forEach>
 			</div>		
 		</div>
+
 
 </section>
 
