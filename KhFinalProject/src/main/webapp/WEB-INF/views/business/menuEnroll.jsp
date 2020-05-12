@@ -4,7 +4,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-   <style>
+
+  <style>
 	 div#main{
       	margin-top:150px;
       }
@@ -31,8 +32,9 @@
       .btnC {
       margin-left:300px;
       }
-      </style>
+      </style> 
 	<%@ include file="../common/header.jsp" %>
+	
     <section style="width:1366px;">
  	<div class="container">
  		<div class="row">
@@ -71,18 +73,20 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						        					         	
-						          	<input style="width:40px;" type="text" id="plusOption2" name="e_option" value="필수" disabled>
+						        	<form action="${path }/licensee/optionEnroll" method="post">	         	
+						          	<input style="width:100px;display:inline" type="text" id="plusOption2" name="sd_division" class="form-control" placeholder="필수/추가">
 						          	<button type="button" class="btn btn-outline-success plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
+						          	<br>
 						          	<div id="option1-container">
-						          	</div>			
-						          							          	
-						          	<input style="width:40px;" type="text" id="plusOption2" name="e_option2" value="선택" disabled>        
+						          	</div>					          					          	
+						          	<input style="width:100px;display:inline" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="필수/추가">        
 						          	<button type="button" class="btn btn-outline-success plus1" onclick="option1();">옵션 추가</button> 					          	
 						          	<br>
+						          	<br>
 						          	<div id="option2-container"></div>
-						          	<button onclick="optionAdd();" type="button" class="btn btn-outline-danger" data-dismiss="modal">등록</button>				        
+						          	<button  type="submit" class="btn btn-outline-danger" >등록</button>		
+						          	</form>		        
 						        </div>					        
 						      </div>
 						    </div>
@@ -137,46 +141,96 @@
 				$("#hid").val(num);
 			}
 			
-			
+			var tbl = $("<table>");
+			var tr = $("<tr>");
+			var th = $("<th>").html('옵션');
+			var th1 = $("<th>").html('가격');
+			tr.append(th).append(th1);
+			tbl.append(tr);
+			tbl.attr({
+				'class':'table table-hover'
+			})
 			function option() {
+				var tr = $("<tr>");
+				var tr1 = $("<tr>");
+				var td = $("<td>");
+				var td1 = $("<td>");
 				var text = $("<input>").attr({
 					'type':'text',
-					'name':'essential',
-					'class':'essential'
+					'name':'sd_name',
+					'class':'sd_name form-control',
+					'placeholder':'옵션 입력 해주세요'
 				})
 				var number = $("<input>").attr({
 					'type':'number',
-					'name':'price',
-					'class':'price'
-				});				
-				$("#option1-container").append(text).append(number);				
+					'name':'sd_price',
+					'class':'sd_price form-control',
+					'placeholder':'가격 입력 해주세요'
+				});	
+				td.append(text);
+				td1.append(number);
+				tr.append(td).append(td1);
+				tbl.append(tr);
+				$("#option1-container").append(tbl);			
 			}
+			var tbl2 = $("<table>");
+			var tr2 = $("<tr>");
+			var th2 = $("<th>").html('옵션');
+			var th3 = $("<th>").html('가격');
+			tr2.append(th2).append(th3);
+			tbl2.append(tr2);
+			tbl2.attr({
+				'class':'table table-hover'
+			})
 			function option1() {
+				var tr = $("<tr>");
+				var tr1 = $("<tr>");
+				var td = $("<td>");
+				var td1 = $("<td>");
 				var texts = $("<input>").attr({
 					'type':'text',
-					'name':'plus'
+					'name':'sd_name2',
+					'class':'form-control',
+					'placeholder':'옵션 입력 해주세요'
+					
 				})
 				var numbers = $("<input>").attr({
 					'type':'number',
-					'name':'price2'
+					'name':'sd_price2',
+					'class':'form-control',
+					'placeholder':'가격 입력 해주세요'
 				})
-				$("#option2-container").append(texts).append(numbers);				
+				td.append(texts);
+				td1.append(numbers);
+				tr.append(td).append(td1);
+				tbl2.append(tr);
+				$("#option2-container").append(tbl2);					
 			}
 			function optionAdd() {
 				var arr = [];
+				var arr2 = [];
 				var ess = document.getElementsByClassName("essential");
+				var price = document.getElementsByClassName("price");
 				 for(let i=0;i<ess.length;i++) {
 					arr.push(ess[i].value);
+					arr2.push(price[i].value);
 				} 
 				console.log(arr);
 				console.log(ess.length);
-				$.ajax({
+				/* $.ajax({
 					url:"${path}/licensee/optionEnroll",
-					data:{essential:arr},
+					type:'POST',
+					traditional:true,
+					data:{
+						'essential':arr,
+						'price':arr2,	
+					},
 					success:function(data) {
-						console.log(data);
+						alert('성공');
+					},error:function(data){
+						alert('실패');
 					}
-				})
+				}) */
 			}
 			function menu_enroll() {
 				var hid = $("#hid").val();

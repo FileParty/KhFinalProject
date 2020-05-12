@@ -1,20 +1,25 @@
 package com.kh.fp.controller.buniness;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kh.fp.service.buniness.LicenseeService;
 
 
 
 @Controller
 public class LicenseeController {
+	
+	@Autowired
+	private LicenseeService service;
 	
 	@RequestMapping("/licensee/mypage")
 	public String myPage() {
@@ -43,14 +48,31 @@ public class LicenseeController {
 		return "business/menuEnroll";
 	}
 	@RequestMapping("/licensee/optionEnroll")
-	public Map optionEnroll(String[] essential) {
+	public String optionEnroll(HttpServletRequest req) {
 		//추가옵션등록
-		System.out.println("들어왔니?");
-		System.out.println(essential.length);
-		Map<String,Object> map = new HashMap();
-		return map;
+		String[] ess = req.getParameterValues("sd_name");
+		String[] price = req.getParameterValues("sd_price");
+		String div = req.getParameter("sd_division");
+		int[] prc = new int[price.length];
+		List<Map<String,Object>> list = new ArrayList();
+		Map<String,Object> map = new HashedMap();
+		for(int i=0;i<ess.length;i++) {
+			prc[i] = Integer.parseInt(price[i]);
+		}
+		for(int i=0;i<ess.length;i++) {
+		map.put("sd_name",ess[i]);
+		map.put("sd_price",prc[i]);
+		map.put("sd_division",div);
+		list.add(map);
+		System.out.println(list.get(i));
+		}
+		
+		System.out.println("map"+map);
+		int result = service.insertSide(list);
+		
+		return "";
 	}
-			
+	
 	@RequestMapping("/licensee/storeInfo")
 	public String storeInfo() {
 		//업체정보

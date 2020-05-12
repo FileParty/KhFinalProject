@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Plus {
+public class Side {
 	
 	private int sd_no;
-	private String sd_name;
-	private int sd_price;
+	private String[] sd_name;
+//	private String[] sd_name2;
+	private int[] sd_price;
+//	private int[] sd_price2;
 	private int s_no;
-	private int sd_division;
+	private String sd_division;
 }
