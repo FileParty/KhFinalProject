@@ -1,6 +1,7 @@
 package com.kh.fp.model.dao.menuList;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,13 @@ public class MenuListDaoImpl implements MenuListDao {
 	public Review selectReview(SqlSessionTemplate session, int s_no) {
 		// TODO Auto-generated method stub
 		return session.selectOne("review.selectReview", s_no);
+	}
+
+	//검색
+	@Override
+	public List<Store> selectMenuList(SqlSessionTemplate session, Map map) {
+		// TODO Auto-generated method stub
+		return session.selectList("menuList.searchMenuList", map);
 	}
 
 	
