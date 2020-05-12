@@ -11,6 +11,7 @@
 		<a href="${path }/menu/menuList.do">메뉴 리스트</a>
 		<a href="${path }/pay/paylist.do">결제 리스트</a>
 		<a href="${path }/menu/menuDetailView">메뉴 상세화면</a>
+		<a href="${path }/mypage/mypage.do">마이페이지</a>
 	</div>
 	<div class="container text-center">
 			<div class="d-flex justify-content-center">
