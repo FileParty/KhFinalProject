@@ -115,14 +115,14 @@ color: #fff;
 
 <style>
 * {
-    /* border:1px solid red;  */
+/*   border:1px solid red;  */
     box-sizing: border-box;
 }
 body {
     font-family: Arial;
     padding: 10px;
     height: auto;
-    width: 1305px;
+    width: 1365px;
 }
 main {
                 width: 1305px;
@@ -153,7 +153,7 @@ main {
 /* Style the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: rgb(253, 68, 68);
+    background-color: rgb(161, 247, 122);
 }
 /* Style the topnav links */
 .topnav a {
@@ -163,6 +163,20 @@ main {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+}
+.topnava {
+    
+    background-color: rgb(253, 68, 68);
+
+}
+.topnava th {
+   
+    width:190px;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    
+ 
 }
 /* Change color on hover */
 .topnav a:hover {
@@ -180,7 +194,7 @@ main {
     float: left;
     width: 31%;
     padding-left: 20px;
-    border:4px solid rgb(252, 197, 60);
+    border:3px solid rgb(252, 197, 60);
 }
 /* Fake image */
 .fakeimg { 
@@ -243,10 +257,10 @@ main {
   <h2 style="text-align: center; ">주문/결제</h2>
   <p><b style="font-size: 17px;">주문내역</b></p>
  
-  <table class="table1">
-    <thead style="background-color: rgb(228, 227, 227);">
-      <tr>
-        <th >주문상품 사진 </th><th>주문상품정보</th><th>수량</th><th>상품금액</th><th>할인금액</th><th>구매예정가</th>
+  <table class="table1" style="width:1340px">
+    <thead style="background-color: rgb(228, 227, 227);" >
+      <tr class="topnava">
+        <th>주문상품 사진 </th><th>주문상품정보</th><th>수량</th><th>상품금액</th><th>할인금액</th><th>구매예정가</th>
       </tr>
     </thead>
     <tbody >
@@ -411,9 +425,9 @@ main {
 
 
 
-  <div>
-    <h3>최종 결제 금액 확인</h3>
-  <div class="rightcolumn" >
+  <div style="margin-top:75px;">
+    <h3 style="text-align:center;">최종 결제 금액 확인</h3>
+  <div class="rightcolumn" style="padding-right:10px;" >
     <h3>합계</h3><h1 align="center" style="color:red">44,200원</h1>
     <hr width="90%">
 
