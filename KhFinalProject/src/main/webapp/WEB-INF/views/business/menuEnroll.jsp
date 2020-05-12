@@ -5,8 +5,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
    <style>
-	
-
 	 div#main{
       	margin-top:150px;
       }
@@ -71,24 +69,21 @@
 						          <h4 class="modal-title">추가옵션 등록</h4>
 						          <button type="button" class="close" data-dismiss="modal">&times;</button>
 						        </div>
-						         <form action="${path }/test/test.do" method="post">
-						        <div class="modal-body" align=center>						         	
-						          	<select id="plusOption">
-						          		<option for="plusOption" value="필수">필수</option>
-						          	</select>
-						          	<button type="button" class="btn btn-outline-success plus"  onclick="e_option();">옵션 추가</button>						     
+						         
+						        <div class="modal-body" align=center>	
+						        					         	
+						          	<input style="width:40px;" type="text" id="plusOption2" name="e_option" value="필수" disabled>
+						          	<button type="button" class="btn btn-outline-success plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
 						          	<div id="option1-container">
-						          	</div>				
-						          	<select style=""id="plusOption">
-						          		<option for="plusOption" value="선택">선택</option>
-						          	</select>	         
-						          	<button type="button" class="btn btn-outline-success plus1" onclick="a_option();">옵션 추가</button> 					          	
+						          	</div>			
+						          							          	
+						          	<input style="width:40px;" type="text" id="plusOption2" name="e_option2" value="선택" disabled>        
+						          	<button type="button" class="btn btn-outline-success plus1" onclick="option1();">옵션 추가</button> 					          	
 						          	<br>
-						          	<div id="option2-container"></div>	
-						        	<button type="submit" class="btn btn-outline-danger" >등록</button>
-						        </div>
-						        </form>
+						          	<div id="option2-container"></div>
+						          	<button onclick="optionAdd();" type="button" class="btn btn-outline-danger" data-dismiss="modal">등록</button>				        
+						        </div>					        
 						      </div>
 						    </div>
 						  </div>
@@ -99,24 +94,23 @@
 						        <div class="modal-header">
 						          <h4 class="modal-title">메뉴 등록</h4>
 						        </div>
-						        <div class="modal-body" align=center>						        
-						        		<input type="text" placeholder="메뉴명" class="menu-name">
-						        		<input type="number" placeholder="메뉴가격" class="menu-price">
-						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail"></textarea>
+						        <div class="modal-body" align=center>		        
+						        		<input type="text" placeholder="메뉴명" class="menu-name" name="menu-name">
+						        		<input type="number" placeholder="메뉴가격" class="menu-price" name="menu-price">
+						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail" name="menu-detail"></textarea>
 						        		<input type="file">	
 						        		<input  type="hidden" value="" id="hid" >					         
 						        		<br>	
-						        	<button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>
+						        		
+						        	<button type="button" id="optionEnroll"class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
 						        </div>
 						      </div>
 						    </div>
 						  </div>	
 		<script>
-			var num = 0;
-			var nums = 0;
-			var num2 =0;
+					var num = 0;
 			function addCategory() {
-			
+							
 				var category = $("<input>").attr({
 					'class':'category'+num,
 					'name':'category',
@@ -127,45 +121,37 @@
 				})
 				var menuAdd = $("<button>").attr({
 					'type':'button',
-					'class':'btn btn-outline-primary test'+num,
+					'class':'btn btn-outline-primary menuAdd'+num,
 					'data-toggle':'modal',
 					'data-target':'#myModal2',
-					'onclick':'menuBtn();'
+					'alt':num,
+					'onclick':'menuBtn('+num+');'
 				})
 				menuAdd.html('메뉴등록');
 				$(".addCategory").append($("<br>"));
 				$(".addCategory").append(category);
 				$(".addCategory").append(menuAdd);
-				menuBtn();
 				num++;
 			}
-			function menuBtn() {
-				
-				 var vl = $(".category"+(num-1)).val();
-				var s = $(".category"+(num-1));
-				console.log(vl);
-				var hid = $("#hid").val(vl);
-				var name = $("input[value='+hid+']");
-				$("input[value='+vl+']")
-				var clas = name.prop('tagName');
-				console.log('히드',clas);
-				console.log('네임',name);
-				console.log('네임2',s); 
-				
+			function menuBtn(num) {
+				$("#hid").val(num);
 			}
 			
-			function c_toption() {
+			
+			function option() {
 				var text = $("<input>").attr({
 					'type':'text',
 					'name':'essential',
+					'class':'essential'
 				})
 				var number = $("<input>").attr({
 					'type':'number',
-					'name':'price'
+					'name':'price',
+					'class':'price'
 				});				
 				$("#option1-container").append(text).append(number);				
 			}
-			function a_option() {
+			function option1() {
 				var texts = $("<input>").attr({
 					'type':'text',
 					'name':'plus'
@@ -176,8 +162,23 @@
 				})
 				$("#option2-container").append(texts).append(numbers);				
 			}
+			function optionAdd() {
+				var arr = [];
+				var ess = document.getElementsByClassName("essential");
+				 for(let i=0;i<ess.length;i++) {
+					arr.push(ess[i].value);
+				} 
+				console.log(arr);
+				console.log(ess.length);
+				$.ajax({
+					url:"${path}/licensee/optionEnroll",
+					data:{essential:arr},
+					success:function(data) {
+						console.log(data);
+					}
+				})
+			}
 			function menu_enroll() {
-				console.log('등록모달1',num);
 				var hid = $("#hid").val();
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
@@ -201,8 +202,15 @@
 				div.append(inputN).append($("<br>"));
 				div.append(inputP).append($("<br>"));
 				div.append(textD).append($("<br>"));
-				$(".category"+(num-1)).next().after(div);
+				var num = $("#hid").val();
+				$(".menuAdd"+num).after(div);
+				$(".menu-name").val("");
+				$(".menu-price").val("");
+				$(".menu-detail").val("");
 			}
+		
+				
+			
 
 
 		</script>

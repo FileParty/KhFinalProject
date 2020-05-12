@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-	<environments default="final">
-		<environment id="final">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="oracle.jdbc.driver.OracleDrivet"/>
-				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-				<property name="username" value="final"/>
-				<property name="password" value="final"/>
-			</dataSource>
-		</environment>
-	</environments>
-	<mappers>
-		<mapper resource="/mapper/business/business-mapper.xml"/>
-	</mappers>
 </configuration>

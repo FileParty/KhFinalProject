@@ -1,9 +1,17 @@
 package com.kh.fp.controller.buniness;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 @Controller
 public class LicenseeController {
@@ -31,8 +39,18 @@ public class LicenseeController {
 	@RequestMapping("/licensee/menuEnroll")
 	public String menuEnroll() {
 		//메뉴등록
+		
 		return "business/menuEnroll";
 	}
+	@RequestMapping("/licensee/optionEnroll")
+	public Map optionEnroll(String[] essential) {
+		//추가옵션등록
+		System.out.println("들어왔니?");
+		System.out.println(essential.length);
+		Map<String,Object> map = new HashMap();
+		return map;
+	}
+			
 	@RequestMapping("/licensee/storeInfo")
 	public String storeInfo() {
 		//업체정보

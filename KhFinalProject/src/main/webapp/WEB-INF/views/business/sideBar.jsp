@@ -18,14 +18,6 @@
  
       <style>
       
-       @font-face{
-      src:url("../font/BMJUA_ttf.ttf");
-      font-family:"jua";
-      }
-      *{
-      	font-family:"jua";
-      }
-      
         div#side {
             border: 1px soild black;
             margin-top:150px;
