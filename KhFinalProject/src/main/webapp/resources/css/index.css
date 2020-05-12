@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+*{
+	/*  border : 1px solid red;  */
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: rgb(253, 68, 68);
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: rgb(161, 247, 122);
+    color: black;
+}
+
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+.text-center{
+	margin-top : 30px;
+}
+
+ .category-list-card{
+ 	/* border : solid 1px black; */
+ 	width : 250px;
+ 	height : 250px;
+ 	margin : 5px; 
+ }
+ 
+ .search-container{
+ 	border : solid 1px black;
+ 	margin : 30px;
+ }
+
+ 
+   /* banner 사이즈 */
+  .carousel-inner img {
+      width: 100%;
+      height: 150px;
+     
+  }
+  .carousel{
+  	  width: 100%;
+  	  height:150px;
+  }
+  
