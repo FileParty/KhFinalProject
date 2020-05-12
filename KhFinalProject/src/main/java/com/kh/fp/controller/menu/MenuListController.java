@@ -33,15 +33,18 @@ public class MenuListController {
 	private MenuListService service;
 	
 	@RequestMapping("/menu/menuList.do")
-	public String foodList(Model m) {		
-		List<Store> storeList = service.selectMenuList();
-		List<Review> reviewList = new ArrayList<Review>();
+	public String foodList(Model m, 
+			@RequestParam(value="menuCategory") String category
+			) {		
+		List<Store> storeList = service.selectMenuList(category);
 		
-		for(Store s : storeList) {
-			Review r = service.selectReview(s.getS_NO());
-			
-			reviewList.add(r);
-		}
+		/*
+		 * List<Review> reviewList = new ArrayList<Review>();
+		 * 
+		 * for(Store s : storeList) { Review r = service.selectReview(s.getS_NO());
+		 * 
+		 * reviewList.add(r); }
+		 */
 		
 		
 		/*

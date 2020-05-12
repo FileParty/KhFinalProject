@@ -1,10 +1,27 @@
 package com.kh.fp.controller.business;
 
+import static com.kh.fp.common.PageingFactory.PageBarFactory;
+
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.fp.controller.business.service.LicenseeService;
 
 @Controller
 public class LicenseeController {
+	
+	@Autowired
+	LicenseeService service;
+	
+	@Autowired
+	Logger logger;
 	
 	@RequestMapping("/licensee/mypage")
 	public String myPage() {
@@ -57,9 +74,20 @@ public class LicenseeController {
 		return "business/calculate";
 	}
 	@RequestMapping("/licensee/order")
-	public String order() {
+	public ModelAndView order(ModelAndView mv,@RequestParam(required = false,defaultValue = "1")int cPage,
+			@RequestParam(required = false ,defaultValue = "2")int numPerpage) {
 		//주문내역
-		return "business/order";
+		int no=1;
+		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
+		int totalData=service.getOrderInfoAll(no);
+		
+		
+		
+		mv.addObject("total",totalData);
+		mv.addObject("list", list);
+		mv.addObject("pageBar", PageBarFactory( cPage, numPerpage, totalData,"/spring/licensee/order"));
+		mv.setViewName("business/order");
+		return mv;
 	}
 	@RequestMapping("/licensee/orderEnd")
 	public String orderEnd() {
