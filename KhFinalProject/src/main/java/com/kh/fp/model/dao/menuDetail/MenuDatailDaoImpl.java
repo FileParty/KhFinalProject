@@ -54,7 +54,7 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 		for(int i=0;i<5;i++) {
 			StroeCategory sc = new StroeCategory();
 			sc.setMt_no(i);
-			sc.setMt_name("메뉴"+i);
+			sc.setMt_name("카테고리"+i);
 			sc.setS_no(no);
 			list.add(sc);
 		}
@@ -67,19 +67,41 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 		
 		// 임시
 		List<StoreMenu> list = new ArrayList<StoreMenu>();
-//		for(int i=0;i<5;i++) {
-//			StoreMenu sm = new StoreMenu();
-//			sm.set
-//			list.add(sm);
-//		}
+		for(int i=0;i<5;i++) {
+			StoreMenu sm = new StoreMenu();
+			sm.setMe_name("메뉴"+i);
+			sm.setMe_price(10000+(i*1000));
+			sm.setMe_logimg("test.jpg");
+			sm.setMe_cateogry(i);
+			if(i>3) {
+				sm.setMe_text("테스트"+i);
+			}
+			sm.setS_no(no);
+			list.add(sm);
+		}
 		return list;
 		//return session.selectList("storeMenuDetail.selectStoreMenus",no);
 	}
 
 	@Override
 	public List<StoreMenuSide> selectMenuSides(SqlSessionTemplate session, StoreMenu sm) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// 임시
+		List<StoreMenuSide> list = new ArrayList<StoreMenuSide>();
+		for(int i=0;i<4;i++) {
+			StoreMenuSide sms = new StoreMenuSide();
+			sms.setS_no(sm.getS_no());
+			sms.setSd_name("사이드"+i);
+			sms.setSd_price(1000+(i*200));
+			if(i<=1) {
+				sms.setSd_division("Y");
+			} else {
+				sms.setSd_division("N");
+			}
+			list.add(sms);
+		}
+		
+		return list;
 	}
 	
 	
