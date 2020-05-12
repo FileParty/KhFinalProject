@@ -30,45 +30,8 @@
 			<div class="col-3"></div>
 			<div class="col-2" style="padding-top:30px;">
 				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
-					data-toggle="modal" data-target="#loginModal">로그인</button>&nbsp;&nbsp;
-				<button class="btn btn-outline-dark my-3 my-sm-0" type="button"
-					onclick="location.replace('${path}/member/enroll.do')">회원가입</button>
+					onclick="location.replace('${path}/member/login.do')">로그인 / 회원가입</button>&nbsp;&nbsp;
 			</div>
 			<div class="col-3"></div>
 		</div>
 	</header>
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" 
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">로그인</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">
-      <div class="modal-body">
-		    <input type="text" class="form-control" name="userId" placeholder="아이디" required>
-		    <br />
-		    <input type="password" class="form-control" name="password" placeholder="비밀번호" required>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-success" >로그인</button>
-        <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
-      </div>
-	  </form>
-	  <c:if test="${loginMember!=null}">
-      	<button type="button" class="btn btn-outline-success" onclick="location.replace('${path}/member/logout.do')">로그아웃</button>
-      </c:if>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success">카카오톡계정으로 로그인</button>
-        <br/><br/>
-        <button type="button" class="btn btn-outline-success">구글계정으로 로그인</button>
-        <br/>
-        <button type="button" class="btn btn-outline-success">아이디 찾기</button>
-        <button type="button" class="btn btn-outline-success">비밀번호 찾기</button>
-      </div>
-    </div>
-  </div>
-</div>

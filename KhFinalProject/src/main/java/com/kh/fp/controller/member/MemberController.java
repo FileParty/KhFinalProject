@@ -63,9 +63,15 @@ public class MemberController {
 		}
 	}
 	
+	//로그인 페이지 화면 전환
+	@RequestMapping("/member/login.do")
+	public String login() {
+		return "member/login";
+	}
+	
 	//일반 아이디 로그인
 	@RequestMapping("/member/memberLogin.do")
-	public String login(String userId,String password,Model md,HttpSession session) {
+	public String memberLogin(String userId,String password,Model md,HttpSession session) {
 		
 		Member m =service.selectMember(userId);
 		
