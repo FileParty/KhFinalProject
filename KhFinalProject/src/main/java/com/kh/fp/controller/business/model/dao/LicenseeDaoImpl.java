@@ -22,6 +22,12 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("licensee.getOrderInfoAll",no);
 	}
+
+	@Override
+	public List<Map<String, Object>> getDetailOrder(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.getDetailOrder",no);
+	}
 	
 	
 	

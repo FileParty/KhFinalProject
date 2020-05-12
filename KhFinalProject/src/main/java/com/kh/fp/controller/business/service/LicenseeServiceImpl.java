@@ -30,6 +30,14 @@ public class LicenseeServiceImpl implements LicenseeService {
 		// TODO Auto-generated method stub
 		return dao.getOrderInfoAll(session,no);
 	}
+
+	@Override
+	public List<Map<String, Object>> getDetailOrder(int no) {
+		// TODO Auto-generated method stub
+		return dao.getDetailOrder(session,no);
+	}
+	
+	
 	
 	
 	
