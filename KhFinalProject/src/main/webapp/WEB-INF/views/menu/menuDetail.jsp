@@ -16,17 +16,17 @@
                 <div class="s-store-info"> 
 
                     <div class="s-store-img">
-                        <img src="#" width="100px" height="100px" style="cursor: pointer;">
+                        <img src="${path }/resources/upload/store/${store['s_logimg']}" width="100px" height="100px" style="cursor: pointer;">
                     </div>
 
                     <div class="s-store-content">
                        
                         <ul>
                             <li><i class="fa fa-star"></i><span>${store['s_score']}</span></li>
-                            <li>운영시간<span>${store['s_startTime'] }</span> ~ ${store['s_endTime']}</li>
+                            <li>운영시간<span><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></li>
                             <li>최소주문 금액 <span>${store['s_limitprice']}</span></li>
                             <li>결제 <span></span>${store['s_payopt']}</li>
-                            <li>배달시간 <span>${store['s_holiday']}</span></li>
+                            <li>배달시간 <span>${store['s_time']}분</span></li>
                         </ul>
 
                     </div>
@@ -40,7 +40,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review()">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -54,12 +54,12 @@
                             <div class="s-store-menu">
 
                                 <div class="s-store-scroll">
-                                	<c:forEach items="${store['smList']}" var="sl">
-	                                	<c:if test="${sl['me_best'] eq 'Y' }">
+                                	<c:forEach items="${store['bestMenu']}" var="bm">
+	                                	<c:if test="${bm['me_best'] eq 'Y' }">
 		                                    <div class="s-store-menu-content">
-		                                        <img src="${path }/resources/upload/menu/${sl['me_logimg']}" width="100px" height="100px">
-		                                        <h6 style="margin-top: 5px;">${sl['me_name']}</h6>
-		                                        <span><fmt:formatNumber pattern="###,###,###원" value="${sl['me_price']}"/></span>
+		                                        <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
+		                                        <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
+		                                        <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
 		                                    </div>
 	                                    </c:if>
                                     </c:forEach>
@@ -68,8 +68,8 @@
                             </div>
 
                             <div class="s-store-menu-bar">
-                            <c:forEach items="${store['scList']}" var="scl">
-                                <div class="s-store-menu-nav">${scl }</div>
+                            <c:forEach items="${store['storeCategory']}" var="sc">
+                                <div class="s-store-menu-nav">${sc['mt_name'] }</div>
                                 <div class="s-store-menu-nav-content-title">
                                 </div>
                             </c:forEach>
@@ -107,7 +107,7 @@
                                     <span>리뷰 <strong>121</strong>개</span><span>사장님 댓글 <strong>21</strong>개</span>
                                 </div>
                                 <div>
-                                    사진 리뷰만 :
+                                사진 리뷰만 :
                                     <label class="switch">
                                         <input type="checkbox">
                                         <span class="slider round"></span>
@@ -169,7 +169,7 @@
                                 <table class="s-store-detail-content">
                                     <tr>
                                         <td>영업시간</td>
-                                        <td>${store['s_startTime'] } - ${store['s_endTime']}</td>
+                                        <td><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></td>
                                     </tr>
                                     <tr>
                                         <td>전화번호</td>
@@ -203,7 +203,7 @@
                                     </tr>
                                     <tr>
                                         <td>사업자등록번호</td>
-                                        <td>725-01-00329</td>
+                                        <td>${store['b_businesscode']}</td>
                                     </tr>
                                 </table>
                                 
@@ -211,7 +211,7 @@
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
-                                        <td>${store['s_oriFood'] }</td>
+                                        <td>${store['s_oriFoodInfo'] }</td>
                                     </tr>
                                 </table>
 
@@ -243,6 +243,9 @@
                         <!-- <div  id="order-content-2">
                             <div class="s-store-order-button">
                                 <h4>국물떡볶이</h4><br>
+                                <input type="hidden" name="imgName" value="">
+                                <input type="hidden" name="menuPrice" value="">
+                                <input type="hidden" name="count" value="1">
                                 <div>
                                     <button class="btn btn-success" >X</button>
                                     <div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">1</strong>&nbsp;<button class="btn btn-success">+</button></div>
@@ -295,6 +298,10 @@
                 height : "auto",
                 overflowY : "hidden"
             });
+        }
+        
+        function review(){
+        	
         }
     
     </script>

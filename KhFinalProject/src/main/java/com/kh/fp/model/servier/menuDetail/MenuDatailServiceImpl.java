@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.menuDetail.MenuDatailDao;
 import com.kh.fp.model.vo.StoreMenu;
-import com.kh.fp.model.vo.StoreMenuDetail;
+import com.kh.fp.model.vo.StoreDetailInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,14 +22,10 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public StoreMenuDetail selectStroeInfo(int no) {
-		StoreMenuDetail smd = dao.selectStoreInfo(session,no);
-		smd.setScList(dao.selectStroeCategoy(session,no));
-		List<StoreMenu> smList = dao.selectStoreMenus(session,no);
-		for(StoreMenu sm : smList) {
-			sm.setSides(dao.selectMenuSides(session,sm));
-		}
-		smd.setSmList(smList);
+	public StoreDetailInfo selectStroeDetailInfo(int no) {
+		StoreDetailInfo smd = dao.selectStroeDetailInfo(session,no);
+		smd.setStoreCategory(dao.selectStoreDetailCategory(session, no));
+		smd.setBestMenu(dao.selectStoreDetailBestMenu(session, no));
 		return smd;
 	}
 	
