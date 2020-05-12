@@ -102,10 +102,11 @@
 		 
 		 <div class="menu-category-container container mt-3 p-1">
 		 <c:forEach begin="1" end="5" step="1" var="i" varStatus="vsi">
-		 	<div class="row ml-4 mt-3 p-0 justify-content-center m-0 ${2*(i-1)>=list.size()?'d-none':''}">
+		 	<div class="row category-row-${i} ml-4 mt-3 p-0 justify-content-center m-0 ${2*(i-1)>=list.size()?'d-none':''}">
 		 	<c:forEach begin="1" end="2" step="1" var="j" varStatus="vsj">
 		 		<div class="category-${j==1?2*(i-1):i*j-1} col-5 ${2*(i-1)>=list.size() || i*j-1>=list.size() ? 'invisible':'d-flex' } align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
  					<div class="mr-4 ml-2">
+ 					
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">
  							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LOGIMG()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
 						</c:if>
@@ -114,6 +115,13 @@
 							<img src="${pageContext.request.contextPath }/resources/img/${list.get(i*j-1).getS_LOGIMG()}" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>		 								
 						</c:if>
  						 
+ 						 <c:if test="${j==1 && 2*(i-1)>=list.size()}">
+ 						 	<img src="" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>
+ 						 </c:if>
+ 						 
+ 						 <c:if test="${j==2 && i*j-1>=list.size()}">
+ 						 	<img src="" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>
+ 						 </c:if>
  					</div>
  				
  					
@@ -132,19 +140,17 @@
  						<div class="category-info mt-1">
  							<div class="d-flex flex-row mt-1">
  								<div class="star d-flex justify-content-center align-items-center ">
- 									<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 										<span class="mr-2 text-warning score-${2*(i-1)}">		
-	 										★						
-	 										<c:out value="${list.get(2*(i-1)).getS_SCORE()}"/>
-	 									</span>
-	 								</c:if>
-	 								
-	 								<c:if test="${j==2 && i*j-1<list.size()}">
-	 									<span class="mr-2 text-warning score-${i*j-1}">
-	 										★
-	 										<c:out value="${list.get(i*j-1).getS_SCORE()}"/>
-	 									</span>
-	 								</c:if>
+ 									<span class="mr-2 text-warning score-${j==1?2*(i-1):i*j-1}">
+	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">												
+		 										★						
+		 										<c:out value="${list.get(2*(i-1)).getS_SCORE()}"/>				
+		 								</c:if>
+		 								
+		 								<c:if test="${j==2 && i*j-1<list.size()}">	
+		 										★
+		 										<c:out value="${list.get(i*j-1).getS_SCORE()}"/>		
+		 								</c:if>
+	 								</span>
  								</div>
  								
  								<div>
@@ -152,17 +158,15 @@
  								</div>
  								
  								<div>
- 									<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 										<span class="review-${2*(i-1)}">
- 											리뷰 <c:out value="${list.get(2*(i-1)).getS_REVIEWCOUNT()}"/>
- 										</span>
- 									</c:if>
- 									
- 									<c:if test="${j==2 && i*j-1<list.size()}">
- 										<span class="review-${i*j-1}">
- 											리뷰 <c:out value="${list.get(i*j-1).getS_REVIEWCOUNT()}"/>
- 										</span>
- 									</c:if>								
+ 									<span class="review-${j==1?2*(i-1):i*j-1}">
+	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">	 										
+	 										리뷰 <c:out value="${list.get(2*(i-1)).getS_REVIEWCOUNT()}"/>	 										
+	 									</c:if>
+	 									
+	 									<c:if test="${j==2 && i*j-1<list.size()}">	 										
+	 										리뷰 <c:out value="${list.get(i*j-1).getS_REVIEWCOUNT()}"/>	 										
+	 									</c:if>	
+ 									</span>							
  								</div>		 										 		
  							</div>
  						</div>

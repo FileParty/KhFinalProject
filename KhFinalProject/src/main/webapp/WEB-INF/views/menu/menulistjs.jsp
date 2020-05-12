@@ -78,12 +78,19 @@
 					$(e.target).siblings().removeClass("active");
 					$(e.target).addClass("active");					
 					
+					//row
+					for(var i=1; i<=5; i++){
+						$(".category-row-"+i).removeClass("d-none");
+					}
 					for(var i=0; i<10; i++){
 						$(".category-"+i).removeClass("invisible");
+						$(".category-"+i).addClass("d-flex");
 					}
 					
-					$.each(data, function(i,v){1					
+					
+					$.each(data, function(i,v){					
 						for(var i=0; i<v.length; i++){
+							
 							var info = v[i];
 							console.log(info);
 							console.log(info['s_NAME']);
@@ -97,21 +104,33 @@
 							$(".name-"+i).html(info['s_NAME']);
 							
 							//별점
-							$(".score-"+i).html('★'+parseFloat(info['s_SCORE']));
+							$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
 							
 							//리뷰
-							$(".review-"+i).html(info['s_REVIEWCOUNT']);
+							$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
 							
 							//최소 배달 금액
-							$(".limit-price-"+i).html(info['s_LIMITPRICE']);
+							$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
 							
 							//배달 시간
-							$(".time-"+i).html(info['s_TIME']);
+							var plus = info['s_TIME']+5;
+							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						}
 						
 						//unvisibility 처리
 						for(var i=v.length; i<10; i++){			
 							$('.category-'+i).addClass('invisible')
+						}
+						
+						//d-none 처리
+						if(v.length%2==0){
+							for(var i=parseInt(v.length/2)+1; i<=5; i++){
+								$('.category-row-'+i).addClass('d-none');
+							}
+						}else{
+							for(var i=parseInt(v.length/2)+2; i<=5; i++){
+								$('.category-row-'+i).addClass('d-none');
+							}
 						}
 					});
 				}
