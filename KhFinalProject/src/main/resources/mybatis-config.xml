@@ -7,7 +7,7 @@
 		<!-- <typeAlias type="com.kh.fp.model.vo.MenuList" alias="menuList"/> -->
 		<typeAlias type="com.kh.fp.model.vo.Store" alias="menuList"/>
 		<typeAlias type="com.kh.fp.model.vo.Review" alias="review"/>
-
+		<typeAlias type="com.kh.fp.model.vo.Member_SH" alias="memberSH"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreDetailInfo" alias="storeDetail"/>
 		
