@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="storeMenuDetail">
+	<select id="selectStoreDetailInfo" parameterType="_int" resultType="storeDetail">
+		SELECT S.*,(SELECT b_businesscode FROM business B WHERE B.B_NO = S.B_NO) B_BUSINESSCODE 
+		FROM STORE S WHERE S_NO=#{no}
+	</select>
+	<select id="selectStoreDetailCategory" parameterType="_int" resultType="storeDetailCategory">
+		SELECT * FROM MENU_CATEGORY WHERE S_NO=#{no}
+	</select>
+	<select id="selectStoreDetailBestMenu" parameterType="_int" resultType="storeDetailMenu">
+		SELECT * FROM MENU WHERE S_NO=#{no} AND ME_BEST='Y'
+	</select>
+</mapper>

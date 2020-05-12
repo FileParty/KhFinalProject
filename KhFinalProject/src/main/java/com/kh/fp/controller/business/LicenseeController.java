@@ -73,6 +73,7 @@ public class LicenseeController {
 		//정산내역
 		return "business/calculate";
 	}
+	
 	@RequestMapping("/licensee/order")
 	public ModelAndView order(ModelAndView mv,@RequestParam(required = false,defaultValue = "1")int cPage,
 			@RequestParam(required = false ,defaultValue = "2")int numPerpage) {
@@ -89,6 +90,7 @@ public class LicenseeController {
 		mv.setViewName("business/order");
 		return mv;
 	}
+	
 	@RequestMapping("/licensee/orderEnd")
 	public String orderEnd() {
 		//주문완료내역
@@ -98,6 +100,12 @@ public class LicenseeController {
 	public String review() {
 		//리뷰관리
 		return "business/review";
+	}
+	
+	@RequestMapping("/licensee/getdetailorder")
+	public List<Map<String, Object>> getDetailOrder(int no){
+		List<Map<String, Object>> data = service.getDetailOrder(no);
+		return data;
 	}
 	
 

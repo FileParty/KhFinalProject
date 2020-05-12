@@ -20,7 +20,7 @@ public class MenuDetailController {
 	@RequestMapping("/menu/menuDetailView")
 	public ModelAndView menuDetail(ModelAndView mv, @RequestParam(defaultValue="1") int no) {
 		log.debug("menu들어옴");
-		mv.addObject("store",service.selectStroeInfo(no));
+		mv.addObject("store",service.selectStroeDetailInfo(no));
 		mv.setViewName("/menu/menuDetail");
 		return mv;
 	}

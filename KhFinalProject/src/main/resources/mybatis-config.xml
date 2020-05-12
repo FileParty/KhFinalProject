@@ -6,8 +6,17 @@
 	<typeAliases>	
 		<typeAlias type="com.kh.fp.model.vo.Member" alias="member"/>
 
+
 		<typeAlias type="com.kh.fp.model.vo.Store" alias="menuList"/>
 		<typeAlias type="com.kh.fp.model.vo.Review" alias="review"/>
+
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreDetailInfo" alias="storeDetail"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreCategory" alias="storeDetailCategory"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreMenu" alias="storeDetailMenu"/>
+
 	</typeAliases>
 </configuration>
 

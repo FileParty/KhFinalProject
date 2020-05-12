@@ -15,10 +15,9 @@ public class StoreMenu {
 	private String me_name;
 	private int me_price;
 	private String me_logimg;
-	private int me_cateogry;
+	private int mt_no;
 	private String me_text;
 	private String me_best;
 	private int s_no;
-	private List<StoreMenuSide> sides;
-
+			
 }
