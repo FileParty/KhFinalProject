@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@include file="../common/header.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${path }/resources/css/order.css"/> 
     <section style="width:1366px;height:768px;">
  	<div class="container" >
  	
@@ -39,7 +40,9 @@
 	                    			<c:if test="${o.O_STATUS eq '주문대기' }">
 	                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
 	                    			</c:if>
-	                    			<td><input type="button" value="상세보기"></td>
+	                    			<td>
+	                    			<input type="button" data-toggle="modal" data-target="#myModal" onclick="order_detail(${o.O_NO });" value="상세보기">
+	                    			</td>
 	                    		</tr>
                     		</c:forEach>
                     	</table>                    	
@@ -53,60 +56,85 @@
             </div>
             
    		</div>
+   		
+   		
+		   		<!-- The Modal -->
+		<div class="modal" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		
+		      <!-- Modal Header -->
+		      <div class="modal-header">
+		        <h4 class="modal-title">주문내역</h4>
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+		
+		      <!-- Modal body -->
+		      <div class="modal-body">
+		        	<div>
+		        		
+		        		<table>
+		        			
+		        			<tr>
+		        				<td>주문상태</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>주문일시</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>주문메뉴</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>결제금액</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>배달주소</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>전화번호</td><td></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>요청사항</td><td></td>
+		        			</tr>
+
+		        		</table>
+		        	
+		        	</div>
+		      </div>
+		
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		      </div>
+		
+		    </div>
+		  </div>
+		</div>
+   		
+   		
+   		
    	</section>
    	
-   	   <style>
-   	   
-   	  /* *{
-   	  	border : 1px solid red;
-   	  } 
-   	    */
-      a.list{
-      	 font-weight: 700;
-      	 color:black;
-      }
+   	
+   	<script>
+   		
+   		function order_detail(no){
+   			$.ajax({
+   				url : "${path}/}/licensee/getdetailorder",
+   				data : {no:no},
+   				success : function(data){
+   					
+   				}
+   			})
+   		}
+   	
+   	</script>
 
-      
-      #main{
-      	margin-left:250px;
-      	margin-top:150px;
-  		width:1000px;
-      	height:600px;
-      	padding : 0;
-      }
-      
-      .s-order-history{
-      	height:400px;
-      	width:1000px;
-      	padding : 0;
-      	margin-top : 30px;
-      }
-      
-      table{
-      	width : 100%;
-      	border-top : 3px solid #168;
-      }
-      
-      table th {
-      color: #168;
-      background: #f0f6f9;
-      text-align: center;
-      }
-      
-      table th, table td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-      font-weight: 550;
-      }
-      
-      input[type="button"]{
-      	  border-radius: 20px;
-      	  background-color: #f0f6f9;
-      	  color: #168;
-      	  border-style: hidden;
-      }
-
-      </style>
    	
    	<%@include file="../common/footer.jsp" %>
