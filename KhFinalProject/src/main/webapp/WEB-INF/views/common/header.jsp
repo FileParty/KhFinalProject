@@ -32,7 +32,7 @@
 				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
 					data-toggle="modal" data-target="#loginModal">로그인</button>&nbsp;&nbsp;
 				<button class="btn btn-outline-dark my-3 my-sm-0" type="button"
-					onclick="location.replace('')">회원가입</button>
+					onclick="location.replace('${path}/member/enroll.do')">회원가입</button>
 			</div>
 			<div class="col-3"></div>
 		</div>
@@ -58,6 +58,9 @@
         <button type="button" class="btn btn-outline-success" data-dismiss="modal">취소</button>
       </div>
 	  </form>
+	  <c:if test="${loginMember!=null}">
+      	<button type="button" class="btn btn-outline-success" onclick="location.replace('${path}/member/logout.do')">로그아웃</button>
+      </c:if>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-success">카카오톡계정으로 로그인</button>
         <br/><br/>
