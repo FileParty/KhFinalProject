@@ -10,8 +10,7 @@
   <select id="selectMember" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_ID = #{userId}
   </select>
-  
-  
+
   
 
 </mapper>
