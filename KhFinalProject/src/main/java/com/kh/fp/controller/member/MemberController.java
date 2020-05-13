@@ -10,12 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.fp.model.servier.member.MemberService;
 import com.kh.fp.model.vo.Member;
 
 @Controller
+@SessionAttributes({ "loginMember" })
 public class MemberController {
 	
 	@Autowired
@@ -34,7 +36,7 @@ public class MemberController {
 	@RequestMapping("/member/enrollEnd.do")
 	public String enrollEnd(Member m,Model md) {
 		
-		m.setPw(encoder.encode(m.getPw()));
+		m.setM_pw(encoder.encode(m.getM_pw()));
 		
 		int result=service.insertMember(m);
 		
@@ -71,15 +73,14 @@ public class MemberController {
 	
 	//일반 아이디 로그인
 	@RequestMapping("/member/memberLogin.do")
-	public String memberLogin(String userId,String password,Model md,HttpSession session) {
+	public String memberLogin(String userId,String userPw,Model md,HttpSession session) {
 		
 		Member m =service.selectMember(userId);
 		
 		//로그인여부 확인하기
-		if(m!=null&&encoder.matches(password, m.getPw())) {
+		if(m!=null&&encoder.matches(userPw, m.getM_pw())) {
 			//로그인성공
-			md.addAttribute("msg","로그인성공");	
-		
+			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",m);
 		}else {
 			//로그인실패

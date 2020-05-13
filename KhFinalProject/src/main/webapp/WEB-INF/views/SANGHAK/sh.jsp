@@ -140,7 +140,7 @@
   <td><input type="text" style="width:300px;height:45px;" placeholder=" (필수) 상세정보 입력" required><br></td>
 </tr>
 <tr>
-  <td><div style="margin-top: -69px;">배송시 요청사항</div></td>
+  <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
   <td><br>
   <textarea name="ta2" rows="5" cols="80"  placeholder=" 코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요."></textarea>
   <!-- <input type="text" style="width:300px;height:100px;" placeholder="코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요.">  --><br><br></td>
