@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="menuList">
-	<select id="selectMenuList" resultType="menuList">
-		select * from store where s_no between 1 and 7
+	<select id="selectMenuList" resultType="menuList" parameterType="map">
+		select * from store where 1=1
+		<if test="category != null and category != '' and category != '전체'">
+			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+		</if>
 	</select>
 	
-	<select id="selectMenuListCategory" resultType="menuList" parameterType="string">
-		select * from store where s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+	<select id="selectMenuListFilter" resultType="menuList" parameterType="map">
+		select * from store where 1=1
+		and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+		<if test="category != null and category != ''">
+			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+		</if>
+		<if test="search != null and search != ''">
+			and s_name LIKE '%'||#{name}||'%'
+		</if>
+		<if test="review != null and review != ''">
+			order by S_REVIEWCOUNT DESC
+		</if>
+		<if test="score != null and score != ''">
+			order by S_SCORE DESC
+		</if>
 	</select>
  
+ 	<select id="selectMenuCount" resultType="_int" parameterType="map">
+		select count(*) from store where 1=1
+		<if test="category != null and category != ''"> 
+			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+		</if>
+		<if test="search != null and search != ''">
+			and s_name LIKE '%'||#{name}||'%'
+		</if>
+	</select>
+	
 	<select id="searchMenuList" resultType="menuList" parameterType="map">
 		select * from store where 1=1
 		and s_name LIKE '%'||#{name}||'%'
 		and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 	</select> 	
+	
 	
 </mapper>

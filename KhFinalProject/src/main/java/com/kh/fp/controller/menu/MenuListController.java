@@ -1,6 +1,5 @@
 package com.kh.fp.controller.menu;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.fp.common.PageingFactory;
 import com.kh.fp.model.service.menuList.MenuListService;
-import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.Store;
 
 @Controller
@@ -33,44 +32,62 @@ public class MenuListController {
 	private MenuListService service;
 	
 	@RequestMapping("/menu/menuList.do")
-	public String foodList(Model m, 
-			@RequestParam(value="menuCategory") String category
+	public String menuList(Model m, 
+			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
+			@RequestParam(required=false, defaultValue="") String score,
+			@RequestParam(required=false, defaultValue="") String review,
+			@RequestParam(required=false, defaultValue="") String search,
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="10") int numperPage
 			) {		
-		List<Store> storeList = service.selectMenuList(category);
 		
-		/*
-		 * List<Review> reviewList = new ArrayList<Review>();
-		 * 
-		 * for(Store s : storeList) { Review r = service.selectReview(s.getS_NO());
-		 * 
-		 * reviewList.add(r); }
-		 */
+		Map map = new HashMap();
+		map.put("category", category);
+		map.put("score", score);
+		map.put("review", review);
+		map.put("search", search);
 		
+		List<Store> storeList = service.selectMenuList(cPage, numperPage, map);
 		
-		/*
-		 * for(int i=0; i<20; i++) { MenuList category = new MenuList("돌돌이 닭갈비", i, 244,
-		 * 13000, 34,"몰라",0,"ss","ss"); list.add(category); }
-		 */
-				
+		System.out.println("=====list 출력 =====");
+		for(Store s : storeList) {
+			System.out.println(s);
+		}
+		
+		int totalData = service.selectMenuCount(map);
+		
 		m.addAttribute("list", storeList);
+		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category));
+			
+		
 		return "menu/menulist";
 	}
 	
 	//카테고리 눌럿을때
-	@RequestMapping("/menu/menuCategory.do")
+	@RequestMapping("/menu/menuFilter.do")
 	@ResponseBody
 	public Map menuCategory(
-			@RequestParam(value="menuCategory") String category			
+			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
+			@RequestParam(required=false, defaultValue="") String score,
+			@RequestParam(required=false, defaultValue="") String review,
+			@RequestParam(required=false, defaultValue="") String search,
+			@RequestParam(required=false, defaultValue="1") int cPage,
+			@RequestParam(required=false, defaultValue="10") int numperPage
 			) {
 		
-		List<Store> list = service.selectMenuList(category);
-		
-		for(Store s : list) {
-			System.out.println(s);
-		}
 		Map map = new HashMap();
 		
-		map.put("list", list);
+		map.put("category", category);
+		map.put("score", score);
+		map.put("review", review);
+		map.put("search", search);
+		
+		int totalData = service.selectMenuCount(map);
+		
+		List<Store> storeList = service.selectMenuListFilter(cPage, numperPage, map);
+		
+		map.put("list", storeList);
+		map.put("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/menu/menuCategory.do"));
 		
 		return map;
 	}

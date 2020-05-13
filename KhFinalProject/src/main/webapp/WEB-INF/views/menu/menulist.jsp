@@ -55,7 +55,8 @@
 			<div class="row">
 				<div class="col">
 					<ul class="list-group d-flex flex-row justify-content-center">
-					  <li class="list-group-item active" id="category-chicken">치킨</li>
+						<li class="list-group-item active" id="category-chicken">전체</li>
+					  <li class="list-group-item" id="category-chicken">치킨</li>
 					  <li class="list-group-item" id="category-pizza">피자</li>
 					  <li class="list-group-item" id="category-chinese">중국집</li>
 					  <li class="list-group-item" id="category-snack">분식</li>
@@ -205,7 +206,7 @@
 		</div>
 		
 		<div class="container mt-3">
-		<div class="row justify-content-center">
+		<!-- <div class="row justify-content-center">
 			<nav aria-label="..." class="justify-content-center">
 			  <ul class="pagination">
 			    <li class="page-item disabled">
@@ -223,7 +224,8 @@
 			    </li>
 			  </ul>
 			</nav>
-			</div>
+			</div> -->
+			${pageBar}
 		</div>
 		
 	</section>
