@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/index.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <section>
 
@@ -21,18 +23,41 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/common/banner.jsp"/>
 	
-	<div class="container text-center">
+	<div class="index-first-box container">
+			
+			<div class="index-search-title">
+					<h2>`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
+					<h6>배달 받을 동을 검색해주세요</h6>
+			</div>
+			
 	
+			<div class="index-search-container">
+			
+				<div class="index-search">	
+				
+					<div class="search-btn"><button class="location-button"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
+					
+					<div>
+						<form name="form" id="form" method="post">
+							<input type="hidden" name="currentPage" value="1"/> 
+							<input type="hidden" name="countPerPage" value="5"/>
+							<input type="hidden" name="resultType" value="json"/> 
+							<input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDIwMDUxMjIwMDA0MTEwOTc1MjQ="/>
+							<div class="keyword-box">
+								<input type="text" name="keyword" id="keyword" value="" size="40px"/>
+								<input type="button" onClick="getroadAddr();" class="btn btn-success" value="검색" />
+							</div>
+						</form>
+					</div>
 	
-			<div class="search-container d-flex justify-content-center">
-				<div class="search-container-box d-flex">	
-					<button class="location-button">⊙</button>
-					<form id="form" name="form" method="post">
-						<input type="hidden" id="confmKey" name="confmKey" value=""/>
-						<input type="hidden" id="returnUrl" name="returnUrl" value=""/>
-						<input type="hidden" id="resultType" name="resultType" value=""/>
-					</form>
 				</div>
+				
+				<div class="index-search-autosearch">
+					<div id="list">
+					
+					</div>
+				</div>
+				
 			</div>
 			
 			<div class="category-list d-flex flex-wrap justify-content-center">
@@ -50,5 +75,5 @@
 
 
 </section>
-
+<jsp:include page="/WEB-INF/views/common/jusoJs.jsp"/>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

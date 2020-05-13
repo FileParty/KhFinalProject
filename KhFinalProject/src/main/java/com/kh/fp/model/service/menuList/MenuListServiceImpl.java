@@ -1,6 +1,7 @@
 package com.kh.fp.model.service.menuList;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,14 @@ public class MenuListServiceImpl implements MenuListService {
 		return dao.selectReview(session, s_no);
 	}
 
+	//검색
+	@Override
+	public List<Store> selectMenuList(Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectMenuList(session, map);
+	}
+
+	
+	
 	
 }

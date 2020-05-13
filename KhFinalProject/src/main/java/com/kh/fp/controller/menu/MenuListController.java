@@ -74,4 +74,24 @@ public class MenuListController {
 		
 		return map;
 	}
+	
+	@RequestMapping("/menu/search.do")
+	@ResponseBody
+	public Map menuSearch(
+			@RequestParam(value="name") String S_NAME,
+			@RequestParam String category
+			) {
+		
+		Map searchMap = new HashMap();
+		searchMap.put("name", S_NAME);
+		searchMap.put("category", category);
+		
+		List<Store> list = service.selectMenuList(searchMap);
+		
+		Map map = new HashMap();
+		
+		map.put("list", list);
+		
+		return map;
+	}
 }

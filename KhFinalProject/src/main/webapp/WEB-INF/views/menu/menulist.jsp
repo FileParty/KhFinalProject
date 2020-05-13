@@ -20,7 +20,7 @@
 		 	</span>
 		 	<div class="text-center">
 		 		<button class="btn btn-link">
-		 			<img src="${pageContext.request.contextPath }/resources/images/up.png" width="8px" height="8px"/>
+		 			<img src="${pageContext.request.contextPath }/resources/img/up.png" width="8px" height="8px"/>
 		 		</button>
 		 		
 		 		<div>
@@ -34,7 +34,7 @@
 		 					<c:if test="${not empty recentList}">
 		 						<c:forEach var="r" items="${recentList}">
 		 							<div>
-		 								<img src="${pageContext.request.contextPath }/resources/images/food.jpg"/>
+		 								<img src="${pageContext.request.contextPath }/resources/img/food.jpg"/>
 		 							</div>
 		 						</c:forEach>
 		 					</c:if>
@@ -42,7 +42,7 @@
 		 			</div>
 		 		</div>
 		 		<button class="btn btn-link">
-		 			<img src="${pageContext.request.contextPath }/resources/images/down.png" width="8px" height="8px"/>
+		 			<img src="${pageContext.request.contextPath }/resources/img/down.png" width="8px" height="8px"/>
 		 		</button>
 		 	</div>
 		 	<button class="btn btn-link">
@@ -73,8 +73,8 @@
 					  <form class="form-inline">
 
 					    <input class="form-control" type="search" id="search-name" placeholder="음식점을 검색하세요" aria-label="Search">
-					    <button id="btn-search" class="btn btn-outline-success my-2 my-sm-0 mr-3" type="submit">
-					    	<img src="${pageContext.request.contextPath }/resources/images/search.svg" width="25px">
+					    <button id="btn-search" class="btn btn-outline-success my-2 my-sm-0 mr-3" type="button">
+					    	<img src="${pageContext.request.contextPath }/resources/img/search.svg" width="25px">
 					    </button>
 					    
 					   <div class="dropdown">

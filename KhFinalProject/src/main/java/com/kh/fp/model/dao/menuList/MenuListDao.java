@@ -1,6 +1,7 @@
 package com.kh.fp.model.dao.menuList;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -13,4 +14,7 @@ public interface MenuListDao {
 	List<Store> selectMenuList(SqlSessionTemplate session, String category);
 	
 	Review selectReview(SqlSessionTemplate session, int s_no);
+	
+	//검색
+	List<Store> selectMenuList(SqlSessionTemplate session, Map map);
 }
