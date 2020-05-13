@@ -11,7 +11,7 @@
       }
       div.col-12{
       	width:900px;
-      	height:968px;
+      	height:768px;
       	border:1px solid black;
       }
       th#h2{
@@ -29,8 +29,8 @@
       th#h1{
        padding:0 0 20 0;
       }
-      .btnC {
-      margin-left:300px;
+      .btnK {
+      margin-left:250px;
       }
       </style> 
 	<%@ include file="../common/header.jsp" %>
@@ -51,18 +51,23 @@
                     <br>                 
 
                     	<div class="col-12">
-                    	   <button type="button" class="btnC" onclick="addCategory();">카테고리 추가</button> 
-                    	   <button type="button" class="btn btn-primary btnC1" data-toggle="modal" data-target="#myModal">추가옵션 등록</button>
+                    	<br>
+                    		<h5 style="text-align:center;"><strong><span style="color:red;">* 대표메뉴</span> -><span style="color:orange;"> 옵션 </span>-> <span style="color:lightgreen;">카테고리</span> 순으로 등록하시면 편리합니다.</strong></h5>
+                    	<br>
+                    	<br>
+                    	   <button type="button" class="btnK btn btn-outline-danger">대표메뉴 추가</button>
+                    	   <button type="button" class="btnC btn btn-outline-success" onclick="addCategory();">카테고리 추가</button> 
+                    	   <button type="button" class="btn btn-outline-warning btnC1" data-toggle="modal" data-target="#myModal">옵션 추가</button>
                     		<form action="#" method="post" id="menu-container">
-                    		<div class="addCategory">
+                    		<div class="container addCategory">
+                    		<br>
                     			<div class="row modalMenu">
-                    			
                     			</div>
+                    		</div>
+                    		</form>
                     	    </div>
-                    	  </form>
+                    	  </div>
                     	</div>                    				  
-						</div>
-                    </div>
             	</div> <!-- 컨테이너 -->
             		
 
@@ -77,13 +82,13 @@
 						         
 						        <div class="modal-body" align=center>	
 						        	<form action="${path }/licensee/optionEnroll" method="post">	         	
-						          	<input style="width:100px;display:inline" type="text" id="plusOption2" name="e_option" class="form-control" placeholder="필수/추가">
+						          	<input style="width:60px;display:inline" type="text" id="plusOption2" name="e_option" class="form-control" placeholder="필수" disabled>
 						          	<button type="button" class="btn btn-outline-success plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
 						          	<br>
 						          	<div id="option1-container">
 						          	</div>					          					          	
-						          	<input style="width:100px;display:inline" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="필수/추가">        
+						          	<input style="width:60px;display:inline;" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="추가" disabled>        
 						          	<button type="button" class="btn btn-outline-success plus1" onclick="option1();">옵션 추가</button> 					          	
 						          	<br>
 						          	<br>
@@ -102,15 +107,18 @@
 						          <h4 class="modal-title">메뉴 등록</h4>
 						        </div>
 						        <div class="modal-body" align=center>	
-						        	<div class="body-container">	        
+						        	<div class="body-container custom-file">		
+						        		<input type="file" id="modalFile" class="custom-file-input">
+						        		<label class="custom-file-label" for="modalFile"><strong>메뉴 이미지를 첨부해주세요.</strong></label>		        		        
 						        		<input type="text" placeholder="메뉴명" class="menu-name form-control" name="menu-name">
 						        		<input type="number" placeholder="메뉴가격" class="menu-price form-control" name="menu-price">
 						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail form-control" name="menu-detail"></textarea>
-						        		<input type="file" id="modalFile" class="form-control">	
+						        		
 						        		<input  type="hidden" value="" id="hid" >					         
-						        		<br>	
+						        		<br>							        		
 						        	</div>
-						        	<div class="body-container2"></div>
+						        	<div style="margin-top:150px;"class="body-container2"></div>
+						        	<div style="margin-top:150px;"class="body-container3"></div>
 						        	<button type="button" id="optionEnroll"class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
 						        </div>
 						      </div>
@@ -123,10 +131,12 @@
 				var category = $("<input>").attr({
 					'class':'category'+num,
 					'name':'category',
-					'placeholder':'카테고리를 입력해주세요.'
+					'placeholder':'카테고리를 입력해주세요.',
+					'class':'form-control'
 				}).css({
 					'width':'400',
-					'border':'1px soild black'
+					'border':'1px soild black',
+					'display':'inline'
 				})
 				var menuAdd = $("<button>").attr({
 					'type':'button',
@@ -136,6 +146,7 @@
 					'alt':num,
 					'onclick':'menuBtn('+num+'); hidBtn();'
 				})
+				
 		
 				menuAdd.html('메뉴등록');
 				$(".addCategory").append(category);
@@ -163,7 +174,7 @@
 					}).html('추가선택');
 					
 					$(".body-container2").append(hh3);
-					$(".body-container2").append(h3);
+					$(".body-container3").append(h3);
 					
 					for(let i=0;i<data.length;i++) {
 						if(data[i].sd_division=='Y') {
@@ -171,14 +182,16 @@
 						'type':'radio',
 						'value':data[i].sd_name,
 						'id':'sideOption'+i,
-						'name':'radio',
-						'class':'form-check-input'
+						'name':'radio'
+						
 					})
 					var label = $("<label>").attr({
-						'class':'form-check-label'
+						'for':'sideOption'+i,
+						
 					}).html(data[i].sd_name);
 							
-					var span = $("<span>").html(data[i].sd_price+'원').css('margin-left','100');;
+					var span = $("<span>").html(data[i].sd_price+'원').css('margin-left','80');
+						
 					$(".hh3text").after(span).after(label).after(input).after($("<br>"));
 					
 					}else { 
@@ -186,11 +199,12 @@
 							'type':'checkbox',
 							'value':data[i].sd_name,
 							'id':'sideOption'+i,
-							'class':'form-check-input'
+							'name':'check'
+							
 						})
 						var label = $("<label>").attr({
 							'for':'sideOption'+i,
-							'class':'form-check-label'
+							
 						}).html(data[i].sd_name);
 						
 						var span = $("<span>").html(data[i].sd_price+'원').css('margin-left','100');
@@ -280,81 +294,103 @@
 				tbl2.append(tr);
 				$("#option2-container").append(tbl2);					
 			}
-			function optionAdd() {
-				var arr = [];
-				var arr2 = [];
-				var ess = document.getElementsByClassName("essential");
-				var price = document.getElementsByClassName("price");
-				 for(let i=0;i<ess.length;i++) {
-					arr.push(ess[i].value);
-					arr2.push(price[i].value);
-				} 
-				console.log(arr);
-				console.log(ess.length);
-				/* $.ajax({
-					url:"${path}/licensee/optionEnroll",
-					type:'POST',
-					traditional:true,
-					data:{
-						'essential':arr,
-						'price':arr2,	
-					},
-					success:function(data) {
-						alert('성공');
-					},error:function(data){
-						alert('실패');
-					}
-				}) */
-			}
+		
+		
 			function menu_enroll() {
+				var values = $("input[name=radio]:checked").val();
+				var spanValue = $("input[name=radio]:checked").next().next().html();
+				 var inputR = $("<input>").attr({
+					 'type':'radio',
+					 'name':'end',
+					 'id':'end',
+					 'value':values,
+					 'checked':'true'
+				 });
+				 var labelR = $("<label>").attr({
+					 'for':'end'
+				 }).html($("input[name=radio]:checked").val());
+				 var spans = $("<span>").css('margin-left','10').html(spanValue);
 				
-				var file = document.querySelector('#modalFile');
-				var fileList = file.files;
-				var reader = new FileReader();
-				reader.readAsDataURL(fileList[0]);
-				reader.onload = function  () {
-			        //로컬 이미지를 보여주기
-			        document.querySelector('.preview').src = reader.result;
-			        console.log(reader.result);
-				}
-				 
-				var hid = $("#hid").val();
+				var fileValue = $("#modalFile").val().split("\\");
+				var fileName = fileValue[fileValue.length-1]; 
+				
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
 				var menuDetail = $(".menu-detail").val();
 				var inputN = $("<input>").attr({
 					'type':'text',
 					'name':'menuName',
-					'value':menuName
+					'value':menuName,
+					'class':'form-control'
 				})
 				var inputP = $("<input>").attr({
 					'type':'number',
 					'name':'menuPrice',
-					'value':menuPrice
+					'value':menuPrice,
+					'class':'form-control'
 				})
 				var textD = $("<textarea>").attr({
 					'cols':'20',
 					'rows':'1',
 					'name':'menuDetail',
+					'class':'form-control'
 				}).html(menuDetail);
-				var div = $("<div>");
-				var div2 = $("<div>");
+				var num = $("#hid").val();				
+				var div = $("<div>").attr('class','col-lg-5 sideBody');
+				var div1 = $("<div>").attr('class','col-lg-4 sideBody2');
+				var div2 = $("<div>").attr('class','col-lg-3 sideBody2');
+				var div3 = $("<div>").attr('class','row');
 				var img = $("<img>").attr({
 					'id':'preview',
 					'class':'preview'+num,
 					'src':' ',
-					'width':'100'
+					'width':'150'
 				})
-				div.append(inputN).append($("<br>"));
-				div.append(inputP).append($("<br>"));
-				div.append(textD).append($("<br>"));
-				div.append(img);
-				var num = $("#hid").val();
-				$(".menuAdd"+num).after(div);
+			
+				var file = document.querySelector('#modalFile');
+				var fileList = file.files;
+				var reader = new FileReader();
+				reader.readAsDataURL(fileList[0]);
+				reader.onload = function  () {        
+			        document.querySelector('.preview'+num).src = reader.result;
+				}
+				
+				div.append(inputN);
+				div.append(inputP);
+				div.append(textD);
+				div1.append(inputR).append(labelR).append(spans);
+				console.log($("input[name=radio]:checked").val());
+				console.log($("input[name=radio]:checked").next().next().html());
+				let check = [];
+				let price =[];
+				 $("input[name=check]:checked").each(function(i) { 
+				        console.log( 'checkbox값 : '+$(this).val() );
+				        console.log( 'span값 : '+$(this).next().next().html());
+				        check[i]=$(this).val();
+				        price[i]=$(this).next().next().html();
+				        var good = $("<input>").attr({
+				        	'type':'checkbox',
+				        	'name':'checked',
+				        	'value':check[i],
+				        	'checked':'true',
+				        	'disabled':' ',
+				        	'id':'addEnd'+i
+				        })
+				        var goods = $("<label>").attr({
+				        	'for':'addEnd'+i
+				        }).html(check[i]);
+				        div1.append(good).append(goods).append("<br>");
+				    });
+				 
+				div2.append(img);
+				div3.append(div).append(div1).append(div2);
+				$(".menuAdd"+num).after(div3);
 				$(".menu-name").val("");
 				$(".menu-price").val("");
 				$(".menu-detail").val("");
-			}
+				$("#modalFile").val("");
+				}
+		
 		
 		</script>
     </section>
