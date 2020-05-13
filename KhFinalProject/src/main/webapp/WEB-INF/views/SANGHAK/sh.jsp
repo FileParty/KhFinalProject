@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +58,7 @@
         <td>1</td>
         <td>43,700원</td>
         <td style="color:red;">2500원</td>
-        <td>41,700원</td>
+        <td>46,200원</td>
       </tr>
   
       
@@ -89,11 +93,14 @@
         <table style="margin-left: 10px;"> 
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
-            <td><input type="text"  id="name_1" style="width:300px;height:30px;" ><br></td>
+            <td>
+            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${list['m_name']}" readonly><br>
+		           <span id="result"></span> 
+            </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="width:300px;height:30px;">
+            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${list['m_phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -105,6 +112,7 @@
         
         <br>
       </div>
+     
       <h2>결제정보</h2>
     <hr>
  
@@ -116,23 +124,23 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" style="width:300px;height:30px;"><br> </td>
+  <td><input type="text"  id="name_2" style="width:300px;height:45px;"required><br> </td>
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2" style="width:300px;height:30px;"><br></td>
+  <td><br><input type="text"  id="phone_2" style="width:300px;height:45px;"required><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:30px;background-color:rgb(218, 218, 218);" readonly><br> <br></td>
+  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
-  <td><input type="text" style="width:300px;height:30px;" placeholder=" (필수) 상세정보 입력" required><br></td>
+  <td><input type="text" style="width:300px;height:45px;" placeholder=" (필수) 상세정보 입력" required><br></td>
 </tr>
 <tr>
-  <td><div style="margin-top: -69px;">배송시 요청사항</div></td>
+  <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
   <td><br>
   <textarea name="ta2" rows="5" cols="80"  placeholder=" 코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요."></textarea>
   <!-- <input type="text" style="width:300px;height:100px;" placeholder="코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요.">  --><br><br></td>
@@ -148,8 +156,8 @@
 <tr>
 <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
 
-  <td width="680px"><input type="text" style="width:200px;height:30px;background-color: rgb(218, 218, 218);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-    <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">쿠폰변경</button> 
+  <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
+    <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">쿠폰변경</button> 
     <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
     <br> 
   </td>
@@ -157,8 +165,8 @@
 
 <tr>
   <td style="padding-right:40px;">빠짐 포인트</td>
-    <td width="680px"><input type="text" style="width:200px;height:30px;background-color: rgb(218, 218, 218);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-      <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">전액사용</button> 
+    <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
+      <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
       <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
       <br>
     </td>
@@ -166,8 +174,8 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:30px;background-color: rgb(218, 218, 218);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-        <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: #ddd;">전액사용</button> 
+      <td width="680px"><input type="text" style="width:200px;height:45px;background-color:rgb(243, 243, 243);text-align:right;" value="2500">&nbsp;&nbsp;원&nbsp; 
+        <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);	">전액사용</button> 
         <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
         <br> 
       </td>
@@ -202,10 +210,10 @@
 
 
 
-  <div style="margin-top:75px;">
+  <div style="margin-top:75px;" >
     <h3 style="text-align:center;">최종 결제 금액 확인</h3>
   <div class="rightcolumn" style="padding-right:10px;" >
-    <h3>합계</h3><h1 align="center" style="color:red">44,200원</h1>
+    <h3>합계</h3><h1 align="center" style="color:red">46,200원</h1>
     <hr width="90%">
 
     <div class="card"width="90%">
@@ -241,7 +249,7 @@
                                 <span class="circle" aria-hidden="true">
                                   <span class="icon arrow"></span>
                                 </span>
-                                <span  class="button-text" style="font-size: 20px;padding-top: 11px;">결제하기</span>
+                                <span  class="button-text" style="font-size: 20px;padding-top: 11px;" >결제하기</span>
                               </button>
                             </div>
   
@@ -755,6 +763,7 @@ body {
     padding: 10px;
     height: auto;
     width: 1365px;
+    margin: 0 auto;
 }
 main {
                 width: 1305px;
@@ -870,6 +879,7 @@ main {
 
 </style>
 <script>
+<!--========================결제선택 스크립트======================================== -->
   $("#btn-container").click(function(){
     $('#btn-container').css("border","solid 3px red");
     $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
@@ -879,7 +889,7 @@ main {
 
 
 <script type="text/javascript">
-
+<!--======================주문자정보 동일 체크 스크립트========================================== -->
   function check1(f){
 
     if (f.checked) {
@@ -898,7 +908,67 @@ main {
       }
 
     }
+  
+  <!--===============================연락처 하이바(-)입력 스크립트================================ -->
+  $(document).ready(function() {
+	  
+	    $("#phone_2").focus(focused); //input에 focus일 때
+	    $("#phone_2").blur(blured);   //focus out일 때
+	  })
 
+	function focused(){
+	  var input = $("#phone_2").val();
+	  
+	  //input안에서 하이픈(-) 제거
+	  var phone = input.replace( /-/gi, '');
+	    //number 타입으로 변경(숫자만 입력)
+	  $("#phone_2").prop('type', 'text');
+	  
+	  $("#phone_2").val(phone);
+	}
+
+	function blured(){
+	  var input = $("#phone_2").val();
+	  
+	  //숫자에 하이픈(-) 추가
+	    var phone = chkItemPhone(input);
+	  //text 타입으로 변경
+	  $("#phone_2").prop('type', 'text');
+	  
+	  $("#phone_2").val(phone);
+	}
+
+
+	//전화번호 문자(-)
+	function chkItemPhone(temp) {
+	    var number = temp.replace(/[^0-9]/g, "");
+	    var phone = "";
+
+	    if (number.length < 9) {
+	        return number;
+	    } else if (number.length < 10) {
+	        phone += number.substr(0, 2);
+	        phone += "-";
+	        phone += number.substr(2, 3);
+	        phone += "-";
+	        phone += number.substr(5);
+	    } else if (number.length < 11) {
+	        phone += number.substr(0, 3);
+	        phone += "-";
+	        phone += number.substr(3, 3);
+	        phone += "-";
+	        phone += number.substr(6);
+	    } else {
+	        phone += number.substr(0, 3);
+	        phone += "-";
+	        phone += number.substr(3, 4);
+	        phone += "-";
+	        phone += number.substr(7);
+	    }
+
+	    return phone;
+	}
+	 <!--================================================================ -->
   </script>
 <br><br>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
