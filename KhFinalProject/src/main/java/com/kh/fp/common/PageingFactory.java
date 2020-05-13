@@ -59,7 +59,7 @@ public class PageingFactory {
 			
 	}
 	
-		public static String PageBarFactoryAjax(int cPage, int numPerPage, int totalData, String url, String category) {
+		public static String PageBarFactoryAjax(int cPage, int numPerPage, int totalData, String url, String category, String search, String sortType) {
 			
 			
 			int pageCount=(int)Math.ceil((double)totalData/numPerPage);
@@ -75,7 +75,7 @@ public class PageingFactory {
 				pageBar+="</li>";
 			}else {
 				pageBar+="<li class='page-item'>";
-				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+",\""+category+"\");'>이전</a>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>이전</a>";
 				pageBar+="</li>";
 			}
 	      
@@ -86,7 +86,7 @@ public class PageingFactory {
 					pageBar+="</li>";
 				}else {
 					pageBar+="<li class='page-item'>";
-					pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\");'>"+pageNo+"</a>";
+					pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>"+pageNo+"</a>";
 					pageBar+="</li>";
 				}
 				pageNo++;
@@ -98,15 +98,15 @@ public class PageingFactory {
 				pageBar+="</li>";
 			}else {
 				pageBar+="<li class='page-item'>";
-				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\");'>다음</a>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>다음</a>";
 				pageBar+="</li>";
 			}
 			pageBar+="</ul>";
 			pageBar+="<script>";
-			pageBar+="$(function fn_paging(cPage, category){";
+			pageBar+="$(function fn_paging(cPage, category, search, sortType){";
 			pageBar+="$.ajax({";
 			pageBar+="url:"+url+",";
-			pageBar+="data:{'cPage':cPage, 'category':category}";
+			pageBar+="data:{'cPage':cPage, 'category':category, 'search':search, 'sortType':sortType}";
 			pageBar+="success: function(data){";
 			pageBar+="$(e.target).siblings().removeClass(\"active\");";
 			pageBar+="$(e.target).addClass(\"active\");";
@@ -157,7 +157,7 @@ public class PageingFactory {
 		//메뉴 리스트 페이징 처리 
 		//by 승연
 		
-		public static String PageBarFactory(int cPage, int numPerPage, int totalData, String url, String category) {
+		public static String PageBarFactory(int cPage, int numPerPage, int totalData, String url, String category, String search, String sortType) {
 		
 			
 			int pageCount=(int)Math.ceil((double)totalData/numPerPage);
@@ -173,7 +173,7 @@ public class PageingFactory {
 				pageBar+="</li>";
 			}else {
 				pageBar+="<li class='page-item'>";
-				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+",\""+category+"\");'>이전</a>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>이전</a>";
 				pageBar+="</li>";
 			}
 	      
@@ -184,7 +184,7 @@ public class PageingFactory {
 					pageBar+="</li>";
 				}else {
 					pageBar+="<li class='page-item'>";
-					pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\");'>"+pageNo+"</a>";
+					pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>"+pageNo+"</a>";
 					pageBar+="</li>";
 				}
 				pageNo++;
@@ -196,13 +196,13 @@ public class PageingFactory {
 				pageBar+="</li>";
 			}else {
 				pageBar+="<li class='page-item'>";
-				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\");'>다음</a>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+category+"\",\""+search+"\",\""+sortType+"\");'>다음</a>";
 				pageBar+="</li>";
 			}
 			pageBar+="</ul>";
 			pageBar+="<script>";
-			pageBar+="function fn_paging(cPage,category){";
-			pageBar+="location.href='"+url+"?cPage='+cPage+'&menuCategory='+category";
+			pageBar+="function fn_paging(cPage,category,search,sortType){";
+			pageBar+="location.href='"+url+"?cPage='+cPage+'&menuCategory='+category+'&search='+search+'&sortType='+sortType";
 			pageBar+="}";
 			pageBar+="</script>";
   

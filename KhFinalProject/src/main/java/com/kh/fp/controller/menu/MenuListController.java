@@ -34,9 +34,8 @@ public class MenuListController {
 	@RequestMapping("/menu/menuList.do")
 	public String menuList(Model m, 
 			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
-			@RequestParam(required=false, defaultValue="") String score,
-			@RequestParam(required=false, defaultValue="") String review,
-			@RequestParam(required=false, defaultValue="") String search,
+			@RequestParam(required=false, defaultValue="null") String sortType,
+			@RequestParam(required=false, defaultValue="null") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
@@ -51,8 +50,7 @@ public class MenuListController {
 		
 		Map map = new HashMap();
 		map.put("category", category);
-		map.put("score", score);
-		map.put("review", review);
+		map.put("sortType", sortType);
 		map.put("search", search);
 		
 		List<Store> storeList = service.selectMenuList(cPage, numperPage, map);
@@ -62,12 +60,21 @@ public class MenuListController {
 			System.out.println(s);
 		}
 		
+		System.out.println("==========list==========");
+		System.out.println("====정렬순====");
+		System.out.println(sortType);
+		
+		System.out.println("====검색====");
+		System.out.println(search);
+		
+		
 		int totalData = service.selectMenuCount(map);
 		
 		m.addAttribute("list", storeList);
 		m.addAttribute("category", category);
+		m.addAttribute("sortType", sortType);
 		
-		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category));
+		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category, search, sortType));
 			
 		
 		return "menu/menulist";
@@ -78,8 +85,7 @@ public class MenuListController {
 	@ResponseBody
 	public Map menuCategory(
 			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
-			@RequestParam(required=false, defaultValue="") String score,
-			@RequestParam(required=false, defaultValue="") String review,
+			@RequestParam(required=false, defaultValue="") String sortType,
 			@RequestParam(required=false, defaultValue="") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage
@@ -88,18 +94,31 @@ public class MenuListController {
 		Map map = new HashMap();
 		
 		map.put("category", category);
-		map.put("score", score);
-		map.put("review", review);
+		map.put("sortType", sortType);
 		map.put("search", search);
+		
+		System.out.println("==========filter==========");
+		System.out.println("====정렬순====");
+		System.out.println(sortType);
+		
+		System.out.println("====검색====");
+		System.out.println(search);
+		
+		
 		
 		int totalData = service.selectMenuCount(map);
 		
 		List<Store> storeList = service.selectMenuListFilter(cPage, numperPage, map);
 		
+		System.out.println("=====list 출력 =====");
+		for(Store s : storeList) {
+			System.out.println(s);
+		}
+		
 		map.put("cPage", cPage);
 		map.put("list", storeList);
 		
-		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category));
+		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category, search, sortType));
 		
 		return map;
 	}

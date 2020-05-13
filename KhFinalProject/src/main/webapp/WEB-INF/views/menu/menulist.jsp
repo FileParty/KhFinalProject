@@ -79,8 +79,8 @@
 					    </button>
 					    
 					   <div class="dropdown">
-	                   <button class="dropdown-toggle mr-3 ldBtnC bg-white text-dark rounded" type="button" id="lo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                        	기본 정렬순
+	                   <button class="dropdown-toggle mr-3 ldBtnC bg-white text-dark rounded" type="button" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                        	${sortType!=null?sortType:'기본 정렬순'}
 	                   </button>
 	                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                        <a class="dropdown-item" href="#">기본 정렬순</a>
