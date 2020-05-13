@@ -14,7 +14,7 @@
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
 		<if test="search != null and search != ''">
-			and s_name LIKE '%'||#{name}||'%'
+			and s_name LIKE '%'||#{search}||'%'
 		</if>
 		<if test="review != null and review != ''">
 			order by S_REVIEWCOUNT DESC
@@ -30,7 +30,7 @@
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
 		<if test="search != null and search != ''">
-			and s_name LIKE '%'||#{name}||'%'
+			and s_name LIKE '%'||#{search}||'%'
 		</if>
 	</select>
 	

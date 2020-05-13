@@ -176,14 +176,16 @@
 			
 		console.log(category);
 		$.ajax({
-			url:"${pageContext.request.contextPath}/menu/search.do",
+			url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 			data: {
-				"name":name,
-				"category":category	
+				"search":name,
+				"menuCategory":category	
 			},
 			success: function(data){
 				
-				$("#search-name").html(name);
+				console.log(data['list']);
+				console.log(data['pageBar']);
+						
 				
 				//row
 				for(var i=1; i<=5; i++){
@@ -196,10 +198,14 @@
 					$(".category-"+i).addClass("d-flex");
 				}
 				
-				
-				$.each(data, function(i,v){					
-					for(var i=0; i<v.length; i++){
-						var info = v[i];							
+				 $.each(data['list'], function(i,v){		
+					 console.log(v);
+					 console.log(data['list'].length);
+					 console.log(v.length);
+					
+						console.log(v)
+						var info = v;	
+						console.log(info);
 						//로고 이미지
 						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
 						
@@ -217,27 +223,32 @@
 						
 						//배달 시간
 						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
-					}
+						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');									
+				}); 
+				 
+				//unvisibility 처리
+					var length = data['list'].length;
+					if(length=="") length=0;
+					console.log(length);
 					
-					//unvisibility 처리
-					for(var i=v.length; i<10; i++){			
-						$('.category-'+i).addClass('invisible')
+					for(var i=length; i<10; i++){			
+						$('.category-'+i).addClass('invisible');
 					}
 					
 					//d-none 처리
-					if(v.length%2==0){
-						for(var i=parseInt(v.length/2)+1; i<=5; i++){
+					if(length%2==0){
+						for(var i=parseInt(length/2)+1; i<=5; i++){
 							$('.category-row-'+i).addClass('d-none');
 						}
 					}else{
-						for(var i=parseInt(v.length/2)+2; i<=5; i++){
+						for(var i=parseInt(length/2)+2; i<=5; i++){
 							$('.category-row-'+i).addClass('d-none');
 						}
 					}
-				});
+					$(".page-bar").empty();						
+					$(".page-bar").append(data['pageBar']);
 			}
-		})
+		});
 	});
 	
 	

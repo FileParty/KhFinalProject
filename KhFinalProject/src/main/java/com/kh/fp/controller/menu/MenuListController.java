@@ -99,8 +99,6 @@ public class MenuListController {
 		map.put("cPage", cPage);
 		map.put("list", storeList);
 		
-		String script = "";
-		
 		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category));
 		
 		return map;
