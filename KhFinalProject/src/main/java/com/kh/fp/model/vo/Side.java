@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 public class Side {
 	
 	private int sd_no;
-	private String[] sd_name;
-//	private String[] sd_name2;
-	private int[] sd_price;
-//	private int[] sd_price2;
+	private String sd_name;
+	private int sd_price;
 	private int s_no;
 	private String sd_division;
 }

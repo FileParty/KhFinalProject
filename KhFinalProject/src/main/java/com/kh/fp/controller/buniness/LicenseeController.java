@@ -1,6 +1,7 @@
 package com.kh.fp.controller.buniness;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.fp.model.vo.Side;
 import com.kh.fp.service.buniness.LicenseeService;
 
 
@@ -47,29 +50,34 @@ public class LicenseeController {
 		
 		return "business/menuEnroll";
 	}
+	@RequestMapping("/licensee/selectOption")
+	@ResponseBody
+	public List<Side> selectOption() {
+		int sNo = 1;
+		List<Side> list = service.selectOption(sNo);
+		
+		return list;
+	}
 	@RequestMapping("/licensee/optionEnroll")
 	public String optionEnroll(HttpServletRequest req) {
 		//추가옵션등록
 		String[] ess = req.getParameterValues("sd_name");
 		String[] price = req.getParameterValues("sd_price");
-		String div = req.getParameter("sd_division");
+		String[] division = req.getParameterValues("sd_division");
+		
 		int[] prc = new int[price.length];
-		List<Map<String,Object>> list = new ArrayList();
-		Map<String,Object> map = new HashedMap();
-		for(int i=0;i<ess.length;i++) {
+		for(int i=0;i<price.length;i++) {
 			prc[i] = Integer.parseInt(price[i]);
 		}
+
 		for(int i=0;i<ess.length;i++) {
-		map.put("sd_name",ess[i]);
-		map.put("sd_price",prc[i]);
-		map.put("sd_division",div);
-		list.add(map);
-		System.out.println(list.get(i));
+			Map<String, Object> map = new HashMap();
+			map.put("sd_name",ess[i]);
+			map.put("sd_price",prc[i]);
+			map.put("sd_division",division[i]);
+			int result = service.insertSide(map);
 		}
-		
-		System.out.println("map"+map);
-		int result = service.insertSide(list);
-		
+
 		return "";
 	}
 	

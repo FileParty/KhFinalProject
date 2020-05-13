@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.LicenseeDao;
+import com.kh.fp.model.vo.Side;
 
 @Service
 public class LicenseeServiceImpl implements LicenseeService {
@@ -17,10 +18,24 @@ public class LicenseeServiceImpl implements LicenseeService {
 	@Autowired
 	private SqlSessionTemplate session;
 	@Override
-	public int insertSide(List<Map<String,Object>> map) {
+	public int insertSide(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return dao.insertSide(session,map);
+		return dao.insertSide(session, map);
+	}
+	@Override
+	public List<Side> selectOption(int sNo) {
+		// TODO Auto-generated method stub
+		
+		return dao.selectOption(session,sNo);
 	}
 	
 	
+	
 }
+	
+	
+
+	
+	
+	
+

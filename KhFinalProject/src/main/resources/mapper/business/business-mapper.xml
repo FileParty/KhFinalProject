@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="business">
-	<insert id="insertSide" parameterType="java.util.HashMap">
-		<if test="list.size !=0 ">
-		INSERT INTO SIDE(SD_NO,SD_NAME,SD_PRICE,S_NO,SD_DIVISION)
-		SELECT SEQ_SIDE_NO.NEXTVAL,A.* FROM(
-		<foreach collection="list" item="item" separator="UNION ALL">
-		SELECT
-			#{item.sd_name},
-			#{item.sd_price},
-			1,
-			#{item.sd_division}
-			FROM DUAL
-		</foreach>) A
-		</if>
+	<insert id="insertSide" parameterType="java.util.Map">
+		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},1,#{sd_division})	
 	</insert>
+	<select id="selectOption" resultType="com.kh.fp.model.vo.Side" parameterType="_int">
+		SELECT * FROM SIDE WHERE S_NO = #{s_no}
+	</select>
 </mapper>
