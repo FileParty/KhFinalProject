@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <script>
 
 function getroadAddr(){
@@ -7,6 +8,7 @@ function getroadAddr(){
 	if (!checkSearchedWord(document.form.keyword)) {
 		return ;
 	}
+
 
 	$.ajax({
 		 url :"http://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  //인터넷망
@@ -20,10 +22,16 @@ function getroadAddr(){
 			var errDesc = jsonStr.results.common.errorMessage;
 			if(errCode != "0"){
 				alert("주소를 다시입력해주세요");
-				$("#list").css("display","none");
+				$("#list").css("visibility","hidden");
+				$("#list").css("z-index","-1");
 			}else{
 				if(jsonStr != null){
-					$("#list").css("display","flex");
+					$("#list").css("visibility","hidden");
+					if(!jsonStr.results.juso.length==0){
+						$("#list").css("visibility","visible");
+					}
+					
+					$("#list").css("z-index","2");
 					makeListJson(jsonStr);
 					
 				}
@@ -36,7 +44,9 @@ function getroadAddr(){
 }
 
 
-function getXY(i){
+function getXY(i,data){
+	data=data.replace(/§/gi," ");
+	console.log(data);
 	$.ajax({
 		 url :"http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
 		,type:"post"
@@ -44,18 +54,13 @@ function getXY(i){
 		,dataType:"jsonp"
 		,crossDomain:true
 		,success:function(xmlStr){
-			console.log(xmlStr.results.juso[0].entX);
-			console.log(xmlStr.results.juso[0].entY);
-			/* $("#list2").html("");
-		
-			var htmlStr = "";
-			htmlStr += "<table>";
-			htmlStr += "<tr>";
-			htmlStr += "<td>"+xmlStr.results.juso[0].entX+"</td>";
-			htmlStr += "<td>"+xmlStr.results.juso[0].entY+"</td>";
-			htmlStr += "</tr>";
-			htmlStr += "</table>";
-			$("#list2").html(htmlStr); */
+			var x= xmlStr.results.juso[0].entX;
+			var y =xmlStr.results.juso[0].entY;
+			$("#keyword").prop("value",data);
+			$("#xl").attr("value",x);
+			$("#yl").attr("value",y);
+			$("#list").css("visibility","hidden");
+			$("#list").css("z-index","-1");
 		}
 	    ,error: function(xhr,status, error){
 	    	alert("에러발생");
@@ -72,7 +77,7 @@ function makeListJson(jsonStr){
 	htmlStr += "<table>";
 	$(jsonStr.results.juso).each(function(){
 		htmlStr += "<tr>";
-		htmlStr += "<td onclick='getXY("+i+");' class='search-autosearch'><div><strong>"+this.jibunAddr+"</strong><br>[도로명 주소]"+this.roadAddr+"</div><hr/></td>";
+		htmlStr += "<td onclick=getXY("+i+",\'"+this.jibunAddr.replace(/ /gi,'§')+"\'); class='search-autosearch'><div><strong>"+this.jibunAddr+"</strong><br>[도로명 주소]"+this.roadAddr+"</div><hr/></td>";
 		htmlStr += "<td>";
 		htmlStr += "<form name='form"+i+"' id='form"+i+"' method='post'>";
 		htmlStr += "<input type='hidden' name='resultType' value='json'/>";
@@ -122,6 +127,39 @@ function checkSearchedWord(obj){
 		}
 	}
 	return true ;
+}
+
+function enterSearch() {
+	var evt_code = (window.netscape) ? ev.which : event.keyCode;
+	if (evt_code == 13) {
+		event.keyCode = 0;  
+		 getroadAddr();
+	} 
+}
+
+function selectCategory(data){
+	$("#category").attr("value",data);
+	var x = $("#xl").val().length;
+	var y= $("#yl").val().length;
+	console.log(data);
+	if(!(x==0 || y==0)){
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do");
+	}else{
+		alert("주소를 입력해주세요");
+	}
+	
+}
+
+function getbrowserxy(){
+	navigator.geolocation.getCurrentPosition(function(pos) {
+	    var latitude = pos.coords.latitude;
+	    var longitude = pos.coords.longitude;
+	    $("#list").css("visibility","hidden");
+	    $("#xl").attr("value",latitude);
+		$("#yl").attr("value",longitude);
+		$("#keyword").prop("value","현재 위치 입니다");
+	});
+
 }
 
 

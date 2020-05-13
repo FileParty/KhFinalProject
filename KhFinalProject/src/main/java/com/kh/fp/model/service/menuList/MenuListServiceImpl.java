@@ -19,19 +19,28 @@ public class MenuListServiceImpl implements MenuListService {
 	
 	@Autowired
 	private SqlSessionTemplate session;
+
+	//페이지 전환
+	@Override
+	public List<Store> selectMenuList(int cPage, int numperPage, Map map) {
+		// TODO Auto-generated method stub
+		return dao.selectMenuList(session, cPage, numperPage, map);
+	}
 	
+	//filter
 	@Override
-	public List<Store> selectMenuList() {
+	public List<Store> selectMenuListFilter(int cPage, int numperPage, Map map) {
 		// TODO Auto-generated method stub
-		return dao.selectMenuList(session);
+		return dao.selectMenuListFilter(session, cPage, numperPage, map);
 	}
 
+	//totalData
 	@Override
-	public List<Store> selectMenuList(String category) {
+	public int selectMenuCount(Map map) {
 		// TODO Auto-generated method stub
-		return dao.selectMenuList(session, category);
+		return dao.selectMenuCount(session, map);
 	}
-
+	
 	@Override
 	public Review selectReview(int s_no) {
 		// TODO Auto-generated method stub
@@ -44,6 +53,8 @@ public class MenuListServiceImpl implements MenuListService {
 		// TODO Auto-generated method stub
 		return dao.selectMenuList(session, map);
 	}
+
+	
 
 	
 	
