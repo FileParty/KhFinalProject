@@ -3,24 +3,32 @@
 <mapper namespace="menuList">
 	<select id="selectMenuList" resultType="menuList" parameterType="map">
 		select * from store where 1=1
-		<if test="category != null and category != '' and category != '전체'">
+		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
+		</if>
+		<if test="search != null and search != '' and search != 'null'">
+			and s_name LIKE '%'||#{search}||'%'
+		</if>
+		<if test="sortType != null and sortType != '' and sortType=='리뷰순' and sortType != 'null'">
+			order by S_REVIEWCOUNT DESC
+		</if>
+		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
+			order by S_SCORE DESC
 		</if>
 	</select>
 	
 	<select id="selectMenuListFilter" resultType="menuList" parameterType="map">
 		select * from store where 1=1
-		and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
-		<if test="category != null and category != ''">
+		<if test="category != null and category != '' and category != '전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
-		<if test="search != null and search != ''">
-			and s_name LIKE '%'||#{name}||'%'
+		<if test="search != null and search != '' and search != 'null'">
+			and s_name LIKE '%'||#{search}||'%'
 		</if>
-		<if test="review != null and review != ''">
+		<if test="sortType != null and sortType != '' and sortType=='리뷰순' and sortType != 'null'">
 			order by S_REVIEWCOUNT DESC
 		</if>
-		<if test="score != null and score != ''">
+		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
 			order by S_SCORE DESC
 		</if>
 	</select>
@@ -30,8 +38,8 @@
 		<if test="category != null and category != '' and category!= '전체'"> 
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
-		<if test="search != null and search != ''">
-			and s_name LIKE '%'||#{name}||'%'
+		<if test="search != null and search != '' and search != 'null'">
+			and s_name LIKE '%'||#{search}||'%'
 		</if>
 	</select>
 	

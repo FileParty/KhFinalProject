@@ -19,5 +19,7 @@ public class StoreMenu {
 	private String me_text;
 	private String me_best;
 	private int s_no;
-			
+	private int side_count;
+	private List<StoreMenuSide> side;
+	
 }

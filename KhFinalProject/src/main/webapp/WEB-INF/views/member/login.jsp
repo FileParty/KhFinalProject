@@ -5,13 +5,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <section>
 	<div class="container">
 		<div class="login-container d-flex justify-content-center">
 			<div class="login-form" style="width:400px; border:1px solid black; border-radius:5%; margin:100px;">
 				<div class="login-category d-flex">
-					<div class="text-center" style="width:200px; border:1px solid black;"><button class="btn member-login" onclick="memberLogin();">일반인</button></div>
-					<div class="text-center" style="width:200px; border:1px solid black;"><button class="btn ceo-login" onclick="ceoLogin();">사업자</button></div>
+					<div class="text-center member-login" style="width:200px; border:1px solid black;">일반인</div>
+					<div class="text-center business-login" style="width:200px; border:1px solid black;">사업자</div>
 				</div>
 				<div class="member-login-container d-flex justify-content-center flex-wrap text-center">
 					<form action="${path}/member/memberLogin.do" method="post">
@@ -20,10 +21,10 @@
 						</div>
 						<table>
 							<tr>
-								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력"></td>
+								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력" required></td>
 							</tr>
 							<tr>
-								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력"></td>
+								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력" required></td>
 							</tr>	
 						</table>
 						<div class="d-flex justify-content-between" style="margin-top:30px;">
@@ -44,17 +45,17 @@
 						<span>배달킹이 처음이신가요? <a href="${path }/member/enroll.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
-				<div class="ceo-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
+				<div class="business-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
 					<form action="${path}/member/businessLogin.do" method="post">
 						<div class="login-title">
 							<img src="${pageContext.request.contextPath}/resources/img/요기요.png">
 						</div>
 						<table>
 							<tr>
-								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력"></td>
+								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력" required></td>
 							</tr>
 							<tr>
-								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력"></td>
+								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력" required></td>
 							</tr>	
 						</table>
 						<div class="d-flex justify-content-between" style="margin-top:30px;">
@@ -76,16 +77,18 @@
 		</div>
 	</div>
 	<script>
-		function memberLogin(){
-			$(".member-login-container").show();
-			$(".ceo-login-container").hide();
-		}
-		function ceoLogin(){
-			$(".member-login-container").hide();
-			$(".ceo-login-container").show();
-		}
-		
+		//사업자 로그인 div를 숨기고 일반인 로그인 div를 보여주는 기능
+		$(".member-login").click(()=>{	
+			$(".member-login-container").attr("style","display:block !important");
+			$(".business-login-container").attr("style","display:none !important"); 
+		});
+		//일반인 로그인 div를 숨기고 사업자 로그인 div를 보여주는 기능	
+		$(".business-login").click(()=>{
+			$(".member-login-container").attr("style","display:none !important");
+			$(".business-login-container").attr("style","display:block !important");	
+		});
 	</script>
+	
 </section>
 
 

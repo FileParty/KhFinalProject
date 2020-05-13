@@ -121,6 +121,7 @@ public class MemberController {
 
 	}
 	
+	//사업자 로그인
 	@RequestMapping("/member/businessLogin.do")
 	public String businessLogin(String userId,String userPw,Model md,HttpSession session) {
 		
