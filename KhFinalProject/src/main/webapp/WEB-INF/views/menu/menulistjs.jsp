@@ -12,7 +12,16 @@
 	<script>
 
 	$(function(){
-				
+		
+		//페이지 로드되었을 때 메뉴-ul active 추가
+		$(".list-group-item").siblings().removeClass("active");
+		
+		$.each($(".list-group-item"), function(i,v){			
+			if($(v).html()=='${category}'){
+				$(v).addClass("active");
+			}
+		});	
+		
 		$(".category").hover(function(){
 			/* $(this).find("h2").css("background-color", "black");
 			$(this).find("h2").css("color", "white"); */
@@ -71,7 +80,9 @@
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
-				data: {"menuCategory":menuCategory},
+				data: {
+					"menuCategory":menuCategory
+				},
 				success: function(data){
 					
 					console.log(data['list']);
@@ -79,6 +90,8 @@
 					
 					$(e.target).siblings().removeClass("active");
 					$(e.target).addClass("active");					
+					
+					console.log(data['pageBar']);
 					
 					//row
 					for(var i=1; i<=5; i++){
@@ -125,7 +138,7 @@
 						console.log(length);
 						
 						for(var i=length; i<10; i++){			
-							$('.category-'+i).addClass('invisible')
+							$('.category-'+i).addClass('invisible');
 						}
 						
 						//d-none 처리
@@ -139,7 +152,8 @@
 							}
 						}
 						
-						
+						$(".page-bar").empty();						
+						$(".page-bar").append(data['pageBar']);
 				}
 			});
 			

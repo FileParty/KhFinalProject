@@ -205,7 +205,7 @@
 		 </c:forEach>			
 		</div>
 		
-		<div class="container mt-3">
+		<div class="container mt-3 page-bar">
 		<!-- <div class="row justify-content-center">
 			<nav aria-label="..." class="justify-content-center">
 			  <ul class="pagination">

@@ -39,8 +39,8 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage,
-			@RequestParam(required=false, defaultValue="") double xl,
-			@RequestParam(required=false, defaultValue="") double yl
+			@RequestParam(required=false, defaultValue="0") double xl,
+			@RequestParam(required=false, defaultValue="0") double yl
 			) {		
 		
 		System.out.println("====카테고리====");
@@ -65,6 +65,8 @@ public class MenuListController {
 		int totalData = service.selectMenuCount(map);
 		
 		m.addAttribute("list", storeList);
+		m.addAttribute("category", category);
+		
 		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category));
 			
 		
@@ -94,8 +96,12 @@ public class MenuListController {
 		
 		List<Store> storeList = service.selectMenuListFilter(cPage, numperPage, map);
 		
+		map.put("cPage", cPage);
 		map.put("list", storeList);
-		map.put("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/menu/menuCategory.do"));
+		
+		String script = "";
+		
+		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category));
 		
 		return map;
 	}
