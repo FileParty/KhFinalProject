@@ -7,7 +7,9 @@
   <select id="selectMemberPay" parameterType="_int" resultType="memberSH">
   	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
   </select>
-  
+  <select id="selectMember" parameterType="string" resultType="member">
+     SELECT * FROM MEMBER WHERE M_ID = #{userId}
+  </select>
   
   
 
