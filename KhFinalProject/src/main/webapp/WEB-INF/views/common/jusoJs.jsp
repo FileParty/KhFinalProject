@@ -157,12 +157,14 @@ function getbrowserxy(){
 	    $("#list").css("visibility","hidden");
 	    $("#xl").attr("value",latitude);
 		$("#yl").attr("value",longitude);
-		$("#keyword").prop("value","현재 위치 입니다");
+		$("#keyword").prop("value","현재 위치");
 	});
 
 }
 
-
+$(".location-button").hover(function(){
+    $('.toast').toast('show');
+  });
 
 
 
