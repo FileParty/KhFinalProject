@@ -138,12 +138,16 @@ function enterSearch() {
 }
 
 function selectCategory(data){
-	$("#category").attr("value",data);
+	
 	var x = $("#xl").val().length;
 	var y= $("#yl").val().length;
-	console.log(data);
+	
+	var val = data;
+	
 	if(!(x==0 || y==0)){
-		location.replace("${pageContext.request.contextPath }/menu/menuList.do");
+		var x = $("#xl").val();
+		var y= $("#yl").val()
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y);
 	}else{
 		alert("주소를 입력해주세요");
 	}
