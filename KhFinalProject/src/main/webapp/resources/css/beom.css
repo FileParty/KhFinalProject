@@ -315,3 +315,44 @@ border-radius: 34px;
 .slider.round:before {
 border-radius: 50%;
 }
+
+/* modal */
+div.menu-modal-footer{
+	padding:0px;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+}
+
+div.menu-modal-header{
+	padding:6px;
+	padding-right:10px;
+}
+
+div.menu-modal-content{
+	overflow-y:scroll;
+}
+
+div.menu-modal-content-text{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	text-align:center;
+}
+
+button.menu-modal-footer-button{
+	text-align:center;
+	color:white;
+	width:50%;
+	height:40px;
+	margin:0px;
+}
+
+button.menu-modal-header-close{
+	padding:0px;
+	border:0px;
+	background-color:white;
+	font-size:26px;
+	font-weight: 800;
+}
+

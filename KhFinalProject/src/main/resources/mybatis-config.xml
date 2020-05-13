@@ -14,6 +14,8 @@
 		<typeAlias type="com.kh.fp.model.vo.StoreCategory" alias="storeDetailCategory"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreMenu" alias="storeDetailMenu"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreMenuSide" alias="storeMenuSide"/>
 
 
 	</typeAliases>

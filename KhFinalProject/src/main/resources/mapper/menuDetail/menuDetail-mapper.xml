@@ -11,4 +11,13 @@
 	<select id="selectStoreDetailBestMenu" parameterType="_int" resultType="storeDetailMenu">
 		SELECT * FROM MENU WHERE S_NO=#{no} AND ME_BEST='Y'
 	</select>
+	<select id="selectCategoryMenu" parameterType="_int" resultType="storeDetailMenu">
+		SELECT * FROM MENU WHERE MT_NO=#{no}
+	</select>
+	<select id="selectMenuDetail" parameterType="_int" resultType="storeDetailMenu">
+		SELECT M.*, (SELECT COUNT(*) FROM MENU_SIDE WHERE ME_NO=#{no}) AS SIDE_COUNT FROM MENU M WHERE ME_NO=#{no}
+	</select>
+	<select id="selectMenuDetailSide" parameterType="_int" resultType="storeMenuSide">
+		SELECT * FROM SIDE WHERE SD_NO IN(SELECT SD_NO FROM MENU_SIDE WHERE ME_NO=#{no})
+	</select>
 </mapper>
