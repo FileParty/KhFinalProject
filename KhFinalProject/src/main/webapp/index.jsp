@@ -63,7 +63,7 @@
 					<div>
 						<input type="hidden" value="" name="xl" id="xl"/>
 						<input type="hidden" value="" name="yl" id="yl"/>
-						<input type="hidden" value="" name="menuCategory" id="category"> 
+			
 					</div>
 				</div>
 				

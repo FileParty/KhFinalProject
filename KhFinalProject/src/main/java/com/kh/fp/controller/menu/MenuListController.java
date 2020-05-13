@@ -38,8 +38,16 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="") String review,
 			@RequestParam(required=false, defaultValue="") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="10") int numperPage
+			@RequestParam(required=false, defaultValue="10") int numperPage,
+			@RequestParam(required=false, defaultValue="") double xl,
+			@RequestParam(required=false, defaultValue="") double yl
 			) {		
+		
+		System.out.println("====카테고리====");
+		System.out.println(category);
+		
+		System.out.println("xl"+ xl);
+		System.out.println("yl"+ yl);
 		
 		Map map = new HashMap();
 		map.put("category", category);
