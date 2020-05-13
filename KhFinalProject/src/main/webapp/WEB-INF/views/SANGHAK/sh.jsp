@@ -125,9 +125,98 @@
  
     <h4>배송지 정보</h4> 
     <div style="display:flex; justify-content:center;padding-left: 490px;">
-          <!-- <button id="checkbox" onchange="check1(this)" style="background-color: black;color:white;padding: 5px;">주문자 정보와 동일</button> -->
-          <input type="checkbox" name="checkbox" id="checkbox" onchange="check1(this)">&nbsp;주문자 정보와 동일하면 체크해주세요
+          <label for="cbx" class="label-cbx">
+      <input id="cbx" type="checkbox" class="invisible" onchange="check1(this)" required>
+      <div class="checkbox">
+        <svg width="20px" height="20px" viewBox="0 0 20 20">
+          <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+          <polyline points="4 11 8 15 16 6"></polyline>
+        </svg>
+      </div>
+   <span style="padding-top:-30px;">주문자 정보와 동일하면 체크해주세요</span>
+    </label>
     </div>
+  
+  
+    <style>
+    .label-cbx {
+  user-select: none;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.label-cbx input:checked + .checkbox {
+  border-color: #20C2E0;
+}
+.label-cbx input:checked + .checkbox svg path {
+  fill: #20C2E0;
+}
+.label-cbx input:checked + .checkbox svg polyline {
+  stroke-dashoffset: 0;
+}
+.label-cbx:hover .checkbox svg path {
+  stroke-dashoffset: 0;
+}
+.label-cbx .checkbox {
+  position: relative;
+  top: 2px;
+  float: left;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #C8CCD4;
+  border-radius: 3px;
+}
+.label-cbx .checkbox svg {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+.label-cbx .checkbox svg path {
+  fill: none;
+  stroke: #20C2E0;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 71px;
+  stroke-dashoffset: 71px;
+  transition: all 0.6s ease;
+}
+.label-cbx .checkbox svg polyline {
+  fill: none;
+  stroke: #FFF;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18px;
+  stroke-dashoffset: 18px;
+  transition: all 0.3s ease;
+}
+.label-cbx > span {
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+.cntr {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.invisible {
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+    #checkbox{
+     	width:15px;
+     	height:15px;
+
+    }
+    </style>
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
@@ -280,38 +369,6 @@
 
 
   </div>
-<script type="text/javascript">
-window.onload = function() {
-	document.getElementById("allpay").onclick = function() { 
-        document.getElementById("show").innerText = "안녕하신가";
-    }
-
-}
-
-</script>
-<!-- function check1(f){
-
-    if (f.checked) {
-
-      $('#name_2').val($('#name_1').val());
-
-      $('#phone_2').val($('#phone_1').val());
-     
-
-    } else{
-
-    $('#name_2').val('');
-
-    $('#phone_2').val('');
-
-      }
-
-    }
- -->
-
-
-
-
 
 
   <div style="margin-top:75px;" >
