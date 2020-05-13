@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<%
+	session.setAttribute("userId", "user01");
+%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <style>
 	    /*중복아이디체크관련*/
@@ -14,6 +17,8 @@
 </style>
 
 <section>
+
+	
 
     <div class="row">
         <div class="col-md-1"></div>

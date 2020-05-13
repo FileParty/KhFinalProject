@@ -69,7 +69,7 @@ a.btn {
   display: block;
   margin: 50% 0 0 -300px;
   position: relative;
-  top: 50%; 
+  top: 37%; 
   left: 50%;
   background: #fff;
   opacity: 0;
@@ -118,6 +118,13 @@ a.btn {
   padding-left: 14px;
   text-align: center;
 }
+.modal-bottom{
+  width: 100%;
+  background-color: #e2525c;
+  color:white;
+  padding: 14px;
+  margin-top: 13px;
+}
 </style>
 
 </head>
@@ -156,10 +163,12 @@ a.btn {
           ■ 메뉴  :  <b style="font-size:large;"><br>클래식 치즈판타지L 세트</b><br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┕ 고르곤졸라치즈볼+펩시1.25L<br>
           ■ 요청사항  :  도착하시면 전화주세요.<br>
-          ■ 배달 주소  :  경기도 부천시 송내동<br><br>
+            ■ 배달 주소  :  경기도 부천시 송내동<br><br>
         </div>
-
-
+         <div >
+          <button class="modal-bottom" onclick="location.replace('${path }')">홈페이지로 돌아가기</button>
+        </div>
+            
           </div>
 
           

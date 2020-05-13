@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>	
 		<typeAlias type="com.kh.fp.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.fp.model.vo.Business" alias="business"/>
 
 
 		<!-- <typeAlias type="com.kh.fp.model.vo.MenuList" alias="menuList"/> -->
@@ -17,6 +18,8 @@
 		<typeAlias type="com.kh.fp.model.vo.StoreCategory" alias="storeDetailCategory"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreMenu" alias="storeDetailMenu"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreMenuSide" alias="storeMenuSide"/>
 
 
 	</typeAliases>
