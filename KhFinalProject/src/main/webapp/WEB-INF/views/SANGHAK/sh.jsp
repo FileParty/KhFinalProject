@@ -163,8 +163,8 @@
 <tr>
 <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
 
-  <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-    <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">쿠폰변경</button> 
+  <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" readonly>&nbsp;&nbsp;원&nbsp; 
+    <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">쿠폰적용</button> 
     <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
     <br> 
   </td>
@@ -181,14 +181,12 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:45px;background-color:rgb(243, 243, 243);text-align:right;" value="2500">&nbsp;&nbsp;원&nbsp; 
-        <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);	">전액사용</button> 
-        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;"> &nbsp;${loginMember['m_point']}  point</p>)</div>
-        <br> 
+      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="2500"readonly>&nbsp;&nbsp;원&nbsp; 
+    <br> 
       </td>
     </tr>
  
-    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 30,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
+    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 80,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
 </table>
 <div style="display:flex; justify-content:center;padding-left: 550px;">
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
