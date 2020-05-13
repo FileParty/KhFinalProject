@@ -81,6 +81,7 @@
 					console.log(data['list']);
 					console.log(data['pageBar']);
 					$("#sort").html('기본 정렬순');
+					$("#search-name").val('');
 					$(e.target).siblings().removeClass("active");
 					$(e.target).addClass("active");					
 					
