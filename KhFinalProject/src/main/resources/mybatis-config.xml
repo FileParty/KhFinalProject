@@ -12,7 +12,7 @@
 		<typeAlias type="com.kh.fp.model.vo.Store" alias="menuList"/>
 		<typeAlias type="com.kh.fp.model.vo.Review" alias="review"/>
 		<typeAlias type="com.kh.fp.model.vo.Member_SH" alias="memberSH"/>
-		
+		<typeAlias type="com.kh.fp.model.vo.Coupon_SH" alias="CouponSH"/>
 		<typeAlias type="com.kh.fp.model.vo.StoreDetailInfo" alias="storeDetail"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreCategory" alias="storeDetailCategory"/>

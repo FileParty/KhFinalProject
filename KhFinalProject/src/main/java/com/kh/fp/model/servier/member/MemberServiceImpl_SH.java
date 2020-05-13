@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.member.MemberDao_SH;
+import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member_SH;
 
 @Service
@@ -18,10 +19,16 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 	private SqlSessionTemplate session;
 
 	@Override
-	public Object selectMemberPay(int m_no) {
+	public List<Coupon_SH> selectCoupon() {
 		// TODO Auto-generated method stub
-		return dao.selectMemberPay(session,m_no);
+		return dao.selectCoupon(session);
 	}
+
+//	@Override
+//	public Object selectMemberPay(int m_no) {
+//		// TODO Auto-generated method stub
+//		return dao.selectMemberPay(session,m_no);
+//	}
 
 
 
