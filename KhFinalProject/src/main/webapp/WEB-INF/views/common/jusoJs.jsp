@@ -26,7 +26,11 @@ function getroadAddr(){
 				$("#list").css("z-index","-1");
 			}else{
 				if(jsonStr != null){
-					$("#list").css("visibility","visible");
+					$("#list").css("visibility","hidden");
+					if(!jsonStr.results.juso.length==0){
+						$("#list").css("visibility","visible");
+					}
+					
 					$("#list").css("z-index","2");
 					makeListJson(jsonStr);
 					
@@ -145,6 +149,21 @@ function selectCategory(data){
 	}
 	
 }
+
+function getbrowserxy(){
+	navigator.geolocation.getCurrentPosition(function(pos) {
+	    var latitude = pos.coords.latitude;
+	    var longitude = pos.coords.longitude;
+	    $("#list").css("visibility","hidden");
+	    $("#xl").attr("value",latitude);
+		$("#yl").attr("value",longitude);
+		$("#keyword").prop("value","현재 위치 입니다");
+	});
+
+}
+
+
+
 
 
 </script>
