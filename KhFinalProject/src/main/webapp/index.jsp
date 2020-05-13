@@ -36,7 +36,7 @@
 			
 				<div class="index-search">	
 				
-					<div class="search-btn"><button class="location-button"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
+					<div class="search-btn"><button class="location-button" onclick="getbrowserxy();"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
 					
 					<div>
 						<form name="form" id="form" method="post"  onsubmit="return false">
@@ -45,7 +45,7 @@
 							<input type="hidden" name="resultType" value="json"/> 
 							<input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDIwMDUxMjIwMDA0MTEwOTc1MjQ="/>
 							<div class="keyword-box">
-								<input type="text" name="keyword" id="keyword" value="" onkeydown="enterSearch();" size="40px"/>
+								<input type="text" name="keyword" id="keyword" value="" onkeydown="enterSearch();" autocomplete="off" size="40px"/>
 								<input type="button" onClick="getroadAddr();" class="btn btn-success"  value="검색" />
 							</div>
 						</form>
@@ -59,7 +59,7 @@
 					<div>
 						<input type="hidden" value="" name="xl" id="xl"/>
 						<input type="hidden" value="" name="yl" id="yl"/>
-						<input type="hidden" value="1" name="category" id="category"> 
+						<input type="hidden" value="" name="menuCategory" id="category"> 
 					</div>
 				</div>
 				
