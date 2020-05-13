@@ -94,13 +94,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${list['m_name']}" readonly><br>
+            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_name']}" readonly><br>
 		           <span id="result"></span> 
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${list['m_phone']}"readonly>
+            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -167,7 +167,7 @@
   <td style="padding-right:40px;">빠짐 포인트</td>
     <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
       <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
-      <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
+      <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">&nbsp;${loginMember['m_point']}  point</p>)</div>
       <br>
     </td>
   </tr>
@@ -176,7 +176,7 @@
     <td style="padding-right:40px;">배송비</td>
       <td width="680px"><input type="text" style="width:200px;height:45px;background-color:rgb(243, 243, 243);text-align:right;" value="2500">&nbsp;&nbsp;원&nbsp; 
         <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);	">전액사용</button> 
-        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
+        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;"> &nbsp;${loginMember['m_point']}  point</p>)</div>
         <br> 
       </td>
     </tr>
