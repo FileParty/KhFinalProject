@@ -137,9 +137,9 @@ function selectCategory(data){
 	$("#category").attr("value",data);
 	var x = $("#xl").val().length;
 	var y= $("#yl").val().length;
-	
+	console.log(data);
 	if(!(x==0 || y==0)){
-		location.replace("{pageContext.request.contextPath}/menu/menuList.do");
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do");
 	}else{
 		alert("주소를 입력해주세요");
 	}

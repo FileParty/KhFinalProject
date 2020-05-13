@@ -66,44 +66,44 @@
 			
 			<div class="index-category-list  flex-wrap">
 			
-					<div class="index-category-img" onclick="selectCategory(0);">
+					<div class="index-category-img" onclick="selectCategory('전체');">
 							<div class="index-category-title">전체보기</div>
 							<img src="${path }/resources/img/all.jpg" alt="전체보기" width="100%" height="210px">	
 					</div>
 			
 				
-					<div class="index-category-img" onclick="selectCategory(1);">
+					<div class="index-category-img" onclick="selectCategory('치킨');">
 							<div class="index-category-title">치킨</div>
 							<img src="${path }/resources/img/chicken.png" alt="치킨" width="100%" height="210px">	
 					</div>
 					
-					<div class="index-category-img" onclick="selectCategory(2);">
+					<div class="index-category-img" onclick="selectCategory('피자');">
 							<div class="index-category-title">피자</div>
 							<img src="${path }/resources/img/pizza.png" alt="피자" width="100%" height="210px">	
 					</div>
 					
 					
-					<div class="index-category-img" onclick="selectCategory(3);">
+					<div class="index-category-img" onclick="selectCategory('중국집');">
 							<div class="index-category-title">중국집</div>
 							<img src="${path }/resources/img/Jajangmyeon.png" alt="중국집" width="100%" height="210px">	
 					</div>
 					
-					<div class="index-category-img" onclick="selectCategory(4);">
+					<div class="index-category-img" onclick="selectCategory('분식');">
 							<div class="index-category-title">분식</div>
 							<img src="${path }/resources/img/chicken.png" alt="분식" width="100%" height="210px">	
 					</div>
 						
-					<div class="index-category-img" onclick="selectCategory(5);">
+					<div class="index-category-img" onclick="selectCategory('한식');">
 							<div class="index-category-title">한식</div>
 							<img src="${path }/resources/img/korea.png" alt="한식" width="100%" height="210px">
 					</div>
 					
-					<div class="index-category-img" onclick="selectCategory(6);">
+					<div class="index-category-img" onclick="selectCategory('햄버거');">
 							<div class="index-category-title">햄버거</div>
 							<img src="${path }/resources/img/hamburger.png" alt="햄버거" width="100%" height="210px">	
 					</div>
 					
-					<div class="index-category-img" onclick="selectCategory(7);">
+					<div class="index-category-img" onclick="selectCategory('일식');">
 							<div class="index-category-title">일식</div>
 							<img src="${path }/resources/img/Japan.jpg" alt="일식" width="100%" height="210px">
 					</div>
