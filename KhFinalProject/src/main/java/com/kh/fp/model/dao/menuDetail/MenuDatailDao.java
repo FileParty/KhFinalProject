@@ -17,6 +17,10 @@ public interface MenuDatailDao {
 
 	List<StoreMenu> selectStoreDetailBestMenu(SqlSessionTemplate session, int no);
 
-	List<StoreMenuSide> selectMenuSides(SqlSessionTemplate session, StoreMenu sm);
+	List<StoreMenu> selectCategoryMenu(SqlSessionTemplate session, int no);
+
+	StoreMenu selectMenuDetail(SqlSessionTemplate session, int no);
+
+	List<StoreMenuSide> selectMenuDetailSide(SqlSessionTemplate session, int no);
 
 }

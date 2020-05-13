@@ -54,9 +54,9 @@
                             <div class="s-store-menu">
 
                                 <div class="s-store-scroll">
-                                	<c:forEach items="${store['bestMenu']}" var="bm">
+                                	<c:forEach items="${store['bestMenu']}" var="bm" varStatus="index">
 	                                	<c:if test="${bm['me_best'] eq 'Y' }">
-		                                    <div class="s-store-menu-content">
+		                                    <div class="s-store-menu-content" onclick="storeBestMenuSelectModal('${index.index+1}')">
 		                                        <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
 		                                        <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
 		                                        <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
@@ -69,22 +69,12 @@
 
                             <div class="s-store-menu-bar">
                             <c:forEach items="${store['storeCategory']}" var="sc">
-                                <div class="s-store-menu-nav">${sc['mt_name'] }</div>
-                                <div class="s-store-menu-nav-content-title">
+                                <div class="s-store-menu-nav" onclick="storeMenuCategory('${sc['mt_no']}')">
+                                	${sc['mt_name'] }
+                                </div>
+                                <div class="s-store-menu-nav-content-title" id="s-store-menu-category-no${sc['mt_no']}">
                                 </div>
                             </c:forEach>
-                                    <!-- <div class="s-store-menu-nav-content">
-                                        <div>
-                                            <span>
-                                                <strong>빅맥세트</strong><br>
-                                                햄버거+감튀+콜라<br>
-                                                8,000원
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <img src="#" width="100px" height="100px">
-                                        </div>
-                                    </div> -->
                                     
                             </div>
 
@@ -126,7 +116,7 @@
                                     <tr>
                                         <td>
                                             맛 : <i class="fa fa-star"></i> 
-                                            <sapn class="report">신고</sapn>
+                                            <span class="report">신고</span>
                                         </td>
                                         
                                     </tr>
@@ -281,6 +271,33 @@
     <div>
 
 </div>
+<!-- modal -->
+<div id="modalBox" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header menu-modal-header">
+				<h5 style="margin-top:8px;margin-left:200px;">메뉴 상세</h5>
+				<button class="menu-modal-header-close" data-dismiss="modal">X</button>
+			</div>
+			<div class="modal-content menu-modal-content">
+				<img id="modal-menu-img" alt="" src="" width="100%" height="200px"><br/>
+				<div class="menu-modal-content-text">
+					<h3 id="modal-menu-name"></h3>
+					<p id="modal-menu-text"></p>
+				</div>
+				<div class="menu-modal-content-price">
+					<strong>가격</strong>
+					<p id="modal-menu-price"></p>
+				</div>
+			</div>
+			<div class="modal-footer menu-modal-footer">
+				<button class="menu-modal-footer-button" style="background-color:red">주문표에 추가</button>
+				<button class="menu-modal-footer-button" style="background-color:black">주문하기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
     <script>
 
@@ -300,11 +317,79 @@
             });
         }
         
-        function review(){
+        function storeMenuCategory(cNo){
+        	$.ajax({
+        		url:'${path}/menu/menuDetailCategoryMenus',
+        		data:{'no':cNo},
+        		success:function(data){
+        			let tar = $("#s-store-menu-category-no"+cNo);
+        			let check = tar.children();
+        			console.log(check);
+        			if(check.length==0){
+		                for(let i=0;i<data.length;i++){
+		                	 let content = $("<div>").attr({
+		                		 "class":"s-store-menu-nav-content",
+		                		 "onclick":"storeMenuSelectModal("+(i+1)+")"
+		                	 	}).css("display","none");
+			                 let div1 = $("<div>");
+			                 let span = "<span>";
+			                 span += "<br/><strong>"+data[i]['me_name']+"</strong><br/>"
+			                 if(data[i]['me_text']!=null){
+			                 	span += data[i]['me_text']+"<br/>";
+			                 } else {
+			                	 span += "<br/>";
+			                 }
+			                 span += data[i]['me_price'];
+			                 span += "</span>"
+			                 let div2 = $("<div>");
+			                 let img = $("<img>").attr({
+			                	 src:"${path}/resources/upload/menu/"+data[i]['me_logimg'],
+			                	 width:"100px",
+			                	 height:"100px"
+			                 });
+			                 let br = $("<br>");
+			                 div1.append(span);
+			                 div2.append(img);
+			                 content.append(div1).append(div2);
+			                 tar.append(content);
+			                 content.slideDown(600);
+		                 }
+        			} else {
+        				check.slideUp(600,function(){
+        					check.remove();
+        				})
+        			}
+        		}
+        	})
+        }
+        
+        function storeMenuSelectModal(menuNo){
+        	$.ajax({
+        		url:"${path}/menu/storeMenuSelectModalAjax",
+        		data:{'no':menuNo},
+        		success:function(data){
+		        	console.log(data);
+		        	console.log(menuNo);
+		        	$('#modalBox').modal('show');
+		        	$("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
+		        	$("#modal-menu-name").html(data['me_name']);
+		        	if(data['me_text']!=null){
+		        		$("#modal-menu-text").html(data['me_text']);
+		        	} else {
+		        		$("#modal-menu-text").html("메뉴 설명이 없습니다.");
+		        	}
+        		}
+        	});
         	
+        }
+        
+        $('#closeModalBtn').on('click', storeMenuModalClose());
+        
+        function storeMenuModalClose(){
+        	$('#modalBox').modal('hide');
+        	console.log("click close");
         }
     
     </script>
-
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

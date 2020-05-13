@@ -79,8 +79,8 @@
 					    </button>
 					    
 					   <div class="dropdown">
-	                   <button class="dropdown-toggle mr-3 ldBtnC bg-white text-dark rounded" type="button" id="lo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                        	기본 정렬순
+	                   <button class="dropdown-toggle mr-3 ldBtnC bg-white text-dark rounded" type="button" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                        	${sortType!=null and sortType!='null'?sortType:'기본 정렬순' }
 	                   </button>
 	                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                        <a class="dropdown-item" href="#">기본 정렬순</a>
@@ -205,7 +205,7 @@
 		 </c:forEach>			
 		</div>
 		
-		<div class="container mt-3">
+		<div class="container mt-3 page-bar">
 		<!-- <div class="row justify-content-center">
 			<nav aria-label="..." class="justify-content-center">
 			  <ul class="pagination">

@@ -33,8 +33,19 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 	}
 
 	@Override
-	public List<StoreMenuSide> selectMenuSides(SqlSessionTemplate session, StoreMenu sm) {
-		return session.selectList("storeMenuDetail.selectMenuSide",sm.getMe_no());
+	public List<StoreMenu> selectCategoryMenu(SqlSessionTemplate session, int no) {
+		return session.selectList("storeMenuDetail.selectCategoryMenu",no);
+	}
+
+	@Override
+	public StoreMenu selectMenuDetail(SqlSessionTemplate session, int no) {
+		return session.selectOne("storeMenuDetail.selectMenuDetail",no);
+	}
+
+	@Override
+	public List<StoreMenuSide> selectMenuDetailSide(SqlSessionTemplate session, int no) {
+		log.debug(""+no);
+		return session.selectList("storeMenuDetail.selectMenuDetailSide",no);
 	}
 	
 	
