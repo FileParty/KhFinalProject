@@ -45,7 +45,7 @@
 					</div>
 				</div>
 				<div class="ceo-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
-					<form action="${path}/member/memberLogin.do" method="post">
+					<form action="${path}/member/businessLogin.do" method="post">
 						<div class="login-title">
 							<img src="${pageContext.request.contextPath}/resources/img/요기요.png">
 						</div>
@@ -54,7 +54,7 @@
 								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력"></td>
 							</tr>
 							<tr>
-								<td><input style="margin-top:30px;" type="password" class="form-control" name="password" placeholder="비밀번호 입력"></td>
+								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력"></td>
 							</tr>	
 						</table>
 						<div class="d-flex justify-content-between" style="margin-top:30px;">
@@ -69,7 +69,7 @@
 					</form>
 				
 					<div class="" style="margin:30px;">
-						<span>배달킹이 처음이신가요? <a href="${path}/member/enroll.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a href="${path}/member/businessEnroll.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
 			</div>
