@@ -28,10 +28,16 @@
 				</a>
 			</div>
 			<div class="col-3"></div>
+			<c:if test="${loginMember==null}">
 			<div class="col-2" style="padding-top:30px;">
 				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
 					onclick="location.replace('${path}/member/login.do')">로그인 / 회원가입</button>&nbsp;&nbsp;
 			</div>
+			</c:if>
+			<c:if test="${loginMember!=null}">
+				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
+					onclick="location.replace('${path}/member/logout.do')">로그아웃</button>
+			</c:if>
 			<div class="col-3"></div>
 		</div>
 	</header>

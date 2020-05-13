@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<!DOCTYPE html>
-<html>
-<head>
+
+
+
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,7 +19,14 @@
 <body>
  
 <div class="header">
-  <h1>성탄소년단</h1>
+<div style="display:flex;">
+				<a href="${path }"><img class="rounded-circle" style="margin:3px;width:85px;height:85px;"
+					alt="rogo" src="https://cdn.pixabay.com/photo/2016/02/23/00/06/pizza-1216738_960_720.png">
+				</a>
+				  <h1 style="padding-left:34%;">성탄소년단</h1>
+				
+			</div>
+
   <p>배달의 민족을 앞서가는 이성연외 6아이들</p>
 </div>
  
@@ -94,13 +101,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${list['m_name']}" readonly><br>
+            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_name']}" readonly><br>
 		           <span id="result"></span> 
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${list['m_phone']}"readonly>
+            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -140,7 +147,7 @@
   <td><input type="text" style="width:300px;height:45px;" placeholder=" (필수) 상세정보 입력" required><br></td>
 </tr>
 <tr>
-  <td><div style="margin-top: -69px;">배송시 요청사항</div></td>
+  <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
   <td><br>
   <textarea name="ta2" rows="5" cols="80"  placeholder=" 코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요."></textarea>
   <!-- <input type="text" style="width:300px;height:100px;" placeholder="코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요.">  --><br><br></td>
@@ -167,7 +174,7 @@
   <td style="padding-right:40px;">빠짐 포인트</td>
     <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
       <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
-      <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
+      <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">&nbsp;${loginMember['m_point']}  point</p>)</div>
       <br>
     </td>
   </tr>
@@ -176,7 +183,7 @@
     <td style="padding-right:40px;">배송비</td>
       <td width="680px"><input type="text" style="width:200px;height:45px;background-color:rgb(243, 243, 243);text-align:right;" value="2500">&nbsp;&nbsp;원&nbsp; 
         <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);	">전액사용</button> 
-        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">  0 원  </p>)</div>
+        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;"> &nbsp;${loginMember['m_point']}  point</p>)</div>
         <br> 
       </td>
     </tr>
@@ -755,7 +762,7 @@ color: #fff;
 
 <style>
 * {
-  /* border:1px solid red;   */
+ /*  border:1px solid red;    */
     box-sizing: border-box;
 }
 body {

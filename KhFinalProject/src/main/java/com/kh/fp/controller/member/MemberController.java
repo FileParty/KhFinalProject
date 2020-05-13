@@ -10,12 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.fp.model.servier.member.MemberService;
+import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.Member;
 
 @Controller
+@SessionAttributes({ "loginMember" })
 public class MemberController {
 	
 	@Autowired
@@ -24,17 +27,24 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	//회원가입 페이지 화면 전환용
+	//일반 회원가입 페이지 화면 전환용
 	@RequestMapping("/member/enroll.do")
 	public String enroll() {
 		return "member/enroll";
 	}
 	
-	//회원가입 인서트용
+	//사업자 회원가입 페이지 전환용
+	@RequestMapping("/member/businessEnroll.do")
+	public String businessEnroll() {
+		return "member/businessEnroll";
+	}
+	
+	
+	//일반 회원가입 인서트용
 	@RequestMapping("/member/enrollEnd.do")
 	public String enrollEnd(Member m,Model md) {
 		
-		m.setPw(encoder.encode(m.getPw()));
+		m.setM_pw(encoder.encode(m.getM_pw()));
 		
 		int result=service.insertMember(m);
 		
@@ -44,6 +54,27 @@ public class MemberController {
 			page="common/msg";
 			md.addAttribute("msg","회원가입 실패");
 			md.addAttribute("loc","/member/enroll.do");
+		}else {
+			page="redirect:/";
+		}
+		
+		return page;
+	}
+	
+	//사업자 회원가입 인서트용
+	@RequestMapping("/member/businessEnrollEnd.do")
+	public String businessEnrollEnd(Business b,Model md) {
+		
+		b.setB_pw(encoder.encode(b.getB_pw()));
+		
+		int result=service.insertBusiness(b);
+		
+		String page="";
+		
+		if(result==0) {
+			page="common/msg";
+			md.addAttribute("msg","회원가입 실패");
+			md.addAttribute("loc","/member/businessEnroll.do");
 		}else {
 			page="redirect:/";
 		}
@@ -71,16 +102,35 @@ public class MemberController {
 	
 	//일반 아이디 로그인
 	@RequestMapping("/member/memberLogin.do")
-	public String memberLogin(String userId,String password,Model md,HttpSession session) {
+	public String memberLogin(String userId,String userPw,Model md,HttpSession session) {
 		
 		Member m =service.selectMember(userId);
 		
 		//로그인여부 확인하기
-		if(m!=null&&encoder.matches(password, m.getPw())) {
+		if(m!=null&&encoder.matches(userPw, m.getM_pw())) {
 			//로그인성공
-			md.addAttribute("msg","로그인성공");	
-		
+			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",m);
+		}else {
+			//로그인실패
+			md.addAttribute("msg","로그인실패");
+		}
+		md.addAttribute("loc","/");		
+	
+		return "common/msg";
+
+	}
+	
+	@RequestMapping("/member/businessLogin.do")
+	public String businessLogin(String userId,String userPw,Model md,HttpSession session) {
+		
+		Business b =service.selectBusiness(userId);
+		
+		//로그인여부 확인하기
+		if(b!=null&&encoder.matches(userPw, b.getB_pw())) {
+			//로그인성공
+			md.addAttribute("msg","로그인성공");
+			md.addAttribute("loginMember",b);
 		}else {
 			//로그인실패
 			md.addAttribute("msg","로그인실패");

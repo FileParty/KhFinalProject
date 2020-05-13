@@ -25,4 +25,9 @@ public class MemberController_SH {
 		mv.setViewName("/SANGHAK/sh");
 		return mv;
 	}
+	@RequestMapping("/pay/paylist2.do")
+	public String payList2() {
+		return ("/SANGHAK/sh2");
+	}
+	
 }

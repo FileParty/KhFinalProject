@@ -16,6 +16,7 @@
 		<a href="${path }/licensee/mypage">사업자 피파 바페도아닌 마페</a>
 		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
 		<a href="${path }/pay/paylist.do">결제 리스트</a>
+		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a>
 		<a href="${path }/menu/menuDetailView">메뉴 상세화면</a>
 		<a href="${path }/common/juso">주소</a>
 		<a href="${path }/mypage/mypage.do">마이페이지</a>
@@ -27,25 +28,29 @@
 			
 			<div class="index-search-title">
 					<h2>`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
-					<h6>배달 받을 동을 검색해주세요</h6>
+					<h6>배달 받을 동을 검색해주세요</h6><br>
+					<p>나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
 			</div>
-			
+		
 	
 			<div class="index-search-container">
-			
-				<div class="index-search">	
+						
+						
+				<div class="index-search">
 				
-					<div class="search-btn"><button class="location-button"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
+				
+					<div class="search-btn"><button class="location-button" onclick="getbrowserxy();"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
 					
+				
 					<div>
-						<form name="form" id="form" method="post">
+						<form name="form" id="form" method="post"  onsubmit="return false">
 							<input type="hidden" name="currentPage" value="1"/> 
 							<input type="hidden" name="countPerPage" value="5"/>
 							<input type="hidden" name="resultType" value="json"/> 
 							<input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDIwMDUxMjIwMDA0MTEwOTc1MjQ="/>
 							<div class="keyword-box">
-								<input type="text" name="keyword" id="keyword" value="" size="40px"/>
-								<input type="button" onClick="getroadAddr();" class="btn btn-success" value="검색" />
+								<input type="text" name="keyword" id="keyword" value="" onkeydown="enterSearch();" autocomplete="off" size="40px"/>
+								<input type="button" onClick="getroadAddr();" class="btn btn-success"  value="검색" />
 							</div>
 						</form>
 					</div>
@@ -54,25 +59,67 @@
 				
 				<div class="index-search-autosearch">
 					<div id="list">
-					
+					</div>
+					<div>
+						<input type="hidden" value="" name="xl" id="xl"/>
+						<input type="hidden" value="" name="yl" id="yl"/>
+			
 					</div>
 				</div>
 				
 			</div>
 			
-			<div class="category-list d-flex flex-wrap justify-content-center">
-				<c:forEach begin="1" step="1" end="8">
-					<div class="category-list-card text-center">
+			<div class="index-category-list  flex-wrap">
 			
-						<div class="card-img ">
-							<img src="${pageContext.request.contextPath }/resources/images/category-02.png" alt="치킨" width="250" height="250">
-						</div>
-						
+					<div class="index-category-img" onclick="selectCategory('전체');">
+							<div class="index-category-title">전체보기</div>
+							<img src="${path }/resources/img/all.jpg" alt="전체보기" width="100%" height="210px">	
 					</div>
-				</c:forEach>
+			
+				
+					<div class="index-category-img" onclick="selectCategory('치킨');">
+							<div class="index-category-title">치킨</div>
+							<img src="${path }/resources/img/chicken.png" alt="치킨" width="100%" height="210px">	
+					</div>
+					
+					<div class="index-category-img" onclick="selectCategory('피자');">
+							<div class="index-category-title">피자</div>
+							<img src="${path }/resources/img/pizza.png" alt="피자" width="100%" height="210px">	
+					</div>
+					
+					
+					<div class="index-category-img" onclick="selectCategory('중국집');">
+							<div class="index-category-title">중국집</div>
+							<img src="${path }/resources/img/Jajangmyeon.png" alt="중국집" width="100%" height="210px">	
+					</div>
+					
+					<div class="index-category-img" onclick="selectCategory('분식');">
+							<div class="index-category-title">분식</div>
+							<img src="${path }/resources/img/chicken.png" alt="분식" width="100%" height="210px">	
+					</div>
+						
+					<div class="index-category-img" onclick="selectCategory('한식');">
+							<div class="index-category-title">한식</div>
+							<img src="${path }/resources/img/korea.png" alt="한식" width="100%" height="210px">
+					</div>
+					
+					<div class="index-category-img" onclick="selectCategory('햄버거');">
+							<div class="index-category-title">햄버거</div>
+							<img src="${path }/resources/img/hamburger.png" alt="햄버거" width="100%" height="210px">	
+					</div>
+					
+					<div class="index-category-img" onclick="selectCategory('일식');">
+							<div class="index-category-title">일식</div>
+							<img src="${path }/resources/img/Japan.jpg" alt="일식" width="100%" height="210px">
+					</div>
+					
+					<div class="index-category-img">
+							<img src="${path }/resources/img/baemin.png" alt="이미지" width="100%" height="250px">	
+					</div>
 			</div>		
 		</div>
-
+		
+		
 
 </section>
 <jsp:include page="/WEB-INF/views/common/jusoJs.jsp"/>

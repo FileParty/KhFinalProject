@@ -70,11 +70,13 @@
 			var menuCategory = $(this).html();
 			
 			$.ajax({
-				url:"${pageContext.request.contextPath}/menu/menuCategory.do",
+				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 				data: {"menuCategory":menuCategory},
 				success: function(data){
 					
-					console.log(data);
+					console.log(data['list']);
+					console.log(data['pageBar']);
+					
 					$(e.target).siblings().removeClass("active");
 					$(e.target).addClass("active");					
 					
@@ -89,10 +91,14 @@
 						$(".category-"+i).addClass("d-flex");
 					}
 					
-					
-					$.each(data, function(i,v){					
-						for(var i=0; i<v.length; i++){
-							var info = v[i];							
+					 $.each(data['list'], function(i,v){		
+						 console.log(v);
+						 console.log(data['list'].length);
+						 console.log(v.length);
+						
+							console.log(v)
+							var info = v;	
+							console.log(info);
 							//로고 이미지
 							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
 							
@@ -110,25 +116,30 @@
 							
 							//배달 시간
 							var plus = info['s_TIME']+5;
-							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
-						}
+							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');									
+					}); 
+					 
+					//unvisibility 처리
+						var length = data['list'].length;
+						if(length=="") length=0;
+						console.log(length);
 						
-						//unvisibility 처리
-						for(var i=v.length; i<10; i++){			
+						for(var i=length; i<10; i++){			
 							$('.category-'+i).addClass('invisible')
 						}
 						
 						//d-none 처리
-						if(v.length%2==0){
-							for(var i=parseInt(v.length/2)+1; i<=5; i++){
+						if(length%2==0){
+							for(var i=parseInt(length/2)+1; i<=5; i++){
 								$('.category-row-'+i).addClass('d-none');
 							}
 						}else{
-							for(var i=parseInt(v.length/2)+2; i<=5; i++){
+							for(var i=parseInt(length/2)+2; i<=5; i++){
 								$('.category-row-'+i).addClass('d-none');
 							}
 						}
-					});
+						
+						
 				}
 			});
 			

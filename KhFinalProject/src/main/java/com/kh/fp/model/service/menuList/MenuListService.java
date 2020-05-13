@@ -8,11 +8,19 @@ import com.kh.fp.model.vo.Store;
 
 public interface MenuListService {
 
-	public List<Store> selectMenuList();
-	public List<Store> selectMenuList(String category);
+	//페이지 전환
+	public List<Store> selectMenuList(int cPage, int numperPage, Map map);
 	
+	//filter
+	public List<Store> selectMenuListFilter(int cPage, int numperPage, Map map);
+	
+	//totaldata
+	public int selectMenuCount(Map map);
+		
 	public Review selectReview(int s_no);
 	
 	//검색
 	public List<Store> selectMenuList(Map map);
+	
+	
 }
