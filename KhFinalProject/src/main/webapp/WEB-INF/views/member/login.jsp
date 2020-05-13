@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 	<div class="container">
@@ -13,16 +14,16 @@
 					<div class="text-center" style="width:200px; border:1px solid black;"><button class="btn ceo-login" onclick="ceoLogin();">사업자</button></div>
 				</div>
 				<div class="member-login-container d-flex justify-content-center flex-wrap text-center">
-					<form action="${path}/member/login.do" method="post">
+					<form action="${path}/member/memberLogin.do" method="post">
 						<div class="login-title">
-							<img src="${pageContext.request.contextPath}/resources/img/요기요.png">
+							<img src="${path}/resources/img/요기요.png">
 						</div>
 						<table>
 							<tr>
-								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="id" placeholder="아이디 입력"></td>
+								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력"></td>
 							</tr>
 							<tr>
-								<td><input style="margin-top:30px;" type="password" class="form-control" name="password" placeholder="비밀번호 입력"></td>
+								<td><input style="margin-top:30px;" type="password" class="form-control" name="userPw" placeholder="비밀번호 입력"></td>
 							</tr>	
 						</table>
 						<div class="d-flex justify-content-between" style="margin-top:30px;">
@@ -40,7 +41,7 @@
 						<button class="btn btn-outline-dark" onclick="location.replace('${path}/member/enroll.do')" style="width:200px;">Google 로그인</button>	
 					</div>
 					<div class="" style="margin:30px;">
-						<span>쓔웅이 처음이신가요? <a href="${path }/member/enroll.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a href="${path }/member/enroll.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
 				<div class="ceo-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
@@ -50,7 +51,7 @@
 						</div>
 						<table>
 							<tr>
-								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="id" placeholder="아이디 입력"></td>
+								<td><input style="margin-top:30px; width:400px;" type="text" class="form-control" name="userId" placeholder="아이디 입력"></td>
 							</tr>
 							<tr>
 								<td><input style="margin-top:30px;" type="password" class="form-control" name="password" placeholder="비밀번호 입력"></td>
@@ -68,7 +69,7 @@
 					</form>
 				
 					<div class="" style="margin:30px;">
-						<span>쓔웅이 처음이신가요? <a href="${path }/member/enroll.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a href="${path}/member/enroll.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
 			</div>
