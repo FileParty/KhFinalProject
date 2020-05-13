@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<!DOCTYPE html>
-<html>
-<head>
+
+
+
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,7 +19,14 @@
 <body>
  
 <div class="header">
-  <h1>성탄소년단</h1>
+<div style="display:flex;">
+				<a href="${path }"><img class="rounded-circle" style="margin:3px;width:85px;height:85px;"
+					alt="rogo" src="https://cdn.pixabay.com/photo/2016/02/23/00/06/pizza-1216738_960_720.png">
+				</a>
+				  <h1 style="padding-left:34%;">성탄소년단</h1>
+				
+			</div>
+
   <p>배달의 민족을 앞서가는 이성연외 6아이들</p>
 </div>
  
@@ -755,7 +762,7 @@ color: #fff;
 
 <style>
 * {
-  /* border:1px solid red;   */
+ /*  border:1px solid red;    */
     box-sizing: border-box;
 }
 body {

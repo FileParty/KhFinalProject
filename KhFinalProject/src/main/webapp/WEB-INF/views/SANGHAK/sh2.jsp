@@ -69,7 +69,7 @@ a.btn {
   display: block;
   margin: 50% 0 0 -300px;
   position: relative;
-  top: 50%; 
+  top: 37%; 
   left: 50%;
   background: #fff;
   opacity: 0;
