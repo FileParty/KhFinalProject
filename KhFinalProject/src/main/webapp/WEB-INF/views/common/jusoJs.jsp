@@ -162,10 +162,6 @@ function getbrowserxy(){
 
 }
 
-$(".location-button").hover(function(){
-    $('.toast').toast('show');
-  });
-
 
 
 </script>
