@@ -28,16 +28,20 @@
 			
 			<div class="index-search-title">
 					<h2>`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
-					<h6>배달 받을 동을 검색해주세요</h6>
+					<h6>배달 받을 동을 검색해주세요</h6><br>
+					<p>나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
 			</div>
-			
+		
 	
 			<div class="index-search-container">
-			
-				<div class="index-search">	
+						
+						
+				<div class="index-search">
+				
 				
 					<div class="search-btn"><button class="location-button" onclick="getbrowserxy();"><i style='font-size:30px' class='fas'>&#xf14e;</i></button></div>
 					
+				
 					<div>
 						<form name="form" id="form" method="post"  onsubmit="return false">
 							<input type="hidden" name="currentPage" value="1"/> 
@@ -114,7 +118,8 @@
 					</div>
 			</div>		
 		</div>
-
+		
+		
 
 </section>
 <jsp:include page="/WEB-INF/views/common/jusoJs.jsp"/>
