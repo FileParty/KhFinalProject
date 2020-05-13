@@ -189,11 +189,14 @@
                          	
                                 <c:if test="${c['m_no']== loginMember['m_no'] }">
 	                              <tr>
-	                                <td id="td1"><large><b style="color:green;">${c['cn_name'] }</b></large></td>
-	                                <td id="td1">${c['cn_price'] } 원 할인</td>
+	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large></td>
+	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_price'] } 원 할인</large>
+	                                <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small>
+	                                </td>
 	               
 	                                <td id="td1"><small>발행일자: <fmt:formatDate value="${c['cn_enrolldate'] }" pattern="yyy/MM/dd HH:mm:ss" /></small> <br>
-	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small></td>
+	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small>
+	                                </td>
 	                                <td id="td1"><button style="color:white;width:50px;height:28px;background: linear-gradient(to right, #dce35b, #45b649);border-radius: 25px;">선택</button></td>
 	                              </tr>
 	                               	 </c:if>
@@ -216,7 +219,7 @@
                                     text-align: center;
                                     padding: 12px;
                                     width: 120px;
-                                   
+                                   background: #81F7BE;
                                   }
                                   #td1{
                                     text-align: center;
