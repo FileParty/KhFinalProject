@@ -29,7 +29,7 @@
 			<div class="enroll-form">
 				<form action="${path}/member/enrollEnd.do" method="post">
 				<table style="width:500px;">
-					<tr>
+					<tr style="margin-bottom:30px;">
 						<th>아이디</th>
 						<td class="idMsg-container">
 							<input type="text" id="userId" name="m_id" class="form-control" placeholder="아이디 입력 " required>
@@ -78,16 +78,27 @@
 				<table style="width:500px;">
 					<tr>
 						<th>이메일</th>
-						<td><input type="email" name="email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required></td>
+						<td class="d-flex">
+							<input type="email" name="email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required>
+							
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="button" id="mailBtn" class="btn btn-outline-dark" onclick="fn_enrollEmail();" style="float:right">인증번호 받기</button></td>
 					</tr>
 					<tr>
 						<th>인증번호</th>
-						<td><input type="text" name="email" id="email"  class="form-control" placeholder="인증번호를 입력하세요." required></td>
+						<td class="d-flex">
+							<input type="text" name="email" id="email"  class="form-control" placeholder="인증번호를 입력하세요." required>
+							
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="button" id="mailBtn" class="btn btn-outline-dark" onclick="fn_enrollEmail();" style="float:right">인증번호 확인</button></td>
 					</tr>
 				</table>
-				<div class="d-flex justify-content-center" style="margin:30px;">
-					<button type="button" id="mailBtn" class="btn btn-outline-dark" onclick="fn_enrollEmail();">인증번호 받기</button>
-				</div>
 				<div class="d-flex justify-content-center" style="margin:30px;">
 					<input class="btn btn-outline-dark" type="submit" value="회원가입">
 				</div>
