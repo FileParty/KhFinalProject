@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.service;
 
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	@Transactional
-	public int insertStore(StoreEnroll se, List<String> files) {
+	public int insertStore(StoreEnroll se, List<String> files) throws MyException {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
 		

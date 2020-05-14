@@ -37,9 +37,9 @@
 	                  						<th class="store-enroll-info-title">주소</th>
 	                  						<th class="store-enroll-info">
 	                  							<input type="text" name="saddr" id="saddr" size="60px;"/>
-	                  							<input type="hidden" name="xl" id="xl" value="" />
-	                  							<input type="hidden" name="yl" id="yl" value="" />
-	                  							<button type="button" onclick="goPopup()">주소찾기</button>
+	                  							<input type="hidden" name="xl" id="xl" value=" " />
+	                  							<input type="hidden" name="yl" id="yl" value=" " />
+	                  							<button type="button" onclick="goPopup()" >주소찾기</button>
 	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.</p>
 	                  						</th>
 	                  					</tr>
@@ -51,8 +51,8 @@
 	                  								<option value="044">044</option><option value="031">031</option><option value="033">033</option><option value="043">043</option><option value="041">041</option><option value="063">063</option><option value="061">061</option>
 	                  								<option value="054">054</option><option value="055">055</option><option value="064">064</option>
 	                  							</select> -
-	                  							<input type="text" name="phone2" size="10px" required> -
-	                  							<input type="text" name="phone3" size="10px" required>
+	                  							<input type="text" name="phone2" id="phone2" size="10px" required> -
+	                  							<input type="text" name="phone3" id="phone3" size="10px" required>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -71,7 +71,7 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">최소금액</th>
 	                  						<th class="store-enroll-info">
-	                  							<input type="number" name="slimitprice" min="9000" step="500" required> 원 <p>* 최소 9000원 이상입니다.(500원 단위로 증가합니다)</p>
+	                  							<input type="number" name="slimitprice" value="9000" min="9000" step="500" required> 원 <p>* 최소 9000원 이상입니다.(500원 단위로 증가합니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -129,8 +129,7 @@
 	                  						<th class="store-enroll-info-title">쿠폰허용</th>
 	                  						<th class="store-enroll-info">
 	                  							<select name="scoupon">
-	                  								<option value="">선택</option>
-	                  								<option value="Y">허용</option>
+	                  								<option value="Y" selected>허용</option>
 	                  								<option value="N">비허용</option>
 	                  							</select>
 	                  							<p>*배달킹이 제공하는 쿠폰이용 허용가능/불가능 설정입니다(쿠폰사용은 결제금액 차감 미적용 됩니다)</p>
@@ -140,16 +139,16 @@
 	                  						<th class="store-enroll-info-title">오픈시간/마감시간</th>
 	                  						<th class="store-enroll-info">
 	                  							오픈 시간 : 
-	                  							<select name="sstarttime">
-	                  								<option value="">선택</option>
+	                  							<select name="sstarttime" id="sstarttime"">
+	                  								<option value="" selected>선택</option>
 	                  								<option value="0">0:00</option><option value="1">1:00</option><option value="2">2:00</option><option value="3">3:00</option><option value="4">4:00</option><option value="5">5:00</option>
 	                  								<option value="6">6:00</option><option value="7">7:00</option><option value="8">8:00</option><option value="9">9:00</option><option value="10">10:00</option><option value="11">11:00</option>
 	                  								<option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option>
 	                  								<option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23">23:00</option>
 	                  							</select>
 	                  							마감 시간 :
-	                  							<select name="sendtime">
-	                  								<option value="">선택</option>
+	                  							<select name="sendtime" id="sendtime">
+	                  								<option value="" selected>선택</option>
 	                  								<option value="0">0:00</option><option value="1">1:00</option><option value="2">2:00</option><option value="3">3:00</option><option value="4">4:00</option><option value="5">5:00</option>
 	                  								<option value="6">6:00</option><option value="7">7:00</option><option value="8">8:00</option><option value="9">9:00</option><option value="10">10:00</option><option value="11">11:00</option>
 	                  								<option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option>
@@ -168,8 +167,8 @@
 	                  					</tr>
 	                  					<tr>
 	                  						<th colspan="2" style="text-align: center;">
-	                  						<button type="submit">제출</button>
-	                  						<button type="reset">취소</button>
+	                  						<button type="submit" class="btn btn-success">제출</button>
+	                  						<button type="reset" class="btn btn-danger">취소</button>
 	                  						</th>
 	                  					</tr>
 	                  				</table>

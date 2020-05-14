@@ -17,7 +17,7 @@
   	SELECT * FROM MEMBER WHERE M_NICKNAME = #{name}
   </select>
   <select id="selectBusiness" parameterType="string" resultType="business">
-  	SELECT * FROM BUSINESS B, STORE S WHERE B.B_NO=S.B_NO AND B.B_ID=#{userId}
+  	SELECT * FROM BUSINESS WHERE B_ID=#{userId}
   </select>
 
   <select id="selectBusinessId" parameterType="string" resultType="business">

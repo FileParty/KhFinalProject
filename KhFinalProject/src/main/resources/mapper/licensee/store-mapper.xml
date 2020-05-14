@@ -5,7 +5,7 @@
  	<insert id="insertStore" parameterType="store">
  		insert into store values(store_seq.nextval,#{saddr},#{sname},#{slimitprice},#{spayopt},#{stext}
  		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{xl},#{yl},#{stime}
- 		,1,#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'))
+ 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'))
  	
  		<selectKey order="AFTER" keyProperty="sno" resultType="_int">
 			select store_seq.CURRVAL FROM DUAL
