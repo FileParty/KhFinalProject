@@ -105,9 +105,8 @@
 		 <c:forEach begin="1" end="5" step="1" var="i" varStatus="vsi">
 		 	<div class="row category-row-${i} ml-4 mt-3 p-0 justify-content-center m-0 ${2*(i-1)>=list.size()?'d-none':''}">
 		 	<c:forEach begin="1" end="2" step="1" var="j" varStatus="vsj">
-		 		<div class="category-${j==1?2*(i-1):i*j-1} col-5 ${2*(i-1)>=list.size() || i*j-1>=list.size() ? 'invisible':'d-flex' } align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
+		 		<div class="category-${j==1?2*(i-1):i*j-1} food-category col-5 ${2*(i-1)>=list.size() || i*j-1>=list.size() ? 'invisible':'d-flex' } align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
  					<div class="mr-4 ml-2">
- 					
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">
  							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LOGIMG()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
 						</c:if>
@@ -125,15 +124,31 @@
  						 </c:if>
  					</div>
  				
- 					
+ 					<div class="invisible store-no">
+ 						<c:if test="${j==1 && 2*(i-1)<list.size()}">							
+ 							<c:out value="${list.get(2*(i-1)).getS_NO()}"/>
+						</c:if>
+						<c:if test="${j==2 && i*j-1<list.size()}">		 								
+							<c:out value="${list.get(i*j-1).getS_NO()}"/>
+						</c:if>
+ 					</div>
  					<div class="m-0 p-0"> 
- 						<div class="category-title">
+ 						<div class="category-title d-flex justify-content-between">
  							<span class="h-4 name-${j==1?2*(i-1):i*j-1}">
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
  									<c:out value="${list.get(2*(i-1)).getS_NAME()}"/>
 	 							</c:if>
  								<c:if test="${j==2 && i*j-1<list.size()}">		 								
  									<c:out value="${list.get(i*j-1).getS_NAME()}"/>
+ 								</c:if>
+ 							</span>
+ 							
+ 							<span class="h-4 border border-danger text-danger status-${j==1?2*(i-1):i*j-1}">
+ 								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
+ 									<c:out value="${list.get(2*(i-1)).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
+	 							</c:if>
+ 								<c:if test="${j==2 && i*j-1<list.size()}">		 								
+ 									<c:out value="${list.get(i*j-1).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
  								</c:if>
  							</span>
  						</div>
