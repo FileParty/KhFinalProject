@@ -299,10 +299,20 @@
 					<h4 class="menu-modal-content-h4">추가 선택</h4>
 				</div>
 				<hr class="menu-modal-hr">
-				<div class="menu-modal-content-menu-count-div">
-					<h5>수량</h5>
+				<div class="menu-modal-content-menu-count-div menu-modal-content-chilrden">
+					<h4 class="menu-modal-content-h4">수량</h4>
 					<div class="menu-modal-content-count">
-						<button>[]</button>
+						<p class="menu-modal-menu-count-button" style="color:lightgray;">-</p>
+						<p id="menu-modal-menu-count-text">1</p>
+						<p class="menu-modal-menu-count-button">+</p>
+					</div>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-final-price-div menu-modal-content-chilrde">
+					<h4 class="menu-modal-content-h4">총 주문금액</h4>
+					<div class="menu-modal-content-final-price-box">
+						<h4 class="menu-modal-content-final-price">123</h4>
+						<h5 class="menu-modal-menu-limitPrice">123</h5>
 					</div>
 				</div>
 			</div>
@@ -455,6 +465,24 @@
         function storeMenuModalClose(){
         	$('#modalBox').modal('hide');
         }
+        
+        var menuCount = 1;
+        
+        $(".menu-modal-menu-count-button").on("click",function(){
+        	let type = $(event.target).text();
+        	console.log(type);
+        	let text = $("#menu-modal-menu-count-text");
+        	let value = $("#menu-modal-menu-count-text").text();
+        	if(type=="+"){
+        		text.text(Number(value)+1);
+        	} else{
+        		if(Number(value)>1){
+        			text.text(Number(value)-1);
+        		}
+        	}
+        	menuCount = Number(text.text());
+        	console.log(menuCount);
+        })
         
         /* 돈 표시용 */
         function numberFormatting(num){

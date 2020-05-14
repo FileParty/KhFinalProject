@@ -16,9 +16,12 @@
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
+
 		$(".food-category").click(function(){
-			var no = $(".store-no").html();
-			console.log(no);
+			var no = $(this).find("span").html();
+			
+			no = $.trim(no);
+			
 			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no);
 		});
 		
