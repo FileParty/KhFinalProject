@@ -32,11 +32,7 @@ public class LicenseeController {
 		//매장등록
 		return "business/storeEnroll";
 	}
-	@RequestMapping("/licensee/storeStatus")
-	public String storeStatus() {
-		//매장관리
-		return "business/storeStatus";
-	}
+	
 
 	@RequestMapping("/licensee/menuStatus")
 	public String menuStatus() {
@@ -48,26 +44,14 @@ public class LicenseeController {
 		//메뉴등록
 		return "business/menuEnroll";
 	}
-	@RequestMapping("/licensee/storeInfo")
-	public String storeInfo() {
-		//업체정보
-		return "business/storeInfo";
-	}
-	@RequestMapping("/licensee/storeInfoEnroll")
-	public String storeInfoEnroll() {
-		//업체정보등록
-		return "business/storeInfoEnroll";
-	}
+	
+	
 	@RequestMapping("/licensee/companyStatus")
 	public String companyStatus() {
 		//가맹점등록정보
 		return "business/companyStatus";
 	}
-	@RequestMapping("/licensee/companyEnroll")
-	public String companyEnroll() {
-		//가맹점등록
-		return "business/companyEnroll";
-	}
+	
 	@RequestMapping("/licensee/calculate")
 	public String calculate() {
 		//정산내역

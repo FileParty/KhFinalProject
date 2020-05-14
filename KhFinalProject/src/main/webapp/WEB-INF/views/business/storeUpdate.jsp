@@ -1,19 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../common/header.jsp" %>
-
-<link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
+  
+	<%@include file="../common/header.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
     <section style="width:auto;height:auto;">
- 	<div class="container" >
+ 	<div class="container">
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-
-						<h2>매장 등록하기</h2>
-						<p>* 가게 등록이 성공되면 승인 상태를 매장 정보란에서 확인 할 수 있습니다.</p>
-						<p>* 가게 등록 수정은 승인 후 가능하므로 정확한 정보를 입력하시기 바랍니다.</p>
+                     
+                    <h2>매장 정보 수정</h2>
+                     
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
@@ -166,8 +163,8 @@
 	                  					</tr>
 	                  					<tr>
 	                  						<th colspan="2" style="text-align: center;">
-	                  						<button type="submit" class="btn btn-success">제출</button>
-	                  						<button type="reset" class="btn btn-danger">취소</button>
+	                  						<button type="submit" class="btn btn-success">수정</button>
+	                  						<button type="button" class="btn btn-danger" onclick="location.replace('${path}/licensee/companyStatus')">취소</button>
 	                  						</th>
 	                  					</tr>
 	                  				</table>
@@ -182,7 +179,4 @@
    		</div>
    	</div>
     </section>
-    
-    
-    <jsp:include page="/WEB-INF/views/business/Js/storeEnrollJs.jsp"/>
     <%@include file="../common/footer.jsp" %>
