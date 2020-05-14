@@ -40,6 +40,22 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.selectBusiness(session,userId);
 	}
+
+	@Override
+	public Member selectMemberName(String name) {
+		// TODO Auto-generated method stub
+		return dao.selectMemberName(session,name);
+	}
+
+	@Override
+	public Business selectBusinessId(String userId) {
+		// TODO Auto-generated method stub
+		return dao.selectBusinessId(session,userId);
+	}
+	
+	
+	
+	
 	
 	
 	

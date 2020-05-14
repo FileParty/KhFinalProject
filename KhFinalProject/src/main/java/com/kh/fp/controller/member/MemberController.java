@@ -82,10 +82,34 @@ public class MemberController {
 		return page;
 	}
 	
-	//아이디 체크용
+	//일반 아이디 아이디 체크용
 	@RequestMapping("/member/checkId")
 	public void checkId(String userId,ServletOutputStream out) {
 		Member m = service.selectMember(userId);
+		boolean flag=m!=null?false:true;
+		try {
+			out.print(flag);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//사업자 아이디 아이디 체크용
+	@RequestMapping("/member/checkIdB")
+	public void checkIdB(String userId,ServletOutputStream out) {
+		Business b = service.selectBusinessId(userId);
+		boolean flag=b!=null?false:true;
+		try {
+			out.print(flag);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//일반 아이디 닉네임 체크용
+	@RequestMapping("/member/checkName")
+	public void checkName(String name,ServletOutputStream out) {
+		Member m = service.selectMemberName(name);
 		boolean flag=m!=null?false:true;
 		try {
 			out.print(flag);
