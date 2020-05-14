@@ -216,19 +216,7 @@ ${sysdate }  --%>
                         <br>
                         <table class="table" id="menu-tbl">
                             <tr>
-                                <th style="text-align: left;"></th>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center;"></td>
+                                <th style="text-align: left;">메뉴</th>
                             </tr>
                         </table>
                     </div>
@@ -255,43 +243,54 @@ ${sysdate }  --%>
             	
             	var o_no = $(this).find("input").val();
             	
+            	const strong = $(this).find("strong");
+            	const modalStrong=$("#modal").find("strong");
+            	let src = $(this).find("img").attr("src");
+            	
+            	
+           		
+           		$("#modal").find("img").attr("src", src);
+            	
 				$.ajax({
 			
 				    url: "${path}/mypage/orderMenu.do",
 				    type: "POST",
 				    data: {"o_no":o_no},
 				    success: function(data){
+						/* console.log(data[0]['1_1']); */
 						console.log(data);
+						console.log(data.length);
+						
+						for(let i=0; i<data.length; i++){
+							$("#menu-tbl").append("<tr><td style='text-align: center;' class='menu_con'>" + data[i]["??"] + "</td></tr>")
+						}
+						
+						
+						
+						
+						let sName = strong[0].innerHTML;
+		            	let date = strong[1].innerHTML;
+		            	let price = strong[2].innerHTML;
+		           		
+		           		modalStrong[0].innerHTML = sName;
+		           		modalStrong[1].innerHTML = date;
+		           		modalStrong[2].innerHTML = price;
+		            	
+		            	
+		                $("#modal").attr("style", "display:flex");
+		                $("body").attr("style","overflow-y:hidden");
 				    },
 			
-				    error: function (request, status, error){     
+				    error: function (request, status, error){
+				    	
+				    	alert("리뷰 조회 실패");
+				    	
 				    }
 			
 				});
             	
-            	/* const table=$(this).children("table"); */
-            	const strong = $(this).find("strong");
-            	const modalStrong=$("#modal").find("strong");
-            	
-            	let sName = strong[0].innerHTML;
-            	let date = strong[1].innerHTML;
-            	let price = strong[2].innerHTML;
-            	
-            	let src = $(this).find("img").attr("src");
-           		
-           		modalStrong[0].innerHTML = sName;
-           		modalStrong[1].innerHTML = date;
-           		modalStrong[2].innerHTML = price;
-           		
-           		$("#modal").find("img").attr("src", src);
-           		
-           		           		
-           		
-            	//console.log($(table).find("strong")[1].html());
-            	
-            	
-                $("#modal").attr("style", "display:flex");
-                $("body").attr("style","overflow-y:hidden");
+
+                
             });
     
             $("#modal").click(function(){
@@ -305,38 +304,6 @@ ${sysdate }  --%>
             	$.ajax({
             		url:""
             	})
-            	
-            	
-            	var div = "<div id='modal'>";
-            	div += "<div class='modal_content'>";
-                div += "<div class='row'>";
-                div += "<div class='col-md-2'></div>";
-                div += "<div class='col-md-8'>";
-                div += "<p style='text-align: center;'><strong>"+  +"</strong></p>";
-                div += "<table style='width:100%'>";
-                div += "<tr>";
-                div += "<td><img src='${path }/resources/upload/mypage/menu.PNG'/></td>";
-                div += "<td style='text-align: right;'>";
-                div += "<p style='text-align: right;'><strong>2020.05.11</strong></p>";
-                div += "<p style='text-align: right;'><strong>30,000원</strong></p>";
-                div += "</td>";
-                div += "</tr>";
-                div += "</table>";
-                div += "<br>";
-                div += "<table class='table'>";
-                div += "<tr><th style='text-align: left;'>메뉴</th></tr>";
-                div += "<tr><td style='text-align: center;'>메뉴 1</td></tr>";
-                div += "<tr><td style='text-align: center;'>메뉴 2</td></tr>";
-                div += "<tr><td style='text-align: center;'>메뉴 3</td></tr>";
-                div += "<tr><td style='text-align: center;'>메뉴 4</td></tr>";
-                div += "</table>";
-                div += "</div>";
-                div += "<div class='col-md-2'></div>";
-                div += "</div>";
-                div += "<div class='modal_layer'></div>";
-                div += "</div>";
-            }
-            
     
         </script>
     

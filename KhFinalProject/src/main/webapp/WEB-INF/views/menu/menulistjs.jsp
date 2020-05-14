@@ -84,6 +84,7 @@
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 				data: {
 					"menuCategory":menuCategory
+					
 				},
 				success: function(data){
 					

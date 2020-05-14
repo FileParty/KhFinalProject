@@ -46,7 +46,7 @@ public class MenuListController {
 			HttpSession session,
 			HttpServletResponse res
 			) {		
-		
+						
 		//위도 경도 세션 처리
 		if(xl==0 && yl==0) {
 			xl = (double)session.getAttribute("xl");
@@ -56,6 +56,11 @@ public class MenuListController {
 			session.setAttribute("yl", yl);
 		}
 		
+		System.out.println("========== xl ==========");
+		System.out.println(xl);
+		
+		System.out.println("========== yl ==========");
+		System.out.println(yl);
 
 		Map map = new HashMap();
 		
@@ -111,13 +116,21 @@ public class MenuListController {
 			HttpSession session
 			) {
 		
+		
+		
 		if(xl==0 && yl==0) {
 			xl = (double)session.getAttribute("xl");
 			yl = (double)session.getAttribute("yl");
 		}else {
-			session.setAttribute("xl", xl);
+			session.setAttribute("xl", yl);
 			session.setAttribute("yl", yl);
 		}
+		
+		System.out.println("========== xl ==========");
+		System.out.println(xl);
+		
+		System.out.println("========== yl ==========");
+		System.out.println(yl);
 		
 		Map map = new HashMap();
 		

@@ -323,8 +323,8 @@
             </div>
          </div>
          <div class="modal-footer menu-modal-footer">
-            <button class="menu-modal-footer-button" style="background-color:red">주문표에 추가</button>
-            <button class="menu-modal-footer-button" style="background-color:black">주문하기</button>
+            <button class="menu-modal-footer-button" onclick="addOrderList()" style="background-color:red">주문표에 추가</button>
+            <button class="menu-modal-footer-button" onclick="orderModal()"style="background-color:black">주문하기</button>
          </div>
       </div>
    </div>
@@ -481,7 +481,6 @@
         }
         
         var finalPrice = 0;
-        var propPrice = 0;
         var menuCount = 1;
         
         /* +-하기 */
@@ -490,11 +489,12 @@
            let text = $("#menu-modal-menu-count-text");
            let value = $("#menu-modal-menu-count-text").text();
            if(type=="+"){
-              propPrice = finalPrice;
+              finalPrice*=2;
               $(".menu-modal-menu-count-button").css("backgroundColor","white");
               text.text(Number(value)+1);
            } else{
               if(Number(value)>1){
+            	 finalPrice/=Number(value);
                  text.text(Number(value)-1);
                  if(text.text()==1){
                     $(event.target).css("background-color","lightgray");
@@ -509,8 +509,8 @@
         
         function cacrlPriceReq(value){
            let cacrPrice = Number($("#finalPrice_").val());
-           cacrPrice -= oldChoReqOpValue;
-           cacrPrice += value;
+           cacrPrice -= (oldChoReqOpValue*menuCount);
+           cacrPrice += (value*menuCount);
            $("#finalPrice_").val(cacrPrice);
            $(".menu-modal-content-final-price").html(numberFormatting(cacrPrice));
            propPrice = cacrPrice;
@@ -520,15 +520,24 @@
         function cacrlPriceChk(value){
            let cacrPrice = Number($("#finalPrice_").val());
            if(event.target.checked){
-              cacrPrice += value;
+              cacrPrice += (value*menuCount);
            } else {
-              cacrPrice -= value;
+              cacrPrice -= (value*menuCount);
            }
            propPrice = cacrPrice;
            $("#finalPrice_").val(cacrPrice);
            $(".menu-modal-content-final-price").html(numberFormatting(cacrPrice));
         }
         
+        /* 주문표에 추가 */
+        function addOrderList(){
+        	
+        }
+        
+        /* 모달창에서 주문하기 */
+        function orderModal(){
+        	
+        }
         /* 돈 표시용 */
         function numberFormatting(num){
            num = num.toString().split('').reverse().join('');

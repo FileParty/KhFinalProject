@@ -105,5 +105,9 @@ public class StoreController {
 		return mv;
 	}
 	
+	@RequestMapping("/store/storeupdate")
+	public String storeUdpate() {
+		return "business/storeUpdate";
+	}
 	
 }
