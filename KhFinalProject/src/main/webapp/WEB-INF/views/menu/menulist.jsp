@@ -127,13 +127,22 @@
  				
  					
  					<div class="m-0 p-0"> 
- 						<div class="category-title">
+ 						<div class="category-title d-flex justify-content-between">
  							<span class="h-4 name-${j==1?2*(i-1):i*j-1}">
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
  									<c:out value="${list.get(2*(i-1)).getS_NAME()}"/>
 	 							</c:if>
  								<c:if test="${j==2 && i*j-1<list.size()}">		 								
  									<c:out value="${list.get(i*j-1).getS_NAME()}"/>
+ 								</c:if>
+ 							</span>
+ 							
+ 							<span class="h-4 border border-danger text-danger status-${j==1?2*(i-1):i*j-1}">
+ 								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
+ 									<c:out value="${list.get(2*(i-1)).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
+	 							</c:if>
+ 								<c:if test="${j==2 && i*j-1<list.size()}">		 								
+ 									<c:out value="${list.get(i*j-1).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
  								</c:if>
  							</span>
  						</div>

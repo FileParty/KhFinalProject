@@ -299,7 +299,13 @@
 						
 						//배달 시간
 						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');									
+						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						
+						//영업 상태
+						var status = info['s_OPENSTATUS'];
+						if (status=='Y') status='영업중';
+						else status="영업 준비중";
+						$(".status-"+i).html(status);
 				}); 
 				 
 				//unvisibility 처리
