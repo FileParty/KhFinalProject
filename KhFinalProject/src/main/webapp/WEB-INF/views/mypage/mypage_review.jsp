@@ -39,10 +39,25 @@
                             <td>바나프레소</td>
                             <td>별표시</td>
                             <td>ㄹㅇㄴㅁ ㄴㅇㄹ ㅇㄴㄹ  dasdsa das dasd sadsadㄴㅇㅁ ㄻㄴㅇ ㄹㄴㅇ </td>
-                            <td><button id="review_content_1">상세보기</button></td>
+                            <td><button onclick="reviewDetail(1);">상세보기</button></td>
                         </tr>
+                        
+                        <c:forEach items="${list }" var="rev">
+                        	<tr>
+	                            <td>${rev['r_date'] }</td>
+	                            <td>${rev['r_img'] }</td>
+	                            <td>${rev['r_score'] }</td>
+	                            <td>${rev['r_r_text'] } </td>
+	                            <td><button onclick="reviewDetail('${rev['r_no']}');">상세보기</button></td>
+	                        </tr>
+                        	
+                        </c:forEach>
 
                     </table>
+                    
+                    <div id="page-container" class="col-md-12">
+			       		${pageBar }
+				    </div>
 
                     <style>
                         .table{
@@ -73,22 +88,16 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
 
-                    <p style="text-align: center;"><strong>바나프레소</strong></p>
+                    <p style="text-align: center;"><strong></strong></p>
                     <table style="width: 100%;">
                         <tr>
-                            <td><strong>별점표기</strong></td>
-                            <td style="text-align: right;"><strong>2020.xx.xx</strong></td>
+                            <td><strong></strong></td>
+                            <td style="text-align: right;"><strong></strong></td>
                         </tr>
                     </table>
 
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"> 
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="https://cdn.crowdpic.net/list-thumb/thumb_l_533D758A1EAC9D7F82AE6568089E296C.jpg" width="100%" height="150px">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="https://colorate.azurewebsites.net/SwatchColor/808080" width="100%" height="150px">
-                            </div>
+                        <div class="carousel-inner" id="reviewImg">
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -100,7 +109,7 @@
                           </a>
                     </div>
 
-                    <p >리뷰내용~ㅇ로어노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ노리ㅓㅏㅇ노 리ㅏㅗ ㅇ너ㅣㅏㄹ ㅗ니아머ㅗ라ㅣㅓ오나ㅓㅣ로 ㅣㅓㅏㅇ노  ㅏㅣㅓㄹㄴ이모 리ㅏㄴ ㅁ오리ㅏㅁㄴ어ㅣㅏ</p>
+                    <strong style="font-weight:400"></strong>
 
                 </div>
                 <div class="col-md-2"></div>
@@ -108,7 +117,6 @@
             </div>
         </div>
        
-        <div class="modal_layer"></div>
     </div>
 
     <script>
@@ -118,10 +126,48 @@
         }
 
     
-        $("#review_content_1").click(function (){
-            $("#modal").attr("style", "display:flex");
-            $("body").attr("style","overflow-y:hidden");
-        });
+        function reviewDetail(r_no){
+        	
+        	var content = $(event.target).parent().siblings("td");
+        	const modalStrong=$("#modal").find("strong");
+        	
+        	for(let i=0; i<content.length; i++){
+        		modalStrong[i].innerHTML = $(content[i]).html();
+        	}
+        	
+        	
+        	
+        	$.ajax({
+    			
+			    url: "${path}/mypage/reviewImg.do",
+			    type: "POST",
+			    data: {"r_no":r_no},
+			    success: function(data){
+					console.log(data);
+					
+					for(let i=0; i<data.length; i++){
+						if(i==0){
+							$("#reviewImg").append("<div class='carousel-item active'><img class='d-block w-100' src='${path}/resources/img/mypage/review/"+ data[i] +"' width='100%' height='150px'></div>");
+						}
+						else{
+							$("#reviewImg").append("<div class='carousel-item'><img class='d-block w-100' src='${path}/resources/img/mypage/review/"+ data[i] +"' width='100%' height='150px'></div>");
+						}
+						
+					}
+	           		$("#modal").attr("style", "display:flex");
+	                $("body").attr("style","overflow-y:hidden");
+			    },
+		
+			    error: function (request, status, error){
+			    	
+			    	console.log(request, status, error)
+			    	alert("리뷰 조회 실패");
+			    	
+			    }
+		
+			});
+            
+        };
 
         $("#modal").click(function(){
             if(event.target.className=='carousel-control-next-icon')
@@ -129,6 +175,7 @@
             $("#modal").attr("style", "display:none");
             $("body").attr("style","overflow-y:scroll");
         });
+        
 
     </script>
 
