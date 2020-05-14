@@ -271,7 +271,7 @@
                               <tr>
                               <th id="th1">쿠폰코드</th>
                                 <th id="th1">쿠폰이름</th>
-                                <th id="th1">쿠폰정보</th>
+                                <th id="th1">쿠폰정보(원)</th>
                                 <th id="th1">유효기간</th>
                                 <th id="th1">Pick</th>
                             </tr>
@@ -284,7 +284,7 @@
 	                              <tr>
 	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large>
 	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large> <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small></td>
-	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">-${c['cn_price'] } </large>
+	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">- ${c['cn_price'] }원 </large>
 	                               
 	                                </td>
 	               
@@ -311,12 +311,7 @@
 					
 
                                 </table><hr>
-                                <script>
-                               	 ("#clickevent").click(function javascript_onclikc(){
-                                	alert('Jquery button를 클릭하셨습니다.');
-                                	});
-
-                                </script>
+                              
          <!-- =================================모달 css===================================================== -->            
                                 <style>
                                   #th1{
@@ -343,23 +338,28 @@
             </dialog>
              <!-- ===================================================================================== -->
              
-        <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)</div>
+        <div style="display: inline;padding-left: 7px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)</div>
         <br> 
       </td>
     </tr>
 
 <tr>
   <td style="padding-right:40px;">빠짐 포인트</td>
-    <td width="680px"><input id="show" type="text" style="width:201px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >
-      <button id="allpay" style="width:90px;margin-left:-5px;margin-top:-5px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
-      <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">&nbsp;${loginMember['m_point']}  point</p>)</div>
+    <td width="680px">
+    <input style="padding-right:20px;" type="text" class="col-lg-13" id="allpay3" >  
+     <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
+  
+     <input type="checkbox"   onchange="check2(this)" > <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
+      <div style="display: inline;padding-left: 7px;">(보유 포인트
+      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}">point)
+      </div>
       <br>
     </td>
   </tr>
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="-2500&nbsp;&nbsp;&nbsp;"readonly>&nbsp;&nbsp;원&nbsp; 
+      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="2500원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -406,11 +406,11 @@
         </tr> -->
         <tr style="height:40px">
           <td>쿠폰금액</td>
-          <td style="color: red;"><div class="" id="ex2_Result2"></div> </td>
+          <td style="color: red;"><div class="" id="ex2_Result3">0원</div></td>
          </tr>
          <tr style="height:40px">
            <td>포인트금액</td>
-            <td><em style="color: red;">-0원</em></td>
+            <td><input style="text-align:center; color:red; font-weight:bold;width:100px;border:1px solid white;" type="text"id="allpay4" ></td>
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
@@ -849,8 +849,9 @@ $(".checkBtn").click(function(){
 	str +=
 			"<font color='red'>" + name + "</font>"	
 	$("#ex2_Result2").html(str);
-			$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  
-			$(event.target).parent().parent().css("border","solid 5px red");  
+	$("#ex2_Result3").html(str);
+	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  
+	$(event.target).parent().parent().css("border","solid 5px red");  
 });
 
 </script>
@@ -1120,6 +1121,25 @@ main {
       }
 
     }
+  <!--======================포인트 모두사용 스크립트=============allpay2======allpay3=====allpay4================== -->
+  function check2(f){
+
+    if (f.checked) {
+
+      $('#allpay3').val($('#allpay2').val());
+
+      $('#allpay4').val($('#allpay2').val()).html('원');
+     
+
+    } else{
+
+    $('#allpay3').val('');
+    $('#allpay4').val('');
+ 
+
+      }
+
+    }
   
   <!--===============================연락처 하이바(-)입력 스크립트================================ -->
   $(document).ready(function() {
@@ -1325,7 +1345,15 @@ width:200px;
 height:45px;
 background-color: rgb(243, 243, 243);
 text-align:right;
-padding-top:7px;
+padding-top:11px;
+}
+.col-lg-13{
+border : 1px solid lightgray;
+width:200px;
+height:45px;
+
+text-align:right;
+/* padding-top:7px; */
 }
 
 </style>
