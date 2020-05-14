@@ -136,6 +136,9 @@
 							if (status=='Y') status='영업중';
 							else status="영업 준비중";
 							$(".status-"+i).html(status);
+							
+							//가게 번호
+							$(".store-no-"+i).html(info['s_NO']);
 					}); 
 					 
 					//unvisibility 처리
@@ -229,6 +232,9 @@
 						if (status=='Y') status='영업중';
 						else status="영업 준비중";
 						$(".status-"+i).html(status);
+						
+						//가게 번호
+						$(".store-no-"+i).html(info['s_NO']);
 				}); 
 				 
 				//unvisibility 처리
@@ -326,6 +332,9 @@
 						if (status=='Y') status='영업중';
 						else status="영업 준비중";
 						$(".status-"+i).html(status);
+						
+						//가게 번호
+						$(".store-no-"+i).html(info['s_NO']);
 				}); 
 				 
 				//unvisibility 처리

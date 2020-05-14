@@ -124,7 +124,7 @@
  						 </c:if>
  					</div>
  				
- 					<div class="invisible store-no">
+ 					<div class="invisible store-no-${j==1?2*(i-1):i*j-1}">
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">							
  							<c:out value="${list.get(2*(i-1)).getS_NO()}"/>
 						</c:if>
