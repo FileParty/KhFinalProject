@@ -15,9 +15,12 @@
   </select>
   <select id="selectBusiness" parameterType="string" resultType="business">
   	SELECT * FROM BUSINESS B, STORE S WHERE B.B_NO=S.B_NO AND B.B_ID=#{userId}
-  </select>
+  </select>	
   
   <select id="selectCoupon" resultType="CouponSH">
   	SELECT*FROM COUPON
+  </select>
+  <select id="selectCouponCount" parameterType="_int" resultType="_int">
+  	SELECT COUNT(*)FROM COUPON WHERE M_NO=#{m_no}
   </select>
 </mapper>

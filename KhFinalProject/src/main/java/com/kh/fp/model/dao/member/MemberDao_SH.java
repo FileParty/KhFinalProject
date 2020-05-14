@@ -11,6 +11,8 @@ public interface MemberDao_SH {
 
 	List<Coupon_SH> selectCoupon(SqlSessionTemplate session);
 
+	int selectCouponCount(SqlSessionTemplate session,int m_no);
+
 //	Object selectMemberPay(SqlSessionTemplate session, int m_no);
 
 

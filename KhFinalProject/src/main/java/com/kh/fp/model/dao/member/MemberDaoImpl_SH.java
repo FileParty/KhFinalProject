@@ -25,4 +25,10 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 //		return session.selectOne("member.selectMemberPay",m_no);
 //	}
 
+	@Override
+	public int selectCouponCount(SqlSessionTemplate session,int m_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectCouponCount",m_no);
+	}
+
 }

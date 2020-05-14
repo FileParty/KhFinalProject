@@ -115,7 +115,7 @@
           <br>
           <div style="display:flex; justify-content:center;padding-left: 490px;">
           
-        </div>
+        </div>	
         
         <br>
       </div>
@@ -126,14 +126,14 @@
     <h4>배송지 정보</h4> 
     <div style="display:flex; justify-content:center;padding-left: 490px;">
           <label for="cbx" class="label-cbx">
-      <input id="cbx" type="checkbox" class="invisible" onchange="check1(this)" required>
+      <input id="cbx" type="checkbox" class="invisible" onchange="check1(this)" required >
       <div class="checkbox">
         <svg width="20px" height="20px" viewBox="0 0 20 20">
           <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
           <polyline points="4 11 8 15 16 6"></polyline>
         </svg>
       </div>
-   <span style="padding-top:-30px;">주문자 정보와 동일하면 체크해주세요</span>
+   <div style="width:400px;margin-top:12px;">주문자 정보와 동일하면 체크해주세요</div>
     </label>
     </div>
   
@@ -252,11 +252,14 @@
     <tr>
     <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
     
-      <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" readonly>&nbsp;&nbsp;원&nbsp; 
+         <td width="680px">  
+    
+		<div class="col-lg-12" id="ex2_Result2"></div> 
         <!-- ================================쿠폰적용========================================== -->
-        <button class="button" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
+       <button class="button" style="width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
         	쿠폰적용
         </button>
+
          <!-- ================================클릭했을떄 모달========================================== -->
             <dialog>
                 <div class="dialog__inner">
@@ -264,12 +267,13 @@
                     <div class="dialog__content">
                         <h3>쿠폰적용</h3><hr>
                        	
-                            <table border="1" style="width:1150px;">
+                          <table id="example-table-2" border="1" style="width:1150px;">
                               <tr>
+                              <th id="th1">쿠폰코드</th>
                                 <th id="th1">쿠폰이름</th>
                                 <th id="th1">쿠폰정보</th>
                                 <th id="th1">유효기간</th>
-                                <th id="th1">Choose</th>
+                                <th id="th1">Pick</th>
                             </tr>
                    
 						
@@ -278,22 +282,27 @@
                          	
                                 <c:if test="${c['m_no']== loginMember['m_no'] }">
 	                              <tr>
-	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large></td>
-	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_price'] } 원 할인</large>
-	                                <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small>
+	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large>
+	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large> <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small></td>
+	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">-${c['cn_price'] } </large>
+	                               
 	                                </td>
 	               
 	                                <td id="td1"><small>발행일자: <fmt:formatDate value="${c['cn_enrolldate'] }" pattern="yyy/MM/dd HH:mm:ss" /></small> <br>
 	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small>
 	                                </td>
-	                                <td id="td1"><button style="color:white;width:50px;height:28px;background: linear-gradient(to right, #dce35b, #45b649);border-radius: 25px;">선택</button></td>
+	                                <td id="td1">
+	<!-- <button onclick="pick();" style="color:white;width:50px;height:28px;background: linear-gradient(to right, #dce35b, #45b649);border-radius: 25px;">선택</button> -->
+	  <input type="button" id="clickevent" class="checkBtn" value="클릭" />
+	                                	<input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
+	                                </td>
 	                              </tr>
 	                               	 </c:if>
 	                               	 
                           	 </c:forEach> 
                           <c:if test="${empty c['cn_no']}">  
 								<tr>
-									<td id="td1" colspan="4">등록된 쿠폰이 없습니다.</td>
+									<td id="td1" colspan="5">등록된 쿠폰이 없습니다.</td>
 							    </tr>
 							</c:if> 
        					 
@@ -302,6 +311,12 @@
 					
 
                                 </table><hr>
+                                <script>
+                               	 ("#clickevent").click(function javascript_onclikc(){
+                                	alert('Jquery button를 클릭하셨습니다.');
+                                	});
+
+                                </script>
          <!-- =================================모달 css===================================================== -->            
                                 <style>
                                   #th1{
@@ -327,15 +342,16 @@
                 </div>
             </dialog>
              <!-- ===================================================================================== -->
-        <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
+             
+        <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)</div>
         <br> 
       </td>
     </tr>
 
 <tr>
   <td style="padding-right:40px;">빠짐 포인트</td>
-    <td width="680px"><input id="show" type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-      <button id="allpay" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
+    <td width="680px"><input id="show" type="text" style="width:201px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >
+      <button id="allpay" style="width:90px;margin-left:-5px;margin-top:-5px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
       <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">&nbsp;${loginMember['m_point']}  point</p>)</div>
       <br>
     </td>
@@ -343,7 +359,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="2500"readonly>&nbsp;&nbsp;원&nbsp; 
+      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="-2500&nbsp;&nbsp;&nbsp;"readonly>&nbsp;&nbsp;원&nbsp; 
     <br> 
       </td>
     </tr>
@@ -390,7 +406,7 @@
         </tr> -->
         <tr style="height:40px">
           <td>쿠폰금액</td>
-          <td><em style="color: red;">-0원</em></td>
+          <td style="color: red;"><div class="" id="ex2_Result2"></div> </td>
          </tr>
          <tr style="height:40px">
            <td>포인트금액</td>
@@ -801,7 +817,43 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 </div>
 
 
+<!--=====================쿠폰체크 픽 스크립트=========================================== -->
+<script>  // 선택버튼 (id="pick")을 누르면 왼쪽 옆옆 의 값( cn_price)이 input태그(id="pickresult")에 나오게.
+//버튼 클릭시 Row 값 가져오기
+$(".checkBtn").click(function(){ 
+	
+	var str = ""
+	var tdArr = new Array();	// 배열 선언
+	var checkBtn = $(this);
+	
+	// checkBtn.parent() : checkBtn의 부모는 <td>이다.
+	// checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+	var tr = checkBtn.parent().parent();
+	var td = tr.children();
+	
+	console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+	
+	var no = td.eq(0).text();
+	var userid = td.eq(1).text();
+	var name = td.eq(2).text();
+	var email = td.eq(3).text();
+	
+	
+	// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+	td.each(function(i){	
+		tdArr.push(td.eq(i).text());
+	});
+	
+	console.log("배열에 담긴 값 : "+tdArr);
+	
+	str +=
+			"<font color='red'>" + name + "</font>"	
+	$("#ex2_Result2").html(str);
+			$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  
+			$(event.target).parent().parent().css("border","solid 5px red");  
+});
 
+</script>
 
 
 
@@ -1162,6 +1214,7 @@ detectBackdropClick = (event) => {
     }
 }
 </script>
+
 <style>
 
 
@@ -1266,6 +1319,15 @@ dialog {
 .table123{
  margin-top: 15px;
 }
+.col-lg-12{
+border : 1px solid lightgray;
+width:200px;
+height:45px;
+background-color: rgb(243, 243, 243);
+text-align:right;
+padding-top:7px;
+}
+
 </style>
  <!--================================================================ -->
 <br><br>
