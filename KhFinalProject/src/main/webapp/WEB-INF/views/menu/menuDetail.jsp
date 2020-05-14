@@ -404,7 +404,7 @@
 		        		let div = $("<div>");
 		        		if(side['sd_division']=='Y'){
 		        			div.attr("class","menu-modal-content-required-option-item");
-		        			let lable = $("<label>").text(side['sd_name'])
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
 		        				.attr("class","menu-modal-content-lable");
 		        			let input = $("<input>").attr({
 		        				type:"radio",
@@ -425,13 +425,13 @@
 		        			req.append(div);
 		        		} else {
 		        			div.attr("class","menu-modal-content-un-required-option-item");
-		        			let lable = $("<label>").text(side['sd_name'])
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
 	        				.attr("class","menu-modal-content-lable");
 		        			let input = $("<input>").attr({
 		        				type:"checkbox",
 		        				name:"un-required-option",
 		        				value:side['sd_no'],
-		        				"class":"menu-modal-content-required-option-radio"
+		        				"class":"menu-modal-content-required-option-checkbox"
 		        			});
 		        			lable.prepend(input);
 		        			let price = $("<span>");
