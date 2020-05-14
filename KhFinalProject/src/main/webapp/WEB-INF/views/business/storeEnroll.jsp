@@ -58,13 +58,13 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">종목선택</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="checkbox" name="category" value="치킨" checked>치킨</label>
-	                  							<label><input type="checkbox" name="category" value="피자">피자</label>
-	                  							<label><input type="checkbox" name="category" value="중국집">중국집</label>
-	                  							<label><input type="checkbox" name="category" value="분식">분식</label>
-	                  							<label><input type="checkbox" name="category" value="한식">한식</label>
-	                  							<label><input type="checkbox" name="category" value="햄버거">햄버거</label>
-	                  							<label><input type="checkbox" name="category" value="일식">일식</label>
+	                  							<label><input type="checkbox" name="category" value="1" checked>치킨</label>
+	                  							<label><input type="checkbox" name="category" value="2">피자</label>
+	                  							<label><input type="checkbox" name="category" value="3">중국집</label>
+	                  							<label><input type="checkbox" name="category" value="4">분식</label>
+	                  							<label><input type="checkbox" name="category" value="5">한식</label>
+	                  							<label><input type="checkbox" name="category" value="6">햄버거</label>
+	                  							<label><input type="checkbox" name="category" value="7">일식</label>
 	                  				
 	                  						</th>
 	                  					</tr>
@@ -121,8 +121,8 @@
 	                  							<label><input type="checkbox" name="sholiday" value="목">목</label>
 	                  							<label><input type="checkbox" name="sholiday" value="금">금</label>
 	                  							<label><input type="checkbox" name="sholiday" value="토">토</label>
-	                  							<input type="text" name="sholidaydetail" placeholder="ex) 연중무휴" value=""/>
-	                  							<p>*입력 창에는 추가적인 정보를 입력해주세요(공란가능)</p>
+	                  							<label><input type="checkbox" name="sholiday" value="공휴일">공휴일</label>
+	                  							<label><input type="checkbox" name="sholiday" value="연중 무휴">연중 무휴</label>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -131,7 +131,7 @@
 	                  							<select name="scoupon">
 	                  								<option value="">선택</option>
 	                  								<option value="Y">허용</option>
-	                  								<option value="X">비허용</option>
+	                  								<option value="N">비허용</option>
 	                  							</select>
 	                  							<p>*배달킹이 제공하는 쿠폰이용 허용가능/불가능 설정입니다(쿠폰사용은 결제금액 차감 미적용 됩니다)</p>
 	                  						</th>
@@ -146,7 +146,6 @@
 	                  								<option value="6">6:00</option><option value="7">7:00</option><option value="8">8:00</option><option value="9">9:00</option><option value="10">10:00</option><option value="11">11:00</option>
 	                  								<option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option>
 	                  								<option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23">23:00</option>
-	                  								<option value="24">24:00</option>
 	                  							</select>
 	                  							마감 시간 :
 	                  							<select name="sendtime">
@@ -154,8 +153,7 @@
 	                  								<option value="0">0:00</option><option value="1">1:00</option><option value="2">2:00</option><option value="3">3:00</option><option value="4">4:00</option><option value="5">5:00</option>
 	                  								<option value="6">6:00</option><option value="7">7:00</option><option value="8">8:00</option><option value="9">9:00</option><option value="10">10:00</option><option value="11">11:00</option>
 	                  								<option value="12">12:00</option><option value="13">13:00</option><option value="14">14:00</option><option value="15">15:00</option><option value="16">16:00</option><option value="17">17:00</option>
-	                  								<option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23">23:00</option>
-	                  								<option value="24">24:00</option>
+	                  								<option value="18">18:00</option><option value="19">19:00</option><option value="20">20:00</option><option value="21">21:00</option><option value="22">22:00</option><option value="23">23:00</option> 								
 	                  							</select>
 	                  						</th>
 	                  					</tr>

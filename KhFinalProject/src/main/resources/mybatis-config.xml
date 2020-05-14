@@ -20,8 +20,8 @@
 		<typeAlias type="com.kh.fp.model.vo.StoreMenu" alias="storeDetailMenu"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreMenuSide" alias="storeMenuSide"/>
-
-
+		<typeAlias type="com.kh.fp.model.vo.StoreEnroll" alias="store"/>	
+		<typeAlias type="com.kh.fp.common.StringArrayType" alias="strArr"/>
 	</typeAliases>
 </configuration>
 

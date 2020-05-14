@@ -69,7 +69,7 @@
                 }
  
                 sel_files.push(f);
- 
+ 				$(".imgs_wrap").html("");
                 var reader = new FileReader();
                 reader.onload = function(e) {
                 	

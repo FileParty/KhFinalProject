@@ -15,17 +15,19 @@ public class StoreEnroll {
 	private String phone2;
 	private String phone3;
 	private String[] category;
-	private String slimitprice;
+	private int slimitprice;
 	private String spayopt;
 	private String stext;
 	private String sorifoodinfo;
-	private int stime;
+	private String stime;
 	private String[] sholiday;
-	private String sholidaydetail;
-	private double xl;
-	private double yl;
-	private String scoupon;
+	private String xl;
+	private String yl;
+	private char scoupon;
 	private String sstarttime;
 	private String sendtime;
+	private String logimg;
+	private int bno;
+	private int sno;
 }
 
