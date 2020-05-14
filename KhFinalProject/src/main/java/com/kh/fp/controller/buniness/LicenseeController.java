@@ -1,18 +1,17 @@
 package com.kh.fp.controller.buniness;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.service.buniness.LicenseeService;
 
@@ -46,9 +45,64 @@ public class LicenseeController {
 	}
 	@RequestMapping("/licensee/menuEnroll")
 	public String menuEnroll() {
+	
+		return "business/menuEnroll";
+	}
+	@RequestMapping("/licensee/categoryEnroll")
+	public String categoryEnroll(HttpServletRequest req) {
+		//카테고리등록
+		String[] category = req.getParameterValues("category");
+		for(int i=0;i<category.length;i++) {
+		Map<String,Object> map = new HashMap();
+		map.put("mt_name",category[i]);
+		int result = service.insertCategory(map);
+		}
+		return "";
+	}
+	
+	@RequestMapping("/licensee/selectCategory")
+	@ResponseBody
+	public List<MenuCategory> selectCategory(HttpServletRequest req) {
+		//카테고리조회
+		List<MenuCategory> list = service.selectCategory();
+		return list;
+	}
+		
+	
+	
+	@RequestMapping("/licensee/menuEnrollEnd")
+	public String menuEnroll(HttpServletRequest req) {
 		//메뉴등록
 		
-		return "business/menuEnroll";
+		String[] menuName = req.getParameterValues("menuName");
+		String[] mPrice = req.getParameterValues("menuPrice");
+		String[] img = req.getParameterValues("menuImg");
+		String[] detail = req.getParameterValues("menuDetail");
+		String[] end = req.getParameterValues("end");
+		String[] rPrice = req.getParameterValues("rPrice");
+		String[] checked = req.getParameterValues("checked");
+		String[] ePrice = req.getParameterValues("endPrice");
+		int menuPrice[] = new int[mPrice.length];
+		int rrPrice[] = new int[rPrice.length];
+		int endPrice[] = new int[ePrice.length];
+		
+		for(int i=0;i<mPrice.length;i++) {
+			menuPrice[i]= Integer.parseInt(mPrice[i]);
+			//메뉴가격
+		}
+		for(int i=0;i<rPrice.length;i++) {
+			rrPrice[i]= Integer.parseInt(rPrice[i]);
+			//필수 가격
+		}
+		for(int i=0;i<ePrice.length;i++) {
+			endPrice[i]= Integer.parseInt(ePrice[i]);
+			//선택 가격
+		}
+		//메뉴카테고리 테이블 등록(시퀀스,카테고리,가게코드)
+//		int result = service.inserMenuCategory(category);
+//		//메뉴테이블 등록(시퀀스,메뉴명,가격,메뉴사진,카테고리코드,설명,대표메뉴 상태,가게코드)
+//		int result1 = service.insertMenu(menuName,mPrice)
+		return "";
 	}
 	@RequestMapping("/licensee/selectOption")
 	@ResponseBody

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.LicenseeDao;
+import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.Side;
 
 @Service
@@ -28,6 +29,19 @@ public class LicenseeServiceImpl implements LicenseeService {
 		
 		return dao.selectOption(session,sNo);
 	}
+	@Override
+	public int insertCategory(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.insertCategory(session,map);
+	}
+	@Override
+	public List<MenuCategory> selectCategory() {
+		// TODO Auto-generated method stub
+		return dao.selectCategory(session);
+	}
+	
+	
+	
 	
 	
 	

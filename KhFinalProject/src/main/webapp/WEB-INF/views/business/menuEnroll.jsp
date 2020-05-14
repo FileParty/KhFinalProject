@@ -29,8 +29,8 @@
       th#h1{
        padding:0 0 20 0;
       }
-      .btnK {
-      margin-left:250px;
+      .btnC {
+      margin-left:350px;
       }
       </style> 
 	<%@ include file="../common/header.jsp" %>
@@ -55,21 +55,46 @@
                     		<h5 style="text-align:center;"><strong><span style="color:red;">* 대표메뉴</span> -><span style="color:orange;"> 옵션 </span>-> <span style="color:lightgreen;">카테고리</span> 순으로 등록하시면 편리합니다.</strong></h5>
                     	<br>
                     	<br>
-                    	   <button type="button" class="btnK btn btn-outline-danger">대표메뉴 추가</button>
-                    	   <button type="button" class="btnC btn btn-outline-success" onclick="addCategory();">카테고리 추가</button> 
-                    	   <button type="button" class="btn btn-outline-warning btnC1" data-toggle="modal" data-target="#myModal">옵션 추가</button>
-                    		<form action="#" method="post" id="menu-container">
+                    	   
+                    	   <button type="button" id="subBtn" class="btnC btn btn-outline-success" data-toggle="modal" data-target="#myModal3">카테고리 추가</button> 
+                    	   <button type="button" id="subBtn1" class="btn btn-outline-warning btnC1" data-toggle="modal" data-target="#myModal">옵션 추가</button>
+                    	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();" >메뉴 등록</button>
+                    		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
+                    		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
                     		<div class="container addCategory">
+                    		
                     		<br>
                     			<div class="row modalMenu">
                     			</div>
                     		</div>
+                    		<br>
+                    		<br>
+                    		<button style="margin-left:400px;"  type="submit" id="subBtn2" class="btn btn-outline-warning">등록</button>
                     		</form>
+                    		
                     	    </div>
                     	  </div>
                     	</div>                    				  
             	</div> <!-- 컨테이너 -->
             		
+            			<!--카테고리 추가 모달 -->
+            			<div class="modal" id="myModal3">
+						    <div class="modal-dialog">
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <h4 class="modal-title">카테고리 등록</h4>
+						          <button style="margin-left:180px;"class="btn btn-outline-dark"type="button" onclick="add();">추가</button>
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						        </div>
+						         
+						        <div class="modal-body" align=center>	
+						        <form action="${path }/licensee/categoryEnroll" method="post" class="categoryForm"> 
+						        	<button type="submit">등록</button>
+						        </form>
+						        </div>					        
+						      </div>
+						    </div>
+						  </div>
 
 						<!-- 추가옵션 등록 모달 -->
 						  <div class="modal" id="myModal">
@@ -93,7 +118,7 @@
 						          	<br>
 						          	<br>
 						          	<div id="option2-container"></div>
-						          	<button  type="submit" class="btn btn-outline-danger" >등록</button>		
+						          	<button type="submit" class="btn btn-outline-danger" >등록</button>		
 						          	</form>		        
 						        </div>					        
 						      </div>
@@ -126,42 +151,24 @@
 						  </div>	
 		<script>
 			var num = 0;
-			function addCategory() {
-							
-				var category = $("<input>").attr({
-					'class':'category'+num,
-					'name':'category',
-					'placeholder':'카테고리를 입력해주세요.',
-					'class':'form-control'
-				}).css({
-					'width':'400',
-					'border':'1px soild black',
-					'display':'inline'
-				})
-				var menuAdd = $("<button>").attr({
-					'type':'button',
-					'class':'btn btn-outline-primary menuAdd'+num,
-					'data-toggle':'modal',
-					'data-target':'#myModal2',
-					'alt':num,
-					'onclick':'menuBtn('+num+'); hidBtn();'
-				})
+			
+			function menuEnroll() {
+				$("#myModal2").modal('show');
+			}
+			function add() {
+				$(".categoryForm").append($("<input>").attr({'type':'text','class':'form-control','name':'category','placeholder':'카테고리를 입력해주세요.'}));
+			}
+	
+			
+			$("#myModal2").on('show.bs.modal',function(){
 				
-		
-				menuAdd.html('메뉴등록');
-				$(".addCategory").append(category);
-				$(".addCategory").append(menuAdd);
-				num++;
-			}
-			function menuBtn(num) {
-				$("#hid").val(num);
-			}
-			function hidBtn() {
 				let div = $(".body-container2").children();
+				let div2 = $(".body-container3").children();
 				 	$.ajax({
 				url:'${path }/licensee/selectOption',
 				success:function(data) {
 					div.remove();
+					div2.remove();
 					console.log('성공');
 					console.log(data);
 					
@@ -190,7 +197,7 @@
 						
 					}).html(data[i].sd_name);
 							
-					var span = $("<span>").html(data[i].sd_price+'원').css('margin-left','80');
+					var span = $("<span>").html(data[i].sd_price).css('margin-left','80');
 						
 					$(".hh3text").after(span).after(label).after(input).after($("<br>"));
 					
@@ -207,7 +214,7 @@
 							
 						}).html(data[i].sd_name);
 						
-						var span = $("<span>").html(data[i].sd_price+'원').css('margin-left','100');
+						var span = $("<span>").html(data[i].sd_price).css('margin-left','100');
 						$(".h3text").after(span).after(label).after(input).after($("<br>"));
 					}
 					}
@@ -217,7 +224,7 @@
 					console.log("실패");
 				}
 			});	 
-			}
+			})
 			
 			var tbl = $("<table>");
 			var tr = $("<tr>");
@@ -228,6 +235,8 @@
 			tbl.attr({
 				'class':'table table-hover'
 			})
+			
+			
 			function option() {
 				var tr = $("<tr>");
 				var tr1 = $("<tr>");
@@ -297,6 +306,21 @@
 		
 		
 			function menu_enroll() {
+				var sel = $("<select>").attr({
+					'id':'selectCategory'
+				})
+				$.ajax({
+					url:'${path}/licensee/selectCategory',
+					success:function(data){
+						for(let i=0;i<data.length;i++) {
+							var op = $("<option>").attr({
+								'for':'selectCategory'
+							}).html(data[i].mt_name);
+							sel.append(op);
+						}
+						$("#menu-container").after(sel);
+					}
+				})
 				var values = $("input[name=radio]:checked").val();
 				var spanValue = $("input[name=radio]:checked").next().next().html();
 				 var inputR = $("<input>").attr({
@@ -304,16 +328,21 @@
 					 'name':'end',
 					 'id':'end',
 					 'value':values,
-					 'checked':'true'
-				 });
+					 'checked':'true',
+					'class':'form-control'
+					
+				 }).css({'display':'inline','width':'20','height':'20'});
 				 var labelR = $("<label>").attr({
-					 'for':'end'
+					 'for':'end',
+					 
 				 }).html($("input[name=radio]:checked").val());
-				 var spans = $("<span>").css('margin-left','10').html(spanValue);
-				
+				 var spans = $("<input>").attr({'type':'number','name':'rPrice','value':spanValue,'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				 var strong = $("<strong>");
+				 var pTag = $("<p>").html("필수");
+				 strong.append(pTag);
 				var fileValue = $("#modalFile").val().split("\\");
 				var fileName = fileValue[fileValue.length-1]; 
-				
+				console.log('파일',fileName);
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
 				var menuDetail = $(".menu-detail").val();
@@ -335,11 +364,15 @@
 					'name':'menuDetail',
 					'class':'form-control'
 				}).html(menuDetail);
-				var num = $("#hid").val();				
+				var num = $("#hid").val();	
+				var imgInput = $("<input>").attr({'type':'hidden','name':'menuImg'});
+				imgInput.val(fileName);
 				var div = $("<div>").attr('class','col-lg-5 sideBody');
-				var div1 = $("<div>").attr('class','col-lg-4 sideBody2');
+				var div1 = $("<div>").attr('class','col-lg-4 sideBody1');
 				var div2 = $("<div>").attr('class','col-lg-3 sideBody2');
 				var div3 = $("<div>").attr('class','row');
+				
+				
 				var img = $("<img>").attr({
 					'id':'preview',
 					'class':'preview'+num,
@@ -358,11 +391,14 @@
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
-				div1.append(inputR).append(labelR).append(spans);
-				console.log($("input[name=radio]:checked").val());
-				console.log($("input[name=radio]:checked").next().next().html());
+				div1.append(strong).append(inputR).append(labelR).append(spans).append("<br>");
 				let check = [];
 				let price =[];
+				
+				var strong1 = $("<strong>");
+				var pTag1 = $("<p>").html("추가");
+				strong1.append(pTag1);
+				div1.append(strong1);
 				 $("input[name=check]:checked").each(function(i) { 
 				        console.log( 'checkbox값 : '+$(this).val() );
 				        console.log( 'span값 : '+$(this).next().next().html());
@@ -372,19 +408,24 @@
 				        	'type':'checkbox',
 				        	'name':'checked',
 				        	'value':check[i],
+				        	'id':'addEnd'+i,
+				        	'class':'form-control',
 				        	'checked':'true',
-				        	'disabled':' ',
-				        	'id':'addEnd'+i
-				        })
+				        	
+				        }).css({'display':'inline','width':'20'});
 				        var goods = $("<label>").attr({
-				        	'for':'addEnd'+i
-				        }).html(check[i]);
-				        div1.append(good).append(goods).append("<br>");
+				        	'for':'addEnd'+i,
+				        	
+				        }).html(check[i]).css({'display':'inline'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				        console.log(spanValues);
+				        div1.append(good).append(goods).append(spanValues).append($("<br>"));
+				        
 				    });
-				 
-				div2.append(img);
+				
+				div2.append(imgInput).append(img);
 				div3.append(div).append(div1).append(div2);
-				$(".menuAdd"+num).after(div3);
+				$(".addCategory").after(div3);
 				$(".menu-name").val("");
 				$(".menu-price").val("");
 				$(".menu-detail").val("");

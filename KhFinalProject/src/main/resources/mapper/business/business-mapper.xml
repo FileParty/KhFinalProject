@@ -4,7 +4,15 @@
 	<insert id="insertSide" parameterType="java.util.Map">
 		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},1,#{sd_division})	
 	</insert>
+	<insert id="insertCategory">
+		INSERT INTO MENU_CATEGORY VALUES(5,#{mt_name},1)
+	</insert>
 	<select id="selectOption" resultType="com.kh.fp.model.vo.Side" parameterType="_int">
 		SELECT * FROM SIDE WHERE S_NO = #{s_no}
 	</select>
+	<select id="selectCategory" resultType="com.kh.fp.model.vo.MenuCategory">
+		SELECT * FROM MENU_CATEGORY WHERE S_NO = 1
+	</select>
 </mapper>
+
+
