@@ -124,14 +124,15 @@
  						 </c:if>
  					</div>
  				
- 					<div class="invisible store-no-${j==1?2*(i-1):i*j-1}">
+ 					<span class="invisible store-no-${j==1?2*(i-1):i*j-1} no">
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">							
  							<c:out value="${list.get(2*(i-1)).getS_NO()}"/>
 						</c:if>
 						<c:if test="${j==2 && i*j-1<list.size()}">		 								
 							<c:out value="${list.get(i*j-1).getS_NO()}"/>
 						</c:if>
- 					</div>
+ 					</span>
+ 					
  					<div class="m-0 p-0"> 
  						<div class="category-title d-flex justify-content-between">
  							<span class="h-4 name-${j==1?2*(i-1):i*j-1}">

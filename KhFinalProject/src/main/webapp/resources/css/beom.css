@@ -409,6 +409,64 @@ input.menu-modal-content--unrequired-option-checkbox{
 	height:16px;
 }
 
+div.menu-modal-content-menu-count-div{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+div.menu-modal-content-count{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+	width:180px;
+	height:45px;
+	border:1px solid gray;
+	font-size:24px;
+	line-height:1;
+}
+
+p#menu-modal-menu-count-text{
+	width:90px;
+	height:100%;
+	border-left:1px solid gray;
+	border-right:1px solid gray;
+	text-align:center;
+	align-items:center;
+	padding-top:9px;
+	margin:0px;
+}
+
+p.menu-modal-menu-count-button{
+	width:45px;
+	height:100%;
+	background-color:white;
+	font-size:40px;
+	font-weight: 800;
+	text-align:center;
+	align-items:center;
+	padding:0px;
+	margin:0px;
+	cursor:pointer;
+	border:0;
+}
+
+p.menu-modal-menu-count-button:active{
+	background-color:lightgray;
+}
+
+div.menu-modal-content-final-price-div{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+h5.menu-modal-menu-limitPrice{
+	font-size:20px;
+	font-weight:600;
+	color:red
+}
+
 button.menu-modal-footer-button{
 	text-align:center;
 	color:white;
