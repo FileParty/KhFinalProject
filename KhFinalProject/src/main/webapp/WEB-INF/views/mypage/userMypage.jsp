@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <%
-	session.setAttribute("userId", "user01");
+	/* session.setAttribute("userId", "user01"); */
 %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <style>

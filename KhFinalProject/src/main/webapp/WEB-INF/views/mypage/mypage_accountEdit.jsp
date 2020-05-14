@@ -11,6 +11,10 @@
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
+		    
+		    .table td{
+		    	text-align:center;
+		    }
 </style>
 
 <section>
@@ -32,7 +36,7 @@
 
                             <tr>
                                 <th>회원아이디</th>
-                                <td>chouck12</td>
+                                <td>${loginMember.m_id }</td>
                                 <td></td>
                             </tr>
 
@@ -49,16 +53,16 @@
                             </tr>
                             <tr>
                                 <th>휴대전화번호</th>
-                                <td id="phone">010-1234-5678</td>
+                                <td id="phone">${loginMember.m_phone }</td>
                             </tr>
                             <tr>
                                 <th>닉네임</th>
-                                <td id="nickname">성연띠</td>
+                                <td id="nickname">${loginMember.m_nickname }</td>
                             </tr>
 
                             <tr>
                                 <th>가입일</th>
-                                <td>xxxx.xx.xx</td>
+                                <td>${loginMember.m_enrolldate }</td>
                                 <td></td>
                             </tr>
 
@@ -112,6 +116,29 @@
             $("#nickname").html("<input type='text' value='" + $("#nickname").html() + "'>");
             $("#memberUpdateBtn").attr("onclick", "memberUpdateEndBtn();");
             $("#memberUpdateBtn").html("수정완료");
+        }
+        
+        function memberUpdateEndBtn(){
+
+        	$.ajax({
+    			
+			    url: "${path}/mypage/memberUpdate.do",
+			    type: "POST",
+			    data: {"m_no":${loginMember.m_no}},
+			    success: function(data){
+					
+			    	
+			    	
+			    },
+		
+			    error: function (request, status, error){
+			    	
+			    	alert("수정 실패");
+			    	
+			    }
+		
+			});
+        	
         }
 
         function passwordCheck(){

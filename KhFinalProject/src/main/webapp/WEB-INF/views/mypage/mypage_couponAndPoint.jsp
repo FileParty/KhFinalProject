@@ -25,27 +25,29 @@
             <div class="col-md-10 row">
                     
                     <div class="col-md-12">
-                        <h4>현재 포인트: 3,245</h4>
+                        <h4>현재포인트: <%-- ${LoginMember.getM_point } --%></h4>
                         <hr>
                     </div>
 
-                    <div class="col-md-6 row"> 
-                        </h4>
-
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" style="border: 1px solid black; height:200px;">
-
-                    
-                            <h4 style="text-align: center;">3000원 할인</h4>
-                            <p style="text-align: center;"><strong>2020.05.04~2020.05.11</strong></p>
-                                
-                            <img style="margin-left: 50%; transform: translateX(-50%);" src="menu.PNG" onclick=""/>
-                            <p style="text-align: center;"><strong>10,000원 이상 주문 시 사용가능</strong></p>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                    </div>
+					<c:forEach items="${list }" var="cn">
+	                    <div class="col-md-6 row"> 
+	                        </h4>
+	
+	                        <div class="col-md-2"></div>
+	                        <div class="col-md-8" style="border: 1px solid black; height:200px;">
+	
+	                    
+	                            <h4 style="text-align: center;">${cn['CN_PRICE'] }원 할인</h4>
+	                            <p style="text-align: center;"><strong>${cn['CN_ENROLLDATE'] } ~ ${cn['CN_EXPIRE'] }</strong></p>
+	                                
+	                            <img style="margin-left: 50%; transform: translateX(-50%);" src="${path }/resources/img/mypage/coupon/AA.PNG" onclick=""/>
+	                            <p style="text-align: center;"><strong>${cn['CN_LIMITPRICE'] }원 이상 주문 시 사용가능</strong></p>
+	
+	                        </div>
+	                        <div class="col-md-2"></div>
+	
+	                    </div>
+                    </c:forEach>
 
                     <div class="col-md-6 row">
 
@@ -63,8 +65,6 @@
                         <div class="col-md-2"></div>
 
                     </div>
-
-                    <div class="col-md-12" style="height: 50px;"></div>
 
                     <div class="col-md-6 row">
 
