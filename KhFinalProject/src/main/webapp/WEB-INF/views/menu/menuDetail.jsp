@@ -292,11 +292,18 @@
 				</div>
 				<hr class="menu-modal-hr">
 				<div class="menu-modal-content-required-option menu-modal-content-chilrden">
-					<h4>필수 선택</h4>
+					<h4 class="menu-modal-content-h4">필수 선택</h4>
 				</div>
 				<hr class="menu-modal-hr">
 				<div class="menu-modal-content-un-required-option menu-modal-content-chilrden">
-					<h4>추가 선택</h4>
+					<h4 class="menu-modal-content-h4">추가 선택</h4>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-menu-count-div">
+					<h5>수량</h5>
+					<div class="menu-modal-content-count">
+						<button>[]</button>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer menu-modal-footer">
@@ -388,14 +395,54 @@
 		        		$("#modal-menu-text").html("메뉴 설명이 없습니다.");
 		        	}
 		        	$("#modal-menu-price").html(numberFormatting(data['me_price']));
+		        	$(".menu-modal-content-required-option-item").remove();
+		        	$(".menu-modal-content-un-required-option-item").remove();
 		        	for(let i=0;i<data['side'].length;i++){
 		        		let side = data['side'][i];
 		        		let req = $(".menu-modal-content-required-option");
 		        		let unreq = $(".menu-modal-content-un-required-option");
+		        		let div = $("<div>");
 		        		if(side['sd_division']=='Y'){
-		        			
+		        			div.attr("class","menu-modal-content-required-option-item");
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
+		        				.attr("class","menu-modal-content-lable");
+		        			let input = $("<input>").attr({
+		        				type:"radio",
+		        				name:"required-option",
+		        				required:"required",
+		        				value:side['sd_no'],
+		        				"class":"menu-modal-content-required-option-radio"
+		        			});
+		        			lable.prepend(input);
+		        			let price = $("<span>");
+		        			if(side['sd_price']==0){
+		        				price.html("추가비용없음");
+		        			} else {
+		        				price.html("+"+side['sd_price']+"원");
+		        			}
+		        			div.append(lable);
+		        			div.append(price);
+		        			req.append(div);
 		        		} else {
-		        			
+		        			div.attr("class","menu-modal-content-un-required-option-item");
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
+	        				.attr("class","menu-modal-content-lable");
+		        			let input = $("<input>").attr({
+		        				type:"checkbox",
+		        				name:"un-required-option",
+		        				value:side['sd_no'],
+		        				"class":"menu-modal-content-required-option-checkbox"
+		        			});
+		        			lable.prepend(input);
+		        			let price = $("<span>");
+		        			if(side['sd_price']==0){
+		        				price.html("추가비용없음");
+		        			} else {
+		        				price.html("+"+side['sd_price']+"원");
+		        			}
+		        			div.append(lable);
+		        			div.append(price);
+		        			unreq.append(div);
 		        		}
 		        	}
         		}

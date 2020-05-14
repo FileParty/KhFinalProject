@@ -360,9 +360,53 @@ hr.menu-modal-hr{
 	border:1px solid lightgray;
 }
 
+h4.menu-modal-content-h4{
+	margin:8px;
+}
+
 div.menu-modal-content-required-option{
 	display:flex;
 	flex-direction:column;
+}
+
+div.menu-modal-content-required-option-item{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+label.menu-modal-content-lable{
+	display:flex;
+	flex-direction:row;
+	text-align:center;
+	align-items:center;
+}
+
+label.menu-modal-content-lable>input{
+	width:16px;
+	height:16px;
+	padding-top:9px;
+}
+
+div.menu-modal-content-un-required-option{
+	display:flex;
+	flex-direction:column;
+}
+
+div.menu-modal-content-un-required-option-item{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+input.menu-modal-content-required-option-radio{
+	width:16px;
+	height:16px;
+}
+
+input.menu-modal-content--unrequired-option-checkbox{
+	width:16px;
+	height:16px;
 }
 
 button.menu-modal-footer-button{
