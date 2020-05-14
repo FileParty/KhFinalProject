@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
+   <!-- 일반 아이디 회원가입 -->
   <insert id="insertMember" parameterType="member">
-  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_id},#{m_pw},'N',#{m_nickname},SYSDATE,0,#{m_level},#{m_phone},#{m_name})
+  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_id},#{m_pw},'N',#{m_nickname},SYSDATE,0,#{m_level},#{m_phone},#{m_name},#{m_email})
   </insert>
+  <!-- 사업자 아이디 회원가입 -->
   <insert id="insertBusiness" parameterType="business">
-  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT)
+  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT,#{b_email})
   </insert>
 <!--   <select id="selectMemberPay" parameterType="_int" resultType="memberSH">
   	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
   </select> -->
+  <!-- 일반 아이디 로그인 -->
   <select id="selectMember" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_ID = #{userId}
   </select>
+  <!-- 일반 아이디 닉네임 중복 체크 -->
   <select id="selectMemberName" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_NICKNAME = #{name}
   </select>
+  <!-- 사업자 아이디 로그인 -->
   <select id="selectBusiness" parameterType="string" resultType="business">
-  	SELECT * FROM BUSINESS B, STORE S WHERE B.B_NO=S.B_NO AND B.B_ID=#{userId}
-  </select>
-
-  <select id="selectBusinessId" parameterType="string" resultType="business">
   	SELECT * FROM BUSINESS WHERE B_ID = #{userId}
   </select>
   <select id="selectCoupon" resultType="CouponSH">

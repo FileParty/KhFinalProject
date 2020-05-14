@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao dao;
 	
 	@Autowired
-	private SqlSessionTemplate session;
+	private SqlSessionTemplate session;	
 	
 	@Override
 	public int insertMember(Member m) {
@@ -47,11 +47,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberName(session,name);
 	}
 
-	@Override
-	public Business selectBusinessId(String userId) {
-		// TODO Auto-generated method stub
-		return dao.selectBusinessId(session,userId);
-	}
+	
 	
 	
 	

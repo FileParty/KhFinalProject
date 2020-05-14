@@ -17,6 +17,6 @@ public interface MemberDao {
 	
 	Member selectMemberName(SqlSessionTemplate session, String name);
 	
-	Business selectBusinessId(SqlSessionTemplate session,String userId);
+	
 
 }

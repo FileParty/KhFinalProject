@@ -54,6 +54,37 @@
 						<td><input type="text" id="name" name="b_businesscode" class="form-control" placeholder="사업자 번호 입력" required></td>
 					</tr>
 				</table>
+				<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
+					<hr style="width:170px;">
+					<h4 style="margin-left:10px; margin-right:10px;">이메일 인증</h4>
+					<hr style="width:170px;">
+				</div>
+				<table style="width:500px;">
+					<tr>
+						<th>이메일</th>
+						<td class="emailMsg-container">
+							<input type="email" name="b_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required>
+							<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
+							<span class="emailMsg no4">사용 불가능한 이메일입니다.</span>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="button" id="emailBtn" class="btn btn-outline-dark" style="float:right">인증번호 받기</button></td>
+					</tr>
+					<tr>
+						<th>인증번호</th>
+						<td class="emailNoMsg-container">
+							<input type="text" name="emailNo" id="emailNo"  class="form-control" placeholder="인증번호를 입력하세요." required>
+							<span class="emailNoMsg ok5">인증완료</span>
+							<span class="emailNoMsg no5">인증실패</span>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="button" id="emailAuthBtn" class="btn btn-outline-dark" style="float:right">인증번호 확인</button></td>
+					</tr>
+				</table>
 				<div class="d-flex justify-content-center" style="margin:30px;">
 					<input class="btn btn-outline-dark" type="submit" value="회원가입">
 				</div>
