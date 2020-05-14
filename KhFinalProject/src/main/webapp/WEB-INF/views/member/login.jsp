@@ -29,7 +29,7 @@
 						</table>
 						<div class="d-flex justify-content-between" style="margin-top:30px;">
 							<div class="">
-								<label><input type="checkbox" name="아이디 저장">아이디 저장</label>
+								<label><input type="checkbox" name="saveId" id="saveId">아이디 저장</label>
 							</div>
 							<div class="d-flex" data-toggle="modal" data-target="#myModal">
 							<span>아이디 / 비밀번호 찾기</span>

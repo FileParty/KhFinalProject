@@ -33,6 +33,22 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.selectBusiness", userId);
 	}
 
+
+	@Override
+	public Member selectMemberName(SqlSessionTemplate session, String name) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectMemberName",name);
+	}
+
+	@Override
+	public Business selectBusinessId(SqlSessionTemplate session, String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectBusinessId", userId);
+	}
+	
+	
+	
+
 	
 	
 	

@@ -9,12 +9,16 @@
 	    /*중복아이디체크관련*/
    td.idMsg-container{position:relative; padding:0px;}
    td.pwckMsg-container{position:relative; padding:0px;}
+   td.nameMsg-container{position:relative; padding:0px;}
    span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
    span.pwckMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+   span.nameMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
    span.ok{color:green;}
    span.no{color:red;}
    span.ok1{color:green;}
    span.no1{color:red;}
+   span.ok2{color:green;}
+   span.no2{color:red;}
 </style>
 <section>
 	<div class="container d-flex justify-content-center">
@@ -55,8 +59,10 @@
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td>
+						<td class="nameMsg-container">
 							<input type="text" id="nickname" name="m_nickname" class="form-control" placeholder="닉네임 입력" required>
+							<span class="nameMsg ok2">사용가능한 닉네임입니다.</span>
+							<span class="nameMsg no2">중복된 닉네임입니다.</span>
 						</td>
 					</tr>
 					<tr>
@@ -64,6 +70,24 @@
 						<td><label><input type="radio" name="m_level" value="1">구매자</label><label><input type="radio" name="m_level" value="2">배달원</label></td>
 					</tr>
 				</table>
+				<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
+					<hr style="width:170px;">
+					<h4 style="margin-left:10px; margin-right:10px;">이메일 인증</h4>
+					<hr style="width:170px;">
+				</div>
+				<table style="width:500px;">
+					<tr>
+						<th>이메일</th>
+						<td><input type="email" name="email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required></td>
+					</tr>
+					<tr>
+						<th>인증번호</th>
+						<td><input type="text" name="email" id="email"  class="form-control" placeholder="인증번호를 입력하세요." required></td>
+					</tr>
+				</table>
+				<div class="d-flex justify-content-center" style="margin:30px;">
+					<button type="button" id="mailBtn" class="btn btn-outline-dark" onclick="fn_enrollEmail();">인증번호 받기</button>
+				</div>
 				<div class="d-flex justify-content-center" style="margin:30px;">
 					<input class="btn btn-outline-dark" type="submit" value="회원가입">
 				</div>
@@ -71,6 +95,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script>
 		//아이디 중복체크
 		$(function(){
@@ -93,6 +118,31 @@
 					});
 				}else{
 					$(".idMsg").hide();
+					return;
+				}
+			})
+		})
+		//닉네임 중복체크
+		$(function(){
+			$("#nickname").keyup(function(){
+				const name=$(this).val();
+				if(name.trim().length>2){
+					$.ajax({
+						url:"${path}/member/checkName",
+						data:{name:name},
+						success:function(data){
+							console.log(data);
+							if(data=='false'){
+								$(".nameMsg.ok2").hide();
+								$(".nameMsg.no2").show();
+							}else{
+								$(".nameMsg.ok2").show();
+								$(".nameMsg.no2").hide();
+							}
+						}
+					});
+				}else{
+					$(".nameMsg").hide();
 					return;
 				}
 			})
@@ -128,6 +178,7 @@
 				}
 			}
 		});
+		
 		
 		
 	</script>

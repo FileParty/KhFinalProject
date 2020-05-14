@@ -5,7 +5,7 @@
   	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_id},#{m_pw},'N',#{m_nickname},SYSDATE,0,#{m_level},#{m_phone},#{m_name})
   </insert>
   <insert id="insertBusiness" parameterType="business">
-  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode})
+  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT)
   </insert>
 <!--   <select id="selectMemberPay" parameterType="_int" resultType="memberSH">
   	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
@@ -13,10 +13,16 @@
   <select id="selectMember" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_ID = #{userId}
   </select>
+  <select id="selectMemberName" parameterType="string" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_NICKNAME = #{name}
+  </select>
   <select id="selectBusiness" parameterType="string" resultType="business">
   	SELECT * FROM BUSINESS B, STORE S WHERE B.B_NO=S.B_NO AND B.B_ID=#{userId}
   </select>
-  
+
+  <select id="selectBusinessId" parameterType="string" resultType="business">
+  	SELECT * FROM BUSINESS WHERE B_ID = #{userId}
+  </select>
   <select id="selectCoupon" resultType="CouponSH">
   	SELECT*FROM COUPON
   </select>
