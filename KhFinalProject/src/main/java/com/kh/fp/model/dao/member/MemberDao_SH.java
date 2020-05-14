@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-
+import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member_SH;
 
 public interface MemberDao_SH {
 
-	Object selectMemberPay(SqlSessionTemplate session, int m_no);
+	List<Coupon_SH> selectCoupon(SqlSessionTemplate session);
+
+//	Object selectMemberPay(SqlSessionTemplate session, int m_no);
 
 
 

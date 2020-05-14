@@ -285,9 +285,18 @@
 					<h3 id="modal-menu-name"></h3>
 					<p id="modal-menu-text"></p>
 				</div>
-				<div class="menu-modal-content-price">
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-price menu-modal-content-chilrden">
 					<strong>가격</strong>
 					<p id="modal-menu-price"></p>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-required-option menu-modal-content-chilrden">
+					<h4>필수 선택</h4>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-un-required-option menu-modal-content-chilrden">
+					<h4>추가 선택</h4>
 				</div>
 			</div>
 			<div class="modal-footer menu-modal-footer">
@@ -378,6 +387,17 @@
 		        	} else {
 		        		$("#modal-menu-text").html("메뉴 설명이 없습니다.");
 		        	}
+		        	$("#modal-menu-price").html(numberFormatting(data['me_price']));
+		        	for(let i=0;i<data['side'].length;i++){
+		        		let side = data['side'][i];
+		        		let req = $(".menu-modal-content-required-option");
+		        		let unreq = $(".menu-modal-content-un-required-option");
+		        		if(side['sd_division']=='Y'){
+		        			
+		        		} else {
+		        			
+		        		}
+		        	}
         		}
         	});
         	
@@ -387,7 +407,21 @@
         
         function storeMenuModalClose(){
         	$('#modalBox').modal('hide');
-        	console.log("click close");
+        }
+        
+        /* 돈 표시용 */
+        function numberFormatting(num){
+        	num = num.toString().split('').reverse().join('');
+        	val = "";
+        	for(let i=0;i<num.length;i++){
+        		if(i!=0&&i%3==0){
+        			val += ",";
+        		}
+        		val += num.substr(i,1);
+        	}
+        	val = val.split('').reverse().join('');
+        	val += "원";
+        	return val;
         }
     
     </script>

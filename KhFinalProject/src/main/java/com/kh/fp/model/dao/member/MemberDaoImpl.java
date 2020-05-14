@@ -33,6 +33,7 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.selectBusiness", userId);
 	}
 
+
 	@Override
 	public Member selectMemberName(SqlSessionTemplate session, String name) {
 		// TODO Auto-generated method stub
@@ -47,6 +48,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	
+
 	
 	
 	

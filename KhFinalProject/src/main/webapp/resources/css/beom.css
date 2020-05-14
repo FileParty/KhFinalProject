@@ -340,6 +340,31 @@ div.menu-modal-content-text{
 	text-align:center;
 }
 
+div.menu-modal-content-chilrden{
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:6px;
+	margin-bottom:3px;
+}
+
+div.menu-modal-content-price{
+	padding-top:5px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size:18px;
+}
+
+hr.menu-modal-hr{
+	margin:0px;
+	border:1px solid lightgray;
+}
+
+div.menu-modal-content-required-option{
+	display:flex;
+	flex-direction:column;
+}
+
 button.menu-modal-footer-button{
 	text-align:center;
 	color:white;
@@ -355,4 +380,3 @@ button.menu-modal-header-close{
 	font-size:26px;
 	font-weight: 800;
 }
-

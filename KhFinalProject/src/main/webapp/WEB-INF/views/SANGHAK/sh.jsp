@@ -125,9 +125,98 @@
  
     <h4>배송지 정보</h4> 
     <div style="display:flex; justify-content:center;padding-left: 490px;">
-          <!-- <button id="checkbox" onchange="check1(this)" style="background-color: black;color:white;padding: 5px;">주문자 정보와 동일</button> -->
-          <input type="checkbox" name="checkbox" id="checkbox" onchange="check1(this)">&nbsp;주문자 정보와 동일하면 체크해주세요
+          <label for="cbx" class="label-cbx">
+      <input id="cbx" type="checkbox" class="invisible" onchange="check1(this)" required>
+      <div class="checkbox">
+        <svg width="20px" height="20px" viewBox="0 0 20 20">
+          <path d="M3,1 L17,1 L17,1 C18.1045695,1 19,1.8954305 19,3 L19,17 L19,17 C19,18.1045695 18.1045695,19 17,19 L3,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,3 L1,3 C1,1.8954305 1.8954305,1 3,1 Z"></path>
+          <polyline points="4 11 8 15 16 6"></polyline>
+        </svg>
+      </div>
+   <span style="padding-top:-30px;">주문자 정보와 동일하면 체크해주세요</span>
+    </label>
     </div>
+  
+  
+    <style>
+    .label-cbx {
+  user-select: none;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.label-cbx input:checked + .checkbox {
+  border-color: #20C2E0;
+}
+.label-cbx input:checked + .checkbox svg path {
+  fill: #20C2E0;
+}
+.label-cbx input:checked + .checkbox svg polyline {
+  stroke-dashoffset: 0;
+}
+.label-cbx:hover .checkbox svg path {
+  stroke-dashoffset: 0;
+}
+.label-cbx .checkbox {
+  position: relative;
+  top: 2px;
+  float: left;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #C8CCD4;
+  border-radius: 3px;
+}
+.label-cbx .checkbox svg {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+.label-cbx .checkbox svg path {
+  fill: none;
+  stroke: #20C2E0;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 71px;
+  stroke-dashoffset: 71px;
+  transition: all 0.6s ease;
+}
+.label-cbx .checkbox svg polyline {
+  fill: none;
+  stroke: #FFF;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 18px;
+  stroke-dashoffset: 18px;
+  transition: all 0.3s ease;
+}
+.label-cbx > span {
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+.cntr {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.invisible {
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+    #checkbox{
+     	width:15px;
+     	height:15px;
+
+    }
+    </style>
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
@@ -159,21 +248,94 @@
 
       <h4>할인/배송비</h4>
 
-  <table> 
-<tr>
-<td style="padding-right:40px;">빠짐 쿠폰 사용</td>
+    <table> 
+    <tr>
+    <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
+    
+      <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" readonly>&nbsp;&nbsp;원&nbsp; 
+        <!-- ================================쿠폰적용========================================== -->
+        <button class="button" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
+        	쿠폰적용
+        </button>
+         <!-- ================================클릭했을떄 모달========================================== -->
+            <dialog>
+                <div class="dialog__inner">
+                
+                    <div class="dialog__content">
+                        <h3>쿠폰적용</h3><hr>
+                       	
+                            <table border="1" style="width:1150px;">
+                              <tr>
+                                <th id="th1">쿠폰이름</th>
+                                <th id="th1">쿠폰정보</th>
+                                <th id="th1">유효기간</th>
+                                <th id="th1">Choose</th>
+                            </tr>
+                   
+						
+					
+                          <c:forEach items="${list}" var="c">
+                         	
+                                <c:if test="${c['m_no']== loginMember['m_no'] }">
+	                              <tr>
+	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large></td>
+	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_price'] } 원 할인</large>
+	                                <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small>
+	                                </td>
+	               
+	                                <td id="td1"><small>발행일자: <fmt:formatDate value="${c['cn_enrolldate'] }" pattern="yyy/MM/dd HH:mm:ss" /></small> <br>
+	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small>
+	                                </td>
+	                                <td id="td1"><button style="color:white;width:50px;height:28px;background: linear-gradient(to right, #dce35b, #45b649);border-radius: 25px;">선택</button></td>
+	                              </tr>
+	                               	 </c:if>
+	                               	 
+                          	 </c:forEach> 
+                          <c:if test="${empty c['cn_no']}">  
+								<tr>
+									<td id="td1" colspan="4">등록된 쿠폰이 없습니다.</td>
+							    </tr>
+							</c:if> 
+       					 
+       				
+						
+					
 
-  <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-    <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">쿠폰변경</button> 
-    <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
-    <br> 
-  </td>
-</tr>
+                                </table><hr>
+         <!-- =================================모달 css===================================================== -->            
+                                <style>
+                                  #th1{
+                                    text-align: center;
+                                    padding: 12px;
+                                    width: 120px;
+                                   background: #81F7BE;
+                                  }
+                                  #td1{
+                                    text-align: center;
+                                    padding: 12px;
+                                    width: 120px;
+                                   
+                                  }
+                                 
+                                  
+                                  </style>
+
+                        <footer class="dialog__footer" style="margin-top:-40px;">
+                            <button class="button close">close</button>
+                        </footer>   
+                    </div>  
+                </div>
+            </dialog>
+             <!-- ===================================================================================== -->
+        <div style="display: inline;padding-left: 20px;">(사용가능 쿠폰<p style="display:inline;color: red;">  0 장  </p>)</div>
+        <br> 
+      </td>
+    </tr>
 
 <tr>
   <td style="padding-right:40px;">빠짐 포인트</td>
-    <td width="680px"><input type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
-      <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
+    <td width="680px"><input id="show" type="text" style="width:200px;height:45px;background-color: rgb(243, 243, 243);text-align:right;" >&nbsp;&nbsp;원&nbsp; 
+      <button id="allpay" style="color:gray;border:1px solid lightgray;padding: 5px;background-color:rgb(253, 252, 252);">전액사용</button> 
       <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;">&nbsp;${loginMember['m_point']}  point</p>)</div>
       <br>
     </td>
@@ -181,18 +343,17 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:45px;background-color:rgb(243, 243, 243);text-align:right;" value="2500">&nbsp;&nbsp;원&nbsp; 
-        <button onsubmit="" style="color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);	">전액사용</button> 
-        <div style="display: inline;padding-left: 20px;">(보유 빠짐 포인트<p style="display:inline;color: red;"> &nbsp;${loginMember['m_point']}  point</p>)</div>
-        <br> 
+      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="2500"readonly>&nbsp;&nbsp;원&nbsp; 
+    <br> 
       </td>
     </tr>
  
-    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 30,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
+    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 80,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
 </table>
-<div style="display:flex; justify-content:center;padding-left: 550px;">
+<!-- <div style="display:flex; justify-content:center;padding-left: 550px;">
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
-      </div><br>
+      </div> -->
+      <br>
       <h2>결제 방법</h2>
 <hr>
 <div id="btn-container"style="border: 1px solid black;text-align: center;width: 200px;margin: auto; width: 50%;padding: 15px;">
@@ -208,13 +369,6 @@
 
 
   </div>
-
-
-
-
-
-
-
 
 
   <div style="margin-top:75px;" >
@@ -248,7 +402,7 @@
   </tr>
           </table><br><hr>
                             <div style="background-color: #ddd;text-align: center;padding:13px;">
-                            <p>주문할 상품의 상품명, 상품가격,배송정보<br>&nbsp;&nbsp;&nbsp;를 확인하였으며, 구매를 동의 하십니까?   
+                            <p>주문할 상품의 상품명, 상품가격,배송정보<br>를 확인하였으며, 구매를 동의 하십니까?   
                               <a class="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
                             </div><br>
                             <div id="container">
@@ -276,7 +430,8 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <h3 style="margin-bottom: -15px;">약관보기</h3>
+        <button type="button" class="close" data-dismiss="modal"><h3 style="float:left;">닫기</h3>&times;</button>
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
@@ -292,9 +447,7 @@
            <td>
              <textarea name="tos" rows=15 cols=100 style="width:540px;">
 제1조(목적)
-이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
-서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
-  
+이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
 
 제2조(정의)
@@ -977,5 +1130,143 @@ main {
 	}
 	 <!--================================================================ -->
   </script>
+   <!--=====================쿠폰사용 스크립트=========================================== -->
+  <script>
+
+const modal = document.querySelector('dialog');
+const btn = document.querySelector('button');
+const btnClose = document.querySelectorAll('.close');
+
+btn.addEventListener('click', () => openModal());
+btnClose.forEach((elm) => elm.addEventListener('click', () => closeModal()));
+modal.addEventListener('click', (e) => detectBackdropClick(e));
+
+openModal = () => {
+    modal.showModal();
+}
+
+closeModal = () => {
+    modal.classList.add("dialog__animate-out");
+    modal.addEventListener('animationend', handleClose, false);
+}
+
+handleClose = () => {
+    modal.classList.remove("dialog__animate-out");
+    modal.removeEventListener('animationend', handleClose, false);
+    modal.close();
+}
+
+detectBackdropClick = (event) => {
+    if(event.target === modal) {
+        closeModal();
+    }
+}
+</script>
+<style>
+
+
+.button-close {
+  padding: 10px;
+  align-self: flex-end;
+  background-color: transparent;
+  box-shadow: none;
+  color: #838282;
+}
+
+dialog {
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  -webkit-animation: appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+          animation: appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  box-shadow: 0 25px 40px -20px #3c4a56;
+}
+
+.dialog__animate-out {
+  -webkit-animation: dissappear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+          animation: dissappear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.dialog__inner {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  color: #838282;
+}
+
+.dialog__close-btn {
+  align-self: flex-end;
+}
+
+.dialog__content {
+  padding: 0 55px 55px 55px;
+}
+
+.dialog__footer {
+  padding: 55px 55px 0 55px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+@-webkit-keyframes appear {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@-webkit-keyframes dissappear {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+}
+@keyframes dissappear {
+  from {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+}
+.table123{
+ margin-top: 15px;
+}
+</style>
+ <!--================================================================ -->
 <br><br>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
