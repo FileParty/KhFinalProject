@@ -340,6 +340,133 @@ div.menu-modal-content-text{
 	text-align:center;
 }
 
+div.menu-modal-content-chilrden{
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:6px;
+	margin-bottom:3px;
+}
+
+div.menu-modal-content-price{
+	padding-top:5px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size:18px;
+}
+
+hr.menu-modal-hr{
+	margin:0px;
+	border:1px solid lightgray;
+}
+
+h4.menu-modal-content-h4{
+	margin:8px;
+}
+
+div.menu-modal-content-required-option{
+	display:flex;
+	flex-direction:column;
+}
+
+div.menu-modal-content-required-option-item{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+label.menu-modal-content-lable{
+	display:flex;
+	flex-direction:row;
+	text-align:center;
+	align-items:center;
+}
+
+label.menu-modal-content-lable>input{
+	width:16px;
+	height:16px;
+	padding-top:9px;
+}
+
+div.menu-modal-content-un-required-option{
+	display:flex;
+	flex-direction:column;
+}
+
+div.menu-modal-content-un-required-option-item{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+input.menu-modal-content-required-option-radio{
+	width:16px;
+	height:16px;
+}
+
+input.menu-modal-content--unrequired-option-checkbox{
+	width:16px;
+	height:16px;
+}
+
+div.menu-modal-content-menu-count-div{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+div.menu-modal-content-count{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-around;
+	width:180px;
+	height:45px;
+	border:1px solid gray;
+	font-size:24px;
+	line-height:1;
+}
+
+p#menu-modal-menu-count-text{
+	width:90px;
+	height:100%;
+	border-left:1px solid gray;
+	border-right:1px solid gray;
+	text-align:center;
+	align-items:center;
+	padding-top:9px;
+	margin:0px;
+}
+
+p.menu-modal-menu-count-button{
+	width:45px;
+	height:100%;
+	background-color:white;
+	font-size:40px;
+	font-weight: 800;
+	text-align:center;
+	align-items:center;
+	padding:0px;
+	margin:0px;
+	cursor:pointer;
+	border:0;
+}
+
+p.menu-modal-menu-count-button:active{
+	background-color:lightgray;
+}
+
+div.menu-modal-content-final-price-div{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+h5.menu-modal-menu-limitPrice{
+	font-size:20px;
+	font-weight:600;
+	color:red
+}
+
 button.menu-modal-footer-button{
 	text-align:center;
 	color:white;
@@ -355,4 +482,3 @@ button.menu-modal-header-close{
 	font-size:26px;
 	font-weight: 800;
 }
-

@@ -1,17 +1,25 @@
 package com.kh.fp.controller.member;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.model.servier.member.MemberService;
 import com.kh.fp.model.vo.Business;
@@ -82,10 +90,34 @@ public class MemberController {
 		return page;
 	}
 	
-	//아이디 체크용
+	//일반 아이디 아이디 체크용
 	@RequestMapping("/member/checkId")
 	public void checkId(String userId,ServletOutputStream out) {
 		Member m = service.selectMember(userId);
+		boolean flag=m!=null?false:true;
+		try {
+			out.print(flag);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//사업자 아이디 아이디 체크용
+	@RequestMapping("/member/checkIdB")
+	public void checkIdB(String userId,ServletOutputStream out) {
+		Business b = service.selectBusiness(userId);
+		boolean flag=b!=null?false:true;
+		try {
+			out.print(flag);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//일반 아이디 닉네임 체크용
+	@RequestMapping("/member/checkName")
+	public void checkName(String name,ServletOutputStream out) {
+		Member m = service.selectMemberName(name);
 		boolean flag=m!=null?false:true;
 		try {
 			out.print(flag);
@@ -121,7 +153,7 @@ public class MemberController {
 
 	}
 	
-	//사업자 로그인
+	//사업자 아이디 로그인
 	@RequestMapping("/member/businessLogin.do")
 	public String businessLogin(String userId,String userPw,Model md,HttpSession session) {
 		
@@ -152,5 +184,15 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	
+	
+	
+
+	
+
+	
+	
+	
 
 }

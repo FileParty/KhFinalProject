@@ -21,6 +21,7 @@ public class Member {
 	private int m_level;
 	private String m_phone;
 	private String m_name;
+	private String m_email;
 	
 	
 	

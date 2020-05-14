@@ -285,9 +285,35 @@
 					<h3 id="modal-menu-name"></h3>
 					<p id="modal-menu-text"></p>
 				</div>
-				<div class="menu-modal-content-price">
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-price menu-modal-content-chilrden">
 					<strong>가격</strong>
 					<p id="modal-menu-price"></p>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-required-option menu-modal-content-chilrden">
+					<h4 class="menu-modal-content-h4">필수 선택</h4>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-un-required-option menu-modal-content-chilrden">
+					<h4 class="menu-modal-content-h4">추가 선택</h4>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-menu-count-div menu-modal-content-chilrden">
+					<h4 class="menu-modal-content-h4">수량</h4>
+					<div class="menu-modal-content-count">
+						<p class="menu-modal-menu-count-button" style="color:lightgray;">-</p>
+						<p id="menu-modal-menu-count-text">1</p>
+						<p class="menu-modal-menu-count-button">+</p>
+					</div>
+				</div>
+				<hr class="menu-modal-hr">
+				<div class="menu-modal-content-final-price-div menu-modal-content-chilrde">
+					<h4 class="menu-modal-content-h4">총 주문금액</h4>
+					<div class="menu-modal-content-final-price-box">
+						<h4 class="menu-modal-content-final-price">123</h4>
+						<h5 class="menu-modal-menu-limitPrice">123</h5>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer menu-modal-footer">
@@ -378,6 +404,57 @@
 		        	} else {
 		        		$("#modal-menu-text").html("메뉴 설명이 없습니다.");
 		        	}
+		        	$("#modal-menu-price").html(numberFormatting(data['me_price']));
+		        	$(".menu-modal-content-required-option-item").remove();
+		        	$(".menu-modal-content-un-required-option-item").remove();
+		        	for(let i=0;i<data['side'].length;i++){
+		        		let side = data['side'][i];
+		        		let req = $(".menu-modal-content-required-option");
+		        		let unreq = $(".menu-modal-content-un-required-option");
+		        		let div = $("<div>");
+		        		if(side['sd_division']=='Y'){
+		        			div.attr("class","menu-modal-content-required-option-item");
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
+		        				.attr("class","menu-modal-content-lable");
+		        			let input = $("<input>").attr({
+		        				type:"radio",
+		        				name:"required-option",
+		        				required:"required",
+		        				value:side['sd_no'],
+		        				"class":"menu-modal-content-required-option-radio"
+		        			});
+		        			lable.prepend(input);
+		        			let price = $("<span>");
+		        			if(side['sd_price']==0){
+		        				price.html("추가비용없음");
+		        			} else {
+		        				price.html("+"+side['sd_price']+"원");
+		        			}
+		        			div.append(lable);
+		        			div.append(price);
+		        			req.append(div);
+		        		} else {
+		        			div.attr("class","menu-modal-content-un-required-option-item");
+		        			let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
+	        				.attr("class","menu-modal-content-lable");
+		        			let input = $("<input>").attr({
+		        				type:"checkbox",
+		        				name:"un-required-option",
+		        				value:side['sd_no'],
+		        				"class":"menu-modal-content-required-option-checkbox"
+		        			});
+		        			lable.prepend(input);
+		        			let price = $("<span>");
+		        			if(side['sd_price']==0){
+		        				price.html("추가비용없음");
+		        			} else {
+		        				price.html("+"+side['sd_price']+"원");
+		        			}
+		        			div.append(lable);
+		        			div.append(price);
+		        			unreq.append(div);
+		        		}
+		        	}
         		}
         	});
         	
@@ -387,7 +464,39 @@
         
         function storeMenuModalClose(){
         	$('#modalBox').modal('hide');
-        	console.log("click close");
+        }
+        
+        var menuCount = 1;
+        
+        $(".menu-modal-menu-count-button").on("click",function(){
+        	let type = $(event.target).text();
+        	console.log(type);
+        	let text = $("#menu-modal-menu-count-text");
+        	let value = $("#menu-modal-menu-count-text").text();
+        	if(type=="+"){
+        		text.text(Number(value)+1);
+        	} else{
+        		if(Number(value)>1){
+        			text.text(Number(value)-1);
+        		}
+        	}
+        	menuCount = Number(text.text());
+        	console.log(menuCount);
+        })
+        
+        /* 돈 표시용 */
+        function numberFormatting(num){
+        	num = num.toString().split('').reverse().join('');
+        	val = "";
+        	for(let i=0;i<num.length;i++){
+        		if(i!=0&&i%3==0){
+        			val += ",";
+        		}
+        		val += num.substr(i,1);
+        	}
+        	val = val.split('').reverse().join('');
+        	val += "원";
+        	return val;
         }
     
     </script>

@@ -14,5 +14,9 @@ public interface MemberDao {
 	int insertBusiness(SqlSessionTemplate session,Business b);
 	
 	Business selectBusiness(SqlSessionTemplate session,String userId);
+	
+	Member selectMemberName(SqlSessionTemplate session, String name);
+	
+	
 
 }
