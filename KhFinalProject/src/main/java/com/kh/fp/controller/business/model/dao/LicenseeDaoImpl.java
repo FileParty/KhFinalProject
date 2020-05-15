@@ -35,25 +35,25 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	@Override
 	public int insertSide(SqlSessionTemplate session, Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return session.insert("business.insertSide",map);
+		return session.insert("licensee.insertSide",map);
 	}
 
 	@Override
 	public List<Side> selectOption(SqlSessionTemplate session,int sNo) {
 		// TODO Auto-generated method stub
-		return session.selectList("business.selectOption",sNo);
+		return session.selectList("licensee.selectOption",sNo);
 	}
 
 	@Override
 	public int insertCategory(SqlSessionTemplate session, Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return session.insert("business.insertCategory",map);
+		return session.insert("licensee.insertCategory",map);
 	}
 
 	@Override
 	public List<MenuCategory> selectCategory(SqlSessionTemplate session) {
 		// TODO Auto-generated method stub
-		return session.selectList("business.selectCategory");
+		return session.selectList("licensee.selectCategory");
 	}
 	
 	

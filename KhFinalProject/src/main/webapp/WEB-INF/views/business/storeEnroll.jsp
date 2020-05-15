@@ -115,12 +115,12 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">휴무일</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="checkbox" name="sholiday" value="월" checked>월</label>
-	                  							<label><input type="checkbox" name="sholiday" value="화">화</label>
-	                  							<label><input type="checkbox" name="sholiday" value="수">수</label>
-	                  							<label><input type="checkbox" name="sholiday" value="목">목</label>
-	                  							<label><input type="checkbox" name="sholiday" value="금">금</label>
-	                  							<label><input type="checkbox" name="sholiday" value="토">토</label>
+	                  							<label><input type="checkbox" name="sholiday" value="월요일" checked>월</label>
+	                  							<label><input type="checkbox" name="sholiday" value="화요일">화</label>
+	                  							<label><input type="checkbox" name="sholiday" value="수요일">수</label>
+	                  							<label><input type="checkbox" name="sholiday" value="목요일">목</label>
+	                  							<label><input type="checkbox" name="sholiday" value="금요일">금</label>
+	                  							<label><input type="checkbox" name="sholiday" value="토요일">토</label>
 	                  							<label><input type="checkbox" name="sholiday" value="공휴일">공휴일</label>
 	                  							<label><input type="checkbox" name="sholiday" value="연중 무휴">연중 무휴</label>
 	                  						</th>

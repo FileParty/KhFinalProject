@@ -13,6 +13,6 @@ public interface StoreDao {
 	int insertStoreCategory(SqlSessionTemplate session, Map<String, Object> map);
 	int insertStoreImage(SqlSessionTemplate session,Map<String, Object> map);
 	List<Map<String, Object>> getStoresDetail(SqlSessionTemplate session,int no);
-	List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session,int no);
-	List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session,int no);
+	List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session,Object no);
+	List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session,Object no);
 }
