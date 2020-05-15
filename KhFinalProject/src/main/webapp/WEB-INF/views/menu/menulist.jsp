@@ -144,7 +144,9 @@
  								</c:if>
  							</span>
  							
+ 							<jsp:useBean id="now" class="java.util.Date"/>
  							<span class="h-4 border border-danger text-danger status-${j==1?2*(i-1):i*j-1}">
+ 								<fmt:formatDate value="${now}" pattern="yyyyMMddhhmm" var="nowDate"/>
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
  									<c:out value="${list.get(2*(i-1)).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
 	 							</c:if>
