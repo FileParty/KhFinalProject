@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.LicenseeService;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.Side;
 
 @Controller
 public class LicenseeController {
@@ -92,6 +93,7 @@ public class LicenseeController {
 	@RequestMapping("/licensee/menuEnrollEnd")
 	public String menuEnroll(HttpServletRequest req) {
 		//메뉴등록
+		String[] mtNo = req.getParameterValues("mtNoHid");
 		String[] cateEnd = req.getParameterValues("categoryEnd");
 		String[] menuName = req.getParameterValues("menuName");
 		String[] mPrice = req.getParameterValues("menuPrice");
@@ -105,35 +107,29 @@ public class LicenseeController {
 		int rrPrice[] = new int[rPrice.length];
 		int endPrice[] = new int[ePrice.length];
 
-		
-		for(int i=0;i<img.length;i++) {
-			
-			System.out.println("파일"+img[i]);
-			//메뉴가격
+		for(int i=0;i<mtNo.length;i++) {
+			System.out.println("넘넘"+mtNo[i]);
 		}
-		
 		for(int i=0;i<mPrice.length;i++) {
 			menuPrice[i]= Integer.parseInt(mPrice[i]);
-			System.out.println("메뉴가격"+menuPrice[i]);
 			//메뉴가격
 		}
 		for(int i=0;i<rPrice.length;i++) {
 			rrPrice[i]= Integer.parseInt(rPrice[i]);
-			System.out.println("필수가격"+rrPrice[i]);
 			//필수 가격
 		}
 		for(int i=0;i<ePrice.length;i++) {
 			endPrice[i]= Integer.parseInt(ePrice[i]);
-			System.out.println("선택가격"+endPrice[i]);
 			//선택 가격
 		}
 		for(int i=0;i<cateEnd.length;i++) {
-			System.out.println(cateEnd[i]);
+			
 		}
 		return "";
 	}
 	
 	@RequestMapping("/licensee/optionEnroll")
+	@ResponseBody
 	public String optionEnroll(HttpServletRequest req) {
 		//추가옵션등록
 		String[] ess = req.getParameterValues("sd_name");
@@ -168,9 +164,18 @@ public class LicenseeController {
 	}
 	@RequestMapping("/licensee/selectCategory")
 	@ResponseBody
-	public List<MenuCategory> selectCategory(HttpServletRequest req) {
-		//카테고리조회
+	public List<MenuCategory> selectCategory() {
+		//카테고리조회		
 		List<MenuCategory> list = service.selectCategory();
+		return list;
+	}
+	
+	@RequestMapping("/licensee/selectOption")
+	@ResponseBody
+	public List<Side> selectOption() {
+		//추가옵션 조회
+		int sNo = 1;
+		List<Side> list = service.selectOption(sNo);
 		return list;
 	}
 	
