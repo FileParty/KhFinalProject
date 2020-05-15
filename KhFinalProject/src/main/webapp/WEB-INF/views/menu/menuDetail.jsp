@@ -56,7 +56,7 @@
                                 <div class="s-store-scroll">
                                    <c:forEach items="${store['bestMenu']}" var="bm" varStatus="index">
                                       <c:if test="${bm['me_best'] eq 'Y' }">
-                                          <div class="s-store-menu-content" onclick="storeBestMenuSelectModal('${index.index+1}')">
+                                          <div class="s-store-menu-content" onclick="storeMenuSelectModal('${bm['me_no']}')">
                                               <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
                                               <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
                                               <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
@@ -284,6 +284,7 @@
             <button class="menu-modal-header-close" data-dismiss="modal">X</button>
          </div>
          <div class="modal-content menu-modal-content">
+            <input type="hidden" value="" name="" id="modal-menu-img-src">
             <img id="modal-menu-img" alt="" src="" width="100%" height="200px"><br/>
             <div class="menu-modal-content-text">
                <h3 id="modal-menu-name"></h3>
@@ -361,7 +362,7 @@
                       for(let i=0;i<data.length;i++){
                           let content = $("<div>").attr({
                              "class":"s-store-menu-nav-content",
-                             "onclick":"storeMenuSelectModal("+(i+1)+")"
+                             "onclick":"storeMenuSelectModal("+data[i]['me_no']+")"
                              }).css("display","none");
                           let div1 = $("<div>");
                           let span = "<span>";
@@ -404,6 +405,7 @@
                  console.log(data);
                  console.log(menuNo);
                  $('#modalBox').modal('show');
+                 $("#modal-menu-img-src").val(data['me_logimg']);
                  $("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
                  $("#modal-menu-name").html(data['me_name']);
                  if(data['me_text']!=null){
@@ -436,6 +438,9 @@
                           onclick:"cacrlPriceReq("+side['sd_price']+")",
                           "class":"menu-modal-content-required-option-radio"
                        });
+                       if($(".menu-modal-content-required-option-radio").length==1){
+                    	   $(".menu-modal-content-required-option-radio").prop("checked","true");
+                       }
                        lable.prepend(input);
                        let price = $("<span>");
                        if(side['sd_price']==0){
@@ -445,7 +450,11 @@
                        }
                        div.append(lable);
                        div.append(price);
-                       req.append(div);
+                       if(side['sd_price']==0){
+                    	   req.children("h4").after(div);
+                       } else {
+	                       req.append(div);
+                       }
                     } else {
                        div.attr("class","menu-modal-content-un-required-option-item");
                        let lable = $("<label>").html("&nbsp;&nbsp;"+side['sd_name'])
@@ -487,21 +496,26 @@
         $(".menu-modal-menu-count-button").on("click",function(){
            let type = $(event.target).text();
            let text = $("#menu-modal-menu-count-text");
-           let value = $("#menu-modal-menu-count-text").text();
+           let value = Number($("#menu-modal-menu-count-text").text());
+           let countPrice = Number($("#finalPrice_").val());
            if(type=="+"){
-              finalPrice*=2;
+        	  let plusPrice = countPrice/value;
+        	  countPrice += plusPrice;
               $(".menu-modal-menu-count-button").css("backgroundColor","white");
-              text.text(Number(value)+1);
+              text.text((value+1));
            } else{
               if(Number(value)>1){
-            	 finalPrice/=Number(value);
-                 text.text(Number(value)-1);
+            	 let minusPrice = countPrice/value;
+            	 countPrice -= minusPrice;
+                 text.text((value-1));
                  if(text.text()==1){
                     $(event.target).css("background-color","lightgray");
                  }
               }
            }
            menuCount = Number(text.text());
+           $("#finalPrice_").val(countPrice);
+           $(".menu-modal-content-final-price").html(numberFormatting(countPrice));
         })
         
         
@@ -536,7 +550,16 @@
         
         /* 모달창에서 주문하기 */
         function orderModal(){
-        	
+        	let menuImgSrc = $("#modal-menu-img-src").val();
+        	let menuName = $("#modal-menu-name").text();
+        	let reqOp;
+        	let reqOps = $(".menu-modal-content-required-option-radio");
+        	for(let i=0;i<reqOps.length;i++){
+        		if($(reqOps[i]).is(":checked")==true){
+        			reqOp = $(reqOps[i]).val();
+        		}
+        	}
+        	console.log(menuImgSrc,menuName,reqOp);
         }
         /* 돈 표시용 */
         function numberFormatting(num){
