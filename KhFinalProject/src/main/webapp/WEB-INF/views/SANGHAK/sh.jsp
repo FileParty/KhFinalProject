@@ -1138,15 +1138,15 @@ main {
   function check2(f){
 
     if (f.checked) {
-      $('#allpay3').val($('#allpay2').val());
-      $("#allpay3").attr("readonly",true).css("background-color","rgb(243, 243, 243)");
+      $('#allpay3').val($('#allpay2').val());  //모든포인트를 왼쪽 input에 
+      $("#allpay3").attr("readonly",true).css("background-color","rgb(243, 243, 243)"); //모두사용 체크하면 input 란 readonly처리
       
       
      /*  $('.def').html(''); */
-      $('#allpay4').removeClass('invisible');
+      $('#allpay4').removeClass('invisible'); //오른쪽사이드바 최종결제금액확인란에서 input(모두체크)안보이게
      $('.def').addClass('invisible');
-      $('#allpay4').val($('#allpay2').val());
-      $(".abc").off("keyup");
+      $('#allpay4').val($('#allpay2').val());	//모든포인트를 오른쪽사이드바 최종결제금액확인란에
+      $(".abc").off("keyup");  //왼쪽 input에서 글쳐도 오른쪽바에 자동입력되는거 off
 
     } else{
 
