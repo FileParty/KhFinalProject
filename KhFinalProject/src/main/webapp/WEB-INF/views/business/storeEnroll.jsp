@@ -109,7 +109,7 @@
 	                  						<th class="store-enroll-info-title">소요시간</th>
 	                  						<th class="store-enroll-info">
 	                  							<input type="range" name="stime" id="stime" min="30" max="90"  step="10" />
-	                  							<div id="rangeshow">50분</div>
+	                  							<div id="rangeshow">60분</div>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>

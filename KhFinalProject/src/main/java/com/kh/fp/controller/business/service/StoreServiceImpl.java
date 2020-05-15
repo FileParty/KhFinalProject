@@ -69,6 +69,24 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, Object>> getStoresDetail(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresDetail(session,no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailcategory(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresDetailcategory(session,no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailfiles(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresDetailfiles(session,no);
+	}
+
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,6 +33,25 @@ public class StoreDaoImpl implements StoreDao {
 		// TODO Auto-generated method stub
 		return session.insert("store.insertStoreImage",map);
 	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetail(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getStoresDetail",no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getStoresDetailcategory",no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getStoresDetailfiles",no);
+	}
+	
 	
 	
 	
