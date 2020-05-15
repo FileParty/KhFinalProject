@@ -253,7 +253,7 @@
                     </div>
 
                     <div class="s-store-order-delivery">
-                        <h6>배달요금 별도 3,500원 별도</h6>
+                        <h6>배달요금 별도 2,500원 별도</h6>
                     </div>
 
                     <div class="s-store-order-delivery">
@@ -550,7 +550,14 @@
         
         /* 주문표에 추가 */
         function addOrderList(){
-        	
+        	console.log("야 꿀벌");
+        	let finalPrice = $("#finalPrice_").val();
+        	let limitPrice = $("#limitPrice_").val();
+        	if(finalPrice>limitPrice){
+        		
+        	} else {
+        		ShowlimitPriceTooTip();
+        	}
         }
         
         /* 모달창에서 주문하기 */

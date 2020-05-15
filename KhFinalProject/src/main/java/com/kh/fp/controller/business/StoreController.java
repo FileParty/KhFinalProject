@@ -2,9 +2,12 @@ package com.kh.fp.controller.business;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -120,16 +123,11 @@ public class StoreController {
 		}
 		
 		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_no());
-		List<Map<String, Object>> category = service.getStoresDetailcategory(b.getB_no());
-		List<Map<String, Object>> files= service.getStoresDetailfiles(b.getB_no());
 		
-		System.out.println(stores);
-		System.out.println(category);
-		System.out.println(files);
+
 		
 		mv.addObject("stores",stores);
-		mv.addObject("category",category);
-		mv.addObject("files",files);
+	
 		
 		mv.setViewName("business/storedetail");
 		return mv;

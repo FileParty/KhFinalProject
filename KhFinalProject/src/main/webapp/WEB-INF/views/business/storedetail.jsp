@@ -1,6 +1,9 @@
+<%@page import="org.springframework.web.servlet.ModelAndView"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+
 	<%@include file="../common/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
     <section style="width:auto;height:auto;">
@@ -38,11 +41,15 @@
 			                  					</tr>
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">종목선택</th>
-			                  						<th class="store-enroll-info"></th>
+			                  						<th class="store-enroll-info">
+			                  							<c:forEach items="${s.category }" var="ca">
+			                  									<c:out value="${ca.CT_NAME }"/>
+			                  							</c:forEach>
+			                  						</th>
 			                  					</tr>
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">최소금액</th>
-			                  						<th class="store-enroll-info"><c:out value="${s.S_LIMITPRICE }" /></th>
+			                  						<th class="store-enroll-info"><c:out value="${s.S_LIMITPRICE }" /> 원</th>
 			                  					</tr>
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">결제방법</th>
@@ -75,9 +82,25 @@
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">오픈시간/마감시간</th>
 			                  						<th class="store-enroll-info">
-			                  						<%-- <fmt:formatDate value="${s.S_STARTTIME   }" type="time" />
-			                  						<fmt:formatDate value="${s.S_ENDTIME   }" type="time" /> --%>
-			                  						</th>
+			                  						 <c:out value="${s.S_STARTTIME }" /> ~
+			                  						 <c:out value="${s.S_ENDTIME   }" />
+			                  					</th>
+			                  					</tr>
+			                  					<tr>
+			                  						<th class="store-enroll-info-title">소개글 이미지</th>
+			                  						<th class="store-enroll-info"></th>
+			                  					</tr>
+			                  					<tr>
+			                  						<th class="store-enroll-info-title">소개글 이미지</th>
+			                  						<th class="store-enroll-info"></th>
+			                  					</tr>
+			                  					<tr>
+			                  						<th class="store-enroll-info-title">승인 상태</th>
+			                  						<th class="store-enroll-info"></th>
+			                  					</tr>
+			                  					<tr>
+			                  						<th class="store-enroll-info-title">등록일</th>
+			                  						<th class="store-enroll-info"></th>
 			                  					</tr>
 			                  					<tr>
 			                  						<th colspan="2" style="text-align: center;">

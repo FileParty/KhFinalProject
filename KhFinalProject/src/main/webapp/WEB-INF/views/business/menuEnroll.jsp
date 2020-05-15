@@ -8,6 +8,7 @@
   <style>
 	 div#main{
       	margin-top:150px;
+      	margin-left:200px;
       }
       div.col-12{
       	width:900px;
@@ -41,7 +42,7 @@
       </style> 
 	<%@ include file="../common/header.jsp" %>
 	
-    <section style="width:1366px;">
+    <section style="width:1366px;height:auto;margin-bottom:200px;">
  	<div class="container">
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
@@ -175,12 +176,6 @@
 				var sel = $("<select>").attr({
 					'id':'selectCategory'
 				})
-				var numHid = $("<input>").attr({
-					'type':'hidden',
-					'value':num,
-					'class':'numHid'+num,
-					'alt':'num'
-				})
 				
 				$.ajax({
 					url:'${path}/licensee/selectCategory',
@@ -189,10 +184,19 @@
 							var op = $("<option>").attr({
 								'for':'selectCategory',
 								'value':data[i].mt_name,
+								'alt':data[i].mt_no
+								
 							}).html(data[i].mt_name);
-							sel.append(op);
+							
+							var mtNo = $("<input>").attr({
+								'type':'hidden',
+								'value':data[i].mt_no,
+								'name':'mt_no',
+								'class':'mtNo'+data[i].mt_no
+							})
+							sel.append(op).append(mtNo);
 						}
-						$(".body-container").append(sel).append(numHid);
+						$(".body-container").append(sel);
 						
 					}
 				})
@@ -241,10 +245,15 @@
 						'for':'sideOption'+i,
 						
 					}).html(data[i].sd_name);
-							
+					let sdNo = $("<input>").attr({
+						'type':'hidden',
+						'name':'sdNo',
+						'value':data[i].sd_no
+					})	
 					var span = $("<span>").html(data[i].sd_price).css('margin-left','80');
+				
 						
-					$(".hh3text").after(span).after(label).after(input).after($("<br>"));
+					$(".hh3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
 					
 					}else { 
 						var input =  $("<input>").attr({
@@ -260,7 +269,13 @@
 						}).html(data[i].sd_name);
 						
 						var span = $("<span>").html(data[i].sd_price).css('margin-left','100');
-						$(".h3text").after(span).after(label).after(input).after($("<br>"));
+						let sdNo = $("<input>").attr({
+							'type':'hidden',
+							'name':'sdNo',
+							'value':data[i].sd_no
+						})
+						$(".h3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
+						
 					}
 					}
 					
@@ -352,6 +367,19 @@
 			
 			function menu_enroll() {
 				
+				
+				let sdNo=[];
+				$("input[name=check]:checked").each(function(i) {
+					sdNo[i]=$(this).prev().val();
+					console.log(sdNo[i]);
+					let sdNoInput = $("<input>").attr({
+						'type':'hidden',
+						'value':sdNo[i],
+						'name':'sdNoEnd'
+					})
+					div1.append(sdNoInput);
+					
+				})
 				var values = $("input[name=radio]:checked").val();
 				var spanValue = $("input[name=radio]:checked").next().next().html();
 				 var inputR = $("<input>").attr({
@@ -428,7 +456,7 @@
 				div1.append(strong).append(inputR).append(labelR).append(spans).append("<br>");
 				let check = [];
 				let price =[];
-				
+				let sdNo=[];
 				var strong1 = $("<strong>");
 				var pTag1 = $("<p>").html("추가");
 				strong1.append(pTag1);
@@ -438,6 +466,7 @@
 				        console.log( 'span값 : '+$(this).next().next().html());
 				        check[i]=$(this).val();
 				        price[i]=$(this).next().next().html();
+				        sdNo[i]=$(this).prev().val();
 				        var good = $("<input>").attr({
 				        	'type':'checkbox',
 				        	'name':'checked',
@@ -452,6 +481,14 @@
 				        	
 				        }).html(check[i]).css({'display':'inline'});
 				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				    	
+				        var sdNoInput = $("<input>").attr({
+							'type':'hidden',
+							'value':sdNo[i],
+							'name':'sdNoEnd'
+						});
+						
+				        
 				        console.log(spanValues);
 				        div1.append(good).append(goods).append(spanValues).append($("<br>"));
 				        
@@ -462,10 +499,17 @@
 				 		'value':$("#selectCategory").val(),
 				 		'readonly':'true'
 				 	})
+				 	
+				 	var mtNoInput = $("<input>").attr({
+				 		'type':'hidden',
+				 		'name':'mtNoHid',
+				 		'value':$("option:selected").next().val()
+				 	})
+				 	
 				
 				div2.append(imgInput).append(img);
 				div3.append(div).append(div1).append(div2);
-				$(".addCategory").append(cateInput);
+				$(".addCategory").append(cateInput).append(mtNoInput);
 				$(".addCategory").append(div3);
 				$(".menu-name").val("");
 				$(".menu-price").val("");
