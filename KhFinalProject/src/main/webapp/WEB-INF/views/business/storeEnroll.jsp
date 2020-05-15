@@ -3,6 +3,7 @@
 <%@include file="../common/header.jsp" %>
 
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     <section style="width:auto;height:auto;">
