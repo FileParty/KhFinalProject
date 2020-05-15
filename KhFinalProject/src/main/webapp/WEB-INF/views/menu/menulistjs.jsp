@@ -123,7 +123,7 @@
 							$(".name-"+i).html(info['s_NAME']);
 							
 							//별점
-							$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+							$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 							
 							//리뷰
 							$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
@@ -219,7 +219,7 @@
 						$(".name-"+i).html(info['s_NAME']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
@@ -317,7 +317,7 @@
 						$(".name-"+i).html(info['s_NAME']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
