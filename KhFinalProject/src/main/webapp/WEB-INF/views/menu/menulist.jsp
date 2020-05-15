@@ -11,6 +11,11 @@
 
 	<section>
 	
+	<input id="menu-category" type="hidden" value="${category}"/>
+	<input id="sortType" type="hidden" value="${sortType}"/>
+	<input id="search" type="hidden" value="${search}"/>
+	<input id="cPage" type="hidden" value="${cPage}"/>
+	
 	<div style="position:fixed; left:1700px; top:200px;" class="text-center">
 		 	<span class="text-center d-block">
 		 		최근 본 상품
@@ -73,7 +78,7 @@
 					<nav class="navbar navbar-light bg-light justify-content-between">					 
 					  <form class="form-inline">
 
-					    <input class="form-control" type="search" id="search-name" placeholder="음식점을 검색하세요" aria-label="Search">
+					    <input class="form-control" type="search" id="search-name" placeholder="음식점을 검색하세요" aria-label="Search" value="${search!='null'?search:''}">
 					    <button id="btn-search" class="btn btn-outline-success my-2 my-sm-0 mr-3" type="button">
 					    	<img src="${pageContext.request.contextPath }/resources/img/search.svg" width="25px">
 					    </button>

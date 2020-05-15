@@ -16,13 +16,21 @@
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
-
+		//상세페이지 매핑 시켜주기
 		$(".food-category").click(function(){
 			var no = $(this).find("span").html();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val();
 			
 			no = $.trim(no);
+			c = $.trim(c);
+			sortType=$.trim(sortType);
+			search=$.trim(search);
+			cPage=$.trim(cPage);
 			
-			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no);
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
 		});
 		
 		$.each($(".list-group-item"), function(i,v){			
@@ -79,6 +87,8 @@
 		//페이지리스트 출력 ajax 처리
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
+			$("#menu-category").val(menuCategory);
+			
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
@@ -196,19 +206,19 @@
 	$("#btn-search").click(function(){
 		var name = $("#search-name").val();
 		var category = $(".active").eq(0).html();
+		var sort = $("#sortType").val();
+		
+		//hidenn에 추가
+		$("#search").val(name);
 			
-		console.log(category);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 			data: {
+				"sortType":sort,
 				"search":name,
 				"menuCategory":category	
 			},
 			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
 				
 				//row
 				for(var i=1; i<=5; i++){
@@ -303,12 +313,17 @@
 	//드랍다운 선택시 바꾸기
 	$(".dropdown-item").click(function(e){
 		var val = $(this).html();
+		
+		//hidden 태그에 추가
+		$("#sortType").val(val);
+		
 		console.log(val);
 		$(this).parent().prev().html(val);
 		
-		var name = $("#search-name").val();
+		var name = $("#search").val();
 		var category = $(".active").eq(0).html();
-		var sort = $(e.target).html();
+		//var sort = $(e.target).html();
+		var sort = $("#sortType").val();
 		
 		console.log(sort);
 		
@@ -319,12 +334,7 @@
 				"search":name,
 				"menuCategory":category	
 			},
-			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
-				
+			success: function(data){	
 				//row
 				for(var i=1; i<=5; i++){
 					$(".category-row-"+i).removeClass("d-none");
