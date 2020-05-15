@@ -33,8 +33,13 @@
 <section>
 	<div class="container d-flex justify-content-center">
 		<div class="enroll-container">
-			<div class="enroll-title text-center" style="margin:30px;">
-				<h2>회원가입</h2>
+			<div class="d-flex justify-content-center" style="margin:30px;">
+   				<img src="${path}/resources/img/요기요.png">
+			</div>
+		 	<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
+				<hr style="width:175px;">
+				<h4 style="margin-left:10px; margin-right:10px;">정보 입력</h4>
+				<hr style="width:175px;">
 			</div>
 			<div class="enroll-form">
 				<form action="${path}/member/enrollEnd.do" method="post">
@@ -80,39 +85,12 @@
 						</td>
 					</tr>
 					<tr>
+						<th>이메일</th>
+						<td><input type="email" name="m_email" class="form-control" value="${m_email }"></td>
+					</tr>
+					<tr>
 						<th>종류</th>
 						<td><label><input type="radio" name="m_level" value="1">구매자</label><label><input type="radio" name="m_level" value="2">배달원</label></td>
-					</tr>
-				</table>
-				<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
-					<hr style="width:170px;">
-					<h4 style="margin-left:10px; margin-right:10px;">이메일 인증</h4>
-					<hr style="width:170px;">
-				</div>
-				<table style="width:500px;">
-					<tr>
-						<th>이메일</th>
-						<td class="emailMsg-container">
-							<input type="email" name="m_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required>
-							<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
-							<span class="emailMsg no4">사용 불가능한 이메일입니다.</span>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><button type="button" id="emailBtn" class="btn btn-outline-dark" style="float:right">인증번호 받기</button></td>
-					</tr>
-					<tr>
-						<th>인증번호</th>
-						<td class="emailNoMsg-container">
-							<input type="text" name="emailNo" id="emailNo"  class="form-control" placeholder="인증번호를 입력하세요." required>
-							<span class="emailNoMsg ok5">인증완료</span>
-							<span class="emailNoMsg no5">인증실패</span>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><button type="button" id="emailAuthBtn" class="btn btn-outline-dark" style="float:right">인증번호 확인</button></td>
 					</tr>
 				</table>
 				<div class="d-flex justify-content-center" style="margin:30px;">
@@ -205,6 +183,7 @@
 				}
 			}
 		});
+		
 	
 	</script>
 </section>
