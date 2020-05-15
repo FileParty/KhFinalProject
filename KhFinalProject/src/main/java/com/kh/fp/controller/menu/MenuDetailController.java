@@ -1,3 +1,4 @@
+
 package com.kh.fp.controller.menu;
 
 import java.util.ArrayList;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
@@ -22,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@SessionAttributes({ "newOrder" })
 public class MenuDetailController {
 	
 	@Autowired
@@ -68,6 +72,15 @@ public class MenuDetailController {
 		StoreMenu sm = service.selectMenuDetail(no);
 		log.debug(""+sm);
 		return sm;
+	}
+	
+	@RequestMapping(value="menu/menuOrderEnd",method = RequestMethod.POST)
+	@ResponseBody
+	public void menuOrderEnd(ModelAndView mv,@RequestParam Map order) {
+		log.debug(""+order);
+		List<Map> orderList = new ArrayList<Map>();
+		orderList.add(order);
+		mv.addObject("newOrder",orderList);
 	}
 
 }
