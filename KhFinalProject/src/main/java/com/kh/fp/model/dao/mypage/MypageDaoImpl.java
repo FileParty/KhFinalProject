@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.Member;
+
 @Repository
 public class MypageDaoImpl implements MypageDao {
 
@@ -57,9 +59,21 @@ public class MypageDaoImpl implements MypageDao {
 
 	@Override
 	public int memberUpdate(SqlSessionTemplate session, Map<String, String> map) {
-		return session.selectOne("mypage.memberUpdate", map);
+		return session.update("mypage.memberUpdate", map);
 	}
 
+	@Override
+	public Member memberSelect(SqlSessionTemplate session, int m_no) {
+		return session.selectOne("mypage.memberSelect", m_no);
+	}
+
+	@Override
+	public int memberDelete(SqlSessionTemplate session, int m_no) {
+		return session.delete("mypage.memberDelete", m_no);
+	}
+
+	
+	
 	
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.mypage.MypageDao;
+import com.kh.fp.model.vo.Member;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -69,6 +70,20 @@ public class MypageServiceImpl implements MypageService {
 	public int memberUpdate(Map<String, String> map) {
 		return dao.memberUpdate(session, map);
 	}
+
+	@Override
+	public Member memberSelect(int m_no) {
+		return dao.memberSelect(session, m_no);
+	}
+
+	@Override
+	public int memberDelete(int m_no) {
+		return dao.memberDelete(session, m_no);
+	}
+	
+	
+	
+	
 	
 	
 	

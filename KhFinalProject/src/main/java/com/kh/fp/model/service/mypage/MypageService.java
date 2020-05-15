@@ -3,6 +3,8 @@ package com.kh.fp.model.service.mypage;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.fp.model.vo.Member;
+
 public interface MypageService {
 	
 	int getTotalCount(int m_no);
@@ -24,5 +26,9 @@ public interface MypageService {
 	List<Map<String, String>> selectCoupon(int m_no);
 	
 	int memberUpdate(Map<String, String> map);
+	
+	Member memberSelect(int m_no);
+	
+	int memberDelete(int m_no);
 	
 }

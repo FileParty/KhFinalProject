@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.fp.model.vo.Member;
+
 public interface MypageDao {
 	
 	int getTotalCount(SqlSessionTemplate session, int o_no);
@@ -26,5 +28,10 @@ public interface MypageDao {
 	List<Map<String, String>> selectCoupon(SqlSessionTemplate session, int m_no);
 	
 	int memberUpdate(SqlSessionTemplate session, Map<String, String> map);
+	
+	Member memberSelect(SqlSessionTemplate session, int m_no);
+	
+	int memberDelete(SqlSessionTemplate session, int m_no);
+	
 
 }

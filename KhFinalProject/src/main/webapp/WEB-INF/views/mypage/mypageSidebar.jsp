@@ -6,6 +6,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+		<style>
+			.table td{
+			    	text-align:center;
+			    }
+		</style>
+
             <div class="col-md-2">
                 
                 <table id="myPage_category" class="table">
