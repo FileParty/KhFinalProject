@@ -135,10 +135,27 @@
 							var plus = info['s_TIME']+5;
 							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 							
+							//배달 시간
+							var plus = info['s_TIME']+5;
+							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+							
 							//영업 상태
-							var status = info['s_OPENSTATUS'];
-							if (status=='Y') status='영업중';
-							else status="영업 준비중";
+							var start = info['s_starttime'];
+							var end = info['s_endtime'];
+							var status='';
+							var Now = new Date();
+
+							var NowTime = Now.getFullYear();
+
+							NowTime += '-' + Now.getMonth() + 1 ;
+							NowTime += '-' + Now.getDate();
+							NowTime += ' ' + Now.getHours();
+							NowTime += ':' + Now.getMinutes();
+							NowTime += ':' + Now.getSeconds();
+							
+							if(start<NowTime && NowTime<end) status = '영업중';
+							else status = '영업 준비중';
+							
 							$(".status-"+i).html(status);
 							
 							//가게 번호
@@ -231,10 +248,27 @@
 						var plus = info['s_TIME']+5;
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 						
+						//배달 시간
+						var plus = info['s_TIME']+5;
+						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						var start = info['s_starttime'];
+						var end = info['s_endtime'];
+						var status='';
+						var Now = new Date();
+
+						var NowTime = Now.getFullYear();
+
+						NowTime += '-' + Now.getMonth() + 1 ;
+						NowTime += '-' + Now.getDate();
+						NowTime += ' ' + Now.getHours();
+						NowTime += ':' + Now.getMinutes();
+						NowTime += ':' + Now.getSeconds();
+						
+						if(start<NowTime && NowTime<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
 						
 						//가게 번호
@@ -330,11 +364,22 @@
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						console.log('====상태====');
-						console.log(status);
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						var start = info['s_starttime'];
+						var end = info['s_endtime'];
+						var status='';
+						var Now = new Date();
+
+						var NowTime = Now.getFullYear();
+
+						NowTime += '-' + Now.getMonth() + 1 ;
+						NowTime += '-' + Now.getDate();
+						NowTime += ' ' + Now.getHours();
+						NowTime += ':' + Now.getMinutes();
+						NowTime += ':' + Now.getSeconds();
+						
+						if(start<NowTime && NowTime<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
 						
 						//가게 번호
