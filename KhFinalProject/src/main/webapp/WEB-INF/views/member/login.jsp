@@ -42,7 +42,7 @@
 						<button class="btn btn-outline-dark" onclick="location.replace('${path}/member/enroll.do')" style="width:200px;">Google 로그인</button>	
 					</div>
 					<div class="" style="margin:30px;">
-						<span>배달킹이 처음이신가요? <a href="${path }/member/enroll.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a href="${path }/member/memberEnroll1.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
 				<div class="business-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
@@ -70,7 +70,7 @@
 					</form>
 				
 					<div class="" style="margin:30px;">
-						<span>배달킹이 처음이신가요? <a href="${path}/member/businessEnroll.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a href="${path}/member/businessEnroll1.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
 			</div>

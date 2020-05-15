@@ -6,10 +6,18 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.Side;
+
 
 public interface LicenseeService {
 
 	List<Map<String, Object>> getOrderInfo(int no,int cPage,int numPerpage);
 	int getOrderInfoAll(int no);
 	List<Map<String, Object>> getDetailOrder(int no);
+	
+	int insertSide(Map<String,Object> map);
+	List<Side> selectOption(int sNo);
+	int insertCategory(Map<String,Object> map);
+	List<MenuCategory> selectCategory();
 }

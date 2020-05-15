@@ -14,6 +14,8 @@ public interface MemberService {
 	Business selectBusiness(String userId);
 	
 	Member selectMemberName(String name);
+	
+	
 
 
 

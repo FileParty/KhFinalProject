@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    
+    pageEncoding="UTF-8"%>
 <script>
-    
-
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
     	
     	function goPopup(){
     		
@@ -10,12 +10,37 @@
 
 		};
 		
-		function jusoCallBack(roadFullAddr, entX, entY){
+		function jusoCallBack(roadFullAddr){
 			
 			$("#saddr").attr("value",roadFullAddr);
-			$("#xl").attr("value",entX);
-			$("#yl").attr("value",entY);
+			geocoder.addressSearch(roadFullAddr, callback);
 			
+		};
+		
+		var callback = function(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        var address = result[0].road_address.address_name;
+		        console.log(address);
+		        var x = result[0].road_address.x;
+		        var y =	result[0].road_address.y;
+		        $("#xl").attr("value",x);
+				$("#yl").attr("value",y);
+				
+				
+		    }
+		};
+		
+		var callback = function(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        var address = result[0].road_address.address_name;
+		        var x = result[0].road_address.x;
+		        var y =	result[0].road_address.y;
+		        $("#xl").attr("value",x);
+				$("#yl").attr("value",y);
+				$("#keyword").prop("value",address);
+				$("#list").css("visibility","hidden");
+				$("#list").css("z-index","-1");
+		    }
 		};
 		
 		$("#stime").on("change",function(){
