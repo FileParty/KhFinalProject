@@ -43,6 +43,7 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
 			@RequestParam(required=false, defaultValue="0") double yl,
+			@RequestParam(required=false, defaultValue="") String addr,
 			HttpSession session,
 			HttpServletResponse res
 			) {		
@@ -113,6 +114,7 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
 			@RequestParam(required=false, defaultValue="0") double yl,
+			@RequestParam(required=false, defaultValue="") String addr,
 			HttpSession session
 			) {
 		
