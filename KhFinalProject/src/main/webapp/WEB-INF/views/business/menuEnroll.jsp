@@ -11,8 +11,7 @@
       }
       div.col-12{
       	width:900px;
-      	height:768px;
-      	border:1px solid black;
+      	
       }
       th#h2{
       padding: 20 0 20 0;
@@ -30,8 +29,15 @@
        padding:0 0 20 0;
       }
       .btnC {
-      margin-left:350px;
+      margin-left:300px;
       }
+       
+       
+      
+
+
+
+
       </style> 
 	<%@ include file="../common/header.jsp" %>
 	
@@ -52,20 +58,16 @@
 
                     	<div class="col-12">
                     	<br>
-                    		<h5 style="text-align:center;"><strong><span style="color:red;">* 대표메뉴</span> -><span style="color:orange;"> 옵션 </span>-> <span style="color:lightgreen;">카테고리</span> 순으로 등록하시면 편리합니다.</strong></h5>
+                    		<h5 style="text-align:center;"><strong><span style="color:red;">* 카테고리</span> -><span style="color:orange;"> 추가옵션 </span>-> <span style="color:lightgreen;">메뉴등록</span> 순으로 등록하시면 편리합니다.</strong></h5>
                     	<br>
                     	<br>
                     	   
                     	   <button type="button" id="subBtn" class="btnC btn btn-outline-success" data-toggle="modal" data-target="#myModal3">카테고리 추가</button> 
                     	   <button type="button" id="subBtn1" class="btn btn-outline-warning btnC1" data-toggle="modal" data-target="#myModal">옵션 추가</button>
-                    	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();" >메뉴 등록</button>
+                    	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();">메뉴 등록</button>
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
-                    		<div class="container addCategory">
-                    		
-                    		<br>
-                    			<div class="row modalMenu">
-                    			</div>
+                    		<div class="container addCategory">	
                     		</div>
                     		<br>
                     		<br>
@@ -129,12 +131,13 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header">
-						          <h4 class="modal-title">메뉴 등록</h4>
+						          <h4 class="modal-title">메뉴 등록 <button style="margin-left:300px;height:30px;"type="button"class="xxx btn btn-outline-dark" onclick="xx();" data-dismiss="modal">x</button></h4>
 						        </div>
 						        <div class="modal-body" align=center>	
 						        	<div class="body-container custom-file">		
+						        		<label class="custom-file-label fileName" for="modalFile"><strong>메뉴 이미지를 첨부해주세요.</strong></label>
 						        		<input type="file" id="modalFile" class="custom-file-input">
-						        		<label class="custom-file-label" for="modalFile"><strong>메뉴 이미지를 첨부해주세요.</strong></label>		        		        
+						        				        		        
 						        		<input type="text" placeholder="메뉴명" class="menu-name form-control" name="menu-name">
 						        		<input type="number" placeholder="메뉴가격" class="menu-price form-control" name="menu-price">
 						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail form-control" name="menu-detail"></textarea>
@@ -142,8 +145,8 @@
 						        		<input  type="hidden" value="" id="hid" >					         
 						        		<br>							        		
 						        	</div>
-						        	<div style="margin-top:150px;"class="body-container2"></div>
-						        	<div style="margin-top:150px;"class="body-container3"></div>
+						        	<div style="margin-top:180px;"class="body-container2"></div>
+						        	<div style=""class="body-container3"></div>
 						        	<button type="button" id="optionEnroll"class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
 						        </div>
 						      </div>
@@ -152,9 +155,51 @@
 		<script>
 			var num = 0;
 			
-			function menuEnroll() {
-				$("#myModal2").modal('show');
+			$("#modalFile").change(function(){
+				let fileValue = $("#modalFile").val().split("\\");
+				let fileName = fileValue[fileValue.length-1]; 
+				$(".fileName").html(fileName);
+			})
+			function xx() {
+				$("#selectCategory").remove();
+				$(".menu-name").val("");
+				$(".menu-price").val("");
+				$(".menu-detail").val("");
+				$("#modalFile").val("");
+				$(".fileName").html('');
 			}
+			function menuEnroll() {
+				
+				$("#myModal2").modal({backdrop:'static'});
+				
+				var sel = $("<select>").attr({
+					'id':'selectCategory'
+				})
+				var numHid = $("<input>").attr({
+					'type':'hidden',
+					'value':num,
+					'class':'numHid'+num,
+					'alt':'num'
+				})
+				
+				$.ajax({
+					url:'${path}/licensee/selectCategory',
+					success:function(data){
+						for(let i=0;i<data.length;i++) {
+							var op = $("<option>").attr({
+								'for':'selectCategory',
+								'value':data[i].mt_name,
+							}).html(data[i].mt_name);
+							sel.append(op);
+						}
+						$(".body-container").append(sel).append(numHid);
+						
+					}
+				})
+				num++;
+			}
+			
+			
 			function add() {
 				$(".categoryForm").append($("<input>").attr({'type':'text','class':'form-control','name':'category','placeholder':'카테고리를 입력해주세요.'}));
 			}
@@ -304,23 +349,9 @@
 				$("#option2-container").append(tbl2);					
 			}
 		
-		
+			
 			function menu_enroll() {
-				var sel = $("<select>").attr({
-					'id':'selectCategory'
-				})
-				$.ajax({
-					url:'${path}/licensee/selectCategory',
-					success:function(data){
-						for(let i=0;i<data.length;i++) {
-							var op = $("<option>").attr({
-								'for':'selectCategory'
-							}).html(data[i].mt_name);
-							sel.append(op);
-						}
-						$("#menu-container").after(sel);
-					}
-				})
+				
 				var values = $("input[name=radio]:checked").val();
 				var spanValue = $("input[name=radio]:checked").next().next().html();
 				 var inputR = $("<input>").attr({
@@ -340,9 +371,10 @@
 				 var strong = $("<strong>");
 				 var pTag = $("<p>").html("필수");
 				 strong.append(pTag);
-				var fileValue = $("#modalFile").val().split("\\");
-				var fileName = fileValue[fileValue.length-1]; 
-				console.log('파일',fileName);
+				let fileValue = $("#modalFile").val().split("\\");
+				let fileName = fileValue[fileValue.length-1]; 
+				console.log('파일1',fileName);
+				
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
 				var menuDetail = $(".menu-detail").val();
@@ -364,21 +396,23 @@
 					'name':'menuDetail',
 					'class':'form-control'
 				}).html(menuDetail);
-				var num = $("#hid").val();	
+				var hidNum = $("#hid").val();	
 				var imgInput = $("<input>").attr({'type':'hidden','name':'menuImg'});
 				imgInput.val(fileName);
+				console.log('파일',imgInput.val());
 				var div = $("<div>").attr('class','col-lg-5 sideBody');
 				var div1 = $("<div>").attr('class','col-lg-4 sideBody1');
 				var div2 = $("<div>").attr('class','col-lg-3 sideBody2');
-				var div3 = $("<div>").attr('class','row');
+				var div3 = $("<div>").attr('class','row categoryPlus');
 				
 				
 				var img = $("<img>").attr({
-					'id':'preview',
-					'class':'preview'+num,
+					'id':'preview'+num,
+					'class':'rounded-circle preview'+num,
 					'src':' ',
 					'width':'150'
 				})
+				
 			
 				var file = document.querySelector('#modalFile');
 				var fileList = file.files;
@@ -422,14 +456,23 @@
 				        div1.append(good).append(goods).append(spanValues).append($("<br>"));
 				        
 				    });
+				 	var  cateInput = $("<input>").attr({
+				 		'type':'text',
+				 		'name':'categoryEnd',
+				 		'value':$("#selectCategory").val(),
+				 		'readonly':'true'
+				 	})
 				
 				div2.append(imgInput).append(img);
 				div3.append(div).append(div1).append(div2);
-				$(".addCategory").after(div3);
+				$(".addCategory").append(cateInput);
+				$(".addCategory").append(div3);
 				$(".menu-name").val("");
 				$(".menu-price").val("");
 				$(".menu-detail").val("");
 				$("#modalFile").val("");
+				$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
+				$("#selectCategory").remove();
 				}
 		
 		

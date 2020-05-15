@@ -73,7 +73,7 @@ public class LicenseeController {
 	@RequestMapping("/licensee/menuEnrollEnd")
 	public String menuEnroll(HttpServletRequest req) {
 		//메뉴등록
-		
+		String[] cateEnd = req.getParameterValues("categoryEnd");
 		String[] menuName = req.getParameterValues("menuName");
 		String[] mPrice = req.getParameterValues("menuPrice");
 		String[] img = req.getParameterValues("menuImg");
@@ -85,23 +85,32 @@ public class LicenseeController {
 		int menuPrice[] = new int[mPrice.length];
 		int rrPrice[] = new int[rPrice.length];
 		int endPrice[] = new int[ePrice.length];
+
+		
+		for(int i=0;i<img.length;i++) {
+			
+			System.out.println("파일"+img[i]);
+			//메뉴가격
+		}
 		
 		for(int i=0;i<mPrice.length;i++) {
 			menuPrice[i]= Integer.parseInt(mPrice[i]);
+			System.out.println("메뉴가격"+menuPrice[i]);
 			//메뉴가격
 		}
 		for(int i=0;i<rPrice.length;i++) {
 			rrPrice[i]= Integer.parseInt(rPrice[i]);
+			System.out.println("필수가격"+rrPrice[i]);
 			//필수 가격
 		}
 		for(int i=0;i<ePrice.length;i++) {
 			endPrice[i]= Integer.parseInt(ePrice[i]);
+			System.out.println("선택가격"+endPrice[i]);
 			//선택 가격
 		}
-		//메뉴카테고리 테이블 등록(시퀀스,카테고리,가게코드)
-//		int result = service.inserMenuCategory(category);
-//		//메뉴테이블 등록(시퀀스,메뉴명,가격,메뉴사진,카테고리코드,설명,대표메뉴 상태,가게코드)
-//		int result1 = service.insertMenu(menuName,mPrice)
+		for(int i=0;i<cateEnd.length;i++) {
+			System.out.println(cateEnd[i]);
+		}
 		return "";
 	}
 	@RequestMapping("/licensee/selectOption")
