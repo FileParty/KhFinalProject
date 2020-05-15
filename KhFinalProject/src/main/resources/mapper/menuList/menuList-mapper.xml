@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="menuList">
 	<select id="selectMenuList" resultType="menuList" parameterType="map">
-		select * from (select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance
-        from (select * from store)a) where 1=1
+		select * from 
+		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		 from (select * from store)a) where 1=1
 		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
@@ -17,13 +18,14 @@
 			order by S_REVIEWCOUNT DESC
 		</if>
 		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
-			order by S_SCORE DESC
+			order by trunc((s_taste+s_amount+s_delivery)/3/s_reviewcount,2) desc
 		</if>
 	</select>
 	
 	<select id="selectMenuListFilter" resultType="menuList" parameterType="map">
-		select * from (select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance
-        from (select * from store)a) where 1=1
+		select * from 
+		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		 from (select * from store)a) where 1=1
 		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
@@ -37,13 +39,14 @@
 			order by S_REVIEWCOUNT DESC
 		</if>
 		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
-			order by S_SCORE DESC
+			order by trunc((s_taste+s_amount+s_delivery)/3/s_reviewcount,2) desc
 		</if>
 	</select>
  
  	<select id="selectMenuCount" resultType="_int" parameterType="map">
-		select count(*) from (select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance
-        from (select * from store)a) where 1=1
+		select count(*) from 
+		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		 from (select * from store)a) where 1=1
 		<if test="category != null and category != '' and category!= '전체'"> 
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
@@ -53,12 +56,6 @@
 		<if test="xl!=null and xl!=0 and yl!=null and yl!=0">
 			and distance<![CDATA[<]]>5
 		</if>
-	</select>
-	
-	<select id="searchMenuList" resultType="menuList" parameterType="map">
-		select * from store where 1=1
-		and s_name LIKE '%'||#{name}||'%'
-		and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 	</select> 	
 	
 	

@@ -159,13 +159,15 @@
  								<div class="star d-flex justify-content-center align-items-center ">
  									<span class="mr-2 text-warning score-${j==1?2*(i-1):i*j-1}">
 	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">												
-		 										★						
-		 										<c:out value="${list.get(2*(i-1)).getS_SCORE()}"/>				
+		 										★
+		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_TASTE() + list.get(2*(i-1)).getS_AMOUNT() + list.get(2*(i-1)).getS_DELIVERY()/3/list.get(2*(i-1)).getS_REVIEWCOUNT() }"/>						
+		 										<c:out value="${score}"/>				
 		 								</c:if>
 		 								
 		 								<c:if test="${j==2 && i*j-1<list.size()}">	
 		 										★
-		 										<c:out value="${list.get(i*j-1).getS_SCORE()}"/>		
+		 										<c:set var = "score" value="${list.get(i*j-1).getS_TASTE() + list.get(i*j-1).getS_AMOUNT() + list.get(i*j-1).getS_DELIVERY()/3/list.get(i*j-1).getS_REVIEWCOUNT() }"/>						
+		 										<c:out value="${score}"/>		
 		 								</c:if>
 	 								</span>
  								</div>
