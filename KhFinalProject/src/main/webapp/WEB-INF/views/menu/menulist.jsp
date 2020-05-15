@@ -90,8 +90,7 @@
 	                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                        <a class="dropdown-item" href="#">기본 정렬순</a>
 	                        <a class="dropdown-item" href="#">별점순</a>
-		                    <a class="dropdown-item" href="#">리뷰순</a>
-		                    <a class="dropdown-item" href="#">거리순</a>           
+		                    <a class="dropdown-item" href="#">리뷰순</a>           
 	                   </div>
 	                	</div>
 					  
