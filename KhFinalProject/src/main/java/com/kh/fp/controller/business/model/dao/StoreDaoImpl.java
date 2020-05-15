@@ -41,13 +41,13 @@ public class StoreDaoImpl implements StoreDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session, int no) {
+	public List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
 		return session.selectList("store.getStoresDetailcategory",no);
 	}
 
 	@Override
-	public List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session, int no) {
+	public List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
 		return session.selectList("store.getStoresDetailfiles",no);
 	}
