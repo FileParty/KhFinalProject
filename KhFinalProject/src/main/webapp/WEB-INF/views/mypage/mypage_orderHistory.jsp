@@ -43,8 +43,8 @@ ${sysdate }  --%>
 					<div class="col-md-6 row">
 
                        <div class="col-md-2"></div>
-                       <div id="order_content_"+${m['o_no']} class="col-md-8 order_content" style="border: 1px solid black; height:200px;">
-							<input type="hidden" value="${m['o_no']}"/>
+                       <div class="col-md-8 order_content" style="border: 1px solid black; height:200px;">
+							<input type="hidden" value="${m['O_NO']}"/>
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
                            <%-- <fmt:parseDate value="${2020-05-01 }" pattern="yyyy/MM/dd HH:mm:ss" var="odate"/> --%>
                            <p style="text-align: right; width:100%" class="${(o.time-odate.time)/(60*1000)<180?'':'d-none'}"><button onclick="reviewInsert('${m['o_no']}');">리뷰쓰기</button></p>
@@ -62,74 +62,7 @@ ${sysdate }  --%>
                        <div class="col-md-2"></div>
                    </div>
 				</c:forEach>
-					
-                    <div class="col-md-6 row">
 				
-                        <div class="col-md-2"></div>
-                        <div id="order_content_1" class="col-md-8 order_content" style="border: 1px solid black; height:200px;">
-							<input type="hidden" value="1"/>
-                            <p style="text-align: center;"><strong>바나프레소</strong></p>
-                            <p style="text-align: right; width:100%" <%-- class="${상태=='n' && 주문 시간이 1시간이네 ?'':'d-none'}" --%>><button onclick="test();">리뷰쓰기</button></p>
-                            <table style="width:100%">
-                                <tr>
-                                    <td><img src="${path }/resources/upload/mypage/menu.PNG"/></td>
-                                    <td style="text-align: right;">
-                                        <p style="text-align: right;"><strong>2020.05.11</strong></p>
-                                        <p style="text-align: right;"><strong>30,000원</strong></p>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                    </div>
-                    
-                    <div class="col-md-6 row">
-
-                        <div class="col-md-2"></div>
-                        <div id="order_content_2" class="col-md-8" style="border: 1px solid black; height:200px;;">
-
-                            <p style="text-align: center;"><strong>바나프레소</strong></p>
-                            <table style="width:100%">
-                                <tr>
-                                    <td><img src="${path }/resources/upload/mypage/menu.PNG"/></td>
-                                    <td style="text-align: right;">
-                                        <p style="text-align: right;"><strong>2020.05.11</strong></p>
-                                        <p style="text-align: right;"><strong>30,000원</strong></p>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                    </div>
-
-                    <div class="col-md-12" style="height: 50px;"></div>
-                    
-                    <div class="col-md-6 row">
-
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" style="border: 1px solid black; height:200px;">
-
-                            <p style="text-align: center;"><strong>바나프레소</strong></p>
-                            <p style="text-align: right; width:100%"></p>
-                            <table style="width:100%">
-                                <tr>
-                                    <td><img src="${path }/resources/upload/mypage/menu.PNG"/></td>
-                                    <td style="text-align: right;">
-                                        <p style="text-align: right;"><strong>2020.05.11</strong></p>
-                                        <p style="text-align: right;"><strong>30,000원</strong></p>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </div>
-                        <div class="col-md-2"></div>
-
-                    </div>
-                    
                 </div>
                 
                 
@@ -215,9 +148,6 @@ ${sysdate }  --%>
                         </table>
                         <br>
                         <table class="table" id="menu-tbl">
-                            <tr>
-                                <th style="text-align: left;">메뉴</th>
-                            </tr>
                         </table>
                     </div>
                     <div class="col-md-2"></div>
@@ -241,7 +171,11 @@ ${sysdate }  --%>
         
             $(".order_content").on("click",function(){
             	
-            	var o_no = $(this).find("input").val();
+            	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴</th></tr>");
+            	
+            	
+            	
+            	var o_no = ($(this).find("input"))[0].value;
             	
             	const strong = $(this).find("strong");
             	const modalStrong=$("#modal").find("strong");
@@ -258,11 +192,26 @@ ${sysdate }  --%>
 				    data: {"o_no":o_no},
 				    success: function(data){
 						/* console.log(data[0]['1_1']); */
-						console.log(data);
-						console.log(data.length);
+						
+						var option = new Array();
+						
+						
 						
 						for(let i=0; i<data.length; i++){
-							$("#menu-tbl").append("<tr><td style='text-align: center;' class='menu_con'>" + data[i]["??"] + "</td></tr>")
+							option = data[i]['SD_ARRAY'].split(',');
+							console.log(option);
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'>" + data[i]['ME_LOGIMG'] + "</td><td style='text-align: right;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
+							
+							if(option.length>0){
+								
+							}
+							
+							
+							for(let j=0; j<option.length; j++){
+								$("#menu-tbl").append("<tr><td colspan='2' class='modalOption' style='text-align: left'>");
+								$($(".modalOption")[j]).append(option[j]);									
+							}
+							
 						}
 						
 						
@@ -299,11 +248,11 @@ ${sysdate }  --%>
             });
             
             
-            function reviewInsert(o_no){
+            /* function reviewInsert(o_no){
             	
             	$.ajax({
             		url:""
-            	})
+            	}) */
     
         </script>
     

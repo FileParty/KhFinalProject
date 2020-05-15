@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectReview" parameterType="_int" resultType="map">
-		SELECT * FROM REVIEW WHERE M_NO=#{m_no}
+		SELECT RE.*, STO.S_NAME AS S_NAME FROM REVIEW RE JOIN STORE STO ON RE.S_NO=STO.S_NO WHERE M_NO=#{m_no}
 	</select>
 	
 	<select id="selectReviewImg" parameterType="map" resultType="string">
@@ -39,7 +39,15 @@
 	</select>
 	
 	<update id="memberUpdate" parameterType="map">
-		
+		UPDATE MEMBER SET M_PW = #{m_pw}, M_EMAIL = #{m_email}, M_PHONE = #{m_phone}, M_NICKNAME = #{m_nickname} WHERE M_NO=#{m_no}
 	</update>
+	
+	<select id="memberSelect" parameterType="_int" resultType="member">
+	 	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
+	 </select>
+	 
+	<delete id="memberDelete" parameterType="_int">
+		DELETE FROM MEMBER WHERE M_NO = #{m_no}
+	</delete>
 	
 </mapper>
