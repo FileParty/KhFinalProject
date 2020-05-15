@@ -351,7 +351,7 @@
   
      <input type="checkbox"   onchange="check2(this)" > <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
       <div style="display: inline;padding-left: 7px;">(보유 포인트
-      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}">point)
+      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}" readonly>point)
       </div>
       <br>
     </td>

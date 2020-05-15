@@ -28,13 +28,14 @@ public class MemberController_SH {
 		//쿠폰갯수 가져오기
 		
 		Member member=(Member)session.getAttribute("loginMember");
+	
 		int m_no=member.getM_no();
 		int totalData=service.selectCouponCount(m_no);
 		
 		m.addAttribute("list",list);
 		m.addAttribute("total",totalData);
-		
-		
+	
+		System.out.println(session);
 		return ("/SANGHAK/sh");
 	}
 	@RequestMapping("/pay/paylist2.do")
