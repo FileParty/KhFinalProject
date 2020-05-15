@@ -9,6 +9,8 @@ public interface MemberService_SH {
 
 	List<Coupon_SH> selectCoupon();
 
+	int selectCouponCount(int m_no);
+
 //	Object selectMemberPay(int m_no);
 
 	

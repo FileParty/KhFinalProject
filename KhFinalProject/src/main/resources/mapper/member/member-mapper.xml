@@ -16,15 +16,22 @@
   <select id="selectMember" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_ID = #{userId}
   </select>
+
   <!-- 일반 아이디 닉네임 중복 체크 -->
   <select id="selectMemberName" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_NICKNAME = #{name}
   </select>
   <!-- 사업자 아이디 로그인 -->
   <select id="selectBusiness" parameterType="string" resultType="business">
-  	SELECT * FROM BUSINESS WHERE B_ID = #{userId}
+  	SELECT * FROM BUSINESS WHERE B_ID=#{userId}
   </select>
+
+
+  
   <select id="selectCoupon" resultType="CouponSH">
   	SELECT*FROM COUPON
+  </select>
+  <select id="selectCouponCount" parameterType="_int" resultType="_int">
+  	SELECT COUNT(*)FROM COUPON WHERE M_NO=#{m_no}
   </select>
 </mapper>

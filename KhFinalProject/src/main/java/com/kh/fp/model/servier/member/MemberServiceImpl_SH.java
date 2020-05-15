@@ -24,6 +24,12 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		return dao.selectCoupon(session);
 	}
 
+	@Override
+	public int selectCouponCount(int m_no) {
+		// TODO Auto-generated method stub
+		return dao.selectCouponCount(session,m_no);
+	}
+
 //	@Override
 //	public Object selectMemberPay(int m_no) {
 //		// TODO Auto-generated method stub

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="store">
+ 	
+ 	<insert id="insertStore" parameterType="store">
+ 		insert into store values(store_seq.nextval,#{saddr},#{sname},#{slimitprice},#{spayopt},#{stext}
+ 		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{yl},#{xl},#{stime}
+ 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'))
+ 	
+ 		<selectKey order="AFTER" keyProperty="sno" resultType="_int">
+			select store_seq.CURRVAL FROM DUAL
+		</selectKey>
+ 	
+ 	</insert>
+
+	<insert id="insertStoreCategory" parameterType="map">
+		insert into store_category values(#{scategory},#{sno})
+	</insert>
+	
+	<insert id="insertStoreImage" parameterType="map">
+		insert into store_img values(#{sno},#{simg})
+	</insert>
+ 	
+</mapper>

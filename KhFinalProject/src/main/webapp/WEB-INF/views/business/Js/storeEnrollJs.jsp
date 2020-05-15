@@ -69,7 +69,7 @@
                 }
  
                 sel_files.push(f);
- 
+ 				$(".imgs_wrap").html("");
                 var reader = new FileReader();
                 reader.onload = function(e) {
                 	
@@ -81,13 +81,35 @@
         }
         
         function check(){
+        	var regNumber = /^[0-9]*$/;
+        	console.log("?");
         	var saddr = $("#saddr").val().length;
+        	var phone2 = $("#phone2").val();
+        	var phone3 = $("#phone3").val();
+        	var sstarttime = $("#sstarttime").val().length;
+        	var sendtime = $("#sendtime").val().length;
+
         	if(saddr==0){
         		alert("주소를 입력하세요");
+        		return false;
+        	}else if(!regNumber.test(phone2) || !regNumber.test(phone3) ){
+        		alert("연락처에 숫자만 입력하세요.");
+        		return false;
+        	}else if(sstarttime==0 || sendtime==0){
+        		alert("오픈시간/마감시간을 선택해주세요");
         		return false;
         	}
         	
         	return true;
         }
+        
+        $("input[name='sholiday']").on("click",function(){
+        
+        	if($($("input[name='sholiday']")[7]).val()==$(this).val()){
+        		$("input[name='sholiday']").not($("input[name='sholiday']")[7]).prop("checked", false);
+        	}else{
+        		$($("input[name='sholiday']")[7]).prop("checked", false);
+        	};
+        })
 		
     </script>

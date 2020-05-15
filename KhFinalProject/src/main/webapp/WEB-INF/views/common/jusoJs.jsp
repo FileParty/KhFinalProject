@@ -27,6 +27,7 @@ function getroadAddr(){
 			}else{
 				if(jsonStr != null){
 					$("#list").css("visibility","hidden");
+					$("#list").css("z-index","-1");
 					if(!jsonStr.results.juso.length==0){
 						$("#list").css("visibility","visible");
 					}
@@ -44,53 +45,44 @@ function getroadAddr(){
 }
 
 
-function getXY(i,data){
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+
+var callback = function(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        var address = result[0].road_address.address_name;
+        var x = result[0].road_address.x;
+        var y =	result[0].road_address.y;
+        $("#xl").attr("value",x);
+		$("#yl").attr("value",y);
+		$("#keyword").prop("value",address);
+		$("#list").css("visibility","hidden");
+		$("#list").css("z-index","-1");
+    }
+};
+
+var callback2 = function(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        $("#list").css("visibility","hidden");
+        $("#list").css("z-index","-1");
+		$("#keyword").prop("value",result[0].address.address_name);
+    }
+};
+
+function getXY(data){
 	data=data.replace(/§/gi," ");
-	console.log(data);
-	$.ajax({
-		 url :"http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
-		,type:"post"
-		,data:$("#form"+i).serialize()
-		,dataType:"jsonp"
-		,crossDomain:true
-		,success:function(xmlStr){
-			var x= xmlStr.results.juso[0].entX;
-			var y =xmlStr.results.juso[0].entY;
-			$("#keyword").prop("value",data);
-			$("#xl").attr("value",x);
-			$("#yl").attr("value",y);
-			$("#list").css("visibility","hidden");
-			$("#list").css("z-index","-1");
-		}
-	    ,error: function(xhr,status, error){
-	    	alert("에러발생");
-	    }
-	});
+	geocoder.addressSearch(data, callback);
 }
-
-
 
 function makeListJson(jsonStr){
 
 	var htmlStr = "";
-	var i=0;
 	htmlStr += "<table>";
 	$(jsonStr.results.juso).each(function(){
 		htmlStr += "<tr>";
-		htmlStr += "<td onclick=getXY("+i+",\'"+this.jibunAddr.replace(/ /gi,'§')+"\'); class='search-autosearch'><div><strong>"+this.jibunAddr+"</strong><br>[도로명 주소]"+this.roadAddr+"</div><hr/></td>";
-		htmlStr += "<td>";
-		htmlStr += "<form name='form"+i+"' id='form"+i+"' method='post'>";
-		htmlStr += "<input type='hidden' name='resultType' value='json'/>";
-		htmlStr += "<input type='hidden' name='confmKey' value='devU01TX0FVVEgyMDIwMDUxMjIxMjYyNTEwOTc1MjY='/>";
-		htmlStr += "<input type='hidden' name='rnMgtSn'  value='"+this.rnMgtSn+"' />";
-		htmlStr += "<input type='hidden' name='admCd' ' value='"+this.admCd+"' />";
-		htmlStr += "<input type='hidden' name='udrtYn'  value='"+this.udrtYn+"' />";
-		htmlStr += "<input type='hidden' name='buldMnnm'  value='"+this.buldMnnm+"' />";
-		htmlStr += "<input type='hidden' name='buldSlno' value='"+this.buldSlno+"' />";
-		htmlStr += "</form>"
-		htmlStr += "</td>";
+		htmlStr += "<td onclick=getXY(\'"+this.jibunAddr.replace(/ /gi,'§')+"\'); class='search-autosearch'><div><strong>"+this.jibunAddr+"</strong><br>[도로명 주소]"+this.roadAddr+"</div><hr/></td>";
 		htmlStr += "</tr>";
-		i++;
 	});
 	htmlStr += "</table>";
 	$("#list").html(htmlStr);
@@ -137,6 +129,25 @@ function enterSearch() {
 	} 
 }
 
+
+function getbrowserxy(){
+	navigator.geolocation.getCurrentPosition(function(pos) {
+	    var latitude = pos.coords.latitude;
+	    var longitude = pos.coords.longitude;
+	   
+	    $("#xl").attr("value",latitude);
+		$("#yl").attr("value",longitude);
+		 
+		
+		var coord = new kakao.maps.LatLng(latitude, longitude);
+
+		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback2);
+		
+	});
+
+}
+
+
 function selectCategory(data){
 	
 	var x = $("#xl").val().length;
@@ -146,26 +157,14 @@ function selectCategory(data){
 	
 	if(!(x==0 || y==0)){
 		var x = $("#xl").val();
-		var y= $("#yl").val()
-		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y);
+		var y= $("#yl").val();
+		var addr = $("#keyword").val();
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y+"&addr"+addr);
 	}else{
 		alert("주소를 입력해주세요");
 	}
 	
 }
-
-function getbrowserxy(){
-	navigator.geolocation.getCurrentPosition(function(pos) {
-	    var latitude = pos.coords.latitude;
-	    var longitude = pos.coords.longitude;
-	    $("#list").css("visibility","hidden");
-	    $("#xl").attr("value",latitude);
-		$("#yl").attr("value",longitude);
-		$("#keyword").prop("value","현재 위치");
-	});
-
-}
-
 
 
 </script>

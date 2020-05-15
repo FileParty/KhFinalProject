@@ -5,10 +5,24 @@ import java.util.Map;
 
 public interface MypageService {
 	
-	int getTotalCount(String userId);
+	int getTotalCount(int m_no);
 	
-	List<Map<String, String>> selectOrder(String userId, int cPage, int numPerPage);
+	List<Map<String, String>> selectOrder(int m_no, int cPage, int numPerPage);
 	
 	List<Map<String, String>> selectOrderMenu(int o_no);
+	
+	int reviewTotalCount(int m_no);
+	
+	List<Map<String, String>> selectReview(int m_no, int cPage, int numPerPage);
+	
+	List<String> selectReviewImg(Map<String, String> map);
 
+	List<Map<String, String>> selectPrefer(int m_no);
+	
+	int delectWatchList(Map<String, String> map);
+	
+	List<Map<String, String>> selectCoupon(int m_no);
+	
+	int memberUpdate(Map<String, String> map);
+	
 }

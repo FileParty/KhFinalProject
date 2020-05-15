@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,19 +42,39 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
-			@RequestParam(required=false, defaultValue="0") double yl
+			@RequestParam(required=false, defaultValue="0") double yl,
+			@RequestParam(required=false, defaultValue="") String addr,
+			HttpSession session,
+			HttpServletResponse res
 			) {		
+						
+		//위도 경도 세션 처리
+		if(xl==0 && yl==0) {
+			xl = (double)session.getAttribute("xl");
+			yl = (double)session.getAttribute("yl");
+		}else {
+			session.setAttribute("xl", xl);
+			session.setAttribute("yl", yl);
+		}
 		
-		System.out.println("====카테고리====");
-		System.out.println(category);
+		System.out.println("========== xl ==========");
+		System.out.println(xl);
 		
-		System.out.println("xl"+ xl);
-		System.out.println("yl"+ yl);
-		
+		System.out.println("========== yl ==========");
+		System.out.println(yl);
+
 		Map map = new HashMap();
+		
+		//최근 본 상품 세션 처리
+		if(session.getAttribute("recentList")!=null) {
+			map.put("recentList", session.getAttribute("recentList"));
+		}
+
 		map.put("category", category);
 		map.put("sortType", sortType);
 		map.put("search", search);
+		map.put("xl", xl);
+		map.put("yl", yl);
 		
 		List<Store> storeList = service.selectMenuList(cPage, numperPage, map);
 		
@@ -88,14 +111,36 @@ public class MenuListController {
 			@RequestParam(required=false, defaultValue="") String sortType,
 			@RequestParam(required=false, defaultValue="") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
-			@RequestParam(required=false, defaultValue="10") int numperPage
+			@RequestParam(required=false, defaultValue="10") int numperPage,
+			@RequestParam(required=false, defaultValue="0") double xl,
+			@RequestParam(required=false, defaultValue="0") double yl,
+			@RequestParam(required=false, defaultValue="") String addr,
+			HttpSession session
 			) {
+		
+		
+		
+		if(xl==0 && yl==0) {
+			xl = (double)session.getAttribute("xl");
+			yl = (double)session.getAttribute("yl");
+		}else {
+			session.setAttribute("xl", yl);
+			session.setAttribute("yl", yl);
+		}
+		
+		System.out.println("========== xl ==========");
+		System.out.println(xl);
+		
+		System.out.println("========== yl ==========");
+		System.out.println(yl);
 		
 		Map map = new HashMap();
 		
 		map.put("category", category);
 		map.put("sortType", sortType);
 		map.put("search", search);
+		map.put("xl", xl);
+		map.put("yl", yl);
 		
 		System.out.println("==========filter==========");
 		System.out.println("====정렬순====");
