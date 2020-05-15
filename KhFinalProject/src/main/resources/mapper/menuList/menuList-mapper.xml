@@ -3,7 +3,7 @@
 <mapper namespace="menuList">
 	<select id="selectMenuList" resultType="menuList" parameterType="map">
 		select * from 
-		(select a.*, DISTNACE_WGS84(126.78803180000001, 37.4372839, S_Y, S_X) as distance, 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance, 
 		(select count(*) from review where s_no=a.s_no) as S_REVIEWCOUNT,
 		(select TRUNC((r_score_taste+r_score_amount+r_score_delivery)/3,2) from review where s_no=a.s_no) as S_SCORE
 		 from (select * from store)a) where 1=1
@@ -26,7 +26,7 @@
 	
 	<select id="selectMenuListFilter" resultType="menuList" parameterType="map">
 		select * from 
-		(select a.*, DISTNACE_WGS84(126.78803180000001, 37.4372839, S_Y, S_X) as distance, 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance, 
 		(select count(*) from review where s_no=a.s_no) as S_REVIEWCOUNT,
 		(select TRUNC((r_score_taste+r_score_amount+r_score_delivery)/3,2) from review where s_no=a.s_no) as S_SCORE
 		 from (select * from store)a) where 1=1
@@ -49,7 +49,7 @@
  
  	<select id="selectMenuCount" resultType="_int" parameterType="map">
 		select * from 
-		(select a.*, DISTNACE_WGS84(126.78803180000001, 37.4372839, S_Y, S_X) as distance, 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance, 
 		(select count(*) from review where s_no=a.s_no) as S_REVIEWCOUNT,
 		(select TRUNC((r_score_taste+r_score_amount+r_score_delivery)/3,2) from review where s_no=a.s_no) as S_SCORE
 		 from (select * from store)a) where 1=1
