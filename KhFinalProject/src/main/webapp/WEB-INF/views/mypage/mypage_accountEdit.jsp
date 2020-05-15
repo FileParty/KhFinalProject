@@ -12,9 +12,7 @@
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
 		    
-		    .table td{
-		    	text-align:center;
-		    }
+		    
 </style>
 
 <section>
@@ -32,7 +30,7 @@
 
                     <div class="col-md-8">
 
-                        <table class="table detailTable">
+                        <table class="table detailTable" id="memberTable">
 
                             <tr>
                                 <th>회원아이디</th>
@@ -50,6 +48,10 @@
                                     <input type="text" onkeyup="passwordCheck();" id="checkPassword"><br>
                                     <div id="pcCon"></div>
                                 </td>
+                            </tr>
+                            <tr>
+                                <th>이메일</th>
+                                <td id="email">${loginMember.m_email }</td>
                             </tr>
                             <tr>
                                 <th>휴대전화번호</th>
@@ -112,6 +114,7 @@
         function memberUpdate(){
             $("#password").html("<input type='text' id='defaultPassword'>");
             $("#passwordCheck").attr("style", "display:table-row");
+            $("#email").html("<input type='text' value='" + $("#email").html() + "'>");
             $("#phone").html("<input type='text' value='" + $("#phone").html() + "'>");
             $("#nickname").html("<input type='text' value='" + $("#nickname").html() + "'>");
             $("#memberUpdateBtn").attr("onclick", "memberUpdateEndBtn();");
@@ -119,25 +122,38 @@
         }
         
         function memberUpdateEndBtn(){
+        	
+        	const input_con = $("#memberTable").find("input");
+        	
+        	console.log(input_con[0].value); //패스워드
+        	console.log(input_con[2].value); //이메일
+        	console.log(input_con[3].value); //폰번호
+        	console.log(input_con[4].value); //닉네임
 
-        	$.ajax({
-    			
-			    url: "${path}/mypage/memberUpdate.do",
-			    type: "POST",
-			    data: {"m_no":${loginMember.m_no}},
-			    success: function(data){
-					
-			    	
-			    	
-			    },
-		
-			    error: function (request, status, error){
-			    	
-			    	alert("수정 실패");
-			    	
-			    }
-		
-			});
+        	if(input_con[0].value==input_con[1].value){
+	        	$.ajax({
+	    			
+				    url: "${path}/mypage/memberUpdate.do",
+				    type: "POST",
+				    data: {"m_no":${loginMember.m_no}, "m_pw":input_con[0].value, "m_email":input_con[2].value, "m_phone":input_con[3].value, "m_nickname":input_con[4].value},
+				    success: function(data){
+						
+				    	alert("수정성공");
+				    	location.replace("${path}/mypage/accountEdit.do");
+				    	
+				    	
+				    },
+			
+				    error: function (request, status, error){
+				    	
+				    	alert("수정 실패");
+				    	
+				    }
+			
+				});
+        	}else{
+        		alert("패스워드가 일치하지 않습니다");
+        	}
         	
         }
 

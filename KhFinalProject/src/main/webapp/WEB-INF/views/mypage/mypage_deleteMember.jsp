@@ -28,7 +28,7 @@
 
                     <div class="col-md-8">
                         <p>설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 </p>
-                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%);">회원탈퇴</button>
+                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%);" onclick="memberDelete(${loginMember.m_no});">회원탈퇴</button>
                     </div>
 
                     <div class="col-md-2"></div>
@@ -42,6 +42,34 @@
             <div class="col-md-1"></div>
 
         </div>
+        
+        <script>
+        	
+        	function memberDelete(m_no){
+        		if(confirm("회원을 탈퇴하시겠습니까?")){
+        			$.ajax({
+    				    url: "${path}/mypage/memberDelete.do",
+    				    type: "POST",
+    				    data: {"m_no":m_no},
+    				    success: function(data){
+    						
+    				    	alert("회원이 탈퇴되었습니다.");
+    				    	location.replace("${path}");
+    				    	
+    				    	
+    				    },
+    			
+    				    error: function (request, status, error){
+    				    	
+    				    	alert("회원탈퇴실패!");
+    				    	
+    				    }
+    			
+    				});
+        		}
+        	}
+        
+        </script>
 
     </section>
 
