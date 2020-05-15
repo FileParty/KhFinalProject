@@ -34,6 +34,7 @@ public class MemberController_SH {
 		m.addAttribute("list",list);
 		m.addAttribute("total",totalData);
 		
+		
 		return ("/SANGHAK/sh");
 	}
 	@RequestMapping("/pay/paylist2.do")
