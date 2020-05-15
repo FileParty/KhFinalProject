@@ -5,7 +5,7 @@
  	<insert id="insertStore" parameterType="store">
  		insert into store values(store_seq.nextval,#{saddr},#{sname},#{slimitprice},#{spayopt},#{stext}
  		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{yl},#{xl},#{stime}
- 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'))
+ 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'),default,default,default,default)
  	
  		<selectKey order="AFTER" keyProperty="sno" resultType="_int">
 			select store_seq.CURRVAL FROM DUAL
@@ -20,5 +20,20 @@
 	<insert id="insertStoreImage" parameterType="map">
 		insert into store_img values(#{sno},#{simg})
 	</insert>
+ 	
+ 	<select id="getStoresDetail" resultType="map">
+ 		select S_NO,S_ADDR,S_NAME,S_LIMITPRICE,S_PAYOPT,S_TEXT,S_PHONE,
+ 				S_OPENSTATUS,S_ENROLLSTATUS,S_ORIFOODINFO,S_LOGIMG
+ 				,S_TIME,B_NO,S_HOLIDAY,S_COUPON,to_char(S_STARTTIME,'HH24:MI:SS') AS S_STARTTIME,
+ 				 to_char(S_ENDTIME,'HH24:MI:SS') AS S_ENDTIME from store where b_no=#{no}
+ 	</select>
+ 	
+ 	<select id="getStoresDetailcategory" resultType="map">
+ 		select ct_name from category join store_category using(ct_no) where s_no =#{no}
+ 	</select>
+ 	
+ 	<select id="getStoresDetailfiles" resultType="map">
+ 		select s_img from store_img where s_no =#{no}
+ 	</select>
  	
 </mapper>

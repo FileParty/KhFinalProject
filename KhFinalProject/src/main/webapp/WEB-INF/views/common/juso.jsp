@@ -2,173 +2,111 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script language="javascript">
-
-function getroadAddr(){
-	// 적용예 (api 호출 전에 검색어 체크) 	
-	if (!checkSearchedWord(document.form.keyword)) {
-		return ;
-	}
-	
-	$.ajax({
-		 url :"http://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  //인터넷망
-		,type:"post"
-		,data:$("#form").serialize()
-		,dataType:"jsonp"
-		,crossDomain:true
-		,success:function(jsonStr){
-			$("#list").html("");
-			var errCode = jsonStr.results.common.errorCode;
-			var errDesc = jsonStr.results.common.errorMessage;
-			if(errCode != "0"){
-				alert(errCode+"="+errDesc);
-			}else{
-				if(jsonStr != null){
-					makeListJson(jsonStr);
-				}
-			}
-		}
-	    ,error: function(xhr,status, error){
-	    	alert("에러발생");
-	    }
-	});
-}
-
-function makeListJson(jsonStr){
-
-	var htmlStr = "";
-	htmlStr += "<table>";
-	$(jsonStr.results.juso).each(function(){
-		htmlStr += "<tr>";
-		htmlStr += "<td>"+this.roadAddr+"</td>";
-		htmlStr += "<input type='hidden' class='beom' value='"+this.rnMgtSn+"' />";
-		htmlStr += "<input type='hidden' class='beom' value='"+this.admCd+"' />";
-		htmlStr += "<input type='hidden' class='beom' value='"+this.udrtYn+"' />";
-		htmlStr += "<input type='hidden' class='beom' value='"+this.buldMnnm+"' />";
-		htmlStr += "<input type='hidden' class='beom' value='"+this.buldSlno+"' />";
-		htmlStr += "</tr>";
-	});
-	htmlStr += "</table>";
-	$("#list").html(htmlStr);
-	 $("#rnMgtSn").attr("value",$($(".beom")[0]).val());
-	 $("#admCd").attr("value",$($(".beom")[1]).val());
-	 $("#udrtYn").attr("value",$($(".beom")[2]).val());
-	 $("#buldMnnm").attr("value",$($(".beom")[3]).val());
-	 $("#buldSlno").attr("value",$($(".beom")[4]).val());
-}
-
-
-function getXY(){
-	$.ajax({
-		 url :"http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do"  //인터넷망
-		,type:"post"
-		,data:$("#form2").serialize()
-		,dataType:"jsonp"
-		,crossDomain:true
-		,success:function(xmlStr){
-			console.log(xmlStr.results.juso[0].entX);
-			console.log(xmlStr.results.juso[0].entY);
-			$("#list2").html("");
-		
-			var htmlStr = "";
-			htmlStr += "<table>";
-			htmlStr += "<tr>";
-			htmlStr += "<td>"+xmlStr.results.juso[0].entX+"</td>";
-			htmlStr += "<td>"+xmlStr.results.juso[0].entY+"</td>";
-			htmlStr += "</tr>";
-			htmlStr += "</table>";
-			$("#list2").html(htmlStr);
-		}
-	    ,error: function(xhr,status, error){
-	    	alert("에러발생");
-	    }
-	});
-}
-
-
-
-
-//특수문자, 특정문자열(sql예약어의 앞뒤공백포함) 제거
-function checkSearchedWord(obj){
-	if(obj.value.length >0){
-		//특수문자 제거
-		var expText = /[%=><]/ ;
-		if(expText.test(obj.value) == true){
-			alert("특수문자를 입력 할수 없습니다.") ;
-			obj.value = obj.value.split(expText).join(""); 
-			return false;
-		}
-		
-		//특정문자열(sql예약어의 앞뒤공백포함) 제거
-		var sqlArray = new Array(
-			//sql 예약어
-			"OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC",
-             		 "UNION",  "FETCH", "DECLARE", "TRUNCATE" 
-		);
-		
-		var regex;
-		for(var i=0; i<sqlArray.length; i++){
-			regex = new RegExp( sqlArray[i] ,"gi") ;
-			
-			if (regex.test(obj.value) ) {
-			    alert("\"" + sqlArray[i]+"\"와(과) 같은 특정문자로 검색할 수 없습니다.");
-				obj.value =obj.value.replace(regex, "");
-				return false;
-			}
-		}
-	}
-	return true ;
-}
-
-
-
-/* function searchaddr(){
-	var length = $("#keyword").val().length;
-	if(length>5){
-		$("#list").css("display","flex");
-		getroadAddr();
-	}else{
-		$("#list").css("display","none");
-	}
-} */
-
-
-
-</script>
-<title>Insert title here</title>
+    <meta charset="utf-8">
+    <title>좌표로 주소를 얻어내기</title>
+    <style>
+    .map_wrap {position:relative;width:100%;height:350px;}
+    .title {font-weight:bold;display:block;}
+    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+</style>
 </head>
 <body>
-
-<div>
-	<form name="form" id="form" method="post">
-		<input type="hidden" name="currentPage" value="1"/> 
-		<input type="hidden" name="countPerPage" value="2"/>
-		<input type="hidden" name="resultType" value="json"/> 
-		<input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDIwMDUxMjIwMDA0MTEwOTc1MjQ="/>
-		<input type="text" name="keyword" id="keyword" value="" onkeyup="searchaddr();" />
-		<div id="list" ></div><!-- 검색 결과 리스트 출력 영역 -->
-	</form>
-	
-	 <form name="form2" id="form2" method="post">
-	 	<input type="hidden" name="resultType" value="json"/>
-	 	<input type="hidden" name="confmKey" value="devU01TX0FVVEgyMDIwMDUxMjIxMjYyNTEwOTc1MjY="/>
-		<input type="hidden" name="admCd" id="admCd" /> 
-		<input type="hidden" name="rnMgtSn" id="rnMgtSn" />
-		<input type="hidden" name="udrtYn" id="udrtYn" /> 
-		<input type="hidden" name="buldMnnm" id="buldMnnm"/>
-		<input type="hidden" name="buldSlno" id="buldSlno"/>
-		<input type="button" onClick="getXY();" value="검색하기"/>
-		<div id="list2" ></div>검색 결과 리스트 출력 영역
-	</form> 
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div class="hAddr">
+        <span class="title">지도중심기준 행정동 주소정보</span>
+        <span id="centerAddr"></span>
+    </div>
 </div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 1 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+
+var callback = function(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        console.log(result);
+    }
+};
+
+geocoder.addressSearch('해남군 송지면', callback);
+
+
+
+
+var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+    infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+// 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+// 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+        	console.log(result);
+        	console.log(status);
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            var content = '<div class="bAddr">' +
+                            '<span class="title">법정동 주소정보</span>' + 
+                            detailAddr + 
+                        '</div>';
+
+            // 마커를 클릭한 위치에 표시합니다 
+            marker.setPosition(mouseEvent.latLng);
+            marker.setMap(map);
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }   
+    });
+});
+
+// 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'idle', function() {
+    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+});
+
+function searchAddrFromCoords(coords, callback) {
+    // 좌표로 행정동 주소 정보를 요청합니다
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
+
+// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+function displayCenterInfo(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        var infoDiv = document.getElementById('centerAddr');
+
+        for(var i = 0; i < result.length; i++) {
+            // 행정동의 region_type 값은 'H' 이므로
+            if (result[i].region_type === 'H') {
+                infoDiv.innerHTML = result[i].address_name;
+                break;
+            }
+        }
+    }    
+}
+</script>
 </body>
 </html>
-						

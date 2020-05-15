@@ -86,7 +86,7 @@
 
 
 
- <form  action="${path}/" method="post" onsubmit="" >
+ <form  action="${path}/" method="post" onsubmit="return checkedNull();" >
 <div class="row" style="margin-top: 190px;">
   <div class="leftcolumn">
     <div class="card" style="padding-left: 25px;height: auto;">
@@ -101,13 +101,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_name']}" readonly><br>
+            	<input type="text"  id="name_1" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_name']}" readonly><br>
 		           <span id="result"></span> 
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_phone']}"readonly>
+            <td><br><input type="text" id="phone_1"style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -220,20 +220,20 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" style="width:300px;height:45px;"required><br> </td>
+  <td><input type="text"  id="name_2" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2" style="width:300px;height:45px;"required><br></td>
+  <td><br><input type="text"  id="phone_2" style="width:300px;height:45px; padding-left: 10;"required><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);" readonly><br> <br></td>
+  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
-  <td><input type="text" style="width:300px;height:45px;" placeholder=" (필수) 상세정보 입력" required><br></td>
+  <td><input type="text" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br></td>
 </tr>
 <tr>
   <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
@@ -250,7 +250,7 @@
 
     <table> 
     <tr>
-    <td style="padding-right:40px;">빠짐 쿠폰 사용</td>
+    <td style="padding-right:40px;">쿠폰 사용</td>
     
          <td width="680px">  
     
@@ -344,9 +344,9 @@
     </tr>
 
 <tr>
-  <td style="padding-right:40px;">빠짐 포인트</td>
+  <td style="padding-right:40px;">포인트 사용</td>
     <td width="680px">
-    <input style="padding-right:20px;" type="text" class="col-lg-13" id="allpay3" >  
+    <input style="padding-right:20px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
   
      <input type="checkbox"   onchange="check2(this)" > <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
@@ -359,7 +359,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="width:200px;height:45px;text-align:right;" value="2500원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width:200px;height:45px;text-align:right;" value="2500원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -372,12 +372,9 @@
       <br>
       <h2>결제 방법</h2>
 <hr>
-<div id="btn-container"style="border: 1px solid black;text-align: center;width: 200px;margin: auto; width: 50%;padding: 15px;">
-   <button id="btn-button">신용카드</button>
-  
-
-
-  </div>
+	<div id="btn-container"style="border: 1px solid black;text-align: center;width: 200px;margin: auto; width: 50%;padding: 15px;">
+ 	  <button id="btn-button" value="1">신용카드</button>
+ 	</div>
 
   </div>
   
@@ -388,47 +385,50 @@
 
 
   <div style="margin-top:75px;" >
-    <h3 style="text-align:center;">최종 결제 금액 확인</h3>
+    <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
   <div class="rightcolumn" style="padding-right:10px;" >
-    <h3>합계</h3><h1 align="center" style="color:red">46,200원</h1>
-    <hr width="90%">
+    <h3 style="font-weight:bold;color:black;">합계</h3><h1 align="center" style="font-weight: bold;color:red">46,200원</h1>
+    <hr width="90%" >
 
     <div class="card"width="90%">
 
-      <table style="width: 100%;text-align: center; height: auto;font-weight: bold;font-size: 17px;">
+      <table style="width: 340px; height: auto;font-weight: bold;font-size: 20px;">
         <tr style="height:40px">
             <td>상품금액</td>
-            <td>43,700원</td>
+            <td id="td1234"style="width: 155px;text-align: right;">43,700원</td>
         </tr>
        <!--  <tr style="height:40px">
             <td>할인금액</td>
             <td><em style="color: red;">-2,000원</em></td>
         </tr> -->
         <tr style="height:40px">
-          <td>쿠폰금액</td>
-          <td style="color: red;"><div class="" id="ex2_Result3">0원</div></td>
+          <td>쿠폰 사용금액</td>
+          <td style="color: red;text-align: right;"><div class="" id="ex2_Result3">0원</div></td>
          </tr>
          <tr style="height:40px">
-           <td>포인트금액</td>
-            <td><input style="text-align:center; color:red; font-weight:bold;width:100px;border:1px solid white;" type="text"id="allpay4" ></td>
+           <td>포인트 사용금액</td>
+          <!--분기처리하고싶음. 모두사용체크도있으 input만 보이고 체크안되있으면 div만 보이게   -->
+            <td style="text-align: right;">
+            	<div class="def" style="color:red;font-weight:bold;height: 20px;text-align: right;">0point</div>
+            	<input style="text-align: right; color:red; font-weight:bold;width:65px;border:1px solid white;" type="text"id="allpay4" class="invisible" >
+            </td>
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
-      <td>2,500원</td>
+      <td style="text-align: right;">2,500원</td>
   </tr>
           </table><br><hr>
-                            <div style="background-color: #ddd;text-align: center;padding:13px;">
-                            <p>주문할 상품의 상품명, 상품가격,배송정보<br>를 확인하였으며, 구매를 동의 하십니까?   
-                              <a class="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
-                            </div><br>
-                            <div id="container">
-                              <button class="learn-more" type="submit">
-                                <span class="circle" aria-hidden="true">
-                                  <span class="icon arrow"></span>
-                                </span>
-                                <span  class="button-text" style="font-size: 20px;padding-top: 11px;" >결제하기</span>
-                              </button>
+                            <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -23px;height: 81px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
+                            <p style="margin-top:10px;color:rgb(95, 95, 95);">주문할 상품의 상품명, 상품가격,배송정보<br>를 확인하였으며, 구매를 동의 하십니까?   
+                              <a id="agree1" onclick="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
+                              <!-- 약관보기 클릭하면 input 태그 보이게 --> 
+                              <div id="agree2" style="display:none;text-align:center;">
+                             	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;모두 동의합니다.
+                              </div>
                             </div>
+                          <button id="dopay"type="submit" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                        	  결제하기
+                          </button>
   
 
     </div>
@@ -444,10 +444,10 @@
   <div class="modal-dialog">
   
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" style="top: 165px;left: 511px;">
       <div class="modal-header">
-       <h3 style="margin-bottom: -15px;">약관보기</h3>
-        <button type="button" class="close" data-dismiss="modal"><h3 style="float:left;">닫기</h3>&times;</button>
+       <h3 style="margin-bottom: -15px;">&nbsp;&nbsp;&nbsp;약관보기</h3><br>
+        
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
@@ -461,7 +461,7 @@
          </tr>
          <tr>
            <td>
-             <textarea name="tos" rows=15 cols=100 style="width:540px;">
+             <textarea name="tos" rows=15 cols=100 style="width:566px;height: 288px;">
 제1조(목적)
 이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다」
@@ -687,7 +687,7 @@
           </tr>
           <tr>
             <td>
-              <input type="checkbox" >이용약관에 동의합니다.<br><br><br><br>
+             <!--  <input type="checkbox" >이용약관에 동의합니다.<br><br><br><br> --><br><br>
             </td>
           </tr>
           <tr>
@@ -699,7 +699,7 @@
          </tr>
          <tr>
            <td>
-             <textarea name="tos" rows=15 cols=100 style="width:540px;">
+             <textarea name="tos" rows=15 cols=100 style="width:566px;">
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -803,7 +803,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
           </tr>
           <tr>
             <td>
-              <input type="checkbox">개인정보 수집 및 이용에 대한 안내에 동의합니다.
+            <!--   <input type="checkbox">개인정보 수집 및 이용에 대한 안내에 동의합니다. -->
             </td>
           </tr>
         </table>
@@ -968,7 +968,7 @@ color: #fff;
 
 <style>
 * {
- /*  border:1px solid red;    */
+   /*  border:1px solid red;    */
     box-sizing: border-box;
 }
 body {
@@ -1047,8 +1047,9 @@ main {
 .rightcolumn {
     float: left;
     width: 31%;
+    height:369px;
     padding-left: 20px;
-    border:3px solid rgb(252, 197, 60);
+    border:1px solid lightgray;
 }
 /* Fake image */
 .fakeimg { 
@@ -1061,6 +1062,7 @@ main {
     background-color: white;
     padding: 20px;
     margin-top: 20px;
+    height: 215px;
 }
 /* Clear floats after the columns */
 .row:after {
@@ -1093,10 +1095,20 @@ main {
 </style>
 <script>
 <!--========================결제선택 스크립트======================================== -->
+
   $("#btn-container").click(function(){
-    $('#btn-container').css("border","solid 3px red");
-    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
-  });
+	 if($("#btn-container").val()=="1"){
+	    $('#btn-container').css("border","solid 3px red");
+	    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
+	    $(this).val("2");
+	 }else{
+		   $(this).val("1");
+		   $('#btn-container').css("border","solid 1px black");
+		    $('#btn-button').css("color","black").css("font-weight","normal").html("신용카드");
+	 }
+	 });
+  
+  
  
 </script>
 
@@ -1122,25 +1134,91 @@ main {
 
     }
   <!--======================포인트 모두사용 스크립트=============allpay2======allpay3=====allpay4================== -->
+  
   function check2(f){
 
     if (f.checked) {
-
-      $('#allpay3').val($('#allpay2').val());
-
-      $('#allpay4').val($('#allpay2').val()).html('원');
-     
+      $('#allpay3').val($('#allpay2').val());  //모든포인트를 왼쪽 input에 
+      $("#allpay3").attr("readonly",true).css("background-color","rgb(243, 243, 243)"); //모두사용 체크하면 input 란 readonly처리
+      
+      
+     /*  $('.def').html(''); */
+      $('#allpay4').removeClass('invisible'); //오른쪽사이드바 최종결제금액확인란에서 input(모두체크)안보이게
+     $('.def').addClass('invisible');
+      $('#allpay4').val($('#allpay2').val());	//모든포인트를 오른쪽사이드바 최종결제금액확인란에
+      $(".abc").off("keyup");  //왼쪽 input에서 글쳐도 오른쪽바에 자동입력되는거 off
 
     } else{
 
-    $('#allpay3').val('');
+    $('#allpay3').val('').attr("readonly",false).css("background-color","white");
     $('#allpay4').val('');
- 
+    $('#allpay4').addClass('invisible');
+    $('.def').removeClass('invisible');
+    $(document).ready(function(){
+
+
+    	$(".abc").click(function(){
+    		
+    	})
+    	 $(".abc").keyup(function(){
+
+    	  
+
+    	   $(".def").text($(".abc").val());
+
+
+    	 });
+
+    	 });
 
       }
 
     }
+  <!--=====================약관보기 체크 스크립트=============agree1 === agree2=======agree5======= -->
+ 
+  $("#agree1").click(function(){
+	  $('#agree2').css("display","inline");
+	  $('#agree5').css("height","116px");
+  });
   
+  <!--=====================모두 동의합니다 체크시 결제하기 버튼 바꾸기=============check123 === dopay============= -->
+  
+  $(document).ready(function(){
+	    $("#check123").change(function(){
+	        if($("#check123").is(":checked")){
+	        	$('#dopay').css("color","white").css("background-color","black");
+	        	$('#agree5').css("color","white").css("border","1px solid black");
+	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
+	        	$('#agree2').css("color","black");
+	        }else{
+	        	$('#dopay').css("color","rgb(190, 190, 190").css("background-color","rgb(243, 243, 243)");
+	        	$('#agree5').css("color","white").css("border","1px solid lightgray");
+	        	$('.rightcolumn').css("color","white").css("border","1px solid lightgray");
+	        	
+	        }
+	    });
+	});
+	
+  
+  <!--======================포인트 자동 주문표에 입력스크립트============================== -->
+  $(document).ready(function(){
+
+
+$(".abc").click(function(){
+	
+})
+ $(".abc").keyup(function(){
+
+  
+
+   $(".def").text($(".abc").val());
+
+
+ });
+
+ });
+
+
   <!--===============================연락처 하이바(-)입력 스크립트================================ -->
   $(document).ready(function() {
 	  
@@ -1233,6 +1311,10 @@ detectBackdropClick = (event) => {
         closeModal();
     }
 }
+
+
+<!--=============================form 태그 스트립트 널값인거 예외처리하기 =========checkedNull()========================== -->
+checkedNull()
 </script>
 
 <style>
@@ -1347,14 +1429,7 @@ background-color: rgb(243, 243, 243);
 text-align:right;
 padding-top:11px;
 }
-.col-lg-13{
-border : 1px solid lightgray;
-width:200px;
-height:45px;
 
-text-align:right;
-/* padding-top:7px; */
-}
 
 </style>
  <!--================================================================ -->
