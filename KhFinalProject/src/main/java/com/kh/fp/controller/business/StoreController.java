@@ -105,6 +105,12 @@ public class StoreController {
 		return mv;
 	}
 	
+	@RequestMapping("/store/storedetail")
+	public String companyStatus() {
+		//가맹점등록정보
+		return "business/storedetail";
+	}
+	
 	@RequestMapping("/store/storeupdate")
 	public String storeUdpate() {
 		return "business/storeUpdate";

@@ -45,13 +45,6 @@ public class LicenseeController {
 		return "business/menuEnroll";
 	}
 	
-	
-	@RequestMapping("/licensee/companyStatus")
-	public String companyStatus() {
-		//가맹점등록정보
-		return "business/companyStatus";
-	}
-	
 	@RequestMapping("/licensee/calculate")
 	public String calculate() {
 		//정산내역

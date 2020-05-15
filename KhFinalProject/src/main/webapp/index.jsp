@@ -7,6 +7,7 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/index.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <section>
 
@@ -29,7 +30,7 @@
 			<div class="index-search-title">
 					<h2>`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
 					<h6>배달 받을 동을 검색해주세요</h6><br>
-					<p>나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
+					<p>정확한 주소를 입력하시거나 나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
 			</div>
 		
 	
