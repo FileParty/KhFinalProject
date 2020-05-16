@@ -56,7 +56,7 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="email" id="email" name="b_email" class="form-control" placeholder="이메일 입력" value="${b_email }"required></td>
+						<td><input type="email" id="email" name="b_email" class="form-control" placeholder="이메일 입력" value="${b_email }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>사업자 번호</th>

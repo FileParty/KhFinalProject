@@ -78,9 +78,10 @@ public class MemberController {
 		if(result==0) {
 			page="common/msg";
 			md.addAttribute("msg","회원가입 실패");
-			md.addAttribute("loc","/member/enroll.do");
+			md.addAttribute("loc","/member/memberEnroll.do");
 		}else {
 			md.addAttribute("msg","회원가입 성공");
+			
 			page="redirect:/";
 		}
 		
