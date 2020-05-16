@@ -86,7 +86,7 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="email" name="m_email" class="form-control" value="${m_email }"></td>
+						<td><input type="email" name="m_email" class="form-control" value="${m_email }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>종류</th>
