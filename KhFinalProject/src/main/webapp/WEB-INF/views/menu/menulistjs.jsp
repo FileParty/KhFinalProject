@@ -13,6 +13,24 @@
 
 	$(function(){
 		
+		//최근 목록 상세페이지 연결
+		$(".rec_store").click(function(){
+			var no = $(this).find("input").val();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val(); 
+		
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
+		});
+		
+		//최근 목록 호버시 삭제버튼 나오게 하기
+		$(".rec_store").hover(function(){
+			$(this).find("div").removeClass("invisible");
+		},function(){
+			$(this).find("div").addClass("invisible");
+		});
+		
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
@@ -88,7 +106,9 @@
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
 			$("#menu-category").val(menuCategory);
-			
+			$("#sortType").val('');
+			$("#search").val('');
+			$("#cPage").val('');
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
@@ -150,20 +170,25 @@
 							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 							
 							//영업 상태
-							var start = info['s_starttime'];
-							var end = info['s_endtime'];
-							var status='';
-							var Now = new Date();
-
-							var NowTime = Now.getFullYear();
-
-							NowTime += '-' + Now.getMonth() + 1 ;
-							NowTime += '-' + Now.getDate();
-							NowTime += ' ' + Now.getHours();
-							NowTime += ':' + Now.getMinutes();
-							NowTime += ':' + Now.getSeconds();
+							//시간 포맷팅
+							Date.prototype.hhmmss = function() {
+						      var hh = this.getHours().toString();
+						      var mm = this.getMinutes().toString();
+						      var ss = this.getSeconds().toString();
+						      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+						  	}
 							
-							if(start<NowTime && NowTime<end) status = '영업중';
+							var start = new Date(info['s_STARTTIME']);
+							var end = new Date(info['s_ENDTIME']);
+							var now = new Date();
+							
+							var status='';
+							
+							start = start.hhmmss();
+							end = end.hhmmss();
+							now = now.hhmmss();
+								
+							if(start<now && now<end) status = '영업중';
 							else status = '영업 준비중';
 							
 							$(".status-"+i).html(status);
@@ -263,23 +288,29 @@
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						
 						//영업 상태
-						var start = info['s_starttime'];
-						var end = info['s_endtime'];
-						var status='';
-						var Now = new Date();
-
-						var NowTime = Now.getFullYear();
-
-						NowTime += '-' + Now.getMonth() + 1 ;
-						NowTime += '-' + Now.getDate();
-						NowTime += ' ' + Now.getHours();
-						NowTime += ':' + Now.getMinutes();
-						NowTime += ':' + Now.getSeconds();
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
 						
-						if(start<NowTime && NowTime<end) status = '영업중';
+						var start = new Date(info['s_STARTTIME']);
+						var end = new Date(info['s_ENDTIME']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
 						else status = '영업 준비중';
 						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
 						$(".store-no-"+i).html(info['s_NO']);
@@ -374,23 +405,29 @@
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						
 						//영업 상태
-						var start = info['s_starttime'];
-						var end = info['s_endtime'];
-						var status='';
-						var Now = new Date();
-
-						var NowTime = Now.getFullYear();
-
-						NowTime += '-' + Now.getMonth() + 1 ;
-						NowTime += '-' + Now.getDate();
-						NowTime += ' ' + Now.getHours();
-						NowTime += ':' + Now.getMinutes();
-						NowTime += ':' + Now.getSeconds();
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
 						
-						if(start<NowTime && NowTime<end) status = '영업중';
+						var start = new Date(info['s_STARTTIME']);
+						var end = new Date(info['s_ENDTIME']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
 						else status = '영업 준비중';
 						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
 						$(".store-no-"+i).html(info['s_NO']);

@@ -32,31 +32,47 @@ public class MenuDetailController {
 	private MenuDatailService service;
 	
 	@RequestMapping("/menu/menuDetailView")
-	public ModelAndView menuDetail(ModelAndView mv, HttpSession session, @RequestParam(defaultValue="1") int no) {
+	public ModelAndView menuDetail(ModelAndView mv, HttpSession session, @RequestParam(defaultValue="1") int no,
+			@RequestParam(required = false)String category, @RequestParam(required = false)String sortType, 
+			@RequestParam(required = false)String search, @RequestParam(defaultValue="1") int cPage) {
 		StoreDetailInfo sdi = service.selectStroeDetailInfo(no);
+		Map rMap = new HashMap();
+		rMap.put("no", no);
+		rMap.put("menuCategory", category);
+		rMap.put("sortType", sortType);
+		rMap.put("search", search);
+		rMap.put("cPage", cPage);
 		mv.addObject("store",sdi);
+		mv.addObject("rMap",rMap);
 		List<Map> store = null;
 		Map storeSession = new HashMap();
 		try {
-			store = (List)session.getAttribute("store");
-			for(Map map : store) {
-				if(!map.get("storeNo").equals(no)) {
+			store = (List)session.getAttribute("recentList");
+			log.debug("try"+store);
+			for(int i=0;i<store.size();i++) {
+				Map map = store.get(i);
+				log.debug("리스트사이즈:"+store.size()+"i:"+i+"storeNo:"+map.get("storeNo")+",no:"+no);
+				if(!(map.get("storeNo").equals(no))&&(i+1)==store.size()) {
 					storeSession.put("storeNo", no);
 					storeSession.put("storeImg", sdi.getS_logimg());
+					store.add(storeSession);
+					break;
 				} else {
-					map.put("storeImg",sdi.getS_logimg());
+					if(map.get("storeNo").equals(no)) {
+						break;
+					}
 				}
 			}
-			store.add(storeSession);
-		} catch(NullPointerException e) {
+		} catch(Exception e) {
 			store = new ArrayList();
+			log.debug("catch"+store);
 			storeSession.put("storeNo", no);
 			storeSession.put("storeImg", sdi.getS_logimg());
 			store.add(storeSession);
 		}
-		session.setAttribute("store", store);
+		session.setAttribute("recentList", store);
 		mv.setViewName("/menu/menuDetail");
-		log.debug("세션에 넣음 : "+session.getAttribute("store"));
+		log.debug("세션에 넣음 : "+session.getAttribute("recentList"));
 		return mv;
 	}
 	

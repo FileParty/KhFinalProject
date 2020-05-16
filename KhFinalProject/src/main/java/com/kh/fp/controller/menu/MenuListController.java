@@ -63,10 +63,12 @@ public class MenuListController {
 		if(session.getAttribute("recentList")!=null) {
 			map.put("recentList", session.getAttribute("recentList"));
 			
-			List<Store> recentList = (List<Store>)map.get("recentList");
+			List<Map> recentList = (List<Map>)map.get("recentList");
 			
-			for(Store s : recentList) {
-				System.out.println(s);
+			System.out.println("===최근====");
+			for(Map rm : recentList) {
+				System.out.println(rm.get("storeNo"));
+				System.out.println(rm.get("storeImg"));
 			}
 		}
 
@@ -98,7 +100,7 @@ public class MenuListController {
 		return "menu/menulist";
 	}
 	
-	//카테고리 눌럿을때
+	//카테고리, 정렬, 검색 했을 때
 	@RequestMapping("/menu/menuFilter.do")
 	@ResponseBody
 	public Map menuCategory(
@@ -126,8 +128,15 @@ public class MenuListController {
 		Map map = new HashMap();
 		
 		//최근 본 상품 세션 처리
+		List<Map> store = null;
 		if(session.getAttribute("recentList")!=null) {
-			map.put("recentList", session.getAttribute("recentList"));
+			store =(List)session.getAttribute("recentList");
+			
+			System.out.println("===최근====");
+			for(Map rm : store) {
+				System.out.println(rm.get("storeNo"));
+				System.out.println(rm.get("storeImg"));
+			}
 		}
 
 		if(!addr.equals(""))

@@ -7,7 +7,7 @@
 .s-store{
    display: flex;
    flex-direction: row;
-   margin-top: 100px;
+   margin-top: 40px;
 }
 
 .s-store-left{
@@ -23,7 +23,7 @@
    width: 320px;
    height: auto;
    border: 1px solid lightgray;
-   position: fixed;
+   position: relative;
 }
 
 .s-store-title{
