@@ -23,7 +23,7 @@
    width: 320px;
    height: auto;
    border: 1px solid lightgray;
-   position: fixed;
+   position: relative;
 }
 
 .s-store-title{

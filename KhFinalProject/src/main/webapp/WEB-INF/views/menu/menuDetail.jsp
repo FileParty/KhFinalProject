@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
-<!-- <div class="s-store-list-return">
+<div class="s-store-list-return">
 	<button onclick="returnList()">돌아가기</button>
-</div> -->
+</div>
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
@@ -674,15 +674,26 @@
         }
         
         $(function(){
+        	
+        	let storeMainY = $(".s-store-left").offset().top;
+    		let storeMainHeight = $(".s-store-left").height();
+    		
+    		var storeMainH = storeMainY+storeMainHeight+10;
         	$(window).on("scroll",function(e){
         		let height = $(window).height();
         		let scrollTop = $(window).scrollTop();
-        		let storeMainY = $(".s-store-left").offset().top;
-        		let storeMainHeight = $(".s-store-left").height();
         		let storeSideY = $("aside").offset().top;
+        		if(scrollTop<=storeSideY){
+        			
+        		}
         		let storeSideHeight = $("aside").height();
-        		/* console.log(storeMainY+storeMainHeight);
-        		console.log(storeSideY+storeSideHeight); */
+        		if(storeMainH<(storeSideY+storeSideHeight)){
+        			console.log("걸림");
+        			$("aside").css("bottom",146);
+        		} else {
+        			console.log("안걸림");
+        			$("aside").removeAttr("style");
+        		}
         	})
         	
         })

@@ -48,17 +48,19 @@ public class MenuDetailController {
 		Map storeSession = new HashMap();
 		try {
 			store = (List)session.getAttribute("recentList");
+			log.debug("try"+store);
 			for(Map map : store) {
 				if(!map.get("storeNo").equals(no)) {
 					storeSession.put("storeNo", no);
 					storeSession.put("storeImg", sdi.getS_logimg());
+					store.add(storeSession);
 				} else {
 					map.put("storeImg",sdi.getS_logimg());
 				}
 			}
-			store.add(storeSession);
 		} catch(NullPointerException e) {
 			store = new ArrayList();
+			log.debug("catch"+store);
 			storeSession.put("storeNo", no);
 			storeSession.put("storeImg", sdi.getS_logimg());
 			store.add(storeSession);
