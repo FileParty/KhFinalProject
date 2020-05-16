@@ -650,7 +650,7 @@
         
         function returnList(){
         	let loc = "${path}/menu/menuList.do?no=${rMap['no']}";
-        	loc += "&category=${rMap['category']}";
+        	loc += "&menuCategory=${rMap['menuCategory']}";
         	loc += "&sortType=${rMap['sortType']}";
         	loc += "&search=${rMap['search']}";
         	loc += "&cPage=${rMap['cPage']}";
