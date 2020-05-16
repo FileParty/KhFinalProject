@@ -2,8 +2,10 @@ package com.kh.fp.controller.business.service;
 
 import java.lang.annotation.Target;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -67,6 +69,34 @@ public class StoreServiceImpl implements StoreService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetail(int no) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> stores =dao.getStoresDetail(session,no);
+		for(Map<String, Object> m : stores) {
+
+			List<Map<String, Object>> category = dao.getStoresDetailcategory(session, m.get("S_NO"));
+			List<Map<String, Object>> files= dao.getStoresDetailfiles(session,m.get("S_NO"));
+			
+			m.put("category", category);
+			m.put("files",files);
+			
+		}
+		return stores;
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailcategory(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresDetailcategory(session,no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresDetailfiles(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresDetailfiles(session,no);
 	}
 
 	

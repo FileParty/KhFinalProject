@@ -135,8 +135,8 @@ function getbrowserxy(){
 	    var latitude = pos.coords.latitude;
 	    var longitude = pos.coords.longitude;
 	   
-	    $("#xl").attr("value",latitude);
-		$("#yl").attr("value",longitude);
+	    $("#xl").attr("value",longitude);
+		$("#yl").attr("value",latitude);
 		 
 		
 		var coord = new kakao.maps.LatLng(latitude, longitude);

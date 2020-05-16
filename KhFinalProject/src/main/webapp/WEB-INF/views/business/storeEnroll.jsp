@@ -3,6 +3,7 @@
 <%@include file="../common/header.jsp" %>
 
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     <section style="width:auto;height:auto;">
@@ -108,18 +109,18 @@
 	                  						<th class="store-enroll-info-title">소요시간</th>
 	                  						<th class="store-enroll-info">
 	                  							<input type="range" name="stime" id="stime" min="30" max="90"  step="10" />
-	                  							<div id="rangeshow">50분</div>
+	                  							<div id="rangeshow">60분</div>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">휴무일</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="checkbox" name="sholiday" value="월" checked>월</label>
-	                  							<label><input type="checkbox" name="sholiday" value="화">화</label>
-	                  							<label><input type="checkbox" name="sholiday" value="수">수</label>
-	                  							<label><input type="checkbox" name="sholiday" value="목">목</label>
-	                  							<label><input type="checkbox" name="sholiday" value="금">금</label>
-	                  							<label><input type="checkbox" name="sholiday" value="토">토</label>
+	                  							<label><input type="checkbox" name="sholiday" value="월요일" checked>월</label>
+	                  							<label><input type="checkbox" name="sholiday" value="화요일">화</label>
+	                  							<label><input type="checkbox" name="sholiday" value="수요일">수</label>
+	                  							<label><input type="checkbox" name="sholiday" value="목요일">목</label>
+	                  							<label><input type="checkbox" name="sholiday" value="금요일">금</label>
+	                  							<label><input type="checkbox" name="sholiday" value="토요일">토</label>
 	                  							<label><input type="checkbox" name="sholiday" value="공휴일">공휴일</label>
 	                  							<label><input type="checkbox" name="sholiday" value="연중 무휴">연중 무휴</label>
 	                  						</th>

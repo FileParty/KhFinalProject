@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -251,7 +253,7 @@
                     </div>
 
                     <div class="s-store-order-delivery">
-                        <h6>배달요금 별도 3,500원 별도</h6>
+                        <h6>배달요금 별도 2,500원 별도</h6>
                     </div>
 
                     <div class="s-store-order-delivery">
@@ -318,12 +320,14 @@
                <h4 class="menu-modal-content-h4">총 주문금액</h4>
                <div class="menu-modal-content-final-price-box">
                   <input type="hidden" name="finalPrice" id="finalPrice_">
+                  <input type="hidden" name="limitPrice" id="limitPrice_">
                   <h4 class="menu-modal-content-final-price"></h4>
                   <h5 class="menu-modal-menu-limitPrice"></h5>
                </div>
             </div>
          </div>
          <div class="modal-footer menu-modal-footer">
+         	<div id="menu-modal-footer-tootip" onclick="limitPirceTooTipHide();">최소 주문가격 이상으로 주문해야합니다!</div>
             <button class="menu-modal-footer-button" onclick="addOrderList()" style="background-color:red">주문표에 추가</button>
             <button class="menu-modal-footer-button" onclick="orderModal()"style="background-color:black">주문하기</button>
          </div>
@@ -415,7 +419,8 @@
                  }
                  $("#modal-menu-price").html(numberFormatting(data['me_price']));
                  $(".menu-modal-menu-limitPrice")
-                 .html("(최소 주문금액  "+$("#s-store-limit-price").val()+"원)");
+                 .html("(최소 주문금액  "+numberFormatting($("#s-store-limit-price").val())+")");
+                 $("#limitPrice_").val($("#s-store-limit-price").val());
                  $("#finalPrice_").val(data['me_price']);
                  $(".menu-modal-content-final-price").html(numberFormatting(data['me_price']));
                  console.log(("#finalPrice_"));
@@ -545,22 +550,82 @@
         
         /* 주문표에 추가 */
         function addOrderList(){
-        	
+        	console.log("야 꿀벌");
+        	let finalPrice = $("#finalPrice_").val();
+        	let limitPrice = $("#limitPrice_").val();
+        	if(finalPrice>limitPrice){
+        		
+        	} else {
+        		ShowlimitPriceTooTip();
+        	}
         }
         
         /* 모달창에서 주문하기 */
         function orderModal(){
-        	let menuImgSrc = $("#modal-menu-img-src").val();
-        	let menuName = $("#modal-menu-name").text();
-        	let reqOp;
-        	let reqOps = $(".menu-modal-content-required-option-radio");
-        	for(let i=0;i<reqOps.length;i++){
-        		if($(reqOps[i]).is(":checked")==true){
-        			reqOp = $(reqOps[i]).val();
-        		}
+        	let finalPrice = $("#finalPrice_").val();
+        	let limitPrice = $("#limitPrice_").val();
+        	if(finalPrice>limitPrice){
+	        	let menuImgSrc = $("#modal-menu-img-src").val();
+	        	let menuName = $("#modal-menu-name").text();
+	        	let reqOp;
+	        	let reqOps = $(".menu-modal-content-required-option-radio");
+	        	for(let i=0;i<reqOps.length;i++){
+	        		if($(reqOps[i]).is(":checked")==true){
+	        			reqOp = {"reqOpNo":$(reqOps[i]).val(),
+	        					"reqOpName":$(reqOps[i]).parent().text().trim()};
+	        		}
+	        	}
+	        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
+	        	let unReqOp = new Array();
+	        	for(let i=0;i<unReqOps.length;i++){
+	        		let j = 0;
+	        		if($(unReqOps[i]).is(":checked")==true){
+	        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
+	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
+	        		}
+	        	}
+	        	let menuCount = $("#menu-modal-menu-count-text").val();
+	        	console.log(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	$.ajax({
+	        		url:"${path}/menu/menuOrderEnd",
+	        		data:{order:new Order(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)},
+	        		type:"post",
+	        		success:function(){
+	        			location.replace("${path}/pay/paylist.do");
+	        		}
+	        	});
+        	} else {
+        		ShowlimitPriceTooTip();
         	}
-        	console.log(menuImgSrc,menuName,reqOp);
         }
+        
+        function Order(src,name,reqOp,unReqOp,price,count){
+        	this.src = src;
+        	this.name = name;
+        	this.reqOp = reqOp;
+        	this.unReqOp = unReqOp;
+        	this.count = count;
+        }
+        
+        function ShowlimitPriceTooTip(){
+        	let tootip = $("#menu-modal-footer-tootip");
+        	console.log(tootip);
+        	tootip.stop();
+        	tootip.css("opacity",0).show();
+        	tootip.animate({opacity:1},300);
+         	setTimeout(limitPirceTooTipHide,1800);
+        }
+        
+        function limitPirceTooTipHide(){
+        	let tootip = $("#menu-modal-footer-tootip");
+        	tootip.stop();
+        	tootip.animate(
+       			{opacity:0},500,function(){
+       				tootip.hide();
+       			}
+       		)
+        }
+        
         /* 돈 표시용 */
         function numberFormatting(num){
            num = num.toString().split('').reverse().join('');
@@ -579,3 +644,4 @@
     </script>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+

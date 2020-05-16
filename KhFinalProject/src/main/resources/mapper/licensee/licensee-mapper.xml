@@ -13,5 +13,20 @@
   	<select id="getDetailOrder" parameterType="_int" resultType="map" >
 		select O_STATUS,O_DATE,ME_NAME,me_price,O_ADDR,sd_array,O_ORIPRICE from ORDER_INFO JOIN order_menu USING(O_NO) JOIN MENU USING(ME_NO) WHERE O_NO = #{no}
   	</select>
-  
+  	
+  	 <insert id="insertSide" parameterType="map">
+  		INSERT INTO SIDE VALUES(5,#{sd_name},#{sd_price},1,#{sd_division})
+  	</insert> 
+  	
+  	<insert id="insertCategory" parameterType="map">
+  		INSERT INTO MENU_CATEGORY VALUES(4,#{mt_name},1)
+  	</insert>
+  	
+  	<select id="selectOption" parameterType="_int" resultType="com.kh.fp.model.vo.Side">
+  		SELECT * FROM SIDE WHERE S_NO = #{sNo}
+  	</select>
+  	
+  	<select id="selectCategory" parameterType="_int" resultType="com.kh.fp.model.vo.MenuCategory">
+  		SELECT * FROM MENU_CATEGORY WHERE S_NO = 1
+  	</select>
 </mapper>

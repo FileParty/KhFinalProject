@@ -2,9 +2,13 @@ package com.kh.fp.controller.business;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -106,14 +110,34 @@ public class StoreController {
 	}
 	
 	@RequestMapping("/store/storedetail")
-	public String companyStatus() {
+	public ModelAndView storedetail(ModelAndView mv,HttpSession session) {
 		//가맹점등록정보
-		return "business/storedetail";
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/licensee/storeEnroll");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_no());
+		
+
+		
+		mv.addObject("stores",stores);
+	
+		
+		mv.setViewName("business/storedetail");
+		return mv;
 	}
 	
 	@RequestMapping("/store/storeupdate")
 	public String storeUdpate() {
 		return "business/storeUpdate";
 	}
+	
+	
 	
 }

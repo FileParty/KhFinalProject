@@ -16,13 +16,21 @@
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
-
+		//상세페이지 매핑 시켜주기
 		$(".food-category").click(function(){
 			var no = $(this).find("span").html();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val();
 			
 			no = $.trim(no);
+			c = $.trim(c);
+			sortType=$.trim(sortType);
+			search=$.trim(search);
+			cPage=$.trim(cPage);
 			
-			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no);
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
 		});
 		
 		$.each($(".list-group-item"), function(i,v){			
@@ -79,6 +87,8 @@
 		//페이지리스트 출력 ajax 처리
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
+			$("#menu-category").val(menuCategory);
+			
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
@@ -123,7 +133,7 @@
 							$(".name-"+i).html(info['s_NAME']);
 							
 							//별점
-							$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+							$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 							
 							//리뷰
 							$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
@@ -135,10 +145,27 @@
 							var plus = info['s_TIME']+5;
 							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 							
+							//배달 시간
+							var plus = info['s_TIME']+5;
+							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+							
 							//영업 상태
-							var status = info['s_OPENSTATUS'];
-							if (status=='Y') status='영업중';
-							else status="영업 준비중";
+							var start = info['s_starttime'];
+							var end = info['s_endtime'];
+							var status='';
+							var Now = new Date();
+
+							var NowTime = Now.getFullYear();
+
+							NowTime += '-' + Now.getMonth() + 1 ;
+							NowTime += '-' + Now.getDate();
+							NowTime += ' ' + Now.getHours();
+							NowTime += ':' + Now.getMinutes();
+							NowTime += ':' + Now.getSeconds();
+							
+							if(start<NowTime && NowTime<end) status = '영업중';
+							else status = '영업 준비중';
+							
 							$(".status-"+i).html(status);
 							
 							//가게 번호
@@ -179,19 +206,19 @@
 	$("#btn-search").click(function(){
 		var name = $("#search-name").val();
 		var category = $(".active").eq(0).html();
+		var sort = $("#sortType").val();
+		
+		//hidenn에 추가
+		$("#search").val(name);
 			
-		console.log(category);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 			data: {
+				"sortType":sort,
 				"search":name,
 				"menuCategory":category	
 			},
 			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
 				
 				//row
 				for(var i=1; i<=5; i++){
@@ -219,7 +246,7 @@
 						$(".name-"+i).html(info['s_NAME']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
@@ -231,10 +258,27 @@
 						var plus = info['s_TIME']+5;
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 						
+						//배달 시간
+						var plus = info['s_TIME']+5;
+						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						var start = info['s_starttime'];
+						var end = info['s_endtime'];
+						var status='';
+						var Now = new Date();
+
+						var NowTime = Now.getFullYear();
+
+						NowTime += '-' + Now.getMonth() + 1 ;
+						NowTime += '-' + Now.getDate();
+						NowTime += ' ' + Now.getHours();
+						NowTime += ':' + Now.getMinutes();
+						NowTime += ':' + Now.getSeconds();
+						
+						if(start<NowTime && NowTime<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
 						
 						//가게 번호
@@ -269,12 +313,17 @@
 	//드랍다운 선택시 바꾸기
 	$(".dropdown-item").click(function(e){
 		var val = $(this).html();
+		
+		//hidden 태그에 추가
+		$("#sortType").val(val);
+		
 		console.log(val);
 		$(this).parent().prev().html(val);
 		
-		var name = $("#search-name").val();
+		var name = $("#search").val();
 		var category = $(".active").eq(0).html();
-		var sort = $(e.target).html();
+		//var sort = $(e.target).html();
+		var sort = $("#sortType").val();
 		
 		console.log(sort);
 		
@@ -285,12 +334,7 @@
 				"search":name,
 				"menuCategory":category	
 			},
-			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
-				
+			success: function(data){	
 				//row
 				for(var i=1; i<=5; i++){
 					$(".category-row-"+i).removeClass("d-none");
@@ -317,7 +361,7 @@
 						$(".name-"+i).html(info['s_NAME']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
@@ -330,11 +374,22 @@
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						console.log('====상태====');
-						console.log(status);
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						var start = info['s_starttime'];
+						var end = info['s_endtime'];
+						var status='';
+						var Now = new Date();
+
+						var NowTime = Now.getFullYear();
+
+						NowTime += '-' + Now.getMonth() + 1 ;
+						NowTime += '-' + Now.getDate();
+						NowTime += ' ' + Now.getHours();
+						NowTime += ':' + Now.getMinutes();
+						NowTime += ':' + Now.getSeconds();
+						
+						if(start<NowTime && NowTime<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
 						
 						//가게 번호

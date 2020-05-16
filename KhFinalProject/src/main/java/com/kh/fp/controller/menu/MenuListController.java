@@ -56,46 +56,41 @@ public class MenuListController {
 			session.setAttribute("xl", xl);
 			session.setAttribute("yl", yl);
 		}
-		
-		System.out.println("========== xl ==========");
-		System.out.println(xl);
-		
-		System.out.println("========== yl ==========");
-		System.out.println(yl);
 
 		Map map = new HashMap();
 		
 		//최근 본 상품 세션 처리
 		if(session.getAttribute("recentList")!=null) {
 			map.put("recentList", session.getAttribute("recentList"));
+			
+			List<Store> recentList = (List<Store>)map.get("recentList");
+			
+			for(Store s : recentList) {
+				System.out.println(s);
+			}
 		}
 
+		
+		
+		if(!addr.equals(""))
+			session.setAttribute("addr", addr);
+		
 		map.put("category", category);
 		map.put("sortType", sortType);
 		map.put("search", search);
 		map.put("xl", xl);
 		map.put("yl", yl);
+		map.put("cPage", cPage);
 		
 		List<Store> storeList = service.selectMenuList(cPage, numperPage, map);
-		
-		System.out.println("=====list 출력 =====");
-		for(Store s : storeList) {
-			System.out.println(s);
-		}
-		
-		System.out.println("==========list==========");
-		System.out.println("====정렬순====");
-		System.out.println(sortType);
-		
-		System.out.println("====검색====");
-		System.out.println(search);
-		
-		
+			
 		int totalData = service.selectMenuCount(map);
 		
 		m.addAttribute("list", storeList);
 		m.addAttribute("category", category);
 		m.addAttribute("sortType", sortType);
+		m.addAttribute("search", search);
+		m.addAttribute("cPage", cPage);
 		
 		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category, search, sortType));
 			
@@ -108,8 +103,8 @@ public class MenuListController {
 	@ResponseBody
 	public Map menuCategory(
 			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
-			@RequestParam(required=false, defaultValue="") String sortType,
-			@RequestParam(required=false, defaultValue="") String search,
+			@RequestParam(required=false, defaultValue="null") String sortType,
+			@RequestParam(required=false, defaultValue="null") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
@@ -128,62 +123,30 @@ public class MenuListController {
 			session.setAttribute("yl", yl);
 		}
 		
-		System.out.println("========== xl ==========");
-		System.out.println(xl);
-		
-		System.out.println("========== yl ==========");
-		System.out.println(yl);
-		
 		Map map = new HashMap();
+		
+		//최근 본 상품 세션 처리
+		if(session.getAttribute("recentList")!=null) {
+			map.put("recentList", session.getAttribute("recentList"));
+		}
+
+		if(!addr.equals(""))
+			session.setAttribute("addr", addr);
 		
 		map.put("category", category);
 		map.put("sortType", sortType);
 		map.put("search", search);
 		map.put("xl", xl);
-		map.put("yl", yl);
-		
-		System.out.println("==========filter==========");
-		System.out.println("====정렬순====");
-		System.out.println(sortType);
-		
-		System.out.println("====검색====");
-		System.out.println(search);
-		
-		
+		map.put("yl", yl);	
 		
 		int totalData = service.selectMenuCount(map);
 		
 		List<Store> storeList = service.selectMenuListFilter(cPage, numperPage, map);
 		
-		System.out.println("=====list 출력 =====");
-		for(Store s : storeList) {
-			System.out.println(s);
-		}
-		
 		map.put("cPage", cPage);
 		map.put("list", storeList);
 		
 		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category, search, sortType));
-		
-		return map;
-	}
-	
-	@RequestMapping("/menu/search.do")
-	@ResponseBody
-	public Map menuSearch(
-			@RequestParam(value="name") String S_NAME,
-			@RequestParam String category
-			) {
-		
-		Map searchMap = new HashMap();
-		searchMap.put("name", S_NAME);
-		searchMap.put("category", category);
-		
-		List<Store> list = service.selectMenuList(searchMap);
-		
-		Map map = new HashMap();
-		
-		map.put("list", list);
 		
 		return map;
 	}

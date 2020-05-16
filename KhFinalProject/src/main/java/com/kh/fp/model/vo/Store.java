@@ -24,14 +24,18 @@ public class Store {
 	private String S_LOGIMG;
 	private String S_X;
 	private String S_Y;
-	private double S_SCORE;//
+	//private double S_SCORE;//
+	private int S_TASTE;
+	private int S_AMOUNT;
+	private int S_DELIVERY;
+	
 	private int S_TIME;
 	private int S_REVIEWCOUNT;//
 	private int B_NO;
 	private String S_HOLIDAY;
 	private String S_COUPON;
-	private Date S_STARTTIME;
-	private Date S_ENDTIME;
+	private String S_STARTTIME;
+	private String S_ENDTIME;
 	
 	//private String CT_NAME;
 	//private double distance;

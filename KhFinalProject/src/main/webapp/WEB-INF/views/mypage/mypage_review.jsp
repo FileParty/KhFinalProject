@@ -33,21 +33,13 @@
                             <th>리뷰내용</th>
                             <th></th>
                         </tr>
-
-                        <tr>
-                            <td>2020.xx.xx</td>
-                            <td>바나프레소</td>
-                            <td>별표시</td>
-                            <td>ㄹㅇㄴㅁ ㄴㅇㄹ ㅇㄴㄹ  dasdsa das dasd sadsadㄴㅇㅁ ㄻㄴㅇ ㄹㄴㅇ </td>
-                            <td><button onclick="reviewDetail(1);">상세보기</button></td>
-                        </tr>
                         
                         <c:forEach items="${list }" var="rev">
                         	<tr>
-	                            <td>${rev['r_date'] }</td>
-	                            <td>${rev['r_img'] }</td>
-	                            <td>${rev['r_score'] }</td>
-	                            <td>${rev['r_r_text'] } </td>
+	                            <td>${rev['R_DATE'] }</td>
+	                            <td>${rev['S_NAME'] }</td>
+	                            <td>${rev['R_SCORE_TASTE'] } ${rev['R_SCORE_AMOUNT'] } ${rev['R_SCORE_DELIVERY'] } </td>
+	                            <td>${rev['R_TEXT'] } </td>
 	                            <td><button onclick="reviewDetail('${rev['r_no']}');">상세보기</button></td>
 	                        </tr>
                         	
