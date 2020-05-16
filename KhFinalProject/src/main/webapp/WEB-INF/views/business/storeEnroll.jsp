@@ -85,14 +85,14 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">소개글</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required  name="stext" rows="5" cols="70" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 .."> </textarea><br>
+	                  							<textarea required  name="stext" rows="5" cols="100" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 .."> </textarea><br>
 	                  							<p >* 자신의 가게에 대한 소개를해보세요.</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">원산지</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required name="sorifoodinfo" rows="5" cols="70" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)"> </textarea><br>
+	                  							<textarea required name="sorifoodinfo" rows="5" cols="100" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)"> </textarea><br>
 	                  							<p >* 원산지의 정보를 알맞게 입력해주세요.</p>
 	                  						</th>
 	                  					</tr>
