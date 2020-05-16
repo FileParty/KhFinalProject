@@ -38,7 +38,7 @@ public class MenuDetailController {
 		StoreDetailInfo sdi = service.selectStroeDetailInfo(no);
 		Map rMap = new HashMap();
 		rMap.put("no", no);
-		rMap.put("category", category);
+		rMap.put("menuCategory", category);
 		rMap.put("sortType", sortType);
 		rMap.put("search", search);
 		rMap.put("cPage", cPage);

@@ -674,9 +674,15 @@
         }
         
         $(function(){
-        	$("html").on("scroll",function(e){
-        		let wheel = e.originalEvent.wheelDelta;
-        		console.log(wheel);
+        	$(window).on("scroll",function(e){
+        		let height = $(window).height();
+        		let scrollTop = $(window).scrollTop();
+        		let storeMainY = $(".s-store-left").offset().top;
+        		let storeMainHeight = $(".s-store-left").height();
+        		let storeSideY = $("aside").offset().top;
+        		let storeSideHeight = $("aside").height();
+        		/* console.log(storeMainY+storeMainHeight);
+        		console.log(storeSideY+storeSideHeight); */
         	})
         	
         })
