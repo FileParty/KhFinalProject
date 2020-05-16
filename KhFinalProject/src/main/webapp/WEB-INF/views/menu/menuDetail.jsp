@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
-<div class="s-store-list-return">
+<!-- <div class="s-store-list-return">
 	<button onclick="returnList()">돌아가기</button>
-</div>
+</div> -->
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
@@ -673,7 +673,13 @@
            return val;
         }
         
-        
+        $(function(){
+        	$("html").on("scroll",function(e){
+        		let wheel = e.originalEvent.wheelDelta;
+        		console.log(wheel);
+        	})
+        	
+        })
     
     </script>
 </section>

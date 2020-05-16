@@ -47,7 +47,7 @@ public class MenuDetailController {
 		List<Map> store = null;
 		Map storeSession = new HashMap();
 		try {
-			store = (List)session.getAttribute("store");
+			store = (List)session.getAttribute("recentList");
 			for(Map map : store) {
 				if(!map.get("storeNo").equals(no)) {
 					storeSession.put("storeNo", no);
@@ -63,9 +63,9 @@ public class MenuDetailController {
 			storeSession.put("storeImg", sdi.getS_logimg());
 			store.add(storeSession);
 		}
-		session.setAttribute("store", store);
+		session.setAttribute("recentList", store);
 		mv.setViewName("/menu/menuDetail");
-		log.debug("세션에 넣음 : "+session.getAttribute("store"));
+		log.debug("세션에 넣음 : "+session.getAttribute("recentList"));
 		return mv;
 	}
 	
