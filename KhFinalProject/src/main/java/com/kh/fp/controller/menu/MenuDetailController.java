@@ -32,9 +32,18 @@ public class MenuDetailController {
 	private MenuDatailService service;
 	
 	@RequestMapping("/menu/menuDetailView")
-	public ModelAndView menuDetail(ModelAndView mv, HttpSession session, @RequestParam(defaultValue="1") int no) {
+	public ModelAndView menuDetail(ModelAndView mv, HttpSession session, @RequestParam(defaultValue="1") int no,
+			@RequestParam(required = false)String category, @RequestParam(required = false)String sortType, 
+			@RequestParam(required = false)String search, @RequestParam(defaultValue="1") int cPage) {
 		StoreDetailInfo sdi = service.selectStroeDetailInfo(no);
+		Map rMap = new HashMap();
+		rMap.put("no", no);
+		rMap.put("category", category);
+		rMap.put("sortType", sortType);
+		rMap.put("search", search);
+		rMap.put("cPage", cPage);
 		mv.addObject("store",sdi);
+		mv.addObject("rMap",rMap);
 		List<Map> store = null;
 		Map storeSession = new HashMap();
 		try {
