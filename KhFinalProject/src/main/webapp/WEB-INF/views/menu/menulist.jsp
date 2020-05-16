@@ -20,34 +20,42 @@
 		 	<span class="text-center d-block">
 		 		최근 본 상품
 		 	</span>
-		 	<span class="text-center d-block">
-		 		0
+		 	<span class="text-center d-block text-danger">
+		 		${recentList.size()}
 		 	</span>
-		 	<div class="text-center">
+		 	<div class="text-center border pt-3 pb-3 mt-3">	
 		 		<button class="btn btn-link">
-		 			<img src="${pageContext.request.contextPath }/resources/img/up.png" width="8px" height="8px"/>
+		 			<img src="${pageContext.request.contextPath }/resources/img/up.png" width="16px" height="16px"/>
 		 		</button>
 		 		
+		 		<hr/>
 		 		<div>
 		 			<div>
-		 				<div>
+		 				<div class="mt-5 mb-5">
 		 					<c:if test="${empty recentList}">
-		 						최근 본 상품<br>
-		 						정보가 없습니다
+		 						<div class="pt-5 pb-5">
+		 							최근 본 상품<br>
+		 							정보가 없습니다
+		 						</div>
 		 					</c:if>
 		 					
 		 					<c:if test="${not empty recentList}">
 		 						<c:forEach var="r" items="${recentList}">
-		 							<div>
-		 								<img src="${pageContext.request.contextPath }/resources/img/food.jpg"/>
+		 							<div class="rec_store pt-5 pb-5">
+		 								<input type="hidden" value="${r.get('storeNo') }"/>
+		 								<img src="${pageContext.request.contextPath }/resources/img/${r.get('storeImg')}" class="img-thumbnail shadow-lg" style="height:60px; width:60px;"/>	
+		 								<div class="invisible justify-content-center">
+		 									<img src="${pageContext.request.contextPath }/resources/img/cancel.png"/>
+		 								</div>
 		 							</div>
 		 						</c:forEach>
 		 					</c:if>
 		 				</div>
 		 			</div>
 		 		</div>
+		 		<hr/>
 		 		<button class="btn btn-link">
-		 			<img src="${pageContext.request.contextPath }/resources/img/down.png" width="8px" height="8px"/>
+		 			<img src="${pageContext.request.contextPath }/resources/img/down.png" width="16px" height="16px"/>
 		 		</button>
 		 	</div>
 		 	<button class="btn btn-link">

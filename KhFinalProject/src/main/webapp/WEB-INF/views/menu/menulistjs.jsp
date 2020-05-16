@@ -13,6 +13,24 @@
 
 	$(function(){
 		
+		//최근 목록 상세페이지 연결
+		$(".rec_store").click(function(){
+			var no = $(this).find("input").val();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val(); 
+		
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
+		});
+		
+		//최근 목록 호버시 삭제버튼 나오게 하기
+		$(".rec_store").hover(function(){
+			$(this).find("div").removeClass("invisible");
+		},function(){
+			$(this).find("div").addClass("invisible");
+		});
+		
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
