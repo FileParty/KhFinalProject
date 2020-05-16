@@ -88,7 +88,9 @@
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
 			$("#menu-category").val(menuCategory);
-			
+			$("#sortType").val('');
+			$("#search").val('');
+			$("#cPage").val('');
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
