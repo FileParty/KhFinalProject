@@ -166,9 +166,6 @@
 	 								<fmt:formatDate value="${start}" var="start_op" pattern="HH:mm:ss"/>
 	 								<fmt:formatDate value="${end}" var="end_op" pattern="HH:mm:ss"/>
 	 															
-	 								<c:out value="${nowDate}"/>
-	 								<c:out value="${start_op}"/>
-	 								<c:out value="${end_op}"/>
  									<c:out value="${nowDate>start_op and nowDate<end_op?'영업중':'영업 준비중'}"/>
 	 							</c:if>
 	 								<c:if test="${j==2 && i*j-1<list.size()}">	
