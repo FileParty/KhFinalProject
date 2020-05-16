@@ -11,6 +11,11 @@
 
 	<section>
 	
+	<input id="menu-category" type="hidden" value="${category}"/>
+	<input id="sortType" type="hidden" value="${sortType}"/>
+	<input id="search" type="hidden" value="${search}"/>
+	<input id="cPage" type="hidden" value="${cPage}"/>
+	
 	<div style="position:fixed; left:1700px; top:200px;" class="text-center">
 		 	<span class="text-center d-block">
 		 		최근 본 상품
@@ -73,7 +78,7 @@
 					<nav class="navbar navbar-light bg-light justify-content-between">					 
 					  <form class="form-inline">
 
-					    <input class="form-control" type="search" id="search-name" placeholder="음식점을 검색하세요" aria-label="Search">
+					    <input class="form-control" type="search" id="search-name" placeholder="음식점을 검색하세요" aria-label="Search" value="${search!='null'?search:''}">
 					    <button id="btn-search" class="btn btn-outline-success my-2 my-sm-0 mr-3" type="button">
 					    	<img src="${pageContext.request.contextPath }/resources/img/search.svg" width="25px">
 					    </button>
@@ -85,8 +90,7 @@
 	                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                        <a class="dropdown-item" href="#">기본 정렬순</a>
 	                        <a class="dropdown-item" href="#">별점순</a>
-		                    <a class="dropdown-item" href="#">리뷰순</a>
-		                    <a class="dropdown-item" href="#">거리순</a>           
+		                    <a class="dropdown-item" href="#">리뷰순</a>           
 	                   </div>
 	                	</div>
 					  
@@ -145,13 +149,38 @@
  							</span>
  							
  							<jsp:useBean id="now" class="java.util.Date"/>
+ 							
  							<span class="h-4 border border-danger text-danger status-${j==1?2*(i-1):i*j-1}">
- 								<fmt:formatDate value="${now}" pattern="yyyyMMddhhmm" var="nowDate"/>
- 								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
- 									<c:out value="${list.get(2*(i-1)).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
+ 								<!-- 현재 시간 -->	
+ 								<fmt:formatDate value="${now}" pattern="HH:mm:ss" var="nowDate"/>
+ 									
+ 								<c:if test="${j==1 && 2*(i-1)<list.size()}">
+ 									<!-- 영업 시작 시간 -->
+	 								<c:set value="${list.get(2*(i-1)).getS_STARTTIME()}" var="start"/>
+	 								<!-- 영업 종료 시간 -->
+	 								<c:set value="${list.get(2*(i-1)).getS_ENDTIME()}}" var="end"/>
+	 								<!-- 문자열을 date로 파싱 -->
+	 								<fmt:parseDate var="start" value="${start}" pattern="yyyy-mm-dd HH:mm:ss" />
+									<fmt:parseDate var="end" value="${end}" pattern="yyyy-mm-dd HH:mm:ss" />
+	 								
+	 								<fmt:formatDate value="${start}" var="start_op" pattern="HH:mm:ss"/>
+	 								<fmt:formatDate value="${end}" var="end_op" pattern="HH:mm:ss"/>
+	 															
+ 									<c:out value="${now>start_op and now<end_op?'영업중':'영업 준비중'}"/>
 	 							</c:if>
- 								<c:if test="${j==2 && i*j-1<list.size()}">		 								
- 									<c:out value="${list.get(i*j-1).getS_OPENSTATUS()=='Y'?'영업중':'영업 준비중'}"/>
+	 								<c:if test="${j==2 && i*j-1<list.size()}">	
+	 									<!-- 영업 시작 시간 -->
+	 								<c:set value="${list.get(i*j-1).getS_STARTTIME()}" var="start"/>
+	 								<!-- 영업 종료 시간 -->
+	 								<c:set value="${list.get(i*j-1).getS_ENDTIME()}}" var="end"/>
+	 								<!-- 문자열을 date로 파싱 -->
+	 								<fmt:parseDate var="start" value="${start}" pattern="yyyy-mm-dd HH:mm:ss" />
+									<fmt:parseDate var="end" value="${end}" pattern="yyyy-mm-dd HH:mm:ss" />
+	 								
+	 								<fmt:formatDate value="${start}" var="start_op" pattern="HH:mm:ss"/>
+	 								<fmt:formatDate value="${end}" var="end_op" pattern="HH:mm:ss"/>
+ 									 								
+ 									<c:out value="${now>start_op and now<end_op?'영업중':'영업 준비중'}"/>
  								</c:if>
  							</span>
  						</div>

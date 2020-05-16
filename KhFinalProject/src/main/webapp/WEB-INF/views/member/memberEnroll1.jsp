@@ -16,11 +16,11 @@
 				<h4 style="margin-left:10px; margin-right:10px;">이용약관 동의</h4>
 				<hr style="width:160px;">
 			</div>
-			<div class="terms-body d-flex justify-content-center">
-				<div class="text-center">
-					<label><input type="checkbox" name="개인정보" required><strong>배달킹 사용약관</strong><span>에 동의 (필수)</span></label>
-					<label><input type="checkbox" name="개인정보" required><strong>개인정보 수집 및 이용</strong><span>에 동의 (필수)</span></label>
-					<label><input type="checkbox" name="개인정보" required><strong>개인정보 국외 이전</strong><span>에 동의 (필수)</span></label>
+			<div class="terms-body text-center">
+				<div class="" >
+					<label><input type="checkbox" name="개인정보" required><strong>  배달킹 사용약관</strong><span>에 동의 (필수)</span></label>
+					<label><input type="checkbox" name="개인정보" required><strong>  개인정보 수집 및 이용</strong><span>에 동의 (필수)</span></label>
+					<label><input type="checkbox" name="개인정보" required><strong>  개인정보 국외 이전</strong><span>에 동의 (필수)</span></label>
 				</div>
 			</div>
 			<div class="d-flex justify-content-center" style="margin:30px;">

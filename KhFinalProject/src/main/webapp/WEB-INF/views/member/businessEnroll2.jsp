@@ -45,6 +45,7 @@
 					<th>인증번호</th>
 					<td class="emailNoMsg-container">
 						<input type="number" name="email_injeung" id="emailNo"  class="form-control" placeholder="인증번호를 입력하세요." required>
+						<input type="hidden" name="b_email" id="hiddenEmail" value="${b_email }">
 					</td>
 				</tr>
 				<tr>

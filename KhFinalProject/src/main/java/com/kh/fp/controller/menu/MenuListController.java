@@ -62,8 +62,16 @@ public class MenuListController {
 		//최근 본 상품 세션 처리
 		if(session.getAttribute("recentList")!=null) {
 			map.put("recentList", session.getAttribute("recentList"));
+			
+			List<Store> recentList = (List<Store>)map.get("recentList");
+			
+			for(Store s : recentList) {
+				System.out.println(s);
+			}
 		}
 
+		
+		
 		if(!addr.equals(""))
 			session.setAttribute("addr", addr);
 		
@@ -72,6 +80,7 @@ public class MenuListController {
 		map.put("search", search);
 		map.put("xl", xl);
 		map.put("yl", yl);
+		map.put("cPage", cPage);
 		
 		List<Store> storeList = service.selectMenuList(cPage, numperPage, map);
 			
@@ -80,6 +89,8 @@ public class MenuListController {
 		m.addAttribute("list", storeList);
 		m.addAttribute("category", category);
 		m.addAttribute("sortType", sortType);
+		m.addAttribute("search", search);
+		m.addAttribute("cPage", cPage);
 		
 		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category, search, sortType));
 			
@@ -92,8 +103,8 @@ public class MenuListController {
 	@ResponseBody
 	public Map menuCategory(
 			@RequestParam(value="menuCategory", required=false, defaultValue="전체") String category,
-			@RequestParam(required=false, defaultValue="") String sortType,
-			@RequestParam(required=false, defaultValue="") String search,
+			@RequestParam(required=false, defaultValue="null") String sortType,
+			@RequestParam(required=false, defaultValue="null") String search,
 			@RequestParam(required=false, defaultValue="1") int cPage,
 			@RequestParam(required=false, defaultValue="10") int numperPage,
 			@RequestParam(required=false, defaultValue="0") double xl,
