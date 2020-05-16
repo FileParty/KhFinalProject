@@ -14,6 +14,7 @@
                      
                     <h2>매장 정보 관리</h2>
                      
+                     <c:forEach items="${stores }" var="s" varStatus="vs">
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
@@ -25,7 +26,7 @@
                   			<div class="store-enroll-content">
 	                  			<form action="#" method="post" enctype="multipart/form-data"  onsubmit="return check();">
 	                  				<c:if test="${not empty stores }">
-	                  					<c:forEach items="${stores }" var="s" varStatus="vs">
+	                  					
 			                  				<table>
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">상호명</th>
@@ -67,7 +68,7 @@
 			                  						<th class="store-enroll-info-title">메인이미지</th>
 			                  						<th class="store-enroll-info">
 			                  							<div class="img_wrap">
-												            <img id="img" src="${path }/resources/upload/store/${s.S_LOGIMG}" width="100%" height="100%"/>
+												            <img id="img" src="${path }/resources/upload/store/${s.S_LOGIMG}" width="100%" height="100%"/>	            
 												        </div>
 			                  						</th>
 			                  					</tr>
@@ -120,7 +121,7 @@
 			                  						</th>
 			                  					</tr>
 			                  				</table>
-		                  				</c:forEach>
+		                  				
 	                  				</c:if>
 	                  				<c:if test="${empty stores }">
 	                  					<div class="empty-store"><h1>현재 등록된 가게는 없습니다.</h1></div>
@@ -129,9 +130,9 @@
 	                  			</form>
 							</div>
                   		</div>                  		
-
+					
                     </div>
-                    
+                    </c:forEach>
             </div>	
    		</div>
    	</div>

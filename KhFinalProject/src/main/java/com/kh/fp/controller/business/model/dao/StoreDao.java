@@ -16,4 +16,6 @@ public interface StoreDao {
 	List<Map<String, Object>> getStoresDetailcategory(SqlSessionTemplate session,Object no);
 	List<Map<String, Object>> getStoresDetailfiles(SqlSessionTemplate session,Object no);
 	Map<String, Object> getStoresUpdate(SqlSessionTemplate session, int no);
+	int storeUpdate(SqlSessionTemplate session,StoreEnroll s);
+	int deleteCategory(SqlSessionTemplate session,int no);
 }

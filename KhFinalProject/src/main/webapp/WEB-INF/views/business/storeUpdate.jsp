@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 	<%@include file="../common/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
@@ -12,7 +13,7 @@
             <div class="col-lg-10" id="main">
                      
                     <h2>매장 정보 수정</h2>
-                     
+                     <p>* 이미지 변경은 관리자에게 문의하세요</p>
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
@@ -22,12 +23,13 @@
                   			</div>
                   			
                   			<div class="store-enroll-content">
-	                  			<form action="${path }/store/storeEnroll.do" method="post" enctype="multipart/form-data"  onsubmit="return check();">
+	                  			<form action="${path }/store/storeupdateEnd" method="post" onsubmit="return check();">
 	                  			
 	                  				<table>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">상호명</th>
 	                  						<th class="store-enroll-info">
+	                  							<input type="hidden" name="sno" value="${store.S_NO }"/>
 	                  							<input type="text" name="sname" id="sname" placeholder="ex) BBQ, 도미노피자" size="60px;" value="${store.S_NAME }" required/>
 	                  						</th>
 	                  					</tr>
@@ -38,7 +40,7 @@
 	                  							<input type="hidden" name="xl" id="xl" value="${store.S_X }" />
 	                  							<input type="hidden" name="yl" id="yl" value="${store.S_Y }" />
 	                  							<button type="button" onclick="goPopup()" >주소찾기</button>
-	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.</p>
+	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.(정확한 주소가 아닐시 위치를 찾지 못하는 에러가 생길수도 있습니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -56,15 +58,13 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">종목선택</th>
 	                  						<th class="store-enroll-info">
-	                  							<c:forEach items="${store.cateogry }" var="ca"></c:forEach>
 	                  							<label><input type="checkbox" name="category" value="1">치킨</label>
 	                  							<label><input type="checkbox" name="category" value="2">피자</label>
 	                  							<label><input type="checkbox" name="category" value="3">중국집</label>
 	                  							<label><input type="checkbox" name="category" value="4">분식</label>
 	                  							<label><input type="checkbox" name="category" value="5">한식</label>
 	                  							<label><input type="checkbox" name="category" value="6">햄버거</label>
-	                  							<label><input type="checkbox" name="category" value="7">일식</label>
-	                  				
+	                  							<label><input type="checkbox" name="category" value="7">일식</label>	
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -148,8 +148,8 @@
 	                  					</tr>
 	                  					<tr>
 	                  						<th colspan="2" style="text-align: center;">
-	                  						<button type="submit" class="btn btn-success">수정</button>
-	                  						<button type="button" class="btn btn-danger" onclick="location.replace('${path}/licensee/companyStatus')">취소</button>
+	                  						<button type="submit" class="btn btn-success" >수정</button>
+	                  						<button type="button" class="btn btn-danger" onclick="location.replace('${path}/store/storedetail')">취소</button>
 	                  						</th>
 	                  					</tr>
 	                  				</table>
@@ -236,7 +236,23 @@
     			}
     		}
     		/* 운영시간/마감시간 가져오기  */
+
+    		var category =$("input[name=category]");
+    		var arraylist = new Array('치킨','피자','중국집','분식','한식','햄버거','일식');
+    		var categorylist = new Array('${store.category[0]["CT_NAME"]}','${store.category[1]["CT_NAME"]}','${store.category[2]["CT_NAME"]}','${store.category[3]["CT_NAME"]}','${store.category[4]["CT_NAME"]}','${store.category[5]["CT_NAME"]}','${store.category[6]["CT_NAME"]}');
+
+    		for(var s=0;s<arraylist.length;s++){
+    			for(var t=0;t<arraylist.length;t++){
+    				 if(arraylist[s]== categorylist[t] ){
+    					$(category[s]).attr("checked",true);
+        			} 
+    			}
+    		}
     		
+    		/* 종목 가져오기 */
+    		
+
+    	
     	})
     	
     </script>

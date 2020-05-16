@@ -163,4 +163,18 @@ public class StoreController {
 		return mv;
 	}
 	
+	@RequestMapping("/store/storeupdateEnd")
+	public ModelAndView storeUpdate(ModelAndView mv,StoreEnroll s,HttpSession session) {
+		
+		System.out.println(s);
+		
+		 int result = service.storeUpdate(s); 
+		
+		mv.addObject("msg", "가게 등록 수정 성공!");
+		mv.addObject("loc", "/store/storedetail");
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	
 }

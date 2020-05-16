@@ -15,6 +15,7 @@
 						<h2>매장 등록하기</h2>
 						<p>* 가게 등록이 성공되면 승인 상태를 매장 정보란에서 확인 할 수 있습니다.</p>
 						<p>* 가게 등록 수정은 승인 후 가능하므로 정확한 정보를 입력하시기 바랍니다.</p>
+					
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
@@ -40,7 +41,7 @@
 	                  							<input type="hidden" name="xl" id="xl" value=" " />
 	                  							<input type="hidden" name="yl" id="yl" value=" " />
 	                  							<button type="button" onclick="goPopup()" >주소찾기</button>
-	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.</p>
+	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.(정확한 주소가 아닐시 위치를 찾지 못하는 에러가 생길수도 있습니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>

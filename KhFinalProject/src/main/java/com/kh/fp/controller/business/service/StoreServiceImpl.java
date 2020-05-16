@@ -108,6 +108,38 @@ public class StoreServiceImpl implements StoreService {
 		return m;
 	}
 
+	@Override
+	@Transactional
+	public int storeUpdate(StoreEnroll s) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int result = dao.storeUpdate(session,s);
+		
+		if(result==0) {
+			throw new MyException("가게 수정 에러!");
+		}
+		
+		result = dao.deleteCategory(session,s.getSno());
+		
+		if(result==0) {
+			throw new MyException("카테고리 수정 에러1!");
+		}
+		
+		for(String ca : s.getCategory()) {
+			
+			map.put("sno", s.getSno());
+			map.put("scategory",ca);
+			result = dao.insertStoreCategory(session,map);
+			if(result==0) {
+				throw new MyException("카테고리 수정 에러2!");
+			}
+					
+		}
+		
+		return result;
+	}
+
 
 	
 	
