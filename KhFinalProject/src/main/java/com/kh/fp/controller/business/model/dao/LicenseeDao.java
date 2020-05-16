@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
 
 public interface LicenseeDao {
@@ -17,4 +19,7 @@ public interface LicenseeDao {
 	List<Side> selectOption(SqlSessionTemplate session,int sNo);
 	int insertCategory(SqlSessionTemplate session,Map<String,Object> map);
 	List<MenuCategory> selectCategory(SqlSessionTemplate session);
+	int insertMenu(SqlSessionTemplate session,Menu m);
+	int selectMenu(SqlSessionTemplate session);
+	int insertMenuSide(SqlSessionTemplate session,MenuSide ms);
 }

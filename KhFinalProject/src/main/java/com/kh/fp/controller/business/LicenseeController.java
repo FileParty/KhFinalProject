@@ -2,6 +2,7 @@ package com.kh.fp.controller.business;
 
 import static com.kh.fp.common.PageingFactory.PageBarFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.LicenseeService;
+import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class LicenseeController {
+	
 	
 	@Autowired
 	LicenseeService service;
@@ -91,40 +98,96 @@ public class LicenseeController {
 		return data;
 	}
 	@RequestMapping("/licensee/menuEnrollEnd")
+	@ResponseBody
 	public String menuEnroll(HttpServletRequest req) {
+		
 		//메뉴등록
-		String[] mtNo = req.getParameterValues("mtNoHid");
+		String[] mtNo = req.getParameterValues("mt_no");
+		//카테고리 코드
 		String[] cateEnd = req.getParameterValues("categoryEnd");
-		String[] menuName = req.getParameterValues("menuName");
-		String[] mPrice = req.getParameterValues("menuPrice");
-		String[] img = req.getParameterValues("menuImg");
-		String[] detail = req.getParameterValues("menuDetail");
-		String[] end = req.getParameterValues("end");
-		String[] rPrice = req.getParameterValues("rPrice");
-		String[] checked = req.getParameterValues("checked");
-		String[] ePrice = req.getParameterValues("endPrice");
-		int menuPrice[] = new int[mPrice.length];
-		int rrPrice[] = new int[rPrice.length];
-		int endPrice[] = new int[ePrice.length];
+		String[] menuName = req.getParameterValues("me_name");
+		String[] mPrice = req.getParameterValues("me_price");
+		String[] img = req.getParameterValues("me_logImg");
+		String[] detail = req.getParameterValues("me_text");
+		String[] sdNoEnd = req.getParameterValues("sdNoEnd");
+		String[] counts = req.getParameterValues("count");
+		
 
-		for(int i=0;i<mtNo.length;i++) {
-			System.out.println("넘넘"+mtNo[i]);
+		int menuPrice[] = new int[mPrice.length];
+
+		int mtNoEnd[] = new int[mtNo.length];
+		int sdNo[] = new int[sdNoEnd.length];
+		int count[] = new int[counts.length];
+		
+		for(int i=0;i<sdNoEnd.length;i++) {
+			sdNo[i] = Integer.parseInt(sdNoEnd[i]);
+		}
+		for(int i=0;i<mtNoEnd.length;i++) {
+			mtNoEnd[i] = Integer.parseInt(mtNo[i]);
 		}
 		for(int i=0;i<mPrice.length;i++) {
 			menuPrice[i]= Integer.parseInt(mPrice[i]);
 			//메뉴가격
 		}
-		for(int i=0;i<rPrice.length;i++) {
-			rrPrice[i]= Integer.parseInt(rPrice[i]);
-			//필수 가격
+		for(int i=0;i<counts.length;i++) {
+			count[i] = Integer.parseInt(counts[i]);
+			// 0 3
+			// 1 2 
 		}
-		for(int i=0;i<ePrice.length;i++) {
-			endPrice[i]= Integer.parseInt(ePrice[i]);
-			//선택 가격
+		
+	
+		
+		List<Menu> list = new ArrayList();
+		Menu m = null;
+		
+		for(int i=0;i<menuName.length;i++) {
+			m = new Menu();
+			m.setMe_name(menuName[i]);
+			m.setMe_price(menuPrice[i]);
+			m.setMe_logImg(img[i]);
+			m.setMt_no(mtNoEnd[i]);
+			m.setMe_text(detail[i]);
+			if(cateEnd[i].equals("대표메뉴")) {
+			m.setMe_best("Y");
+			}else {
+				m.setMe_best("N");
+			}
+			list.add(m);
+			log.debug(""+list.get(i));
 		}
-		for(int i=0;i<cateEnd.length;i++) {
+		int result = 0;
+		int is = 0;
+		int test[] ;
+		MenuSide mss = null;
+		List<MenuSide> list3 = new ArrayList();
+		
 			
-		}
+			for(int i=0;i<count.length;i++) {
+				test = new int[count[i]];
+				
+				if(i==0) {
+
+				for(int j=0;j<count[i];j++) {	
+					mss=new MenuSide();
+					mss.setSd_no(sdNo[j]);
+					list3.add(mss);
+
+				}
+				}else {
+					list3 = new ArrayList();
+					for(int j=count[i-1];j<count[i-1]+count[i];j++) {	
+						mss=new MenuSide();
+						mss.setSd_no(sdNo[j]);
+						list3.add(mss);
+						
+					}
+					
+				}				
+				result= service.insertMenu(list.get(i),list3);
+				
+				
+			}
+		
 		return "";
 	}
 	
@@ -156,6 +219,7 @@ public class LicenseeController {
 		//카테고리등록
 		String[] category = req.getParameterValues("category");
 		for(int i=0;i<category.length;i++) {
+			
 		Map<String,Object> map = new HashMap();
 		map.put("mt_name",category[i]);
 		int result = service.insertCategory(map);

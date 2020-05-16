@@ -68,11 +68,11 @@
                     	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();">메뉴 등록</button>
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
-                    		<div class="container addCategory">	
+                    		<div class="container addCategory" name="div">	
                     		</div>
                     		<br>
                     		<br>
-                    		<button style="margin-left:400px;"  type="submit" id="subBtn2" class="btn btn-outline-warning">등록</button>
+                    		<button style="margin-left:400px;"  id="menuEnrollBtn" type="submit" id="subBtn2" class="btn btn-outline-warning">등록</button>
                     		</form>
                     		
                     	    </div>
@@ -191,7 +191,7 @@
 							var mtNo = $("<input>").attr({
 								'type':'hidden',
 								'value':data[i].mt_no,
-								'name':'mt_no',
+								'name':'mt_nos',
 								'class':'mtNo'+data[i].mt_no
 							})
 							sel.append(op).append(mtNo);
@@ -368,21 +368,11 @@
 			function menu_enroll() {
 				
 				
-				let sdNo=[];
-				$("input[name=check]:checked").each(function(i) {
-					sdNo[i]=$(this).prev().val();
-					console.log(sdNo[i]);
-					let sdNoInput = $("<input>").attr({
-						'type':'hidden',
-						'value':sdNo[i],
-						'name':'sdNoEnd'
-					})
-					div1.append(sdNoInput);
-					
-				})
 				var values = $("input[name=radio]:checked").val();
 				var spanValue = $("input[name=radio]:checked").next().next().html();
-				 var inputR = $("<input>").attr({
+				
+				
+				var inputR = $("<input>").attr({
 					 'type':'radio',
 					 'name':'end',
 					 'id':'end',
@@ -395,43 +385,54 @@
 					 'for':'end',
 					 
 				 }).html($("input[name=radio]:checked").val());
+				
+				 let sdNoHid = $("<input>").attr({
+					 'type':'hidden',
+					 'name':'sdNoEnd',
+					 'value':$("input[name=radio]:checked").prev().val()
+				 })
+				 
 				 var spans = $("<input>").attr({'type':'number','name':'rPrice','value':spanValue,'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
 				 var strong = $("<strong>");
 				 var pTag = $("<p>").html("필수");
+				 
 				 strong.append(pTag);
-				let fileValue = $("#modalFile").val().split("\\");
+				
+				 let fileValue = $("#modalFile").val().split("\\");
 				let fileName = fileValue[fileValue.length-1]; 
-				console.log('파일1',fileName);
+				
 				
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
 				var menuDetail = $(".menu-detail").val();
+				
 				var inputN = $("<input>").attr({
 					'type':'text',
-					'name':'menuName',
+					'name':'me_name',
 					'value':menuName,
 					'class':'form-control'
-				})
+				});
 				var inputP = $("<input>").attr({
 					'type':'number',
-					'name':'menuPrice',
+					'name':'me_price',
 					'value':menuPrice,
 					'class':'form-control'
-				})
+				});
 				var textD = $("<textarea>").attr({
 					'cols':'20',
 					'rows':'1',
-					'name':'menuDetail',
+					'name':'me_text',
 					'class':'form-control'
 				}).html(menuDetail);
+				
 				var hidNum = $("#hid").val();	
-				var imgInput = $("<input>").attr({'type':'hidden','name':'menuImg'});
+				var imgInput = $("<input>").attr({'type':'hidden','name':'me_logImg'});
 				imgInput.val(fileName);
 				console.log('파일',imgInput.val());
-				var div = $("<div>").attr('class','col-lg-5 sideBody');
-				var div1 = $("<div>").attr('class','col-lg-4 sideBody1');
-				var div2 = $("<div>").attr('class','col-lg-3 sideBody2');
-				var div3 = $("<div>").attr('class','row categoryPlus');
+				var div = $("<div>").attr('class','col-lg-5 bodyOne');
+				var div1 = $("<div>").attr('class','col-lg-4 bodyTwo'+num);
+				var div2 = $("<div>").attr('class','col-lg-3 bodyThree');
+				var div3 = $("<div>").attr('class','row categoryPlus'+num);
 				
 				
 				var img = $("<img>").attr({
@@ -448,12 +449,12 @@
 				reader.readAsDataURL(fileList[0]);
 				reader.onload = function  () {        
 			        document.querySelector('.preview'+num).src = reader.result;
-				}
+				};
 				
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
-				div1.append(strong).append(inputR).append(labelR).append(spans).append("<br>");
+				div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>");
 				let check = [];
 				let price =[];
 				let sdNo=[];
@@ -461,9 +462,9 @@
 				var pTag1 = $("<p>").html("추가");
 				strong1.append(pTag1);
 				div1.append(strong1);
+				
 				 $("input[name=check]:checked").each(function(i) { 
-				        console.log( 'checkbox값 : '+$(this).val() );
-				        console.log( 'span값 : '+$(this).next().next().html());
+
 				        check[i]=$(this).val();
 				        price[i]=$(this).next().next().html();
 				        sdNo[i]=$(this).prev().val();
@@ -482,17 +483,15 @@
 				        }).html(check[i]).css({'display':'inline'});
 				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
 				    	
-				        var sdNoInput = $("<input>").attr({
+				       var sdNoInput = $("<input>").attr({
 							'type':'hidden',
 							'value':sdNo[i],
 							'name':'sdNoEnd'
 						});
+	
+				        div1.append(sdNoInput).append(good).append(goods).append(spanValues).append($("<br>"));
+				 });
 						
-				        
-				        console.log(spanValues);
-				        div1.append(good).append(goods).append(spanValues).append($("<br>"));
-				        
-				    });
 				 	var  cateInput = $("<input>").attr({
 				 		'type':'text',
 				 		'name':'categoryEnd',
@@ -500,13 +499,25 @@
 				 		'readonly':'true'
 				 	})
 				 	
+				 	
 				 	var mtNoInput = $("<input>").attr({
 				 		'type':'hidden',
-				 		'name':'mtNoHid',
-				 		'value':$("option:selected").next().val()
+				 		'name':'mt_no',
+				 		'value':$("option:selected").next().val(),
 				 	})
+				 	var testss = $(".bodyTwo"+num);
 				 	
-				
+				 	var hiddenInput = $("<input>").attr({
+				 		'type':'hidden',
+				 		'name':'count',
+				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
+				 	})
+				 	//동적 인풋태그생성
+				 
+				 	console.log($(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length);
+				 	console.log(hiddenInput);
+				var divv = $("<div>")
+				divv.append(hiddenInput);
 				div2.append(imgInput).append(img);
 				div3.append(div).append(div1).append(div2);
 				$(".addCategory").append(cateInput).append(mtNoInput);
@@ -517,7 +528,18 @@
 				$("#modalFile").val("");
 				$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
 				$("#selectCategory").remove();
-				}
+				console.log($(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length);
+				 var hiddenInput = $("<input>").attr({
+				 		'type':'hidden',
+				 		'name':'count',
+				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
+				 	})
+				
+				div3.append(hiddenInput);
+
+				 }
+			
+		
 		
 		
 		</script>
