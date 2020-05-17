@@ -6,6 +6,31 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
   <style>
+  
+	#xBtn {
+		box-shadow:inset 0px 1px 0px 0px #fce2c1;
+		background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+		background-color:#ffc477;
+		border:3px solid #eeb44f;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:8px;
+		font-weight:bold;
+		padding:0px 11px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #cc9f52;
+	}
+	#xBtn {
+		background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
+		background-color:#fb9e25;
+	}
+	#xBtn {
+		position:relative;
+		top:1px;
+	}
+
 	 div#main{
       	margin-top:150px;
       	margin-left:200px;
@@ -32,9 +57,11 @@
       .btnC {
       margin-left:300px;
       }
-       
-       
+
       
+
+
+
 
 
 
@@ -68,7 +95,7 @@
                     	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();">메뉴 등록</button>
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
-                    		<div class="container addCategory" name="div">	
+                    		<div class="container addCategory">	
                     		</div>
                     		<br>
                     		<br>
@@ -132,7 +159,7 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header">
-						          <h4 class="modal-title">메뉴 등록 <button style="margin-left:300px;height:30px;"type="button"class="xxx btn btn-outline-dark" onclick="xx();" data-dismiss="modal">x</button></h4>
+						          <h4 class="modal-title">메뉴 등록 <button id="xBtn" style="margin-left:300px;height:30px;"type="button"class="xxx btn btn-outline-dark" onclick="xx();" data-dismiss="modal">x</button></h4>
 						        </div>
 						        <div class="modal-body" align=center>	
 						        	<div class="body-container custom-file">		
@@ -141,12 +168,12 @@
 						        				        		        
 						        		<input type="text" placeholder="메뉴명" class="menu-name form-control" name="menu-name">
 						        		<input type="number" placeholder="메뉴가격" class="menu-price form-control" name="menu-price">
-						        		<textarea cols="40" rows="1" placeholder="메뉴간단설명" class="menu-detail form-control" name="menu-detail"></textarea>
+						        		<textarea cols="20" rows="1" placeholder="메뉴간단설명(30자 제한)" id="textArea" class="menu-detail form-control" name="menu-detail"></textarea>
 						        		
 						        		<input  type="hidden" value="" id="hid" >					         
 						        		<br>							        		
 						        	</div>
-						        	<div style="margin-top:180px;"class="body-container2"></div>
+						        	<div style="margin-top:200px;"class="body-container2"></div>
 						        	<div style=""class="body-container3"></div>
 						        	<button type="button" id="optionEnroll"class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
 						        </div>
@@ -154,13 +181,27 @@
 						    </div>
 						  </div>	
 		<script>
-			var num = 0;
-			
-			$("#modalFile").change(function(){
+		$(function() {
+		$("#textArea").on('keyup',function(){
+			if($(this).val().length>20) {
+				$(this).val($(this).val().substring(0,30));
+			}
+		});
+		});
+			var num = 0;			
+			 $("#modalFile").change(function(){
+				 console.log($("#modalFile").val());
+				 
 				let fileValue = $("#modalFile").val().split("\\");
 				let fileName = fileValue[fileValue.length-1]; 
-				$(".fileName").html(fileName);
-			})
+				console.log(fileName);
+				if(fileName.trim().length==0) {
+					$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
+				}else { 
+					$(".fileName").html(fileName);
+				}
+
+			}) 
 			function xx() {
 				$("#selectCategory").remove();
 				$(".menu-name").val("");
@@ -174,8 +215,12 @@
 				$("#myModal2").modal({backdrop:'static'});
 				
 				var sel = $("<select>").attr({
-					'id':'selectCategory'
-				})
+					'id':'selectCategory',
+					'class':'form-control',				
+				}).css({
+					'width':'120'
+				});
+				
 				
 				$.ajax({
 					url:'${path}/licensee/selectCategory',
@@ -196,7 +241,7 @@
 							})
 							sel.append(op).append(mtNo);
 						}
-						$(".body-container").append(sel);
+						$(".body-container").append(sel).append($("<br>"));
 						
 					}
 				})
@@ -260,6 +305,7 @@
 							'type':'checkbox',
 							'value':data[i].sd_name,
 							'id':'sideOption'+i,
+							'class':'sideOption',
 							'name':'check'
 							
 						})
@@ -366,8 +412,76 @@
 		
 			
 			function menu_enroll() {
+			
+				if($("input[name=menu-name]").val().trim().length==0){
+					alert('메뉴명을 적어주세요!');
+					$("input[name=menu-name]").focus();
+					$("#optionEnroll").removeAttr('data-dismiss');
+					return;
+				}else { 
+					$("#optionEnroll").attr('data-dismiss','modal');
+				}
+				
+				if($("input[name=menu-price]").val().trim().length==0){
+					alert('메뉴 가격을 적어주세요!');
+					$("input[name=menu-price]").focus();
+					$("#optionEnroll").removeAttr('data-dismiss');
+					return;
+				}else { 
+					$("#optionEnroll").attr('data-dismiss','modal');
+				}
+				let txt = document.getElementById('textArea').value;
+				if(txt.length==0){
+					alert('메뉴 간단 설명을 해주세요!');
+					$("input[name=menu-detail]").focus();
+					$("#optionEnroll").removeAttr('data-dismiss');
+					return;
+				}else { 
+					$("#optionEnroll").attr('data-dismiss','modal');
+				}
+					
+				let checkName = document.getElementsByName('check');
+				let checkCount = 0;
+				
+			 for(let i=0;i<checkName.length;i++) {
+					
+					let check = checkName[i];
+						
+					if(check.checked==false) {
+						checkCount+= 0;		
+						
+					}else {
+						checkCount += 1;
+						
+					}
+				}
+			
+				
+				if($("input[name=radio]:checked").length==0){
+					alert('필수옵션 선택해주세요!');
+					$("input[name=radio]:checked").focus();
+					$("#optionEnroll").removeAttr('data-dismiss');
+					return;
+				}else {
+				$("#optionEnroll").attr('data-dismiss','modal');
+				}
+				
+				 if(checkCount == 0) {
+					 alert('추가옵션은 1개 이상 선택해주세요!');
+					 $("#optionEnroll").removeAttr('data-dismiss');
+					 return;
+				 }else {
+						$("#optionEnroll").attr('data-dismiss','modal');
+					}
 				
 				
+				var cloneFile = $("#modalFile").clone();
+				cloneFile.removeAttr('id');
+				cloneFile.attr({
+					'display':'none',
+					'id':'test',
+					'name':'me_logImg'
+				})
 				var values = $("input[name=radio]:checked").val();
 				var spanValue = $("input[name=radio]:checked").next().next().html();
 				
@@ -398,8 +512,6 @@
 				 
 				 strong.append(pTag);
 				
-				 let fileValue = $("#modalFile").val().split("\\");
-				let fileName = fileValue[fileValue.length-1]; 
 				
 				
 				var menuName = $(".menu-name").val();
@@ -426,31 +538,36 @@
 				}).html(menuDetail);
 				
 				var hidNum = $("#hid").val();	
-				var imgInput = $("<input>").attr({'type':'hidden','name':'me_logImg'});
-				imgInput.val(fileName);
-				console.log('파일',imgInput.val());
 				var div = $("<div>").attr('class','col-lg-5 bodyOne');
 				var div1 = $("<div>").attr('class','col-lg-4 bodyTwo'+num);
 				var div2 = $("<div>").attr('class','col-lg-3 bodyThree');
 				var div3 = $("<div>").attr('class','row categoryPlus'+num);
 				
 				
-				var img = $("<img>").attr({
-					'id':'preview'+num,
-					'class':'rounded-circle preview'+num,
-					'src':' ',
-					'width':'150'
-				})
+					var img = $("<img>").attr({
+						'id':'preview'+num,
+						'class':'preview'+num,
+						'src':' ',
+						'width':'150'
+					})
+					
 				
-			
-				var file = document.querySelector('#modalFile');
-				var fileList = file.files;
-				var reader = new FileReader();
-				reader.readAsDataURL(fileList[0]);
-				reader.onload = function  () {        
-			        document.querySelector('.preview'+num).src = reader.result;
-				};
-				
+					var file = document.querySelector('#modalFile');
+					var fileList = file.files;
+					var reader = new FileReader();
+					if(fileList[0]!=null) {
+					
+					reader.readAsDataURL(fileList[0]);
+					 
+					}
+					
+					reader.onload = function  () {       
+						
+				        document.querySelector('#preview'+num).src = reader.result;
+						
+						};
+					
+					
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
@@ -473,7 +590,7 @@
 				        	'name':'checked',
 				        	'value':check[i],
 				        	'id':'addEnd'+i,
-				        	'class':'form-control',
+				        	'class':'form-control checkk',
 				        	'checked':'true',
 				        	
 				        }).css({'display':'inline','width':'20'});
@@ -512,15 +629,12 @@
 				 		'name':'count',
 				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
 				 	})
-				 	//동적 인풋태그생성
-				 
-				 	console.log($(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length);
-				 	console.log(hiddenInput);
+		 
 				var divv = $("<div>")
 				divv.append(hiddenInput);
-				div2.append(imgInput).append(img);
+				div2.append(img);
 				div3.append(div).append(div1).append(div2);
-				$(".addCategory").append(cateInput).append(mtNoInput);
+				$(".addCategory").append(cateInput).append(mtNoInput).append(cloneFile);
 				$(".addCategory").append(div3);
 				$(".menu-name").val("");
 				$(".menu-price").val("");
@@ -535,7 +649,8 @@
 				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
 				 	})
 				
-				div3.append(hiddenInput);
+				 div3.append(hiddenInput);
+				 
 
 				 }
 			

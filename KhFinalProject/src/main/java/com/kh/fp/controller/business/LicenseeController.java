@@ -2,12 +2,16 @@ package com.kh.fp.controller.business;
 
 import static com.kh.fp.common.PageingFactory.PageBarFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.LicenseeService;
@@ -99,15 +104,21 @@ public class LicenseeController {
 	}
 	@RequestMapping("/licensee/menuEnrollEnd")
 	@ResponseBody
-	public String menuEnroll(HttpServletRequest req) {
-		
+	public String menuEnroll(HttpSession session,HttpServletRequest req,MultipartFile[] me_logImg) {
+			
+			for(int i=0;i<me_logImg.length;i++) {
+			MultipartFile mff = me_logImg[i];
+			System.out.println("파일임"+mff);
+			}
+			
+				
+		String path = session.getServletContext().getRealPath("/resources/upload/business/");
 		//메뉴등록
 		String[] mtNo = req.getParameterValues("mt_no");
 		//카테고리 코드
 		String[] cateEnd = req.getParameterValues("categoryEnd");
 		String[] menuName = req.getParameterValues("me_name");
-		String[] mPrice = req.getParameterValues("me_price");
-		String[] img = req.getParameterValues("me_logImg");
+		String[] mPrice = req.getParameterValues("me_price");		
 		String[] detail = req.getParameterValues("me_text");
 		String[] sdNoEnd = req.getParameterValues("sdNoEnd");
 		String[] counts = req.getParameterValues("count");
@@ -138,13 +149,35 @@ public class LicenseeController {
 	
 		
 		List<Menu> list = new ArrayList();
+		File f = new File(path);
+		if(!f.exists()) {
+			f.mkdirs();
+		}
 		Menu m = null;
 		
 		for(int i=0;i<menuName.length;i++) {
 			m = new Menu();
 			m.setMe_name(menuName[i]);
 			m.setMe_price(menuPrice[i]);
-			m.setMe_logImg(img[i]);
+			
+			MultipartFile mf = me_logImg[i];
+				if(!mf.isEmpty()) {
+					String ori = mf.getOriginalFilename();
+					String ext = ori.substring(ori.lastIndexOf("."));
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+					int rnd = (int)(Math.random()*1000);
+					String rename = "menu_"+sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+					
+					try {
+						mf.transferTo(new File(path+rename));
+						
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					m.setMe_logImg(rename);
+					
+				}
+			
 			m.setMt_no(mtNoEnd[i]);
 			m.setMe_text(detail[i]);
 			if(cateEnd[i].equals("대표메뉴")) {
