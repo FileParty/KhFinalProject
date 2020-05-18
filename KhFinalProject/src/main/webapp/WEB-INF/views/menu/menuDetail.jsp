@@ -611,20 +611,24 @@
 	        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
 	        	let unReqOp = new Array();
 	        	for(let i=0;i<unReqOps.length;i++){
-	        		let j = 0;
 	        		if($(unReqOps[i]).is(":checked")==true){
 	        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
 	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
-	        	console.log(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
-	        		data:{order:new Order(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)},
+	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
 	        			location.href="${path}/pay/paylist.do";
+	        		},
+	        		error:function(a,b,c){
+	        			console.log(a);
+	        			console.log(b);
+	        			console.log(c);
 	        		}
 	        	});
         	} else {
@@ -632,7 +636,7 @@
         	}
         }
         
-        function Order(src,name,reqOp,unReqOp,count,price){
+        function newOrder(src,name,reqOp,unReqOp,count,price){
         	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)

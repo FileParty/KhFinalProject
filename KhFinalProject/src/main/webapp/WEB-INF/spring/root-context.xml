@@ -14,8 +14,8 @@
 			value="oracle.jdbc.driver.OracleDriver"/>
 			
 			
-<!--윈도우-->  <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>  
-<!--Mac--><!--  <property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:8877:xe" />   -->
+<!--윈도우--><property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/> 
+<!--Mac--><!-- <property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:8877:xe" />   -->
 
 
 		<property name="username" value="final"/>
