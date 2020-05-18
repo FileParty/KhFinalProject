@@ -12,23 +12,91 @@
 	<script>
 
 	$(function(){
+		console.log($(".rec_store"));
+		console.log($(".rec-items").length);
+		//최근 목록 상세페이지 연결'
 		
-		//최근 목록 상세페이지 연결
+		var currentPage = 0;
+		var changePage = function(){
+			$(".rec-container").animate({
+				top: -currentPage * 368
+			}, 500);
+		};
+		
+		$(".rec-btn-top").click(function(){
+			if(currentPage > 0){
+				currentPage = currentPage - 1;
+				changePage();
+				console.log(currentPage);
+			}
+		});
+		
+		$(".rec-btn-bottom").click(function(){
+			if(currentPage < $(".rec-items").length-1 ){
+				currentPage = currentPage + 1;
+				changePage();
+				console.log(currentPage);
+			}
+		});
+		
+		$(".rec-cancel").click(function(e){
+			
+			/* $(this).parent().remove();
+			
+			if($(".rec-item").length%4==0){
+				$(this).parent().parent().remove();
+			} */
+			
+			var no = $(this).siblings("input").val();
+			console.log(no);
+			$.ajax({
+				url:"${pageContext.request.contextPath}/menu/recDelete.do",
+				data: {
+					no : no
+				},
+				success: function(data){
+					console.log(data['flag']);
+					console.log(data);
+					if(data['flag']==true){
+						console.log($(e.target).parent().parent());
+						console.log($(e.target).parent().parent().parent());
+						
+						
+						console.log($(".rec-item").length);
+						
+						if($(".rec-item").length%4==1){
+							$(e.target).parent().parent().parent().remove();
+							
+							if(currentPage > 0){
+								currentPage = currentPage - 1;
+								changePage();
+								console.log(currentPage);
+							}
+						}else{
+							$(e.target).parent().parent().remove();
+						}  
+					}
+				}
+			})
+			
+		});
+		
 		$(".rec_store").click(function(){
-			var no = $(this).find("input").val();
+			var no = $(this).siblings("input").val();
 			var c = $("#menu-category").val();
 			var sortType = $("#sortType").val();
 			var search = $("#search").val();
 			var cPage = $("#cPage").val(); 
 		
+			console.log(no);
 			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
 		});
 		
 		//최근 목록 호버시 삭제버튼 나오게 하기
-		$(".rec_store").hover(function(){
-			$(this).find("div").removeClass("invisible");
+		$(".rec-item").hover(function(){
+			$(this).find(".rec-cancel").removeClass("invisible");
 		},function(){
-			$(this).find("div").addClass("invisible");
+			$(this).find(".rec-cancel").addClass("invisible");
 		});
 		
 		//페이지 로드되었을 때 메뉴-ul active 추가
