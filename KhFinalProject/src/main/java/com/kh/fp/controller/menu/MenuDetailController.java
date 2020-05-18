@@ -105,8 +105,8 @@ public class MenuDetailController {
 				log.debug(""+mo.get("reqOp"));
 				log.debug(""+mo.get("unReqOp"));
 			}
+			log.debug(""+m);
 			session.setAttribute("newOrder", m);
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
