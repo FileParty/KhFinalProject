@@ -229,7 +229,8 @@
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" readonly><br> <br></td>
+  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
+			value="${addr } "  readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
