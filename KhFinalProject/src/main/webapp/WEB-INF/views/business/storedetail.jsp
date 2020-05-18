@@ -14,6 +14,13 @@
                      
                     <h2>매장 정보 관리</h2>
                      
+                     <c:if test="${empty stores }">
+	                  					<div class="empty-store"><h1>현재 등록된 가게는 없습니다.</h1></div>
+	                  					<div style="margin-bottom: 500px;"></div>
+	                  				</c:if>
+                     
+                     
+                     <c:if test="${not empty stores }">
                      <c:forEach items="${stores }" var="s" varStatus="vs">
                     <div class="store-enroll-box">
                   		
@@ -25,7 +32,7 @@
                   			
                   			<div class="store-enroll-content">
 	                  			<form action="#" method="post" enctype="multipart/form-data"  onsubmit="return check();">
-	                  				<c:if test="${not empty stores }">
+	                  				
 	                  					
 			                  				<table>
 			                  					<tr>
@@ -122,17 +129,15 @@
 			                  					</tr>
 			                  				</table>
 		                  				
-	                  				</c:if>
-	                  				<c:if test="${empty stores }">
-	                  					<div class="empty-store"><h1>현재 등록된 가게는 없습니다.</h1></div>
-	                  					<div style="margin-bottom: 500px;"></div>
-	                  				</c:if>
+	                  				
+	                  				
 	                  			</form>
 							</div>
                   		</div>                  		
 					
                     </div>
                     </c:forEach>
+                    </c:if>
             </div>	
    		</div>
    	</div>
