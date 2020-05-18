@@ -7,7 +7,7 @@
   </insert>
   <!-- 사업자 아이디 회원가입 -->
   <insert id="insertBusiness" parameterType="business">
-  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT,#{b_email})
+  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT,#{b_email},SYSDATE)
   </insert>
 <!--   <select id="selectMemberPay" parameterType="_int" resultType="memberSH">
   	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
