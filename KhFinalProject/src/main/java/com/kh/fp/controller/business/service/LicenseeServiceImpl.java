@@ -92,6 +92,24 @@ public class LicenseeServiceImpl implements LicenseeService {
 		// TODO Auto-generated method stub
 		return dao.selectStore(session,bNo);
 	}
+
+	@Override
+	public List<Store> selectStoreList(int b_no) {
+		// TODO Auto-generated method stub
+		//메뉴관리
+		return dao.selectStoreList(session,b_no);
+	}
+
+	@Override
+	public List<Menu> selectMenuList(int s_no) {
+		// TODO Auto-generated method stub
+		//메뉴상세
+		return dao.selectMenuList(session,s_no);
+	}
+	
+	
+	
+	
 	
 	
 

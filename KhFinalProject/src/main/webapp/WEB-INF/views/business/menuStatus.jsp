@@ -36,9 +36,20 @@
                         </li>
                                         
                     </ul>
-                    
+                    <br>
+                    <br>
+                    	<select id="store" class="form-control" style="width:auto;margin-left:400px;">
+                    	<c:forEach items="${store }" var="s">
+                    		<option for="store" value="${s.s_No }"><c:out value="${s.s_Name }" /></option>
+                    	</c:forEach>
+                    	</select>
                     <div class="row row1">
-                    <div class="menu"></div>
+                    
+                    	<div class="row">
+                    		<div class="col-lg-6">ㅎㅎ</div>
+                    		<div class="col-lg-6">ㅎㅎ</div>
+                    	</div>
+                    
                     <div class="menu"></div>
                     <div class="menu"></div>
                     <div class="menu"></div>
@@ -54,8 +65,31 @@
             </div>
    		</div>
    		<script>
-   		function storeNo() { 
-		}
+   			$("#store").change(function () {
+   				$.ajax({
+   					url:"${path}/licensee/selectCategory",
+   					data:{s_no:$("#store").val()},
+   					success:function(data) {
+   						console.log("카테고리성공",data);
+   					}
+   				})
+   				$.ajax({
+   					url:"${path}/licensee/selectOption",
+   					data:{s_no:$("#store").val()},
+   					success:function(data) {
+   						console.log("옵션성공",data);
+   					}
+   				})
+   				
+   				$.ajax({
+   					url:"${path}/licensee/menuSelect",
+   					data:{s_no:$("#store").val()},
+   					success:function(data) {
+   						console.log("메뉴성공",data);
+   					}
+   				})
+   			})
+		
    		</script>
    	</section>
    	<%@include file="../common/footer.jsp" %>

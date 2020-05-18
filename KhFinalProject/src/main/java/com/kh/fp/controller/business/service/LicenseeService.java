@@ -23,5 +23,7 @@ public interface LicenseeService {
 	List<MenuCategory> selectCategory(int s_no);
 	int insertMenu(Menu m,List<MenuSide> list);
 	List<Store> selectStore(int bNo);
+	List<Store> selectStoreList(int b_no);
+	List<Menu> selectMenuList(int s_no);
 	
 }
