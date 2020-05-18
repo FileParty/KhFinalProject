@@ -149,7 +149,7 @@ hr{
 	height : 200px;
 	cursor: pointer;
 	border-radius: 5px;
-	border: 2px solid #47C83E;
+	border: 2px solid rgb(253, 68, 68);
 	padding : 12px;
 	overflow-y: scroll;
 	z-index: -1;
