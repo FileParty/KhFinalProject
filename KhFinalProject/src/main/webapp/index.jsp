@@ -8,11 +8,12 @@
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/index.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
+<jsp:include page="/WEB-INF/views/common/banner.jsp"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <section>
 
 
-	<div class="topnav">
+	 <div class="topnav">
 
 		<a href="${path }/licensee/mypage">사업자 피파 바페도아닌 마페</a>
 		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
@@ -23,7 +24,7 @@
 		<a href="${path }/mypage/mypage.do">마이페이지</a>
 
 	</div>
-	<jsp:include page="/WEB-INF/views/common/banner.jsp"/>
+	
 	
 	<div class="index-first-box container">
 			
