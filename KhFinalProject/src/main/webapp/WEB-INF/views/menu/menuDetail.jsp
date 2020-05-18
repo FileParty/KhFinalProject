@@ -624,7 +624,7 @@
 	        		data:{order:new Order(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)},
 	        		type:"post",
 	        		success:function(){
-	        			location.replace("${path}/pay/paylist.do");
+	        			location.href="${path}/pay/paylist.do";
 	        		}
 	        	});
         	} else {
