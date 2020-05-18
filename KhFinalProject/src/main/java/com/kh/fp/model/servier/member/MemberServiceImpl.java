@@ -47,6 +47,37 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberName(session,name);
 	}
 
+	@Override
+	public int updateMemberPw(Member m) {
+		// TODO Auto-generated method stub
+		return dao.updateMemberPw(session,m);
+	}
+	
+	@Override
+	public int updateBusinessPw(Business b) {
+		// TODO Auto-generated method stub
+		return dao.updateBusinessPw(session,b);
+	}
+
+	@Override
+	public Member selectMemberId(String m_email) {
+		// TODO Auto-generated method stub
+		return dao.selectMemberId(session,m_email);
+	}
+
+	@Override
+	public Business selectBusinessId(String b_email) {
+		// TODO Auto-generated method stub
+		return dao.selectBusinessId(session,b_email);
+	}
+
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
