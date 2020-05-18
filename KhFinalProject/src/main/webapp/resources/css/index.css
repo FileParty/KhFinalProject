@@ -166,8 +166,8 @@ hr{
 }
  
  .index-category-img{
- 	border-left : 1px solid lightgray;
- 	border-right : 1px solid lightgray; 
+ 	border-left : 1px solid #FFA7A7;
+ 	border-right : 1px solid #FFA7A7; 
  	border-top-left-radius : 20px;
  	border-top-right-radius : 20px;
  	background-color : rgb(253, 68, 68);
@@ -179,7 +179,7 @@ hr{
  }
  
  .index-category-img>img{
- 	border-bottom: 1px solid lightgray; 
+ 	border-bottom: 1px solid #FFA7A7; 
  }
  
 .index-category-title{
@@ -187,7 +187,7 @@ hr{
 	font-family: 'Black Han Sans';
 	font-size: 25px;
 	height: 40px;
-	border-bottom: 2px solid lightgray; 
+	border-bottom: 1px solid #FFA7A7; 
 }
 
  

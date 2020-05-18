@@ -25,7 +25,7 @@
 
 	</div>
 	
-	<div class="foodimg" style="background-image: url('${path}/resources/img/pizza.jpg') ">
+	<div class="foodimg" style="background-image: url('https://lh3.googleusercontent.com/proxy/f8zWYC1BQLFQZbXeXldGsFXaKvoYIWMOL5zQAN47gQOQBgIkhMx4uHJfo2doEqPaHb-smbOeLPK3GgC3ig0gzdEWdeM3Yg-_zhQm5H69YyEru9nxUyT5QLWGu006ymR7Tq5nO3Hysnz_BA') ">
 		<div class="index-search-title contr"  >
 					
 					<h2 style="color: white;" >`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
@@ -117,7 +117,7 @@
 							<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F1260A6444D4ADBFD0E" alt="일식" width="100%" height="210px">
 					</div>
 					
-					<div class="index-category-img" style="border: 1px solid ligthgray">
+					<div class="index-category-img" style="border: 1px solid #FFA7A7">
 							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS2mJLhb-e3ObUDOTqp-jzslYb4_G_dSk6S_ikh5i3NUYvPrrtF&usqp=CAU" alt="이미지" width="100%" height="250px">	
 					</div>
 			</div>		
