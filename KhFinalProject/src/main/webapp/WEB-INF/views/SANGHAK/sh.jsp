@@ -424,7 +424,7 @@
                               <a id="agree1" onclick="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
                               <div id="agree2" style="display:none;text-align:center;">
-                             	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;모두 동의합니다.
+                             	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
                           <button id="dopay"type="submit" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
