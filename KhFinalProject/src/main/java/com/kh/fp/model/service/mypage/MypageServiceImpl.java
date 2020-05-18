@@ -80,6 +80,13 @@ public class MypageServiceImpl implements MypageService {
 	public int memberDelete(int m_no) {
 		return dao.memberDelete(session, m_no);
 	}
+
+	@Override
+	public int insertReview(Map<String, String> map) {
+		return dao.insertReview(session, map);
+	}
+	
+	
 	
 	
 	

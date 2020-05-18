@@ -33,5 +33,7 @@ public interface MypageDao {
 	
 	int memberDelete(SqlSessionTemplate session, int m_no);
 	
+	int insertReview(SqlSessionTemplate session, Map<String, String> map);
+	
 
 }

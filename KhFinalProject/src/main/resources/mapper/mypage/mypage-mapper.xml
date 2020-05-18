@@ -14,6 +14,10 @@
 		SELECT M.ME_NAME, M.ME_LOGIMG, OM.SD_ARRAY FROM ORDER_MENU OM JOIN MENU M ON OM.ME_NO = M.ME_NO WHERE OM.O_NO=#{o_no}
 	</select>
 	
+	<insert id="insertReview">
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, '리뷰내용', 4, 4, 4, DEFAULT, 1, 1)
+	</insert>
+	
 	<select id="selectReviewCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM REVIEW WHERE M_NO=#{m_no}
 	</select>
