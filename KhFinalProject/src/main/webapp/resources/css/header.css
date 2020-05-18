@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+*{
+	 border : 1px solid red; 
+}
+
+.login{
+	height: 50px;
+}
+
+.headerrow{
+	padding:5px;
+	background-color:#E0FFDB;
+	height : 100px;
+}
+
+.login span{
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	font-family: 'Do Hyeon';
+	padding-right: 8px;
+}
+
+.login>div{
+	float: right;
+}
