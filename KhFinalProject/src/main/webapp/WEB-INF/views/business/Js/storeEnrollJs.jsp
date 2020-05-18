@@ -105,6 +105,24 @@
             });
         }
         
+        var doubleSubmitFlag = false;
+        function doubleSubmitCheck(){
+            if(doubleSubmitFlag){
+                return doubleSubmitFlag;
+            }else{
+                doubleSubmitFlag = true;
+                return false;
+            }
+        }
+     
+        function insert(){
+            if(doubleSubmitCheck()) return;
+     
+            alert("등록");
+        }
+
+
+        
         function check(){
         	var regNumber = /^[0-9]*$/;
         	console.log("?");
@@ -125,7 +143,18 @@
         		return false;
         	}
         	
-        	return true;
+        	if(doubleSubmitCheck()) return;
+        	
+        	var result = confirm('등록하시겠습니까?');
+        	
+        	if(result) {
+ 				
+        		return true;
+        	} else { 
+        		
+        		return false;
+        	}
+
         }
         
         $("input[name='sholiday']").on("click",function(){

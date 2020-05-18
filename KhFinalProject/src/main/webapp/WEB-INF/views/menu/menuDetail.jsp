@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
+<div class="s-store-list-return">
+	<button onclick="returnList()">돌아가기</button>
+</div>
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
@@ -223,7 +226,7 @@
 
             <div class="s-store-right">
 
-                <aside>
+                <aside class="s-store-right-side">
 
                     <div class="s-store-order-title">
                         <h4>주문표</h4>
@@ -550,11 +553,30 @@
         
         /* 주문표에 추가 */
         function addOrderList(){
-        	console.log("야 꿀벌");
         	let finalPrice = $("#finalPrice_").val();
         	let limitPrice = $("#limitPrice_").val();
         	if(finalPrice>limitPrice){
-        		
+        		let menuImgSrc = $("#modal-menu-img-src").val();
+	        	let menuName = $("#modal-menu-name").text();
+	        	let reqOp;
+	        	let reqOps = $(".menu-modal-content-required-option-radio");
+	        	for(let i=0;i<reqOps.length;i++){
+	        		if($(reqOps[i]).is(":checked")==true){
+	        			reqOp = {"reqOpNo":$(reqOps[i]).val(),
+	        					"reqOpName":$(reqOps[i]).parent().text().trim()};
+	        		}
+	        	}
+	        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
+	        	let unReqOp = new Array();
+	        	for(let i=0;i<unReqOps.length;i++){
+	        		let j = 0;
+	        		if($(unReqOps[i]).is(":checked")==true){
+	        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
+	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
+	        		}
+	        	}
+	        	let menuCount = $("#menu-modal-menu-count-text").val();
+	        	
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -626,6 +648,16 @@
        		)
         }
         
+        function returnList(){
+        	let loc = "${path}/menu/menuList.do?no=${rMap['no']}";
+        	loc += "&menuCategory=${rMap['menuCategory']}";
+        	loc += "&sortType=${rMap['sortType']}";
+        	loc += "&search=${rMap['search']}";
+        	loc += "&cPage=${rMap['cPage']}";
+        	console.log(loc);
+        	location.replace(loc);
+        }
+        
         /* 돈 표시용 */
         function numberFormatting(num){
            num = num.toString().split('').reverse().join('');
@@ -640,6 +672,30 @@
            val += "원";
            return val;
         }
+        
+        $(function(){
+        	
+        	let storeMainY = $(".s-store-left").offset().top;
+    		let storeMainHeight = $(".s-store-left").height();
+    		
+    		var storeMainH = storeMainY+storeMainHeight;
+        	$(window).on("scroll",function(e){
+        		let height = $(window).height();
+        		let scrollTop = $(window).scrollTop();
+        		let sideTop = $("aside").offset().top;
+        		if(scrollTop>sideTop){
+        			console.log($("aside").css("top"));
+        			$("aside").css("top",scrollTop-171);
+        			console.log($("aside").offset().top);
+        		} else if(scrollTop<171) {
+        			$("aside").css("top",0);
+        		} else if(scrollTop<sideTop){
+        			$("aside").css("top",0);
+        		}
+
+        	})
+        	
+        })
     
     </script>
 </section>

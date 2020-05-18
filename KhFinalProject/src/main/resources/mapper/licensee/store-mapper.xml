@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="store">
  	
- 	<insert id="insertStore" parameterType="store">
+ 	<insert id="insertStore" parameterType="storeEnroll">
  		insert into store values(store_seq.nextval,#{saddr},#{sname},#{slimitprice},#{spayopt},#{stext}
  		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{yl},#{xl},#{stime}
- 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'),default,default,default,default)
+ 		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'),default,default,default,default,default)
  	
  		<selectKey order="AFTER" keyProperty="sno" resultType="_int">
 			select store_seq.CURRVAL FROM DUAL
@@ -25,7 +25,7 @@
  		select S_NO,S_ADDR,S_NAME,S_LIMITPRICE,S_PAYOPT,S_TEXT,S_PHONE,
  				S_OPENSTATUS,S_ENROLLSTATUS,S_ORIFOODINFO,S_LOGIMG
  				,S_TIME,B_NO,S_HOLIDAY,S_COUPON,to_char(S_STARTTIME,'HH24:MI:SS') AS S_STARTTIME,
- 				 to_char(S_ENDTIME,'HH24:MI:SS') AS S_ENDTIME from store where b_no=#{no}
+ 				 to_char(S_ENDTIME,'HH24:MI:SS') AS S_ENDTIME,S_ENROLLDATE from store where b_no=#{no}
  	</select>
  	
  	<select id="getStoresDetailcategory" resultType="map">
@@ -36,4 +36,21 @@
  		select s_img from store_img where s_no =#{no}
  	</select>
  	
+ 	<select id="getStoresUpdate" resultType="map">
+ 		select * from store where s_no=#{no}
+ 	</select>
+ 	
+	<update id="storeUpdate" parameterType="storeEnroll">
+		update store set S_NAME=#{sname},S_ADDR=#{saddr},S_PHONE='${phone1}-${phone2}-${phone3}',
+		S_LIMITPRICE=#{slimitprice},S_PAYOPT=#{spayopt},S_TEXT=#{stext},S_ORIFOODINFO=#{sorifoodinfo},
+		S_TIME=#{stime},S_HOLIDAY=#{sholiday,typeHandler=strArr},S_X=#{xl},S_Y=#{yl},S_COUPON=#{scoupon},
+		S_STARTTIME= TO_TIMESTAMP(#{sstarttime}, 'HH24') , S_ENDTIME=TO_TIMESTAMP(#{sendtime}, 'HH24') 
+		where s_no=#{sno}
+	</update>
+	
+	
+	<delete id="deleteCategory">
+		delete from store_category where s_no =#{sno}
+	</delete>
+
 </mapper>

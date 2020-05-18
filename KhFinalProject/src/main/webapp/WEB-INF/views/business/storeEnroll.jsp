@@ -15,6 +15,7 @@
 						<h2>매장 등록하기</h2>
 						<p>* 가게 등록이 성공되면 승인 상태를 매장 정보란에서 확인 할 수 있습니다.</p>
 						<p>* 가게 등록 수정은 승인 후 가능하므로 정확한 정보를 입력하시기 바랍니다.</p>
+					
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
@@ -40,7 +41,7 @@
 	                  							<input type="hidden" name="xl" id="xl" value=" " />
 	                  							<input type="hidden" name="yl" id="yl" value=" " />
 	                  							<button type="button" onclick="goPopup()" >주소찾기</button>
-	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.</p>
+	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.(정확한 주소가 아닐시 위치를 찾지 못하는 에러가 생길수도 있습니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -85,14 +86,14 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">소개글</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required  name="stext" rows="5" cols="70" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 .."> </textarea><br>
+	                  							<textarea required  name="stext" rows="5" cols="100" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 .."> </textarea><br>
 	                  							<p >* 자신의 가게에 대한 소개를해보세요.</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">원산지</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required name="sorifoodinfo" rows="5" cols="70" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)"> </textarea><br>
+	                  							<textarea required name="sorifoodinfo" rows="5" cols="100" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)"> </textarea><br>
 	                  							<p >* 원산지의 정보를 알맞게 입력해주세요.</p>
 	                  						</th>
 	                  					</tr>

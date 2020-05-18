@@ -7,7 +7,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
 
 @Repository
@@ -55,6 +57,38 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectList("licensee.selectCategory");
 	}
+
+	@Override
+	public int insertMenu(SqlSessionTemplate session, Menu m) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.insertMenu",m);
+	}
+
+	@Override
+	public int selectMenu(SqlSessionTemplate session) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.selectMenu");
+	}
+
+	@Override
+	public int insertMenuSide(SqlSessionTemplate session, MenuSide ms) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.insertMenuSide",ms);
+	}
+	
+
+
+	
+	
+	
+
+	
+	
+
+	
+
+	
+	
 	
 	
 	
