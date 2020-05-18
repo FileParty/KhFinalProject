@@ -34,8 +34,8 @@ public class Store {
 	private int B_NO;
 	private String S_HOLIDAY;
 	private String S_COUPON;
-	private Date S_STARTTIME;
-	private Date S_ENDTIME;
+	private String S_STARTTIME;
+	private String S_ENDTIME;
 	
 	//private String CT_NAME;
 	//private double distance;

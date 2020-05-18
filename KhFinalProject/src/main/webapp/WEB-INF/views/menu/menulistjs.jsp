@@ -13,16 +13,42 @@
 
 	$(function(){
 		
+		//최근 목록 상세페이지 연결
+		$(".rec_store").click(function(){
+			var no = $(this).find("input").val();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val(); 
+		
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
+		});
+		
+		//최근 목록 호버시 삭제버튼 나오게 하기
+		$(".rec_store").hover(function(){
+			$(this).find("div").removeClass("invisible");
+		},function(){
+			$(this).find("div").addClass("invisible");
+		});
+		
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
-
+		//상세페이지 매핑 시켜주기
 		$(".food-category").click(function(){
 			var no = $(this).find("span").html();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val();
 			
 			no = $.trim(no);
+			c = $.trim(c);
+			sortType=$.trim(sortType);
+			search=$.trim(search);
+			cPage=$.trim(cPage);
 			
-			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no);
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
 		});
 		
 		$.each($(".list-group-item"), function(i,v){			
@@ -79,6 +105,10 @@
 		//페이지리스트 출력 ajax 처리
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
+			$("#menu-category").val(menuCategory);
+			$("#sortType").val('');
+			$("#search").val('');
+			$("#cPage").val('');
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
@@ -135,10 +165,32 @@
 							var plus = info['s_TIME']+5;
 							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 							
+							//배달 시간
+							var plus = info['s_TIME']+5;
+							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+							
 							//영업 상태
-							var status = info['s_OPENSTATUS'];
-							if (status=='Y') status='영업중';
-							else status="영업 준비중";
+							//시간 포맷팅
+							Date.prototype.hhmmss = function() {
+						      var hh = this.getHours().toString();
+						      var mm = this.getMinutes().toString();
+						      var ss = this.getSeconds().toString();
+						      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+						  	}
+							
+							var start = new Date(info['s_STARTTIME']);
+							var end = new Date(info['s_ENDTIME']);
+							var now = new Date();
+							
+							var status='';
+							
+							start = start.hhmmss();
+							end = end.hhmmss();
+							now = now.hhmmss();
+								
+							if(start<now && now<end) status = '영업중';
+							else status = '영업 준비중';
+							
 							$(".status-"+i).html(status);
 							
 							//가게 번호
@@ -179,19 +231,19 @@
 	$("#btn-search").click(function(){
 		var name = $("#search-name").val();
 		var category = $(".active").eq(0).html();
+		var sort = $("#sortType").val();
+		
+		//hidenn에 추가
+		$("#search").val(name);
 			
-		console.log(category);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 			data: {
+				"sortType":sort,
 				"search":name,
 				"menuCategory":category	
 			},
 			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
 				
 				//row
 				for(var i=1; i<=5; i++){
@@ -231,11 +283,34 @@
 						var plus = info['s_TIME']+5;
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
 						
+						//배달 시간
+						var plus = info['s_TIME']+5;
+						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
+						
+						var start = new Date(info['s_STARTTIME']);
+						var end = new Date(info['s_ENDTIME']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
 						$(".store-no-"+i).html(info['s_NO']);
@@ -269,12 +344,17 @@
 	//드랍다운 선택시 바꾸기
 	$(".dropdown-item").click(function(e){
 		var val = $(this).html();
+		
+		//hidden 태그에 추가
+		$("#sortType").val(val);
+		
 		console.log(val);
 		$(this).parent().prev().html(val);
 		
-		var name = $("#search-name").val();
+		var name = $("#search").val();
 		var category = $(".active").eq(0).html();
-		var sort = $(e.target).html();
+		//var sort = $(e.target).html();
+		var sort = $("#sortType").val();
 		
 		console.log(sort);
 		
@@ -285,12 +365,7 @@
 				"search":name,
 				"menuCategory":category	
 			},
-			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
-				
+			success: function(data){	
 				//row
 				for(var i=1; i<=5; i++){
 					$(".category-row-"+i).removeClass("d-none");
@@ -330,12 +405,29 @@
 						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
 						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						console.log('====상태====');
-						console.log(status);
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
+						
+						var start = new Date(info['s_STARTTIME']);
+						var end = new Date(info['s_ENDTIME']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
 						$(".store-no-"+i).html(info['s_NO']);

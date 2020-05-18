@@ -1,11 +1,13 @@
 package com.kh.fp.controller.business;
 
+import java.beans.Encoder;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,6 +36,9 @@ public class StoreController {
 	@Autowired
 	StoreService service;
 	
+	@Autowired
+	BCryptPasswordEncoder encoder;
+	
 	@RequestMapping("/store/storeEnroll.do")
 	public ModelAndView insertStore(ModelAndView mv,MultipartFile slogimg,MultipartFile[] input_imgs,HttpSession session,
 			StoreEnroll s ) {
@@ -41,7 +48,7 @@ public class StoreController {
 		
 		if(b==null) {
 			mv.addObject("msg", "로그인해주세요");
-			mv.addObject("loc", "/licensee/storeEnroll");
+			mv.addObject("loc", "/");
 			mv.setViewName("common/msg");
 			return mv;
 		}
@@ -117,7 +124,7 @@ public class StoreController {
 		
 		if(b==null) {
 			mv.addObject("msg", "로그인해주세요");
-			mv.addObject("loc", "/licensee/storeEnroll");
+			mv.addObject("loc", "/");
 			mv.setViewName("common/msg");
 			return mv;
 		}
@@ -132,12 +139,42 @@ public class StoreController {
 		mv.setViewName("business/storedetail");
 		return mv;
 	}
+		
 	
-	@RequestMapping("/store/storeupdate")
-	public String storeUdpate() {
-		return "business/storeUpdate";
+	@RequestMapping("/store/checkPw")
+	@ResponseBody
+	public boolean checkPw(String userpw,HttpSession session) {
+		Business b = (Business)session.getAttribute("loginMember");
+		boolean flag = false;
+		if(b!=null&&encoder.matches(userpw, b.getB_pw())) {
+			flag = true;
+		}
+		return flag;
+		
 	}
 	
+	
+	@RequestMapping("/store/storeupdate")
+	public ModelAndView storeUdpate(ModelAndView mv,int no) {
+		
+		Map<String, Object> store= service.getStoresUpdate(no);
+		mv.addObject("store",store);
+		mv.setViewName("business/storeUpdate");
+		return mv;
+	}
+	
+	@RequestMapping("/store/storeupdateEnd")
+	public ModelAndView storeUpdate(ModelAndView mv,StoreEnroll s,HttpSession session) {
+		
+		System.out.println(s);
+		
+		 int result = service.storeUpdate(s); 
+		
+		mv.addObject("msg", "가게 등록 수정 성공!");
+		mv.addObject("loc", "/store/storedetail");
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
 	
 }

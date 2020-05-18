@@ -29,33 +29,35 @@
    span.no3{color:red;}
    span.ok4{color:green;}
    span.no4{color:red;}
+   span.error{color:red;}
 </style>
 <section>
 	<div class="container d-flex justify-content-center">
-		<div class="enroll-container">
+		<div class="enroll-container" style="width:600px; border:1px solid black; margin-top:50px;">
 			<div class="d-flex justify-content-center" style="margin:30px;">
    				<img src="${path}/resources/img/요기요.png">
 			</div>
-		 	<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
+		 	<div class="d-flex text-center" style="margin:30px;">
 				<hr style="width:175px;">
 				<h4 style="margin-left:10px; margin-right:10px;">정보 입력</h4>
 				<hr style="width:175px;">
 			</div>
-			<div class="enroll-form">
-				<form action="${path}/member/enrollEnd.do" method="post">
+			<div class="enroll-form d-flex justify-content-center">
+				<form action="${path}/member/enrollEnd.do" method="post" onsubmit="return fn_checkEndM();">
 				<table style="width:500px;">
 					<tr style="margin-bottom:30px;">
 						<th>아이디</th>
 						<td class="idMsg-container">
-							<input type="text" id="userId" name="m_id" class="form-control" placeholder="아이디 입력 " required>
+							<input type="text" id="userId" name="m_id" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용 " required>
 							<span class="idMsg ok">사용가능한 아이디입니다.</span>
 							<span class="idMsg no">이미 존재하는 아이디입니다.</span>
+							<span class="idMsg error">올바른 아이디 형식이 아닙니다.</span>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
 						<td class="pwMsg-container">
-							<input type="password" id="userPw" name="m_pw" class="form-control" placeholder="비밀번호 입력" required>
+							<input type="password" id="userPw" name="m_pw" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용" required>
 							<span class="pwMsg ok3">사용가능한 비밀번호 입니다.</span>
 							<span class="pwMsg no3">올바른 비밀번호 형식이 아닙니다.</span>
 						</td>
@@ -86,11 +88,11 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="email" name="m_email" class="form-control" value="${m_email }"></td>
+						<td><input type="email" name="m_email" class="form-control" value="${m_email }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>종류</th>
-						<td><label><input type="radio" name="m_level" value="1">구매자</label><label><input type="radio" name="m_level" value="2">배달원</label></td>
+						<td><label><input type="radio" name="m_level" value="1">구매자</label>&emsp;<label><input type="radio" name="m_level" value="2">배달원</label></td>
 					</tr>
 				</table>
 				<div class="d-flex justify-content-center" style="margin:30px;">
@@ -100,13 +102,22 @@
 			</div>
 		</div>
 	</div>
-	
-	<script>
-		//아이디 중복체크
-		$(function(){
-			$("#userId").keyup(function(){
-				const id=$(this).val();
-				if(id.trim().length>4){
+</section>
+<script>
+	//아이디 중복체크
+	$(function(){
+		$("#userId").keyup(function(){
+			const id=$(this).val();
+			const reg = /^(?=.*[a-z])(?=.*\d)[a-z\d]{5,10}$/;
+			if(id.trim().length>4){
+				if(!reg.test(id)){
+					$(".idMsg.ok").hide();
+					$(".idMsg.no").hide();
+					$(".idMsg.error").show();
+					$(".idMsg.ok").attr("name","no");
+					$(".idMsg.no").attr("name","no");
+					$(".idMsg.error").attr("name","ok");
+				}else{	
 					$.ajax({
 						url:"${path}/member/checkId",
 						data:{userId:id},
@@ -115,76 +126,152 @@
 							if(data=='false'){
 								$(".idMsg.ok").hide();
 								$(".idMsg.no").show();
+								$(".idMsg.error").hide();
+								$(".idMsg.ok").attr("name","no");
+								$(".idMsg.no").attr("name","ok");
+								$(".idMsg.error").attr("name","no");
 							}else{
 								$(".idMsg.ok").show();
 								$(".idMsg.no").hide();
+								$(".idMsg.error").hide();
+								$(".idMsg.ok").attr("name","ok");
+								$(".idMsg.no").attr("name","no");
+								$(".idMsg.error").attr("name","no");
 							}
 						}
 					});
-				}else{
-					$(".idMsg").hide();
-					return;
 				}
-			})
+			}else{
+				$(".idMsg").hide();
+				return;
+			}
 		})
-		//닉네임 중복체크
-		$(function(){
-			$("#nickname").keyup(function(){
-				const name=$(this).val();
-				if(name.trim().length>2){
-					$.ajax({
-						url:"${path}/member/checkName",
-						data:{name:name},
-						success:function(data){
-							console.log(data);
-							if(data=='false'){
-								$(".nameMsg.ok2").hide();
-								$(".nameMsg.no2").show();
-							}else{
-								$(".nameMsg.ok2").show();
-								$(".nameMsg.no2").hide();
-							}
+	})
+	//닉네임 중복체크
+	$(function(){
+		$("#nickname").keyup(function(){
+			const name=$(this).val();
+			if(name.trim().length>2){
+				$.ajax({
+					url:"${path}/member/checkName",
+					data:{name:name},
+					success:function(data){
+						console.log(data);
+						if(data=='false'){
+							$(".nameMsg.ok2").hide();
+							$(".nameMsg.no2").show();
+							$(".nameMsg.ok2").attr("name","no");
+							$(".nameMsg.no2").attr("name","ok");
+						}else{
+							$(".nameMsg.ok2").show();
+							$(".nameMsg.no2").hide();
+							$(".nameMsg.ok2").attr("name","ok");
+							$(".nameMsg.no2").attr("name","no");
 						}
-					});
-				}else{
-					$(".nameMsg").hide();
-					return;
-				}
-			})
+					}
+				});
+			}else{
+				$(".nameMsg").hide();
+				return;
+			}
 		})
-		//비밀번호 일치체크
-		$("#userPwck").keyup(function(){
-			let pw=$("#userPw").val();
-			let pwck=$("#userPwck").val();
-			if(pw != "" && pwck != ""){
-				if(pwck.trim().length>=pw.trim().length){
-					if(pw == pwck) {
-						$(".no1").hide();
-						$(".ok1").show();
-					}else{
-						$(".no1").show();
-						$(".ok1").hide();
-					}
+	})
+	//비밀번호 일치체크
+	$("#userPwck").keyup(function(){
+		let pw=$("#userPw").val();
+		let pwck=$("#userPwck").val();
+		if(pw != "" && pwck != ""){
+			if(pwck.trim().length>=pw.trim().length){
+				if(pw == pwck) {
+					$(".no1").hide();
+					$(".ok1").show();
+					$(".no1").attr("name","no");
+					$(".ok1").attr("name","ok");
+				}else{
+					$(".no1").show();
+					$(".ok1").hide();
+					$(".no1").attr("name","ok");
+					$(".ok1").attr("name","no");
 				}
 			}
-		});
-		$("#userPw").keyup(function(){
-			let pw=$("#userPw").val();
-			let pwck=$("#userPwck").val();
-			if(pw != "" && pwck != ""){
-				if(pwck.trim().length=pw.trim().length){
-					if(pw == pwck) {
-						$(".no1").hide();
-						$(".ok1").show();
-					}else{
-						$(".no1").show();
-						$(".ok1").hide();
-					}
+		}
+	});
+	$("#userPw").keyup(function(){
+		let pw=$("#userPw").val();
+		let pwck=$("#userPwck").val();
+		const reg = /^(?=.*[a-z])(?=.*\d)[a-z\d]{5,10}$/;
+		if(pw.trim().length>4){
+			if(!reg.test(pw)){
+				$(".ok3").hide();
+				$(".no3").show();
+				$(".ok3").attr("name","no");
+				$(".no3").attr("name","ok");
+				
+			}else{
+				$(".ok3").show();
+				$(".no3").hide();
+				$(".ok3").attr("name","ok");
+				$(".no3").attr("name","no");
+			}
+		}
+		if(pw != "" && pwck != ""){
+			if(pwck.trim().length=pw.trim().length){
+				if(pw == pwck) {
+					$(".no1").hide();
+					$(".ok1").show();
+					$(".no1").attr("name","no");
+					$(".ok1").attr("name","ok");
+					
+				}else{
+					$(".no1").show();
+					$(".ok1").hide();
+					$(".no1").attr("name","ok");
+					$(".ok1").attr("name","no");
+					
 				}
 			}
-		});
+		}
+	});
+	//중복 아이디 + 중복 닉네임 + 비밀번호 불일치 + 형식에 맞지 않는 비밀번호 가입방지
+    function fn_checkEndM(){
 		
-	
-	</script>
-</section>
+		//아이디 1
+        let idMsg1 = $(".no").attr("name");
+      	//아이디 2
+        let idMsg2 = $(".error").attr("name");
+		//재확인
+        let pwckMsg = $(".no1").attr("name");
+		//닉네임
+		let nameMsg = $(".no2").attr("name");
+		//비번
+		let pwMsg = $(".no3").attr("name");
+        if(idMsg1=="ok"){
+        	alert("중복된 아이디는 가입할 수 없습니다.");
+        	return false;
+        }
+        if(idMsg2=="ok"){
+        	alert("올바른 형식의 아이디를 입력해주세요.");
+        	return false;
+        }
+        else if(pwMsg=="ok"){
+        	alert("올바른 형식의 비밀번호를 입력해주세요.");
+        	return false;  
+        }
+        else if(pwckMsg=="ok"){
+        	alert("비밀번호가 일치하지 않습니다.");
+        	return false;
+        }
+        else if(nameMsg=="ok"){
+        	alert("중복된 닉네임은 가입할 수 없습니다.");
+        	return false;        	
+        }
+        //회원 종류 선택했는지
+        else if(!$("input:radio[name=m_level]").is(":checked")){
+		    alert("회원 종류를 선택해 주세요.");
+            return false; 
+		}
+
+        return true;
+	}  		
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

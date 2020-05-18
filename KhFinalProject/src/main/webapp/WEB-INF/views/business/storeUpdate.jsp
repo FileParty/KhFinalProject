@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 	<%@include file="../common/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/storeEnroll.css"/>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <section style="width:auto;height:auto;">
  	<div class="container">
  		<div class="row">
@@ -10,33 +13,34 @@
             <div class="col-lg-10" id="main">
                      
                     <h2>매장 정보 수정</h2>
-                     
+                     <p>* 이미지 변경은 관리자에게 문의하세요</p>
                     <div class="store-enroll-box">
                   		
                   		<div class="store-enroll">
                   			
                   			<div class="store-enroll-title">
-								<i class='fas fa-pen' style='font-size:24px'></i>&nbsp;<span>정보입력</span>         			
+								<i class='fas fa-pen' style='font-size:24px'></i>&nbsp;<span>정보수정</span>         			
                   			</div>
                   			
                   			<div class="store-enroll-content">
-	                  			<form action="${path }/store/storeEnroll.do" method="post" enctype="multipart/form-data"  onsubmit="return check();">
+	                  			<form action="${path }/store/storeupdateEnd" method="post" onsubmit="return check();">
 	                  			
 	                  				<table>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">상호명</th>
 	                  						<th class="store-enroll-info">
-	                  							<input type="text" name="sname" id="sname" placeholder="ex) BBQ, 도미노피자" size="60px;" required/>
+	                  							<input type="hidden" name="sno" value="${store.S_NO }"/>
+	                  							<input type="text" name="sname" id="sname" placeholder="ex) BBQ, 도미노피자" size="60px;" value="${store.S_NAME }" required/>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">주소</th>
 	                  						<th class="store-enroll-info">
-	                  							<input type="text" name="saddr" id="saddr" size="60px;"/>
-	                  							<input type="hidden" name="xl" id="xl" value=" " />
-	                  							<input type="hidden" name="yl" id="yl" value=" " />
+	                  							<input type="text" name="saddr" id="saddr" size="60px;" value="${store.S_ADDR }"/>
+	                  							<input type="hidden" name="xl" id="xl" value="${store.S_X }" />
+	                  							<input type="hidden" name="yl" id="yl" value="${store.S_Y }" />
 	                  							<button type="button" onclick="goPopup()" >주소찾기</button>
-	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.</p>
+	                  							&nbsp;<p>* 주소버튼을 통해서 주소를 찾을 수 있습니다.(정확한 주소가 아닐시 위치를 찾지 못하는 에러가 생길수도 있습니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
@@ -54,26 +58,25 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">종목선택</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="checkbox" name="category" value="1" checked>치킨</label>
+	                  							<label><input type="checkbox" name="category" value="1">치킨</label>
 	                  							<label><input type="checkbox" name="category" value="2">피자</label>
 	                  							<label><input type="checkbox" name="category" value="3">중국집</label>
 	                  							<label><input type="checkbox" name="category" value="4">분식</label>
 	                  							<label><input type="checkbox" name="category" value="5">한식</label>
 	                  							<label><input type="checkbox" name="category" value="6">햄버거</label>
-	                  							<label><input type="checkbox" name="category" value="7">일식</label>
-	                  				
+	                  							<label><input type="checkbox" name="category" value="7">일식</label>	
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">최소금액</th>
 	                  						<th class="store-enroll-info">
-	                  							<input type="number" name="slimitprice" value="9000" min="9000" step="500" required> 원 <p>* 최소 9000원 이상입니다.(500원 단위로 증가합니다)</p>
+	                  							<input type="number" name="slimitprice" value="${store.S_LIMITPRICE }" min="9000" step="500" required> 원 <p>* 최소 9000원 이상입니다.(500원 단위로 증가합니다)</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">결제방법</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="radio" name="spayopt" value="현금결제" checked>현금결제</label>&nbsp;&nbsp;
+	                  							<label><input type="radio" name="spayopt" value="현금결제">현금결제</label>&nbsp;&nbsp;
 	                  							<label><input type="radio" name="spayopt" value="카트결제">카트결제</label>&nbsp;&nbsp;
 	                  							<label><input type="radio" name="spayopt" value="현금결제/카트결제" checked>현금결제/카트결제</label>
 	                  						</th>
@@ -81,37 +84,28 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">소개글</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required  name="stext" rows="5" cols="70" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 .."> </textarea><br>
+	                  							<textarea required  name="stext" rows="5" cols="100" style="resize: none;" placeholder="ex) 안녕하세요 ○○○ 가게 입니다 ..">${store.S_TEXT } </textarea><br>
 	                  							<p >* 자신의 가게에 대한 소개를해보세요.</p>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">원산지</th>
 	                  						<th class="store-enroll-info">
-	                  							<textarea required name="sorifoodinfo" rows="5" cols="70" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)"> </textarea><br>
+	                  							<textarea required name="sorifoodinfo" rows="5" cols="100" style="resize: none;" placeholder="ex) 닭고기(국내산)/돼지고기(수입산)">${store.S_ORIFOODINFO }</textarea><br>
 	                  							<p >* 원산지의 정보를 알맞게 입력해주세요.</p>
-	                  						</th>
-	                  					</tr>
-	                  					<tr>
-	                  						<th class="store-enroll-info-title">메인이미지</th>
-	                  						<th class="store-enroll-info">
-	                  							<input type="file" name="slogimg" id="slogimg"/>
-										        <div class="img_wrap">
-										            <img id="img" src="${path }/resources/img/photocomingsoon.jpg" width="100%" height="100%"/>
-										        </div>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">소요시간</th>
 	                  						<th class="store-enroll-info">
-	                  							<input type="range" name="stime" id="stime" min="30" max="90"  step="10" />
+	                  							<input type="range" name="stime" id="stime" min="30" max="90"  step="10" value="${store.S_TIME }" />
 	                  							<div id="rangeshow">50분</div>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">휴무일</th>
 	                  						<th class="store-enroll-info">
-	                  							<label><input type="checkbox" name="sholiday" value="월" checked>월</label>
+	                  							<label><input type="checkbox" name="sholiday" value="월">월</label>
 	                  							<label><input type="checkbox" name="sholiday" value="화">화</label>
 	                  							<label><input type="checkbox" name="sholiday" value="수">수</label>
 	                  							<label><input type="checkbox" name="sholiday" value="목">목</label>
@@ -124,9 +118,9 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">쿠폰허용</th>
 	                  						<th class="store-enroll-info">
-	                  							<select name="scoupon">
-	                  								<option value="Y" selected>허용</option>
-	                  								<option value="N">비허용</option>
+	                  							<select name="scoupon" id="scoupon">
+	                  								<option value="Y" >허용</option>
+	                  								<option value="N" >비허용</option>
 	                  							</select>
 	                  							<p>*배달킹이 제공하는 쿠폰이용 허용가능/불가능 설정입니다(쿠폰사용은 결제금액 차감 미적용 됩니다)</p>
 	                  						</th>
@@ -135,7 +129,7 @@
 	                  						<th class="store-enroll-info-title">오픈시간/마감시간</th>
 	                  						<th class="store-enroll-info">
 	                  							오픈 시간 : 
-	                  							<select name="sstarttime" id="sstarttime"">
+	                  							<select name="sstarttime" id="sstarttime">
 	                  								<option value="" selected>선택</option>
 	                  								<option value="0">0:00</option><option value="1">1:00</option><option value="2">2:00</option><option value="3">3:00</option><option value="4">4:00</option><option value="5">5:00</option>
 	                  								<option value="6">6:00</option><option value="7">7:00</option><option value="8">8:00</option><option value="9">9:00</option><option value="10">10:00</option><option value="11">11:00</option>
@@ -153,18 +147,9 @@
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
-	                  						<th class="store-enroll-info-title">소개글이미지</th>
-	                  						<th class="store-enroll-info">
-											    <input type="file" id="input_imgs" name="input_imgs" multiple />		 
-										        <div class="imgs_wrap flex-wrap d-flex">
-										            
-										        </div>
-	                  						</th>
-	                  					</tr>
-	                  					<tr>
 	                  						<th colspan="2" style="text-align: center;">
-	                  						<button type="submit" class="btn btn-success">수정</button>
-	                  						<button type="button" class="btn btn-danger" onclick="location.replace('${path}/licensee/companyStatus')">취소</button>
+	                  						<button type="submit" class="btn btn-success" >수정</button>
+	                  						<button type="button" class="btn btn-danger" onclick="location.replace('${path}/store/storedetail')">취소</button>
 	                  						</th>
 	                  					</tr>
 	                  				</table>
@@ -179,4 +164,98 @@
    		</div>
    	</div>
     </section>
+    
+    <script>
+    
+    	$(function(){
+    		
+    		var phone = '${store.S_PHONE}'.split("-");
+    		$("#phone2").attr("value",phone[1]);
+    		$("#phone3").attr("value",phone[2]);
+    		
+    		var values = $("#phone1>option").map(function() { return $(this).val(); });
+    		for(var i=0;i<values.length;i++){
+    			if(values[i]==phone[0]){
+    				$($("#phone1>option")[i]).attr("selected",true);
+    			}
+    		}
+    		/* 폰가져오기 */
+    		
+    		var payopt =$("input[name=spayopt]");
+    		
+    		var pay="${store.S_PAYOPT}";
+    		for(var j=0;j<payopt.length;j++){
+    			if($(payopt[j]).val()==pay){
+    				$(payopt[j]).attr("checked",true);
+    			}
+    		}
+    		/* 결제방법가져오기*/
+    		
+    		var holiday  = '${store.S_HOLIDAY}'.split(",");
+    		var sholiday =$("input[name=sholiday]");
+    		for(var s=0;s<sholiday.length;s++){
+    			for(var t=0;t<holiday.length;t++){
+    				if($(sholiday[s]).val()==holiday[t]){
+    					$(sholiday[s]).attr("checked",true);
+        			}
+    			}
+    		}
+    		/* 휴무일 가져오기 */
+    		
+    		values = $("#scoupon>option").map(function() { return $(this).val(); });
+    		var coupon = "${store.S_COUPON}";
+    		for(var i=0;i<values.length;i++){
+    			if(values[i]==coupon){
+    				$($("#scoupon>option")[i]).attr("selected",true);
+    			}
+    		}
+    		/* 쿠폰 허용 가져오기 */
+    		
+    		values = $("#sstarttime>option").map(function() { return $(this).val(); });
+    		var time = "${store.S_STARTTIME}".split(" ");
+    		if(time[1].substring(0,1)==0){
+    			time =time[1].substring(1,2);
+    		}else{
+    			time =time[1].substring(0,2);
+    		}
+    		for(var i=0;i<values.length;i++){
+    			if(values[i]==time){
+    				$($("#sstarttime>option")[i]).attr("selected",true);
+    			}
+    		};
+    		values = $("#sendtime>option").map(function() { return $(this).val(); });
+    		time = "${store.S_ENDTIME}".split(" ");
+    		if(time[1].substring(0,1)==0){
+    			time =time[1].substring(1,2);
+    		}else{
+    			time =time[1].substring(0,2);
+    		}
+    		for(var i=0;i<values.length;i++){
+    			if(values[i]==time){
+    				$($("#sendtime>option")[i]).attr("selected",true);
+    			}
+    		}
+    		/* 운영시간/마감시간 가져오기  */
+
+    		var category =$("input[name=category]");
+    		var arraylist = new Array('치킨','피자','중국집','분식','한식','햄버거','일식');
+    		var categorylist = new Array('${store.category[0]["CT_NAME"]}','${store.category[1]["CT_NAME"]}','${store.category[2]["CT_NAME"]}','${store.category[3]["CT_NAME"]}','${store.category[4]["CT_NAME"]}','${store.category[5]["CT_NAME"]}','${store.category[6]["CT_NAME"]}');
+
+    		for(var s=0;s<arraylist.length;s++){
+    			for(var t=0;t<arraylist.length;t++){
+    				 if(arraylist[s]== categorylist[t] ){
+    					$(category[s]).attr("checked",true);
+        			} 
+    			}
+    		}
+    		
+    		/* 종목 가져오기 */
+    		
+
+    	
+    	})
+    	
+    </script>
+    
+    <jsp:include page="/WEB-INF/views/business/Js/storeEnrollJs.jsp"/>
     <%@include file="../common/footer.jsp" %>

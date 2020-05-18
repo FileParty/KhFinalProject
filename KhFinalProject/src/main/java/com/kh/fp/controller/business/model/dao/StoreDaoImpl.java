@@ -51,6 +51,27 @@ public class StoreDaoImpl implements StoreDao {
 		// TODO Auto-generated method stub
 		return session.selectList("store.getStoresDetailfiles",no);
 	}
+
+	@Override
+	public Map<String, Object> getStoresUpdate(SqlSessionTemplate session,int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("store.getStoresUpdate",no);
+	}
+
+	@Override
+	public int storeUpdate(SqlSessionTemplate session, StoreEnroll s) {
+		// TODO Auto-generated method stub
+		return session.update("store.storeUpdate",s);
+	}
+
+	@Override
+	public int deleteCategory(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.delete("store.deleteCategory",no);
+	}
+
+	
+
 	
 	
 	
