@@ -26,20 +26,26 @@ public class MemberController_SH {
 	
 	//쿠폰 가져오기
 	@RequestMapping("/pay/paylist.do")
-	public String payList(ModelAndView mv,Model m,HttpSession session,@RequestParam Map newOrder) {
+	public String payList(ModelAndView mv,Model m,HttpSession session) {
 		List<Coupon_SH> list=service.selectCoupon();
 		//쿠폰갯수 가져오기
 		
 		Member member=(Member)session.getAttribute("loginMember");
-	
+		List<Map> neworder=(List<Map>) session.getAttribute("newOrder");
+		for(Map mo : neworder) {
+            System.out.println(""+mo);
+            System.out.println(""+mo.get("reqOp"));
+            System.out.println(""+mo.get("unReqOp"));
+         }
+		
 		int m_no=member.getM_no();
 		int totalData=service.selectCouponCount(m_no);
-		
+		session.getAttribute("newOrder");
 		
 		m.addAttribute("list",list);
 		m.addAttribute("total",totalData);
 	
-		System.out.println("인술값"+newOrder);
+	
 		return ("/SANGHAK/sh");
 	}
 	@RequestMapping("/pay/paylist2.do")
