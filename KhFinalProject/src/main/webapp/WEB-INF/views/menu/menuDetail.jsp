@@ -226,7 +226,7 @@
 
             <div class="s-store-right">
 
-                <aside>
+                <aside class="s-store-right-side">
 
                     <div class="s-store-order-title">
                         <h4>주문표</h4>
@@ -678,22 +678,21 @@
         	let storeMainY = $(".s-store-left").offset().top;
     		let storeMainHeight = $(".s-store-left").height();
     		
-    		var storeMainH = storeMainY+storeMainHeight+10;
+    		var storeMainH = storeMainY+storeMainHeight;
         	$(window).on("scroll",function(e){
         		let height = $(window).height();
         		let scrollTop = $(window).scrollTop();
-        		let storeSideY = $("aside").offset().top;
-        		if(scrollTop<=storeSideY){
-        			
+        		let sideTop = $("aside").offset().top;
+        		if(scrollTop>sideTop){
+        			console.log($("aside").css("top"));
+        			$("aside").css("top",scrollTop-171);
+        			console.log($("aside").offset().top);
+        		} else if(scrollTop<171) {
+        			$("aside").css("top",0);
+        		} else if(scrollTop<sideTop){
+        			$("aside").css("top",0);
         		}
-        		let storeSideHeight = $("aside").height();
-        		if(storeMainH<(storeSideY+storeSideHeight)){
-        			console.log("걸림");
-        			$("aside").css("bottom",146);
-        		} else {
-        			console.log("안걸림");
-        			$("aside").removeAttr("style");
-        		}
+
         	})
         	
         })
