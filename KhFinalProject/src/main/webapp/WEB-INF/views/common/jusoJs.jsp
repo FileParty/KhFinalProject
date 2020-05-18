@@ -159,7 +159,7 @@ function selectCategory(data){
 		var x = $("#xl").val();
 		var y= $("#yl").val();
 		var addr = $("#keyword").val();
-		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y+"&addr"+addr);
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y+"&addr="+addr);
 	}else{
 		alert("주소를 입력해주세요");
 	}

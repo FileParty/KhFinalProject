@@ -226,33 +226,18 @@
 
             <div class="s-store-right">
 
-                <aside>
+                <aside class="s-store-right-side">
 
                     <div class="s-store-order-title">
-                        <h4>주문표</h4>
-                        <img src="#" width="30px" height="30px" style="cursor: pointer;">
+                        <h4 style="margin-top:5px;">주문표</h4>
+                        <img src="${path}/resources/img/menuDetail/garbage_icon.png" onclick="deleteAllOrder()"
+                        	width="30px" height="30px" style="margin:5px;cursor: pointer;">
                     </div>
 
                     <div class="s-store-order-content">
-
-                             <div id="order-content-1">
-                                <h5>주문표에 담긴 메뉴가 없습니다.</h5>
-                            </div> -
-
-                        <!-- <div  id="order-content-2">
-                            <div class="s-store-order-button">
-                                <h4>국물떡볶이</h4><br>
-                                <input type="hidden" name="imgName" value="">
-                                <input type="hidden" name="menuPrice" value="">
-                                <input type="hidden" name="count" value="1">
-                                <div>
-                                    <button class="btn btn-success" >X</button>
-                                    <div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">1</strong>&nbsp;<button class="btn btn-success">+</button></div>
-                                </div>
-                            </div>
-                            
-                        </div> -->
-
+	                    <div id="order-content-1">
+	                        <h5>주문표에 담긴 메뉴가 없습니다.</h5>
+	                    </div>
                     </div>
 
                     <div class="s-store-order-delivery">
@@ -262,9 +247,10 @@
                     <div class="s-store-order-delivery">
                         <h6>최소 주문금액 : <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원 이상</h6>
                     </div>
-
+					
                     <div class="s-store-order-price">
-                        <h6>합계 : 5,000원</h6>
+                    	<input type="hidden" name="allPrice" value="" id="order-final-price"/>
+                        <h5 class="s-store-order-final-price">합계 : 0 원</h5>
                     </div>
 
                     <div class="s-store-order">
@@ -576,7 +562,32 @@
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").val();
-	        	
+	        	const oContent = $(".s-store-order-content");
+	        	let orderDiv = null;
+	        	if($(oContent).children('#order-content-1').length>0){
+	        		$(oContent).children('#order-content-1').hide();
+	        		orderDiv = $("<div>").attr("id","order-content-2");
+	        	} else {
+	        		orderDiv = $("#order-content-2");
+	        	}
+	        	let orderContent = '<div class="s-store-order-button">';
+	        	orderContent += "<h4>"+menuName+"</h4><br/>";
+	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
+	        	orderContent += '<input type="hidden" name="menuPrice" value="'+finalPrice+'">';
+	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
+	        	orderContent += '<div>';
+	        	orderContent += '<button class="btn btn-success" >X</button>';
+	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
+	        	orderContent += '<div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">1</strong>&nbsp;<button class="btn btn-success">+</button></div>';
+	        	orderContent += '</div>';
+	        	orderContent += '</div>';
+	        	let finalPriceCheck = Number($(".order-final-price").val());
+	        	finalPriceCheck += finalPrice
+	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
+	        	$(".order-final-price").val(finalPriceCheck);
+	        	orderDiv.append(orderContent);
+	        	oContent.append(orderDiv);
+	        	storeMenuModalClose();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -606,14 +617,14 @@
 	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
 	        		}
 	        	}
-	        	let menuCount = $("#menu-modal-menu-count-text").val();
+	        	let menuCount = $("#menu-modal-menu-count-text").text();
 	        	console.log(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{order:new Order(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)},
 	        		type:"post",
 	        		success:function(){
-	        			location.replace("${path}/pay/paylist.do");
+	        			location.href="${path}/pay/paylist.do";
 	        		}
 	        	});
         	} else {
@@ -621,12 +632,13 @@
         	}
         }
         
-        function Order(src,name,reqOp,unReqOp,price,count){
-        	this.src = src;
-        	this.name = name;
-        	this.reqOp = reqOp;
-        	this.unReqOp = unReqOp;
-        	this.count = count;
+        function Order(src,name,reqOp,unReqOp,count,price){
+        	this.src = src; // 메뉴이미지이름
+        	this.name = name; // 메뉴이름
+        	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
+        	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
+        	this.count = count; // 메뉴 갯수
+        	this.price = price; // 메뉴 가격
         }
         
         function ShowlimitPriceTooTip(){
@@ -658,6 +670,13 @@
         	location.replace(loc);
         }
         
+        function deleteAllOrder(){
+        	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
+        	if(flag){
+        		
+        	}
+        }
+        
         /* 돈 표시용 */
         function numberFormatting(num){
            num = num.toString().split('').reverse().join('');
@@ -675,26 +694,25 @@
         
         $(function(){
         	
-        	let storeMainY = $(".s-store-left").offset().top;
+        	/*let storeMainY = $(".s-store-left").offset().top;
     		let storeMainHeight = $(".s-store-left").height();
     		
-    		var storeMainH = storeMainY+storeMainHeight+10;
+    		var storeMainH = storeMainY+storeMainHeight;
         	$(window).on("scroll",function(e){
         		let height = $(window).height();
         		let scrollTop = $(window).scrollTop();
-        		let storeSideY = $("aside").offset().top;
-        		if(scrollTop<=storeSideY){
-        			
+        		let sideTop = $("aside").offset().top;
+        		if(scrollTop>sideTop){
+        			console.log($("aside").css("top"));
+        			$("aside").css("top",scrollTop-171);
+        			console.log($("aside").offset().top);
+        		} else if(scrollTop<171) {
+        			$("aside").css("top",0);
+        		} else if(scrollTop<sideTop){
+        			$("aside").css("top",0);
         		}
-        		let storeSideHeight = $("aside").height();
-        		if(storeMainH<(storeSideY+storeSideHeight)){
-        			console.log("걸림");
-        			$("aside").css("bottom",146);
-        		} else {
-        			console.log("안걸림");
-        			$("aside").removeAttr("style");
-        		}
-        	})
+
+        	}) */
         	
         })
     

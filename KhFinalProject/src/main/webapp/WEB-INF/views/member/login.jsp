@@ -5,13 +5,22 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<style>
+	.login-form{
+	
+		width:400px; 
+		border:5px double black; 
+		border-radius:5%; 
+		margin:100px;	
+			
+	}
+</style>
 <section>
-	<div class="container">
-		<div class="login-container d-flex justify-content-center">
-			<div class="login-form" style="width:400px; border:1px solid black; border-radius:5%; margin:100px;">
+	<div class="container d-flex justify-content-center">
+		<div class="login-container"  style="margin-top:50px;">
+			<div class="login-form">
 				<div class="login-category d-flex">
-					<div class="text-center member-login" style="width:200px; border:1px solid black;">일반인</div>
+					<div class="text-center member-login" style="width:200px; border:1px solid black; border-top-left-radius:15px;">일반인</div>
 					<div class="text-center business-login" style="width:200px; border:1px solid black;">사업자</div>
 				</div>
 				<div class="member-login-container d-flex justify-content-center flex-wrap text-center">
@@ -31,8 +40,8 @@
 							<div class="">
 								<label><input type="checkbox" name="saveId" id="saveId">아이디 저장</label>
 							</div>
-							<div class="d-flex" data-toggle="modal" data-target="#myModal">
-							<span>아이디 / 비밀번호 찾기</span>
+							<div class="d-flex">
+								<span><a href="${path }/member/findIdPwM.do">아이디 / 비밀번호 찾기</a></span>
 							</div>
 						</div>
 						<input type="submit" class="btn btn-outline-dark" value="로그인" style="width:400px; margin-top:30px;">
@@ -62,8 +71,8 @@
 							<div class="">
 								<label><input type="checkbox" name="아이디 저장">아이디 저장</label>
 							</div>
-							<div class="d-flex" data-toggle="modal" data-target="#myModal">
-							<span>아이디 / 비밀번호 찾기</span>
+							<div class="d-flex">
+								<span><a href="${path }/member/findIdPwB.do">아이디 / 비밀번호 찾기</a></span>
 							</div>
 						</div>
 						<input type="submit" class="btn btn-outline-dark" value="로그인" style="width:400px; margin-top:30px;">
@@ -81,39 +90,19 @@
 		$(".member-login").click(()=>{	
 			$(".member-login-container").attr("style","display:block !important");
 			$(".business-login-container").attr("style","display:none !important"); 
+			
 		});
+		
+		
 		//일반인 로그인 div를 숨기고 사업자 로그인 div를 보여주는 기능	
 		$(".business-login").click(()=>{
 			$(".member-login-container").attr("style","display:none !important");
-			$(".business-login-container").attr("style","display:block !important");	
+			$(".business-login-container").attr("style","display:block !important");
+			
 		});
+		
 	</script>
 	
 </section>
 
-
-  <!-- The Modal -->
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          Modal body..
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

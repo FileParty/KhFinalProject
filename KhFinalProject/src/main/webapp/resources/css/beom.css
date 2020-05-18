@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 *{
-       /* border : 1px solid red;    */
+       /* border : 1px solid red;     */
 }
 
 .s-store{
@@ -19,11 +19,16 @@
    margin-left: 20px;
 }
 
-.s-store-right aside{
+aside.s-store-right-side{
    width: 320px;
    height: auto;
    border: 1px solid lightgray;
-   position: relative;
+   position: fixed;
+  
+}
+
+aside.s-store-right-side-move{
+	
 }
 
 .s-store-title{
@@ -223,7 +228,6 @@
 .s-store-order-button>div{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: 10px;
 }
 
@@ -250,7 +254,7 @@
 
 .s-store-order{
    border-top: 1px solid lightgray;
-   padding: 2px;
+   padding: 4px;
    text-align: center;
    cursor: pointer;
    background-color: lightgreen;
@@ -481,4 +485,12 @@ button.menu-modal-header-close{
 	background-color:white;
 	font-size:26px;
 	font-weight: 800;
+}
+
+span.s-store-order-menu-price{
+	font-size:18px;
+	font-weight:600;
+	margin-top:5px;
+	margin-left:10px;
+	margin-right:85px;
 }

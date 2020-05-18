@@ -1,5 +1,7 @@
 package com.kh.fp.model.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class Business {
 	private String b_businesscode;
 	private char b_status;
 	private String b_email;
+	
 	
 
 }
