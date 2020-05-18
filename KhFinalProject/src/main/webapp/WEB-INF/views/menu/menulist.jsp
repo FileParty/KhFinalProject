@@ -136,11 +136,11 @@
 		 		<div class="category-${j==1?2*(i-1):i*j-1} food-category col-5 ${2*(i-1)>=list.size() || i*j-1>=list.size() ? 'invisible':'d-flex' } align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
  					<div class="mr-4 ml-2">
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LOGIMG()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
+ 							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
 						</c:if>
 						
 						<c:if test="${j==2 && i*j-1<list.size()}">
-							<img src="${pageContext.request.contextPath }/resources/img/${list.get(i*j-1).getS_LOGIMG()}" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>		 								
+							<img src="${pageContext.request.contextPath }/resources/img/${list.get(i*j-1).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>		 								
 						</c:if>
  						 
  						 <c:if test="${j==1 && 2*(i-1)>=list.size()}">
@@ -154,10 +154,10 @@
  				
  					<span class="invisible store-no-${j==1?2*(i-1):i*j-1} no">
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">							
- 							<c:out value="${list.get(2*(i-1)).getS_NO()}"/>
+ 							<c:out value="${list.get(2*(i-1)).getS_No()}"/>
 						</c:if>
 						<c:if test="${j==2 && i*j-1<list.size()}">		 								
-							<c:out value="${list.get(i*j-1).getS_NO()}"/>
+							<c:out value="${list.get(i*j-1).getS_No()}"/>
 						</c:if>
  					</span>
  					
@@ -165,10 +165,10 @@
  						<div class="category-title d-flex justify-content-between">
  							<span class="h-4 name-${j==1?2*(i-1):i*j-1}">
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">							
- 									<c:out value="${list.get(2*(i-1)).getS_NAME()}"/>
+ 									<c:out value="${list.get(2*(i-1)).getS_Name()}"/>
 	 							</c:if>
  								<c:if test="${j==2 && i*j-1<list.size()}">		 								
- 									<c:out value="${list.get(i*j-1).getS_NAME()}"/>
+ 									<c:out value="${list.get(i*j-1).getS_Name()}"/>
  								</c:if>
  							</span>
  							
@@ -180,9 +180,9 @@
  									
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">
  									<!-- 영업 시작 시간 -->
-	 								<c:set value="${list.get(2*(i-1)).getS_STARTTIME()}" var="start"/>
+	 								<c:set value="${list.get(2*(i-1)).getS_StartTime()}" var="start"/>
 	 								<!-- 영업 종료 시간 -->
-	 								<c:set value="${list.get(2*(i-1)).getS_ENDTIME()}}" var="end"/>
+	 								<c:set value="${list.get(2*(i-1)).getS_EndTime()}}" var="end"/>
 	 								<!-- 문자열을 date로 파싱 -->
 	 								<fmt:parseDate var="start" value="${start}" pattern="yyyy-mm-dd HH:mm:ss" />
 									<fmt:parseDate var="end" value="${end}" pattern="yyyy-mm-dd HH:mm:ss" />
@@ -194,9 +194,9 @@
 	 							</c:if>
 	 								<c:if test="${j==2 && i*j-1<list.size()}">	
 	 									<!-- 영업 시작 시간 -->
-	 								<c:set value="${list.get(i*j-1).getS_STARTTIME()}" var="start"/>
+	 								<c:set value="${list.get(i*j-1).getS_StartTime()}" var="start"/>
 	 								<!-- 영업 종료 시간 -->
-	 								<c:set value="${list.get(i*j-1).getS_ENDTIME()}}" var="end"/>
+	 								<c:set value="${list.get(i*j-1).getS_EndTime()}}" var="end"/>
 	 								<!-- 문자열을 date로 파싱 -->
 	 								<fmt:parseDate var="start" value="${start}" pattern="yyyy-mm-dd HH:mm:ss" />
 									<fmt:parseDate var="end" value="${end}" pattern="yyyy-mm-dd HH:mm:ss" />
@@ -215,16 +215,16 @@
  									<span class="mr-2 text-warning score-${j==1?2*(i-1):i*j-1}">
 	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">												
 		 										★
-		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_TASTE() + list.get(2*(i-1)).getS_AMOUNT() + list.get(2*(i-1)).getS_DELIVERY()}"/>						
-		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_REVIEWCOUNT() }"/>
+		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
+		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>
 		 										
 		 										<fmt:formatNumber value="${score }" pattern=".00"/>					
 		 								</c:if>
 		 								
 		 								<c:if test="${j==2 && i*j-1<list.size()}">	
 		 										★
-		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_TASTE() + list.get(2*(i-1)).getS_AMOUNT() + list.get(2*(i-1)).getS_DELIVERY()}"/>						
-		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_REVIEWCOUNT() }"/>						
+		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
+		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>						
 		 										<fmt:formatNumber value="${score }" pattern=".00"/>	
 		 								</c:if>
 	 								</span>
@@ -237,11 +237,11 @@
  								<div>
  									<span class="review-${j==1?2*(i-1):i*j-1}">
 	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">	 										
-	 										리뷰 <c:out value="${list.get(2*(i-1)).getS_REVIEWCOUNT()}"/>	 										
+	 										리뷰 <c:out value="${list.get(2*(i-1)).getS_ReviewCount()}"/>	 										
 	 									</c:if>
 	 									
 	 									<c:if test="${j==2 && i*j-1<list.size()}">	 										
-	 										리뷰 <c:out value="${list.get(i*j-1).getS_REVIEWCOUNT()}"/>	 										
+	 										리뷰 <c:out value="${list.get(i*j-1).getS_ReviewCount()}"/>	 										
 	 									</c:if>	
  									</span>							
  								</div>		 										 		
@@ -251,11 +251,11 @@
  						<div class="category-deliveryInfo mt-1">
  							<span class="text-secondary limit-price-${j==1?2*(i-1):i*j-1}">
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 									<c:out value="${list.get(2*(i-1)).getS_LIMITPRICE()}"/> 이상 배달
+ 									<c:out value="${list.get(2*(i-1)).getS_LimitPrice()}"/> 이상 배달
  								</c:if>
  								
  								<c:if test="${j==2 && i*j-1<list.size()}">
- 									<c:out value="${list.get(i*j-1).getS_LIMITPRICE()}"/> 이상 배달
+ 									<c:out value="${list.get(i*j-1).getS_LimitPrice()}"/> 이상 배달
  								</c:if>
  							</span>
  						</div>
@@ -267,10 +267,10 @@
  											
  							<span class="ml-5 text-secondary time-${j==1?2*(i-1):i*j-1}">
  								<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 									<c:out value="${list.get(2*(i-1)).getS_TIME()}"/>~<c:out value="${list.get(2*(i-1)).getS_TIME()+5}분"/>
+ 									<c:out value="${list.get(2*(i-1)).getS_Time()}"/>~<c:out value="${list.get(2*(i-1)).getS_Time()+5}분"/>
  								</c:if>
  								<c:if test="${j==2 && i*j-1<list.size()}">
- 									<c:out value="${list.get(i*j-1).getS_TIME()}"/>~<c:out value="${list.get(2*(i-1)).getS_TIME()+5}분"/>
+ 									<c:out value="${list.get(i*j-1).getS_Time()}"/>~<c:out value="${list.get(2*(i-1)).getS_Time()+5}분"/>
  								</c:if>
  							</span>
  						</div>

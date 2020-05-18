@@ -215,27 +215,27 @@
 							var info = v;	
 							console.log(info);
 							//로고 이미지
-							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 							
 							//상호명
-							$(".name-"+i).html(info['s_NAME']);
+							$(".name-"+i).html(info['s_Name']);
 							
 							//별점
-							$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 							
 							//리뷰
-							$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+							$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 							
 							//최소 배달 금액
-							$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+							$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 							
 							//배달 시간
-							var plus = info['s_TIME']+5;
-							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
+							var plus = info['s_Time']+5;
+							$(".time-"+i).html(info['s_Time']+'~'+plus+'분');	
 							
 							//배달 시간
-							var plus = info['s_TIME']+5;
-							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+							var plus = info['s_Time']+5;
+							$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 							
 							//영업 상태
 							//시간 포맷팅
@@ -246,8 +246,8 @@
 						      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
 						  	}
 							
-							var start = new Date(info['s_STARTTIME']);
-							var end = new Date(info['s_ENDTIME']);
+							var start = new Date(info['s_StartTime']);
+							var end = new Date(info['s_EndTime']);
 							var now = new Date();
 							
 							var status='';
@@ -262,7 +262,7 @@
 							$(".status-"+i).html(status);
 							
 							//가게 번호
-							$(".store-no-"+i).html(info['s_NO']);
+							$(".store-no-"+i).html(info['s_No']);
 					}); 
 					 
 					//unvisibility 처리
@@ -333,27 +333,27 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 						
 						//상호명
-						$(".name-"+i).html(info['s_NAME']);
+						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
+						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 						
 						//리뷰
-						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 						
 						//최소 배달 금액
-						$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+						$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 						
 						//배달 시간
-						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');	
 						
 						//배달 시간
-						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 						
 						//영업 상태
 						//시간 포맷팅
@@ -364,8 +364,8 @@
 					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
 					  	}
 						
-						var start = new Date(info['s_STARTTIME']);
-						var end = new Date(info['s_ENDTIME']);
+						var start = new Date(info['s_StartTime']);
+						var end = new Date(info['s_EndTime']);
 						var now = new Date();
 						
 						var status='';
@@ -381,7 +381,7 @@
 							
 						
 						//가게 번호
-						$(".store-no-"+i).html(info['s_NO']);
+						$(".store-no-"+i).html(info['s_No']);
 				}); 
 				 
 				//unvisibility 처리
@@ -454,23 +454,23 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 						
 						//상호명
-						$(".name-"+i).html(info['s_NAME']);
+						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_TASTE']+info['s_AMOUNT']+info['s_DELIVERY'])/3/info['s_REVIEWCOUNT']).toFixed(2));
+						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 						
 						//리뷰
-						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 						
 						//최소 배달 금액
-						$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+						$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 						
 						//배달 시간
-						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 						
 						//영업 상태
 						//시간 포맷팅
@@ -481,8 +481,8 @@
 					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
 					  	}
 						
-						var start = new Date(info['s_STARTTIME']);
-						var end = new Date(info['s_ENDTIME']);
+						var start = new Date(info['s_StartTime']);
+						var end = new Date(info['s_EndTime']);
 						var now = new Date();
 						
 						var status='';
@@ -498,7 +498,7 @@
 							
 						
 						//가게 번호
-						$(".store-no-"+i).html(info['s_NO']);
+						$(".store-no-"+i).html(info['s_No']);
 				}); 
 				 
 				//unvisibility 처리
