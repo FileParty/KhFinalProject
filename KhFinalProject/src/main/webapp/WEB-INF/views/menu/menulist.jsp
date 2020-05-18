@@ -24,14 +24,14 @@
 		 		${recentList.size()}
 		 	</span>
 		 	<div class="text-center border pt-3 pb-3 mt-3">	
-		 		<button class="btn btn-link">
+		 		<button class="btn btn-link rec-btn-top">
 		 			<img src="${pageContext.request.contextPath }/resources/img/up.png" width="16px" height="16px"/>
 		 		</button>
 		 		
 		 		<hr/>
 		 		<div>
 		 			<div>
-		 				<div class="mt-5 mb-5">
+		 				<div class="mt-1 mb-1">
 		 					<c:if test="${empty recentList}">
 		 						<div class="pt-5 pb-5">
 		 							최근 본 상품<br>
@@ -40,21 +40,37 @@
 		 					</c:if>
 		 					
 		 					<c:if test="${not empty recentList}">
-		 						<c:forEach var="r" items="${recentList}">
-		 							<div class="rec_store pt-5 pb-5">
-		 								<input type="hidden" value="${r.get('storeNo') }"/>
-		 								<img src="${pageContext.request.contextPath }/resources/img/${r.get('storeImg')}" class="img-thumbnail shadow-lg" style="height:60px; width:60px;"/>	
-		 								<div class="invisible justify-content-center">
-		 									<img src="${pageContext.request.contextPath }/resources/img/cancel.png"/>
+		 						
+		 							<div class="rec-slider position-relative overflow-hidden" style="margin-left:14px;height:368px;">
+		 								<div class="rec-container position-absolute overflow-hidden" style="height:1472px;">
+												<c:forEach var="r" items="${recentList}" varStatus="vs">
+													<c:if test="${(vs.count mod 4) eq 1}">
+														<div class="rec-items d-flex flex-column align-items-center">
+													</c:if>	
+															<div class="rec-item">
+																<input type="hidden" value="${r.get('storeNo') }"/>
+																<div class="rec_store">
+							 										<img src="${pageContext.request.contextPath }/resources/img/${r.get('storeImg')}" class="img-thumbnail shadow-lg" style="height:60px; width:60px;"/>	
+								 								</div>
+								 								<div class="invisible justify-content-center rec-cancel">
+								 									<img src="${pageContext.request.contextPath }/resources/img/cancel.png"/>
+								 								</div>
+							 								</div>
+						 							 <c:if test="${(vs.count mod 4) eq 0 or recentList.size() eq vs.count}">		
+														
+														</div>
+													</c:if> 
+												</c:forEach>
+												
 		 								</div>
 		 							</div>
-		 						</c:forEach>
+		 						
 		 					</c:if>
 		 				</div>
 		 			</div>
 		 		</div>
 		 		<hr/>
-		 		<button class="btn btn-link">
+		 		<button class="btn btn-link rec-btn-bottom">
 		 			<img src="${pageContext.request.contextPath }/resources/img/down.png" width="16px" height="16px"/>
 		 		</button>
 		 	</div>
