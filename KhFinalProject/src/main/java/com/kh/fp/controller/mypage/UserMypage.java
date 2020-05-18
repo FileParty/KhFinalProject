@@ -91,6 +91,15 @@ public class UserMypage {
 		return list;
 	}
 	
+	/*
+	 * @RequestMapping("/mypage/insertReview.do")
+	 * 
+	 * @ResponseBody public boolean insertReview(@RequestParam Map<String, String>
+	 * map) { int result = service.insertReview(map);
+	 * 
+	 * }
+	 */
+	
 	@RequestMapping("/mypage/review.do")
 	public String review(HttpSession session, @RequestParam Map map, Model m) {
 		
