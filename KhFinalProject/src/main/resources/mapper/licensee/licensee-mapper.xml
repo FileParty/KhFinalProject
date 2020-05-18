@@ -44,4 +44,8 @@
   		SELECT * FROM STORE WHERE B_NO = #{b_no}
   	</select>
   	
+  	<select id="selectMenuList" parameterType="_int" resultType="com.kh.fp.model.vo.Menu">
+  		SELECT * FROM MENU WHERE S_NO = #{s_no}
+  	</select>
+  	
 </mapper>

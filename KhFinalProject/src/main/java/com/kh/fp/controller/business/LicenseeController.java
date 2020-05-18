@@ -56,9 +56,29 @@ public class LicenseeController {
 	
 
 	@RequestMapping("/licensee/menuStatus")
-	public String menuStatus() {
-		//메뉴운영
-		return "business/menuStatus";
+	public ModelAndView menuStatus(ModelAndView mv,HttpSession session) {
+		//메뉴관리
+		//셀렉용
+		Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		List<Store> list = service.selectStore(b.getB_no());
+		mv.addObject("store",list);
+		mv.setViewName("business/menuStatus");
+		return mv;
+	}
+	
+	@RequestMapping("/licensee/menuSelect")
+	@ResponseBody
+	public List<Menu> menuSelect(ModelAndView mv,HttpSession session,int s_no) {
+		//메뉴상세
+		Business b = (Business)session.getAttribute("loginMember");
+		List<Menu> menu = service.selectMenuList(s_no);
+			return menu;
 	}
 	@RequestMapping("/licensee/menuEnroll")
 	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
@@ -264,7 +284,7 @@ public class LicenseeController {
 			int result = service.insertSide(map);
 		}
 
-		return "";
+		return "business/menuEnroll";
 	}
 	@RequestMapping("/licensee/categoryEnroll")
 	public String categoryEnroll(HttpServletRequest req) {
@@ -278,7 +298,7 @@ public class LicenseeController {
 		map.put("s_no",storeNo);
 		int result = service.insertCategory(map);
 		}
-		return "";
+		return "business/menuEnroll";
 	}
 	@RequestMapping("/licensee/selectCategory")
 	@ResponseBody

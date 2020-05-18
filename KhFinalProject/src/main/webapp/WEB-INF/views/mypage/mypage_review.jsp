@@ -40,7 +40,7 @@
 	                            <td>${rev['S_NAME'] }</td>
 	                            <td>${rev['R_SCORE_TASTE'] } ${rev['R_SCORE_AMOUNT'] } ${rev['R_SCORE_DELIVERY'] } </td>
 	                            <td>${rev['R_TEXT'] } </td>
-	                            <td><button onclick="reviewDetail('${rev['r_no']}');">상세보기</button></td>
+	                            <td><button onclick="reviewDetail('${rev['R_NO']}');">상세보기</button></td>
 	                        </tr>
                         	
                         </c:forEach>
@@ -211,7 +211,7 @@
       z-index:-1;
     }   
     
-    .table th{
+    #modal th{
     	text-align:center;
     }
     </style>
