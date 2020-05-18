@@ -8,6 +8,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.Store;
 
 
 public interface LicenseeService {
@@ -17,9 +18,10 @@ public interface LicenseeService {
 	List<Map<String, Object>> getDetailOrder(int no);
 	
 	int insertSide(Map<String,Object> map);
-	List<Side> selectOption(int sNo);
+	List<Side> selectOption(int s_no);
 	int insertCategory(Map<String,Object> map);
-	List<MenuCategory> selectCategory();
+	List<MenuCategory> selectCategory(int s_no);
 	int insertMenu(Menu m,List<MenuSide> list);
+	List<Store> selectStore(int bNo);
 	
 }

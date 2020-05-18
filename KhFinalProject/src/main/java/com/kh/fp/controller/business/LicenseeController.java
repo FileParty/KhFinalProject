@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,10 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.LicenseeService;
+import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.Store;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,9 +61,20 @@ public class LicenseeController {
 		return "business/menuStatus";
 	}
 	@RequestMapping("/licensee/menuEnroll")
-	public String menuEnroll() {
+	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
 		//메뉴등록
-		return "business/menuEnroll";
+		 Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		 List<Store> store = service.selectStore(b.getB_no());
+		 
+		 mv.addObject("store",store);
+		 mv.setViewName("business/menuEnroll");
+		return mv;
 	}
 	
 	@RequestMapping("/licensee/calculate")
@@ -105,12 +119,7 @@ public class LicenseeController {
 	@RequestMapping("/licensee/menuEnrollEnd")
 	@ResponseBody
 	public String menuEnroll(HttpSession session,HttpServletRequest req,MultipartFile[] me_logImg) {
-			
-			for(int i=0;i<me_logImg.length;i++) {
-			MultipartFile mff = me_logImg[i];
-			System.out.println("파일임"+mff);
-			}
-			
+		
 				
 		String path = session.getServletContext().getRealPath("/resources/upload/business/");
 		//메뉴등록
@@ -122,7 +131,7 @@ public class LicenseeController {
 		String[] detail = req.getParameterValues("me_text");
 		String[] sdNoEnd = req.getParameterValues("sdNoEnd");
 		String[] counts = req.getParameterValues("count");
-		
+		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
 
 		int menuPrice[] = new int[mPrice.length];
 
@@ -130,11 +139,15 @@ public class LicenseeController {
 		int sdNo[] = new int[sdNoEnd.length];
 		int count[] = new int[counts.length];
 		
+		
+		
 		for(int i=0;i<sdNoEnd.length;i++) {
 			sdNo[i] = Integer.parseInt(sdNoEnd[i]);
 		}
 		for(int i=0;i<mtNoEnd.length;i++) {
 			mtNoEnd[i] = Integer.parseInt(mtNo[i]);
+			System.out.println(mtNo[i]);
+			System.out.println(mtNoEnd[i]);
 		}
 		for(int i=0;i<mPrice.length;i++) {
 			menuPrice[i]= Integer.parseInt(mPrice[i]);
@@ -177,6 +190,9 @@ public class LicenseeController {
 					m.setMe_logImg(rename);
 					
 				}
+				if(m.getMe_logImg()==null) {
+					m.setMe_logImg("null");
+				}
 			
 			m.setMt_no(mtNoEnd[i]);
 			m.setMe_text(detail[i]);
@@ -185,6 +201,7 @@ public class LicenseeController {
 			}else {
 				m.setMe_best("N");
 			}
+			m.setS_no(storeNo);
 			list.add(m);
 			log.debug(""+list.get(i));
 		}
@@ -231,6 +248,7 @@ public class LicenseeController {
 		String[] ess = req.getParameterValues("sd_name");
 		String[] price = req.getParameterValues("sd_price");
 		String[] division = req.getParameterValues("sd_division");
+		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
 		
 		int[] prc = new int[price.length];
 		for(int i=0;i<price.length;i++) {
@@ -242,6 +260,7 @@ public class LicenseeController {
 			map.put("sd_name",ess[i]);
 			map.put("sd_price",prc[i]);
 			map.put("sd_division",division[i]);
+			map.put("s_no",storeNo);
 			int result = service.insertSide(map);
 		}
 
@@ -251,29 +270,32 @@ public class LicenseeController {
 	public String categoryEnroll(HttpServletRequest req) {
 		//카테고리등록
 		String[] category = req.getParameterValues("category");
+		int storeNo = Integer.parseInt(req.getParameter("storeNo"));
 		for(int i=0;i<category.length;i++) {
 			
 		Map<String,Object> map = new HashMap();
 		map.put("mt_name",category[i]);
+		map.put("s_no",storeNo);
 		int result = service.insertCategory(map);
 		}
 		return "";
 	}
 	@RequestMapping("/licensee/selectCategory")
 	@ResponseBody
-	public List<MenuCategory> selectCategory() {
+	public List<MenuCategory> selectCategory(int s_no) {
 		//카테고리조회		
-		List<MenuCategory> list = service.selectCategory();
+		List<MenuCategory> list = service.selectCategory(s_no);
+		
 		return list;
 	}
 	
 	@RequestMapping("/licensee/selectOption")
 	@ResponseBody
-	public List<Side> selectOption() {
+	public List<Side> selectOption(int s_no) {
 		//추가옵션 조회
-		int sNo = 1;
-		List<Side> list = service.selectOption(sNo);
+		List<Side> list = service.selectOption(s_no);
 		return list;
+		
 	}
 	
 	

@@ -13,6 +13,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.Store;
 
 @Service
 public class LicenseeServiceImpl implements LicenseeService {
@@ -48,10 +49,10 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.insertSide(session, map);
 	}
 	@Override
-	public List<Side> selectOption(int sNo) {
+	public List<Side> selectOption(int s_no) {
 		// TODO Auto-generated method stub
 		
-		return dao.selectOption(session,sNo);
+		return dao.selectOption(session,s_no);
 	}
 	@Override
 	public int insertCategory(Map<String, Object> map) {
@@ -59,9 +60,9 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.insertCategory(session,map);
 	}
 	@Override
-	public List<MenuCategory> selectCategory() {
+	public List<MenuCategory> selectCategory(int s_no) {
 		// TODO Auto-generated method stub
-		return dao.selectCategory(session);
+		return dao.selectCategory(session, s_no);
 	}
 
 	@Override
@@ -76,7 +77,8 @@ public class LicenseeServiceImpl implements LicenseeService {
 		
 			if(result>0) {
 				 meNo = dao.selectMenu(session);
-				for(MenuSide ms : list) {					
+				 
+				for(MenuSide ms : list) {		
 					ms.setMe_no(meNo);
 				result = dao.insertMenuSide(session,ms);
 				}
@@ -84,6 +86,14 @@ public class LicenseeServiceImpl implements LicenseeService {
 
 		return result;
 		}
+
+	@Override
+	public List<Store> selectStore(int bNo) {
+		// TODO Auto-generated method stub
+		return dao.selectStore(session,bNo);
+	}
+	
+	
 
 	}
 	
