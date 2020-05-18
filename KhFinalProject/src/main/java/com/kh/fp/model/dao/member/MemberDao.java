@@ -17,6 +17,12 @@ public interface MemberDao {
 	
 	Member selectMemberName(SqlSessionTemplate session, String name);
 	
+	int updateMemberPw(SqlSessionTemplate session,Member m);
 	
+	int updateBusinessPw(SqlSessionTemplate session,Business b);
+	
+	Member selectMemberId(SqlSessionTemplate session, String m_email);
+	
+	Business selectBusinessId(SqlSessionTemplate session, String b_email);
 
 }

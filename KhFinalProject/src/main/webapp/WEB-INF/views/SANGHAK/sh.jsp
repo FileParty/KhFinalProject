@@ -63,7 +63,7 @@
         <td width="400px" ><b style="padding:10px;font-size: 24px;">클래식 치즈판타지L 세트</b><br><br>
                 클래식 치즈판타지L+고르곤졸라 치즈볼+펩시 1.25L 세트</td>
         <td>1</td>
-        <td>43,700원</td>
+        <td>${newOrder[0]['price']} </td>
         <td style="color:red;">2500원</td>
         <td>46,200원</td>
       </tr>
@@ -229,7 +229,8 @@
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" readonly><br> <br></td>
+  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
+			value="${addr } "  readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
@@ -284,7 +285,7 @@
 	                              <tr>
 	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large>
 	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large> <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small></td>
-	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">- ${c['cn_price'] }원 </large>
+	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_price'] }</large>
 	                               
 	                                </td>
 	               
@@ -349,9 +350,10 @@
     <input style="padding-right:20px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
   
-     <input type="checkbox"   onchange="check2(this)" > <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
+     <input type="checkbox"   onchange="check2(this)" > 
+     <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
       <div style="display: inline;padding-left: 7px;">(보유 포인트
-      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}">point)
+      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}" readonly>point)
       </div>
       <br>
     </td>
@@ -395,7 +397,7 @@
       <table style="width: 340px; height: auto;font-weight: bold;font-size: 20px;">
         <tr style="height:40px">
             <td>상품금액</td>
-            <td id="td1234"style="width: 155px;text-align: right;">43,700원</td>
+            <td id="td1234"style="width: 155px;text-align: right;font-size: 21px;">43700 원</td>
         </tr>
        <!--  <tr style="height:40px">
             <td>할인금액</td>
@@ -403,19 +405,20 @@
         </tr> -->
         <tr style="height:40px">
           <td>쿠폰 사용금액</td>
-          <td style="color: red;text-align: right;"><div class="" id="ex2_Result3">0원</div></td>
+          <td style="color: red;text-align: right;"><div class="" id="ex2_Result3" style="
+    font-size: 21px;">0원</div></td>
          </tr>
          <tr style="height:40px">
            <td>포인트 사용금액</td>
           <!--분기처리하고싶음. 모두사용체크도있으 input만 보이고 체크안되있으면 div만 보이게   -->
             <td style="text-align: right;">
-            	<div class="def" style="color:red;font-weight:bold;height: 20px;text-align: right;">0point</div>
-            	<input style="text-align: right; color:red; font-weight:bold;width:65px;border:1px solid white;" type="text"id="allpay4" class="invisible" >
+            	<div class="def" id="def123" style="color:red;font-weight:bold;height: 20px;text-align: right;font-size: 21px;margin-top: -11px;">0원</div>
+            	<input style="text-align: right;color:red;font-weight:bold;width: 101px;border:1px solid white;margin-top: -6px;margin-right: -2px;font-size: 21px;" type="text"id="allpay4" class="invisible" readonly>
             </td>
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
-      <td style="text-align: right;">2,500원</td>
+      <td style="text-align: right;font-size: 21px;">2500 원</td>
   </tr>
           </table><br><hr>
                             <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -23px;height: 81px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
@@ -423,7 +426,7 @@
                               <a id="agree1" onclick="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
                               <div id="agree2" style="display:none;text-align:center;">
-                             	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;모두 동의합니다.
+                             	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
                           <button id="dopay"type="submit" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
@@ -844,13 +847,12 @@ $(".checkBtn").click(function(){
 		tdArr.push(td.eq(i).text());
 	});
 	
-	console.log("배열에 담긴 값 : "+tdArr);
 	
 	str +=
-			"<font color='red'>" + name + "</font>"	
+			"<font color='red'>-" + name +"원</font>"	
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
-	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  
+	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
 });
 
@@ -1145,27 +1147,34 @@ main {
      /*  $('.def').html(''); */
       $('#allpay4').removeClass('invisible'); //오른쪽사이드바 최종결제금액확인란에서 input(모두체크)안보이게
      $('.def').addClass('invisible');
-      $('#allpay4').val($('#allpay2').val());	//모든포인트를 오른쪽사이드바 최종결제금액확인란에
+      let a=$('#allpay2').val()
+      $('#allpay4').val(-a+' 원');	//모든포인트를 오른쪽사이드바 최종결제금액확인란에
       $(".abc").off("keyup");  //왼쪽 input에서 글쳐도 오른쪽바에 자동입력되는거 off
 
     } else{
 
     $('#allpay3').val('').attr("readonly",false).css("background-color","white");
-    $('#allpay4').val('');
+    $('#allpay4').val('0원');
+    $('#def123').html('0원');  //체크선택 후 다시헤제하면 div공간 비워지게하기
     $('#allpay4').addClass('invisible');
     $('.def').removeClass('invisible');
-    $(document).ready(function(){
+   
 
+    $(document).ready(function(){
 
     	$(".abc").click(function(){
     		
     	})
     	 $(".abc").keyup(function(){
 
-    	  
-
-    	   $(".def").text($(".abc").val());
-
+    		 if($("#allpay3").val()<=${loginMember['m_point']}){
+			let a=$(".abc").val();
+    	   $(".def").text(-a+" 원");
+    		 }else{
+    			  alert("최대로 사용할 수 있는 point를 초과하였습니다.");
+    			  $("#allpay3").val('');
+    			  $(".def").text($(".abc").val());
+    		 }
 
     	 });
 
@@ -1203,15 +1212,24 @@ main {
   <!--======================포인트 자동 주문표에 입력스크립트============================== -->
   $(document).ready(function(){
 
-
-$(".abc").click(function(){
+	$(".abc").click(function(){
 	
 })
  $(".abc").keyup(function(){
 
-  
+  if($("#allpay3").val()<=${loginMember['m_point']}){
+	  
+	  let a=$(".abc").val()
+	  $(".def").text(-a+" 원");
+	  
+  }else{
+	  alert("최대로 사용할 수 있는 point를 초과하였습니다.");
+	  $("#allpay3").val('');
+	  $(".def").text($(".abc").val());
+	
+  }
+ 
 
-   $(".def").text($(".abc").val());
 
 
  });

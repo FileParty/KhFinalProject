@@ -15,6 +15,21 @@ public interface MemberService {
 	
 	Member selectMemberName(String name);
 	
+	int updateMemberPw(Member m);
+	
+	int updateBusinessPw(Business b);
+	
+	Member selectMemberId(String m_email);
+	
+	Business selectBusinessId(String b_email);
+	
+	
+
+	
+	
+	
+	
+	
 	
 
 

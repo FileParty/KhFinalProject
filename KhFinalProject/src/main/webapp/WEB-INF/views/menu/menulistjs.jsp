@@ -12,17 +12,111 @@
 	<script>
 
 	$(function(){
+		console.log($(".rec_store"));
+		console.log($(".rec-items").length);
+		//최근 목록 상세페이지 연결'
+		
+		var currentPage = 0;
+		var changePage = function(){
+			$(".rec-container").animate({
+				top: -currentPage * 368
+			}, 500);
+		};
+		
+		$(".rec-btn-top").click(function(){
+			if(currentPage > 0){
+				currentPage = currentPage - 1;
+				changePage();
+				console.log(currentPage);
+			}
+		});
+		
+		$(".rec-btn-bottom").click(function(){
+			if(currentPage < $(".rec-items").length-1 ){
+				currentPage = currentPage + 1;
+				changePage();
+				console.log(currentPage);
+			}
+		});
+		
+		$(".rec-cancel").click(function(e){
+			
+			/* $(this).parent().remove();
+			
+			if($(".rec-item").length%4==0){
+				$(this).parent().parent().remove();
+			} */
+			
+			var no = $(this).siblings("input").val();
+			console.log(no);
+			$.ajax({
+				url:"${pageContext.request.contextPath}/menu/recDelete.do",
+				data: {
+					no : no
+				},
+				success: function(data){
+					console.log(data['flag']);
+					console.log(data);
+					if(data['flag']==true){
+						console.log($(e.target).parent().parent());
+						console.log($(e.target).parent().parent().parent());
+						
+						
+						console.log($(".rec-item").length);
+						
+						if($(".rec-item").length%4==1){
+							$(e.target).parent().parent().parent().remove();
+							
+							if(currentPage > 0){
+								currentPage = currentPage - 1;
+								changePage();
+								console.log(currentPage);
+							}
+						}else{
+							$(e.target).parent().parent().remove();
+						}  
+					}
+				}
+			})
+			
+		});
+		
+		$(".rec_store").click(function(){
+			var no = $(this).siblings("input").val();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val(); 
+		
+			console.log(no);
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
+		});
+		
+		//최근 목록 호버시 삭제버튼 나오게 하기
+		$(".rec-item").hover(function(){
+			$(this).find(".rec-cancel").removeClass("invisible");
+		},function(){
+			$(this).find(".rec-cancel").addClass("invisible");
+		});
 		
 		//페이지 로드되었을 때 메뉴-ul active 추가
 		$(".list-group-item").siblings().removeClass("active");
 		
-
+		//상세페이지 매핑 시켜주기
 		$(".food-category").click(function(){
 			var no = $(this).find("span").html();
+			var c = $("#menu-category").val();
+			var sortType = $("#sortType").val();
+			var search = $("#search").val();
+			var cPage = $("#cPage").val();
 			
 			no = $.trim(no);
+			c = $.trim(c);
+			sortType=$.trim(sortType);
+			search=$.trim(search);
+			cPage=$.trim(cPage);
 			
-			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no);
+			location.replace('${pageContext.request.contextPath}/menu/menuDetailView?no='+no+'&category='+c+'&sortType='+sortType+'&search='+search+'&cPage='+cPage);
 		});
 		
 		$.each($(".list-group-item"), function(i,v){			
@@ -79,6 +173,10 @@
 		//페이지리스트 출력 ajax 처리
 		$(".list-group-item").click(function(e){
 			var menuCategory = $(this).html();
+			$("#menu-category").val(menuCategory);
+			$("#sortType").val('');
+			$("#search").val('');
+			$("#cPage").val('');
 			
 			$.ajax({
 				url:"${pageContext.request.contextPath}/menu/menuFilter.do",
@@ -117,32 +215,54 @@
 							var info = v;	
 							console.log(info);
 							//로고 이미지
-							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 							
 							//상호명
-							$(".name-"+i).html(info['s_NAME']);
+							$(".name-"+i).html(info['s_Name']);
 							
 							//별점
-							$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 							
 							//리뷰
-							$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+							$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 							
 							//최소 배달 금액
-							$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+							$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 							
 							//배달 시간
-							var plus = info['s_TIME']+5;
-							$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
+							var plus = info['s_Time']+5;
+							$(".time-"+i).html(info['s_Time']+'~'+plus+'분');	
+							
+							//배달 시간
+							var plus = info['s_Time']+5;
+							$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 							
 							//영업 상태
-							var status = info['s_OPENSTATUS'];
-							if (status=='Y') status='영업중';
-							else status="영업 준비중";
+							//시간 포맷팅
+							Date.prototype.hhmmss = function() {
+						      var hh = this.getHours().toString();
+						      var mm = this.getMinutes().toString();
+						      var ss = this.getSeconds().toString();
+						      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+						  	}
+							
+							var start = new Date(info['s_StartTime']);
+							var end = new Date(info['s_EndTime']);
+							var now = new Date();
+							
+							var status='';
+							
+							start = start.hhmmss();
+							end = end.hhmmss();
+							now = now.hhmmss();
+								
+							if(start<now && now<end) status = '영업중';
+							else status = '영업 준비중';
+							
 							$(".status-"+i).html(status);
 							
 							//가게 번호
-							$(".store-no-"+i).html(info['s_NO']);
+							$(".store-no-"+i).html(info['s_No']);
 					}); 
 					 
 					//unvisibility 처리
@@ -179,19 +299,19 @@
 	$("#btn-search").click(function(){
 		var name = $("#search-name").val();
 		var category = $(".active").eq(0).html();
+		var sort = $("#sortType").val();
+		
+		//hidenn에 추가
+		$("#search").val(name);
 			
-		console.log(category);
 		$.ajax({
 			url:"${pageContext.request.contextPath}/menu/menuFilter.do",
 			data: {
+				"sortType":sort,
 				"search":name,
 				"menuCategory":category	
 			},
 			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
 				
 				//row
 				for(var i=1; i<=5; i++){
@@ -213,32 +333,55 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 						
 						//상호명
-						$(".name-"+i).html(info['s_NAME']);
+						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 						
 						//리뷰
-						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 						
 						//최소 배달 금액
-						$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+						$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 						
 						//배달 시간
-						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');	
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');	
+						
+						//배달 시간
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
+						
+						var start = new Date(info['s_StartTime']);
+						var end = new Date(info['s_EndTime']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
-						$(".store-no-"+i).html(info['s_NO']);
+						$(".store-no-"+i).html(info['s_No']);
 				}); 
 				 
 				//unvisibility 처리
@@ -269,12 +412,17 @@
 	//드랍다운 선택시 바꾸기
 	$(".dropdown-item").click(function(e){
 		var val = $(this).html();
+		
+		//hidden 태그에 추가
+		$("#sortType").val(val);
+		
 		console.log(val);
 		$(this).parent().prev().html(val);
 		
-		var name = $("#search-name").val();
+		var name = $("#search").val();
 		var category = $(".active").eq(0).html();
-		var sort = $(e.target).html();
+		//var sort = $(e.target).html();
+		var sort = $("#sortType").val();
 		
 		console.log(sort);
 		
@@ -285,12 +433,7 @@
 				"search":name,
 				"menuCategory":category	
 			},
-			success: function(data){
-				
-				console.log(data['list']);
-				console.log(data['pageBar']);
-						
-				
+			success: function(data){	
 				//row
 				for(var i=1; i<=5; i++){
 					$(".category-row-"+i).removeClass("d-none");
@@ -311,34 +454,51 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LOGIMG']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
 						
 						//상호명
-						$(".name-"+i).html(info['s_NAME']);
+						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+parseFloat(info['s_SCORE']));
+						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
 						
 						//리뷰
-						$(".review-"+i).html('리뷰 '+info['s_REVIEWCOUNT']);
+						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 						
 						//최소 배달 금액
-						$(".limit-price-"+i).html(info['s_LIMITPRICE']+' 이상 배달');
+						$(".limit-price-"+i).html(info['s_LimitPrice']+' 이상 배달');
 						
 						//배달 시간
-						var plus = info['s_TIME']+5;
-						$(".time-"+i).html(info['s_TIME']+'~'+plus+'분');
+						var plus = info['s_Time']+5;
+						$(".time-"+i).html(info['s_Time']+'~'+plus+'분');
 						
 						//영업 상태
-						var status = info['s_OPENSTATUS'];
-						console.log('====상태====');
-						console.log(status);
-						if (status=='Y') status='영업중';
-						else status="영업 준비중";
+						//시간 포맷팅
+						Date.prototype.hhmmss = function() {
+					      var hh = this.getHours().toString();
+					      var mm = this.getMinutes().toString();
+					      var ss = this.getSeconds().toString();
+					      return (hh[1] ? hh : "0" + hh[0]) + ":" + (mm[1] ? mm : "0" + mm[0]) + ":" + (ss[1] ? ss : "0" + ss[0]);
+					  	}
+						
+						var start = new Date(info['s_StartTime']);
+						var end = new Date(info['s_EndTime']);
+						var now = new Date();
+						
+						var status='';
+						
+						start = start.hhmmss();
+						end = end.hhmmss();
+						now = now.hhmmss();
+							
+						if(start<now && now<end) status = '영업중';
+						else status = '영업 준비중';
+						
 						$(".status-"+i).html(status);
+							
 						
 						//가게 번호
-						$(".store-no-"+i).html(info['s_NO']);
+						$(".store-no-"+i).html(info['s_No']);
 				}); 
 				 
 				//unvisibility 처리

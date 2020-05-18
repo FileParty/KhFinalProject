@@ -11,31 +11,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Store {
 	
-	private int S_NO;
-	private String S_ADDR;
-	private String S_NAME;
-	private int S_LIMITPRICE;
-	private String S_PAYOPT;
-	private String S_TEXT;
-	private String S_PHONE;
-	private String S_OPENSTATUS;
-	private String S_ENROLLSTATUS;
-	private String S_ORIFOODINFO;
-	private String S_LOGIMG;
-	private String S_X;
-	private String S_Y;
+	private int s_No;
+	private String s_Addr;
+	private String s_Name;
+	private int s_LimitPrice;
+	private String s_Paypot;
+	private String s_Text;
+	private String s_Phone;
+	private String s_OpenStatus;
+	private String s_EnrollStatus;
+	private String s_OriFoodInfo;
+	private String s_LogImg;
+	private String s_X;
+	private String s_Y;
 	//private double S_SCORE;//
-	private int S_TASTE;
-	private int S_AMOUNT;
-	private int S_DELIVERY;
+	private int s_Taste;
+	private int s_Amount;
+	private int s_Delivery;
 	
-	private int S_TIME;
-	private int S_REVIEWCOUNT;//
-	private int B_NO;
-	private String S_HOLIDAY;
-	private String S_COUPON;
-	private Date S_STARTTIME;
-	private Date S_ENDTIME;
+	private int s_Time;
+	private int s_ReviewCount;//
+	private int b_No;
+	private String s_Holiday;
+	private String s_Coupon;
+	private String s_StartTime;
+	private String s_EndTime;
 	
 	//private String CT_NAME;
 	//private double distance;

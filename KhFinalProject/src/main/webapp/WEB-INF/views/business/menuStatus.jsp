@@ -29,7 +29,7 @@
             <div class="col-lg-10" id="main">
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
-                        	<a href="${path }/licensee/menuEnroll" class="list nav-link">메뉴 등록</a>
+                        	<a href="${path }/licensee/menuEnroll" class="list nav-link" onclick="storeNo();">메뉴 등록</a>
                         </li>
                          <li class="nav-item">
                         	<a href="${path }/licensee/menuStatus" class="list nav-link active">메뉴 관리</a>
@@ -53,5 +53,9 @@
                  
             </div>
    		</div>
+   		<script>
+   		function storeNo() { 
+		}
+   		</script>
    	</section>
    	<%@include file="../common/footer.jsp" %>

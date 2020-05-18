@@ -6,10 +6,14 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.fp.controller.business.model.dao.LicenseeDao;
+import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.Store;
 
 @Service
 public class LicenseeServiceImpl implements LicenseeService {
@@ -45,10 +49,10 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.insertSide(session, map);
 	}
 	@Override
-	public List<Side> selectOption(int sNo) {
+	public List<Side> selectOption(int s_no) {
 		// TODO Auto-generated method stub
 		
-		return dao.selectOption(session,sNo);
+		return dao.selectOption(session,s_no);
 	}
 	@Override
 	public int insertCategory(Map<String, Object> map) {
@@ -56,9 +60,41 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.insertCategory(session,map);
 	}
 	@Override
-	public List<MenuCategory> selectCategory() {
+	public List<MenuCategory> selectCategory(int s_no) {
 		// TODO Auto-generated method stub
-		return dao.selectCategory(session);
+		return dao.selectCategory(session, s_no);
+	}
+
+	@Override
+	@Transactional
+	public int insertMenu(Menu m,List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		int meNo =0;
+		
+		
+		result = dao.insertMenu(session,m);
+		
+			if(result>0) {
+				 meNo = dao.selectMenu(session);
+				 
+				for(MenuSide ms : list) {		
+					ms.setMe_no(meNo);
+				result = dao.insertMenuSide(session,ms);
+				}
+			}
+
+		return result;
+		}
+
+	@Override
+	public List<Store> selectStore(int bNo) {
+		// TODO Auto-generated method stub
+		return dao.selectStore(session,bNo);
+	}
+	
+	
+
 	}
 	
 	
@@ -69,4 +105,6 @@ public class LicenseeServiceImpl implements LicenseeService {
 	
 	
 	
-}
+	
+	
+

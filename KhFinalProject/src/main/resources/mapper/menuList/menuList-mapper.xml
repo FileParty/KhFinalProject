@@ -3,7 +3,7 @@
 <mapper namespace="menuList">
 	<select id="selectMenuList" resultType="menuList" parameterType="map">
 		select * from 
-		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance 
 		 from (select * from store)a) where 1=1
 		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
@@ -24,7 +24,7 @@
 	
 	<select id="selectMenuListFilter" resultType="menuList" parameterType="map">
 		select * from 
-		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance 
 		 from (select * from store)a) where 1=1
 		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
@@ -45,7 +45,7 @@
  
  	<select id="selectMenuCount" resultType="_int" parameterType="map">
 		select count(*) from 
-		(select a.*, DISTNACE_WGS84(${xl}, ${yl}, S_Y, S_X) as distance 
+		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance 
 		 from (select * from store)a) where 1=1
 		<if test="category != null and category != '' and category!= '전체'"> 
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))

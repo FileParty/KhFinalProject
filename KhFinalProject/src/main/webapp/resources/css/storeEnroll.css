@@ -99,5 +99,13 @@
 	}
 	
 
+	.empty-store{
+		position: relative;
+		top: 50px;
+		left: 180px;
+	}
 	
+	pre{
+		width:700px;
+	}
 	
