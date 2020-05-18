@@ -42,14 +42,13 @@
 		
 		</div>
 		<div class="row headerrow">
-			<div class="col-3">
-				<img class="rounded-circle" style="margin:5px;width:85px;height:85px;cursor: pointer;"
+			<div class="col-4">
+			</div>
+			<div class="col-4 d-flex" style="align-items: center;justify-content: center;">
+				<img class="rounded-circle" style="margin:5px;width:100px;height:100px;cursor: pointer;"
 					alt="rogo" src="${pageContext.request.contextPath }/resources/img/king.png" onclick="location.replace('${path}')">
 			</div>
-			<div class="col-3">
-			</div>
-			<div class="col-3"></div>
-			
-			<div class="col-3"></div>
+			<div class="col-4"></div>
+
 		</div>
 	</header>
