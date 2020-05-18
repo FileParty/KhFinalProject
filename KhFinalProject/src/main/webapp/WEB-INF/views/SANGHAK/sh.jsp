@@ -63,7 +63,7 @@
         <td width="400px" ><b style="padding:10px;font-size: 24px;">클래식 치즈판타지L 세트</b><br><br>
                 클래식 치즈판타지L+고르곤졸라 치즈볼+펩시 1.25L 세트</td>
         <td>1</td>
-        <td>${newOrder} </td>
+        <td>${newOrder[0]['price']} </td>
         <td style="color:red;">2500원</td>
         <td>46,200원</td>
       </tr>
