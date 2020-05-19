@@ -24,4 +24,6 @@ public interface LicenseeDao {
 	int selectMenu(SqlSessionTemplate session);
 	int insertMenuSide(SqlSessionTemplate session,MenuSide ms);
 	List<Store> selectStore(SqlSessionTemplate session,int bNo);
+	List<Store> selectStoreList(SqlSessionTemplate session,int b_no);
+	List<Menu> selectMenuList(SqlSessionTemplate session,int s_no);
 }

@@ -82,6 +82,22 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectList("licensee.selectStoreNo",bNo);
 	}
+
+	@Override
+	public List<Store> selectStoreList(SqlSessionTemplate session, int b_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectStoreList",b_no);
+	}
+
+	@Override
+	public List<Menu> selectMenuList(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectMenuList",s_no);
+	}
+	
+	
+	
+	
 	
 	
 	

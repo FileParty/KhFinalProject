@@ -15,6 +15,8 @@
 			
 	}
 </style>
+
+
 <section>
 	<div class="container d-flex justify-content-center">
 		<div class="login-container"  style="margin-top:50px;">
@@ -47,7 +49,7 @@
 						<input type="submit" class="btn btn-outline-dark" value="로그인" style="width:400px; margin-top:30px;">
 					</form>
 					<div class="d-flex" style="margin-top:30px; margin-left:10px; margin-right:10px;">
-						<button class="btn btn-outline-dark" onclick="location.replace('${path}/member/enroll.do')" style="width:200px;">Kakao 로그인</button>
+						<button class="btn btn-outline-dark" onclick="location.replace('${url }')" style="width:200px;">Naver 로그인</button>
 						<button class="btn btn-outline-dark" onclick="location.replace('${path}/member/enroll.do')" style="width:200px;">Google 로그인</button>	
 					</div>
 					<div class="" style="margin:30px;">
@@ -104,5 +106,7 @@
 	</script>
 	
 </section>
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
