@@ -60,14 +60,16 @@
           width: 120px;
           height: 100px;">
         </td>
-        <td width="400px" ><b style="padding:10px;font-size: 24px;">${newOrder[0]['name']}</b><br><br>
-               ${newOrder[0]['reqOp']} ${newOrder[0]['unReqOp']}</td>
-        <td>${newOrder[0]['count']}</td>
-        <td>${newOrder[0]['price']}</td><!-- ${newOrder[0]['price']} -->
+        <td width="400px" ><b style="padding:10px;font-size: 24px;">${orderList[0]['name']}</b><br><br>
+               ${orderList[0]['reqOp']} ${orderList[0]['unReqOp']}</td>
+        <td>${orderList[0]['count']}</td>
+        <td>${orderList[0]['price']}</td><!-- ${newOrder[0]['price']} -->
         <td style="color:red;">2500원</td>
         <td>46,200원</td>
       </tr>
-  
+  <script>
+   console.log("1234",${orderList});
+  </script>
       
       
     </tbody>
@@ -1337,7 +1339,7 @@ detectBackdropClick = (event) => {
 
 
 <!--=============================form 태그 스트립트 널값인거 예외처리하기 =========checkedNull()========================== -->
-checkedNull()
+
 </script>
 
 <style>
