@@ -699,8 +699,10 @@
 	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
+
 	        			location.reload();
 	        			location.replace("${path}/pay/paylist.do");
+
 	        		},
 	        		error:function(a,b,c){
 	        			console.log(a);
