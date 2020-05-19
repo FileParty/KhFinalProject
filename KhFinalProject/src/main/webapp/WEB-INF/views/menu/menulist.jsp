@@ -136,11 +136,11 @@
 		 		<div class="category-${j==1?2*(i-1):i*j-1} food-category col-5 ${2*(i-1)>=list.size() || i*j-1>=list.size() ? 'invisible':'d-flex' } align-items-center border border-secondary p-0 mr-5" style="height:130px">	 					
  					<div class="mr-4 ml-2">
  						<c:if test="${j==1 && 2*(i-1)<list.size()}">
- 							<img src="${pageContext.request.contextPath }/resources/img/${list.get(2*(i-1)).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
+ 							<img src="${pageContext.request.contextPath }/resources/upload/store/${list.get(2*(i-1)).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${2*(i-1)}" style="height:115px; width:115px;"/>												
 						</c:if>
 						
 						<c:if test="${j==2 && i*j-1<list.size()}">
-							<img src="${pageContext.request.contextPath }/resources/img/${list.get(i*j-1).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>		 								
+							<img src="${pageContext.request.contextPath }/resources/upload/store/${list.get(i*j-1).getS_LogImg()}" class="img-thumbnail shadow-lg log-img-${i*j-1}" style="height:115px; width:115px;"/>		 								
 						</c:if>
  						 
  						 <c:if test="${j==1 && 2*(i-1)>=list.size()}">
@@ -215,17 +215,26 @@
  									<span class="mr-2 text-warning score-${j==1?2*(i-1):i*j-1}">
 	 									<c:if test="${j==1 && 2*(i-1)<list.size()}">												
 		 										★
-		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
-		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>
-		 										
-		 										<fmt:formatNumber value="${score }" pattern=".00"/>					
+		 										<c:if test="${list.get(2*(i-1)).getS_ReviewCount() != 0 }">
+		 											<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
+		 											<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>
+		 											<fmt:formatNumber value="${score }" pattern=".00"/>	
+		 										</c:if>
+		 										<c:if test="${list.get(2*(i-1)).getS_ReviewCount() == 0 }">
+		 											<c:out value="0"/>
+		 										</c:if>							
 		 								</c:if>
 		 								
 		 								<c:if test="${j==2 && i*j-1<list.size()}">	
 		 										★
-		 										<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
-		 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>						
-		 										<fmt:formatNumber value="${score }" pattern=".00"/>	
+		 										<c:if test="${list.get(2*(i-1)).getS_ReviewCount() != 0 }">
+			 										<c:set var = "score" value="${list.get(2*(i-1)).getS_Taste() + list.get(2*(i-1)).getS_Amount() + list.get(2*(i-1)).getS_Delivery()}"/>						
+			 										<c:set var = "score" value="${score/3/list.get(2*(i-1)).getS_ReviewCount() }"/>						
+			 										<fmt:formatNumber value="${score }" pattern=".00"/>	
+		 										</c:if>
+		 										<c:if test="${list.get(2*(i-1)).getS_ReviewCount() == 0 }">
+		 											<c:out value="0"/>
+		 										</c:if>
 		 								</c:if>
 	 								</span>
  								</div>

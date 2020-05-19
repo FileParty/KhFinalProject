@@ -40,13 +40,6 @@
 		});
 		
 		$(".rec-cancel").click(function(e){
-			
-			/* $(this).parent().remove();
-			
-			if($(".rec-item").length%4==0){
-				$(this).parent().parent().remove();
-			} */
-			
 			var no = $(this).siblings("input").val();
 			console.log(no);
 			$.ajax({
