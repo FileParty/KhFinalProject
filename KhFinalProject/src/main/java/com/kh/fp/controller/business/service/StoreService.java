@@ -14,4 +14,5 @@ public interface StoreService {
 	List<Map<String, Object>> getStoresDetailfiles(int no);
 	Map<String, Object> getStoresUpdate(int no);
 	int storeUpdate(StoreEnroll s);
+	List<Map<String, Object>> getStoresInfo(int no);
 }

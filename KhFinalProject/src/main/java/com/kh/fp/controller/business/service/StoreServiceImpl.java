@@ -54,7 +54,11 @@ public class StoreServiceImpl implements StoreService {
 					
 		}
 		
+		result = dao.insertBestCategory(session,se.getSno());
 		
+		if(result==0) {
+			throw new MyException("대표 메뉴 카테고리 등록 에러!");
+		}
 		
 		if(!files.isEmpty()) {
 			for(String f : files) {
@@ -140,7 +144,13 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
+	@Override
+	public List<Map<String, Object>> getStoresInfo(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStoresInfo(session,no);
+	}
 
+	
 	
 	
 	

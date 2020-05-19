@@ -18,4 +18,6 @@ public interface StoreDao {
 	Map<String, Object> getStoresUpdate(SqlSessionTemplate session, int no);
 	int storeUpdate(SqlSessionTemplate session,StoreEnroll s);
 	int deleteCategory(SqlSessionTemplate session,int no);
+	int insertBestCategory(SqlSessionTemplate session,int no);
+	List<Map<String, Object>> getStoresInfo(SqlSessionTemplate session,int no);
 }

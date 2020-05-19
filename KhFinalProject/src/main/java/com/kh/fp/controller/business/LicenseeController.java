@@ -44,10 +44,7 @@ public class LicenseeController {
 	@Autowired
 	Logger logger;
 	
-	@RequestMapping("/licensee/mypage")
-	public String myPage() {
-		return "business/mypage";
-	}
+	
 	@RequestMapping("/licensee/storeEnroll")
 	public String storeEnroll() {
 		//매장등록

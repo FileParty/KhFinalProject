@@ -70,6 +70,19 @@ public class StoreDaoImpl implements StoreDao {
 		return session.delete("store.deleteCategory",no);
 	}
 
+	@Override
+	public int insertBestCategory(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.insert("store.insertBestCategory",no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresInfo(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return  session.selectList("store.getStoresInfo",no);
+	}
+
+	
 	
 
 	

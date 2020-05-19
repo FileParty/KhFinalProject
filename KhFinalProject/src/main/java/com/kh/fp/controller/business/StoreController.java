@@ -176,5 +176,25 @@ public class StoreController {
 		return mv;
 	}
 	
+	@RequestMapping("/store/mypage")
+	public ModelAndView myPage(ModelAndView mv,HttpSession session) {
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_no());
+		System.out.println(stores);
+		mv.addObject("stores",stores);
+		
+		mv.setViewName("business/mypage");
+		return mv;
+	}
+	
 	
 }
