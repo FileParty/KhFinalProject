@@ -15,7 +15,7 @@
 
 	 <div class="topnav">
 
-		<a href="${path }/licensee/mypage">사업자 피파 바페도아닌 마페</a>
+		<a href="${path }/store/mypage">사업자 피파 바페도아닌 마페</a>
 		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
 		<a href="${path }/pay/paylist.do">결제 리스트</a>
 		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a>
@@ -25,7 +25,7 @@
 
 	</div>
 	
-	<div class="foodimg" style="background-image: url('https://lh3.googleusercontent.com/proxy/f8zWYC1BQLFQZbXeXldGsFXaKvoYIWMOL5zQAN47gQOQBgIkhMx4uHJfo2doEqPaHb-smbOeLPK3GgC3ig0gzdEWdeM3Yg-_zhQm5H69YyEru9nxUyT5QLWGu006ymR7Tq5nO3Hysnz_BA') ">
+	<div class="foodimg" style="background-image: url('${path}/resources/img/index/in11.jpg') ">
 		<div class="index-search-title contr"  >
 					
 					<h2 style="color: white;" >`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
@@ -77,48 +77,48 @@
 			
 					<div class="index-category-img" onclick="selectCategory('전체');">
 							<div class="index-category-title">전체보기</div>
-							<img src="${path }/resources/img/all.jpg" alt="전체보기" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in10.jpg" alt="전체보기" width="100%" height="210px">	
 					</div>
 			
 				
 					<div class="index-category-img" onclick="selectCategory('치킨');">
 							<div class="index-category-title">치킨</div>
-							<img src="https://t1.daumcdn.net/liveboard/interbiz/724b01edcbeb44dfa3fe10a3dbbda51f.JPG" alt="치킨" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in3.jpg" alt="치킨" width="100%" height="210px">	
 					</div>
 					
 					<div class="index-category-img" onclick="selectCategory('피자');">
 							<div class="index-category-title">피자</div>
-							<img src="https://img.insight.co.kr/static/2019/02/18/700/zh24a1826a58kagm5nbg.jpg" alt="피자" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in4.jpg" alt="피자" width="100%" height="210px">	
 					</div>
 					
 					
 					<div class="index-category-img" onclick="selectCategory('중국집');">
 							<div class="index-category-title">중국집</div>
-							<img src="https://newsimg.sedaily.com/2019/06/21/1VKI590CSR_2.jpg" alt="중국집" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in5.jpg" alt="중국집" width="100%" height="210px">	
 					</div>
 					
 					<div class="index-category-img" onclick="selectCategory('분식');">
 							<div class="index-category-title">분식</div>
-							<img src="https://t3.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2OhT/image/Fqn1aBvHzQGzKW0cOignqcX_XuA" alt="분식" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in6.jpg" alt="분식" width="100%" height="210px">	
 					</div>
 						
 					<div class="index-category-img" onclick="selectCategory('한식');">
 							<div class="index-category-title">한식</div>
-							<img src="https://lh3.googleusercontent.com/proxy/oqRIRdWLE07iFT1m3ZVGvo5gB4csFg0VN7v6M1rLfIwTPhxG7WKjXIqwFnU4wmo1J12PLhBK4dTgrjPB4idc88x5-LnWWv-yZan0B8HcIuXcelVJOaUpV3leXJIG51kQBCyycQjpitkkFjxitMfqkXSK3KZcEIJJc6Zae6Ip_qbOOAgTEOOwOVE8jZ2SNwWTtR0_B8SNUIXNGP5Pe0zZyDcGnyUsBzEN1N5SQynoZczI4V4mLEC3DDvVmWB01oEZq_6G_h4dR2kdzDe-h5682SWDKaR0nZtEiNHWnjsFqALTn5VpfUglY5VS-JyeMQOKdRvOKUuQA1j8i_RgDpZvnKacmKfjWfeNxJOCArEZwwjC7p0COg" alt="한식" width="100%" height="210px">
+							<img src="${path}/resources/img/index/in2.jpg" alt="한식" width="100%" height="210px">
 					</div>
 					
 					<div class="index-category-img" onclick="selectCategory('햄버거');">
 							<div class="index-category-title">햄버거</div>
-							<img src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/01/a0001010/img/basic/a0001010_main.jpg?20200317173246&q=80&rw=750&rh=536" alt="햄버거" width="100%" height="210px">	
+							<img src="${path}/resources/img/index/in7.jpg" alt="햄버거" width="100%" height="210px">	
 					</div>
 					
 					<div class="index-category-img" onclick="selectCategory('일식');">
 							<div class="index-category-title">일식</div>
-							<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F1260A6444D4ADBFD0E" alt="일식" width="100%" height="210px">
+							<img src="${path}/resources/img/index/in8.jpg" alt="일식" width="100%" height="210px">
 					</div>
 					
 					<div class="index-category-img" style="border: 1px solid #FFA7A7">
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS2mJLhb-e3ObUDOTqp-jzslYb4_G_dSk6S_ikh5i3NUYvPrrtF&usqp=CAU" alt="이미지" width="100%" height="250px">	
+							<img src="${path}/resources/img/index/in9.jpg" alt="이미지" width="100%" height="250px">	
 					</div>
 			</div>		
 		</div>

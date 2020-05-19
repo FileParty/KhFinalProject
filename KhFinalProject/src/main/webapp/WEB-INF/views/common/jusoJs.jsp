@@ -166,5 +166,13 @@ function selectCategory(data){
 	
 }
 
+$(".index-category-img").mouseover(function(){
+	$(this).children().css("color","black");
+})
+
+$(".index-category-img").mouseleave(function(){
+	$(".index-category-title").css("color","white");
+})
+
 
 </script>
