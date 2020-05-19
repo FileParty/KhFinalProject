@@ -635,7 +635,7 @@
 	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
-	        			location.href="${path}/pay/paylist.do";
+	        			//location.href="${path}/pay/paylist.do";
 	        		},
 	        		error:function(a,b,c){
 	        			console.log(a);

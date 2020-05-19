@@ -273,7 +273,7 @@
                 <div class="dialog__inner">
                 
                     <div class="dialog__content">
-                        <h3>쿠폰적용</h3><hr>
+                        <h3>쿠폰적용</h3> <button style="">모두취소</button><hr>
                        	
                           <table id="example-table-2" border="1" style="width:1150px;">
                               <tr>
@@ -859,6 +859,8 @@ $(".checkBtn").click(function(){
 			"<font color='red'>-" + name +"원</font>"	
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
+	
+	
 	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
 });
