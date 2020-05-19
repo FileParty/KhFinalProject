@@ -60,19 +60,26 @@
           width: 120px;
           height: 100px;">
         </td>
-        <td width="400px" ><b style="padding:10px;font-size: 24px;">클래식 치즈판타지L 세트</b><br><br>
-                클래식 치즈판타지L+고르곤졸라 치즈볼+펩시 1.25L 세트</td>
-        <td>1</td>
-        <td>${newOrder} </td><!-- ${newOrder[0]['price']} -->
+        <td width="400px" ><b style="padding:10px;font-size: 24px;">${orderList[0]['name']}</b><br><br>
+               ${orderList[0]['reqOp']} ${orderList[0]['unReqOp']}</td>
+        <td>${orderList[0]['count']}</td>
+        <td>${orderList[0]['price']}</td><!-- ${newOrder[0]['price']} -->
         <td style="color:red;">2500원</td>
         <td>46,200원</td>
       </tr>
-  
+  <script>
+   console.log("1234",${orderList});
+  </script>
       
       
     </tbody>
-    
-  </table>
+<!--          	this.src = src; // 메뉴이미지이름
+        	this.name = name; // 메뉴이름
+        	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
+        	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
+        	this.count = count; // 메뉴 갯수
+        	this.price = price; // 메뉴 가격
+ -->  </table>
   <hr style="width:1275px">
 </main>
 
@@ -1332,7 +1339,7 @@ detectBackdropClick = (event) => {
 
 
 <!--=============================form 태그 스트립트 널값인거 예외처리하기 =========checkedNull()========================== -->
-checkedNull()
+
 </script>
 
 <style>

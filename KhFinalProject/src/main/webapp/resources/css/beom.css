@@ -7,7 +7,6 @@
 .s-store{
    display: flex;
    flex-direction: row;
-   margin-top: 40px;
 }
 
 .s-store-left{
@@ -209,7 +208,7 @@ aside.s-store-right-side-move{
 }
 
 #order-content-1{
-    height: 300px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -493,4 +492,22 @@ span.s-store-order-menu-price{
 	margin-right:auto;
 	margin-top:5px;
 	margin-left:10px;
+}
+
+img#s-store-order-title-delete-btn{
+	display:none;
+	margin:5px;
+	cursor: pointer;
+}
+
+button#s-store-list-return-btn{
+	font-size:16px;
+	font-weight:600;
+	margin-top:12px;
+	margin-left:26px;
+	border-radius:50%;
+	border:1px solid green;
+	background-color:lightyellow;
+	width:80px;
+	height:60px;
 }

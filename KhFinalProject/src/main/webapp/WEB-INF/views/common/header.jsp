@@ -27,7 +27,7 @@
 			 <c:if test="${loginMember==null}">
 			<div >
 				<span onclick="location.replace('${path}/member/login.do')">로그인</span>
-				<span onclick="location.replace('${path}/#')">회원가입</span>
+				<span onclick="location.replace('${path}/member/memberEnroll1.do')">회원가입</span>
 				<span onclick="location.replace('${path}/#')">주문표</span>
 			</div>
 			</c:if>

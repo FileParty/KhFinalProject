@@ -64,13 +64,23 @@
 						
 						console.log($(".rec-item").length);
 						
+						var co = $.trim($(".rec-count").html())-1;
+						
+						$(".rec-count").html(co);  
+						
 						if($(".rec-item").length%4==1){
+							//카운트 감소
+							
 							$(e.target).parent().parent().parent().remove();
 							
 							if(currentPage > 0){
 								currentPage = currentPage - 1;
 								changePage();
 								console.log(currentPage);
+							}
+							if(currentPage==0){
+								$(".rec-slider").addClass("d-none");
+								$(".rec-none").removeClass('d-none');
 							}
 						}else{
 							$(e.target).parent().parent().remove();
