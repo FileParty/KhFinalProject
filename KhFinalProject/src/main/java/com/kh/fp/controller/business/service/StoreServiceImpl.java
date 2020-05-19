@@ -1,21 +1,18 @@
 package com.kh.fp.controller.business.service;
 
-import java.lang.annotation.Target;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.fp.common.MyException;
 import com.kh.fp.controller.business.model.dao.StoreDaoImpl;
+import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Service
@@ -150,6 +147,20 @@ public class StoreServiceImpl implements StoreService {
 		return dao.getStoresInfo(session,no);
 	}
 
+	@Override
+	public List<Map<String, Object>> getSales(int no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Sales> getSales(Object no) {
+		// TODO Auto-generated method stub
+		return dao.getSales(session, no);
+	}
+
+	
+	
 	
 	
 	

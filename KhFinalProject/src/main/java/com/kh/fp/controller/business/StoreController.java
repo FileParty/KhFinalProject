@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.StoreService;
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Controller
@@ -189,9 +190,10 @@ public class StoreController {
 		}
 		
 		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_no());
-		System.out.println(stores);
-		mv.addObject("stores",stores);
 		
+		
+		mv.addObject("stores",stores);
+		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
 		mv.setViewName("business/mypage");
 		return mv;
 	}

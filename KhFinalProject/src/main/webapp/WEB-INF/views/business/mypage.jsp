@@ -1,8 +1,18 @@
+<%@page import="com.kh.fp.model.vo.Sales"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+	List<List<Sales>> sales = (List)request.getAttribute("sales");
+%>
 <style>
 		*{
-		 	border : 1px solid red; 
+		 	  /* border : 1px solid red;    */
 		}
 
 div#main {
@@ -11,9 +21,10 @@ div#main {
         }
         
         .first-storepage{
-        	height: 300px;
-        	margin-top: 20px;
+        	height: auto;
+        	margin-top: 40px;
         	text-align: center;
+        	
         }
         
         .s-order-history{
@@ -42,6 +53,13 @@ div#main {
       font-weight: 550;
       }
       
+      .graph{
+      	display: flex;
+       	justify-content: center;
+       	align-items: center;
+       	margin-top: 80px;
+      }
+      
 </style>
 	<%@ include file="../common/header.jsp" %> 
  	<section style="width:auto;height:auto;">
@@ -53,7 +71,7 @@ div#main {
  		<div>
  			<div class="first-storepage" >
  			<h2>나의 매장</h2>
- 				
+ 				<hr/>
  				<table>
                     	
                     		<tr>
@@ -79,14 +97,69 @@ div#main {
  			
  			
  			</div>
+ 			
  			<div class="first-storepage">
- 			<h2>매장 매출 그래프</h2>
+ 				<h2>매장 매출 그래프</h2><hr/>
+	 			<div class="graph">
+	 				<c:if test="${not empty sales}">
+	 				<div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
+	 				</c:if>
+	 				<c:if test="${empty sales}">
+	 					<h1>준비중</h1>
+	 				</c:if>	
+	 			</div>
  			</div>
+ 			
+ 			
  			<div class="first-storepage">
- 			<h2>주문 현황</h2>
+ 			<h2>주문 현황</h2><hr/>
  			</div>
+ 			
+ 			
  		</div>
  		
  	</div>
  	</section>
+ 	
+ 	
+ 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    <c:if test="${not empty sales}">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+	      function drawChart() {
+	    	  
+	        	var data = google.visualization.arrayToDataTable([
+	        		['month-day', 'Sales'],
+		      
+			      <c:forEach items="${sales}" var="l" varStatus="vs">
+			      	<c:if test='${vs.last}'>
+				      	['${l.orderDate.date}',${l.price}]
+			      	</c:if>
+			      	<c:if test='${not vs.last}'>
+			      		['${l.orderDate.date}',${l.price}],
+			      	</c:if>			      	
+			      	  </c:forEach>
+		      
+		    ]);
+			
+	        var options = {
+	          chart: {
+	            title: 'Delivery King Performance',
+	            subtitle: 'Sales : 2020 - ${sales[0].orderDate.month}',
+	          }
+	        };
+	  
+	
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+        
+      }
+	  	</c:if>
+    </script>
+ 	
  	<%@ include file="../common/footer.jsp" %> 
