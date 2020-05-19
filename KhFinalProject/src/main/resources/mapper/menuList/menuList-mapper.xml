@@ -27,6 +27,7 @@
 		select * from 
 		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance 
 		 from (select * from store)a) where 1=1
+		 and s_enrollstatus='Y'
 		<if test="category!=null and category!='' and category!='전체'">
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
@@ -48,6 +49,7 @@
 		select count(*) from 
 		(select a.*, DISTNACE_WGS84(${yl}, ${xl}, S_Y, S_X) as distance 
 		 from (select * from store)a) where 1=1
+		 and s_enrollstatus='Y'
 		<if test="category != null and category != '' and category!= '전체'"> 
 			and s_no in(select s_no from store_category where ct_no = (select ct_no from category where ct_name=#{category}))
 		</if>
