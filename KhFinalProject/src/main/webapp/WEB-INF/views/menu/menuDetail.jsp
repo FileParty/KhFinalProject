@@ -306,6 +306,7 @@
                         <h6>배달요금 2,500원 별도</h6>
                     </div>
                     <div class="s-store-order-delivery">
+                    	<input type="hidden" id="order-limit-price" value="${store['s_limitprice']}">
                         <h6>최소 주문금액 : <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원 이상</h6>
                     </div>
 					
@@ -315,7 +316,7 @@
                     </div>
 
                     <div class="s-store-order">
-                        <h3>주문하기</h3>
+                        <h3 style="cursor:pointer;" onclick="orderListEnd()">주문하기</h3>
                     </div>
                     
                 </aside>
@@ -393,13 +394,13 @@
 		let height = $("#order-content-2").height();
 		console.log(height);
 		
-		if(height>400){
-		    console.log("앙");
+		if(height>=320){
 		    $("#order-content-2").css({
-		        height : "300px",
+		        height : "320px",
 		        overflowY : "scroll"
 		    });
 		}else{
+			console.log("앙");
 		    $("#order-content-2").css({
 		        height : "auto",
 		        overflowY : "hidden"
@@ -604,9 +605,9 @@
         
         /* 주문표에 추가 */
         function addOrderList(){
-        	let finalPrice = $("#finalPrice_").val();
-        	let limitPrice = $("#limitPrice_").val();
-        	if(finalPrice>limitPrice){
+        	let finalPrice = Number($("#finalPrice_").val());
+        	let limitPrice = Number($("#limitPrice_").val());
+        	if(finalPrice>=limitPrice){
         		let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -646,24 +647,26 @@
 	        	orderContent += "</span>";
 	        	orderContent += "<br/>";
 	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
-	        	orderContent += '<input type="hidden" name="menuPrice" value="'+finalPrice+'">';
+	        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
 	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
 	        	orderContent += '<div class="s-store-order-count-controller-div">';
 	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
 	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn btn-success" onclick="orderCountMinus()">-</button>';
-	        	orderContent += '&nbsp;<strong class="order-count-check" style="font-size:20px;">'+menuCount+'</strong>';
-	        	orderContent += '&nbsp;<button class="btn btn-success" onclick="orderCountPlus()">+</button></div>';
+	        	orderContent += '<div><button class="btn" onclick="orderCountMinus()">-</button>';
+	        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
+	        	orderContent += '<button class="order-count-btns" onclick="orderCountPlus()"><img src="${path}/resources/img/menuDetail/plus_icon.png" width="30px" height="30px"/></button></div>';
 	        	orderContent += '</div>';
 	        	orderContent += '</div>';
 	        	let finalPriceCheck = Number($(".order-final-price").val());
 	        	finalPriceCheck += finalPrice
 	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
 	        	$(".order-final-price").val(finalPriceCheck);
+	        	$("#s-store-order-title-delete-btn").show();
 	        	orderDiv.append(orderContent);
 	        	oContent.append(orderDiv);
 	        	storeMenuModalClose();
 	        	orderListHeightCheck();
+	        	orderAllFinalPriceCacr();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -671,9 +674,9 @@
         
         /* 모달창에서 주문하기 */
         function orderModal(){
-        	let finalPrice = $("#finalPrice_").val();
-        	let limitPrice = $("#limitPrice_").val();
-        	if(finalPrice>limitPrice){
+        	let finalPrice = Number($("#finalPrice_").val());
+        	let limitPrice = Number($("#limitPrice_").val());
+        	if(finalPrice>=limitPrice){
 	        	let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -693,7 +696,7 @@
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
-	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
+	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice,finalPrice)];
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(newOrders)},
@@ -713,13 +716,14 @@
         	}
         }
         
-        function newOrder(src,name,reqOp,unReqOp,count,price){
+        function newOrder(src,name,reqOp,unReqOp,count,price,allPrice){
         	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
         	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
         	this.count = count; // 메뉴 갯수
         	this.price = price; // 메뉴 가격
+        	this.allPrice = allprice // 총합가격
         }
         
         function ShowlimitPriceTooTip(){
@@ -751,16 +755,19 @@
         	location.replace(loc);
         }
         
+        /* 주문표 주문메뉴 전체삭제 */
         function deleteAllOrder(){
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
         		$(".s-store-order-button").remove();
         		$("#order-content-1").show();
+        		$("#order-content-2").css("height","auto");
         		$("#s-store-order-title-delete-btn").hide();
         		orderListHeightCheck();
         	}
         }
         
+        /* 주문표 주문메뉴 개별삭제 */
         function orderDeleteThis(e){
         	let flag = confirm("해당 주문을 취소하시겠습니까?");
         	if(flag){
@@ -769,13 +776,83 @@
         		let length = $(".s-store-order-button").length;
         		if(length==0){
         			$("#order-content-1").show();
+        		} else if(length<3){
+        			$("#order-content-2").css("height","auto");
         		}
         	}
         }
         
         function orderCountMinus(){
-        	let tar = $(event.target).parent();
+        	let tar = $(event.target).parent().find(".order-count-check");
         	console.log(tar);
+        }
+        
+        function orderCountPlus(){
+        	let tar = $(event.target).parent().find("strong");
+        	console.log(tar);
+        }
+        
+        
+        /* 주문표 가격계산 함수 */
+        function orderAllFinalPriceCacr(){
+        	let orderFinalPriceCheck = $(".s-store-order-prices");
+        	console.log(orderFinalPriceCheck);
+        	let orderFinalPrice = 0;
+        	for(let i=0;i<orderFinalPriceCheck.length;i++){
+        		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
+        	}
+        	console.log(orderFinalPrice);
+        	$("#order-final-price").val(orderFinalPrice);
+        	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
+        }
+        
+        /* 주문표에서 주문하기 */
+        function orderListEnd(){
+        	let newOrders = new Array();
+        	let finalPrice = Number($("#order-final-price").val());
+        	let limitPrice = Number($("#order-limit-price").val());
+        	if(finalPrice>=limitPrice){
+        		let orderMenuList = $(".s-store-order-button");
+        		for(let i=0;i<orderMenuList.length;i++){
+		        	let menuImgSrc = $(orderMenuList[i]).find("#modal-menu-img-src").val();
+		        	let menuName = $("#modal-menu-name").text();
+		        	let reqOp;
+		        	let reqOps = $(".menu-modal-content-required-option-radio");
+		        	for(let i=0;i<reqOps.length;i++){
+		        		if($(reqOps[i]).is(":checked")==true){
+		        			reqOp = {"reqOpNo":$(reqOps[i]).val(),
+		        					"reqOpName":$(reqOps[i]).parent().text().trim()};
+		        		}
+		        	}
+		        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
+		        	let unReqOp = new Array();
+		        	for(let i=0;i<unReqOps.length;i++){
+		        		if($(unReqOps[i]).is(":checked")==true){
+		        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
+		        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
+		        		}
+		        	}
+		        	let menuCount = $("#menu-modal-menu-count-text").text();
+		        	let orders = new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+		        	newOrders.push(orders);
+        		}
+	        	$.ajax({
+	        		url:"${path}/menu/menuOrderEnd",
+	        		data:{"newOrders":JSON.stringify(newOrders)},
+	        		type:"post",
+	        		success:function(){
+	        			location.reload();
+	        			location.replace("${path}/pay/paylist.do");
+	        		},
+	        		error:function(a,b,c){
+	        			console.log(a);
+	        			console.log(b);
+	        			console.log(c);
+	        		}
+	        	});
+        	} else {
+        		ShowlimitPriceTooTip();
+        	}
         }
         
         /* 돈 표시용 */
