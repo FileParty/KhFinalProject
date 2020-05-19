@@ -60,15 +60,15 @@
           width: 120px;
           height: 100px;">
         </td>
-        <td width="400px" ><b style="padding:10px;font-size: 24px;">${orderList[0]['name']}</b><br><br>
-               ${orderList[0]['reqOp']} ${orderList[0]['unReqOp']}</td>
-        <td>${orderList[0]['count']}</td>
-        <td>${orderList[0]['price']}</td><!-- ${newOrder[0]['price']} -->
+        <td width="400px" ><b style="padding:10px;font-size: 24px;">${sessionScope.orderList[0]['name']}</b><br><br>
+               ${sessionScope.orderList[0]['reqOp']['reqOpName']} ${sessionScope.orderList[0]['unReqOp'][0]['unReqOpName']}</td>
+        <td>${sessionScope.orderList[0]['count']}</td>
+        <td>${sessionScope.orderList[0]['price']}</td><!-- ${newOrder[0]['price']} -->
         <td style="color:red;">2500원</td>
         <td>46,200원</td>
       </tr>
   <script>
-   console.log("1234",${orderList});
+   console.log("1234",${sessionScope.orderList});
   </script>
       
       
