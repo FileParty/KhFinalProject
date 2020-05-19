@@ -96,7 +96,7 @@ public class MenuDetailController {
 	
 	@RequestMapping("/menu/menuOrderEnd")
 	@ResponseBody
-	public void menuOrderEnd(HttpSession session, String newOrders) {
+	public void menuOrderEnd(ModelAndView mv, String newOrders) {
 		try {
 			log.debug(newOrders);
 			List<Map> m = mapper.readValue(newOrders, List.class);
@@ -106,7 +106,7 @@ public class MenuDetailController {
 				log.debug(""+mo.get("unReqOp"));
 			}
 			log.debug(""+m);
-			session.setAttribute("newOrder", m);
+			mv.addObject("newOrder", m);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

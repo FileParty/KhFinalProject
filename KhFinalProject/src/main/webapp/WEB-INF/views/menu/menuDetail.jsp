@@ -238,6 +238,8 @@
 	                    <div id="order-content-1">
 	                        <h5>주문표에 담긴 메뉴가 없습니다.</h5>
 	                    </div>
+	                    <div id="order-content-2">
+	                    </div>
                     </div>
 
                     <div class="s-store-order-delivery">
@@ -398,6 +400,7 @@
                  console.log(data);
                  console.log(menuNo);
                  $('#modalBox').modal('show');
+                 $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
                  $("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
                  $("#modal-menu-name").html(data['me_name']);
@@ -480,7 +483,7 @@
         $('#closeModalBtn').on('click', storeMenuModalClose());
         
         function storeMenuModalClose(){
-           $('#modalBox').modal('hide');
+	        $('#modalBox').modal('hide');
         }
         
         var finalPrice = 0;
@@ -561,14 +564,12 @@
 	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
 	        		}
 	        	}
-	        	let menuCount = $("#menu-modal-menu-count-text").val();
+	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
+	        	console.log($("#menu-modal-menu-count-text").text());
 	        	const oContent = $(".s-store-order-content");
-	        	let orderDiv = null;
+	        	let orderDiv = $("#order-content-2");
 	        	if($(oContent).children('#order-content-1').length>0){
 	        		$(oContent).children('#order-content-1').hide();
-	        		orderDiv = $("<div>").attr("id","order-content-2");
-	        	} else {
-	        		orderDiv = $("#order-content-2");
 	        	}
 	        	let orderContent = '<div class="s-store-order-button">';
 	        	orderContent += "<h4>"+menuName+"</h4><br/>";
@@ -578,7 +579,7 @@
 	        	orderContent += '<div>';
 	        	orderContent += '<button class="btn btn-success" >X</button>';
 	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">1</strong>&nbsp;<button class="btn btn-success">+</button></div>';
+	        	orderContent += '<div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">'+menuCount+'</strong>&nbsp;<button class="btn btn-success">+</button></div>';
 	        	orderContent += '</div>';
 	        	orderContent += '</div>';
 	        	let finalPriceCheck = Number($(".order-final-price").val());
@@ -623,8 +624,6 @@
 	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
-	        			//location.reload();
-	        			//console.log("${newOrder}");
 	        			location.href="${path}/pay/paylist.do";
 	        		},
 	        		error:function(a,b,c){
@@ -679,7 +678,8 @@
         function deleteAllOrder(){
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
-        		
+        		$(".s-store-order-button").remove();
+        		$("##order-content-1").show();
         	}
         }
         
