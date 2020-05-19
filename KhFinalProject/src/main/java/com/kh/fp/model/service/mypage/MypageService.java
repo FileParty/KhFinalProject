@@ -31,4 +31,6 @@ public interface MypageService {
 	
 	int memberDelete(int m_no);
 	
+	int insertReview(Map<String, String> map);
+	
 }

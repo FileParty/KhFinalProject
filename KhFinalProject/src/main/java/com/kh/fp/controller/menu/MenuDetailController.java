@@ -11,23 +11,27 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
+import com.kh.fp.model.vo.MenuDetailOrder;
 import com.kh.fp.model.vo.StoreDetailInfo;
 import com.kh.fp.model.vo.StoreMenu;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 @Controller
 @Slf4j
-@SessionAttributes({ "newOrder" })
+@SessionAttributes({"newOrder"})
 public class MenuDetailController {
-	
+	@Autowired
+	ObjectMapper mapper;
 	@Autowired
 	private MenuDatailService service;
 	
@@ -90,13 +94,22 @@ public class MenuDetailController {
 		return sm;
 	}
 	
-	@RequestMapping(value="menu/menuOrderEnd",method = RequestMethod.POST)
+	@RequestMapping("/menu/menuOrderEnd")
 	@ResponseBody
-	public void menuOrderEnd(ModelAndView mv,@RequestParam Map order) {
-		log.debug(""+order);
-		List<Map> orderList = new ArrayList<Map>();
-		orderList.add(order);
-		mv.addObject("newOrder",orderList);
+	public void menuOrderEnd(ModelAndView mv, String newOrders) {
+		try {
+			log.debug(newOrders);
+			List<Map> m = mapper.readValue(newOrders, List.class);
+			for(Map mo : m) {
+				log.debug(""+mo);
+				log.debug(""+mo.get("reqOp"));
+				log.debug(""+mo.get("unReqOp"));
+			}
+			log.debug(""+m);
+			mv.addObject("newOrder", m);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

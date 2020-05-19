@@ -11,6 +11,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.Store;
 
 @Repository
 public class LicenseeDaoImpl implements LicenseeDao {
@@ -41,9 +42,9 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	}
 
 	@Override
-	public List<Side> selectOption(SqlSessionTemplate session,int sNo) {
+	public List<Side> selectOption(SqlSessionTemplate session,int s_no) {
 		// TODO Auto-generated method stub
-		return session.selectList("licensee.selectOption",sNo);
+		return session.selectList("licensee.selectOption",s_no);
 	}
 
 	@Override
@@ -53,9 +54,9 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	}
 
 	@Override
-	public List<MenuCategory> selectCategory(SqlSessionTemplate session) {
+	public List<MenuCategory> selectCategory(SqlSessionTemplate session,int s_no) {
 		// TODO Auto-generated method stub
-		return session.selectList("licensee.selectCategory");
+		return session.selectList("licensee.selectCategory",s_no);
 	}
 
 	@Override
@@ -75,6 +76,30 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.insert("licensee.insertMenuSide",ms);
 	}
+
+	@Override
+	public List<Store> selectStore(SqlSessionTemplate session, int bNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectStoreNo",bNo);
+	}
+
+	@Override
+	public List<Store> selectStoreList(SqlSessionTemplate session, int b_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectStoreList",b_no);
+	}
+
+	@Override
+	public List<Menu> selectMenuList(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectMenuList",s_no);
+	}
+	
+	
+	
+	
+	
+	
 	
 
 

@@ -15,15 +15,15 @@
   	</select>
   	
   	 <insert id="insertSide" parameterType="map">
-  		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},1,#{sd_division})
+  		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},#{s_no},#{sd_division})
   	</insert> 
   	
   	<insert id="insertCategory" parameterType="map">
-  		INSERT INTO MENU_CATEGORY VALUES(SEQ_MT_NO.NEXTVAL,#{mt_name},1)
+  		INSERT INTO MENU_CATEGORY VALUES(CATEGORY_SEQ.NEXTVAL,#{mt_name},#{s_no})
   	</insert>
   	
   	<insert id="insertMenu" parameterType="com.kh.fp.model.vo.Menu">
-  		INSERT INTO MENU VALUES(SEQ_MENU_NO.NEXTVAL,#{me_name},#{me_price},#{me_logImg},#{mt_no},#{me_text},#{me_best},1)		
+  		INSERT INTO MENU VALUES(SEQ_MENU_NO.NEXTVAL,#{me_name},#{me_price},#{me_logImg},#{mt_no},#{me_text},#{me_best},#{s_no})		
   	</insert>
   	
   	<select id="selectMenu" resultType="_int">
@@ -33,11 +33,19 @@
   		INSERT INTO MENU_SIDE VALUES(#{me_no},#{sd_no})
   	</insert>  
   	<select id="selectOption" parameterType="_int" resultType="com.kh.fp.model.vo.Side">
-  		SELECT * FROM SIDE WHERE S_NO = #{sNo}
+  		SELECT * FROM SIDE WHERE S_NO = #{s_no}
   	</select>
   	
   	<select id="selectCategory" parameterType="_int" resultType="com.kh.fp.model.vo.MenuCategory">
-  		SELECT * FROM MENU_CATEGORY WHERE S_NO = 1
+  		SELECT * FROM MENU_CATEGORY WHERE S_NO = #{s_no}
+  	</select>
+  	
+  	<select id="selectStoreNo" parameterType="_int" resultType="com.kh.fp.model.vo.Store">
+  		SELECT * FROM STORE WHERE B_NO = #{b_no}
+  	</select>
+  	
+  	<select id="selectMenuList" parameterType="_int" resultType="com.kh.fp.model.vo.Menu">
+  		SELECT * FROM MENU WHERE S_NO = #{s_no}
   	</select>
   	
 </mapper>

@@ -72,6 +72,13 @@ public class MypageDaoImpl implements MypageDao {
 		return session.delete("mypage.memberDelete", m_no);
 	}
 
+	@Override
+	public int insertReview(SqlSessionTemplate session, Map<String, String> map) {
+		return session.insert("mypage.insertReview", map);
+	}
+	
+	
+
 	
 	
 	
