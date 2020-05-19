@@ -31,7 +31,7 @@ public class MemberController_SH {
 		//쿠폰갯수 가져오기
 		
 		Member member=(Member)session.getAttribute("loginMember");
-		List<Map> neworder=(List<Map>) session.getAttribute("newOrder");
+		List<Map> neworder=(List<Map>) session.getAttribute("orderList");
 		for(Map mo : neworder) {
             System.out.println(""+mo);
             System.out.println(""+mo.get("reqOp"));
