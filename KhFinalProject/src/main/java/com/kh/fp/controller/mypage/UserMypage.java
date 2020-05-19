@@ -2,6 +2,10 @@ package com.kh.fp.controller.mypage;
 
 import static com.kh.fp.common.PageingFactory.PageBarFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +19,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.member.MemberController;
 import com.kh.fp.model.service.mypage.MypageService;
 import com.kh.fp.model.vo.Member;
+import com.kh.spring.board.model.vo.Attachment;
+import com.kh.spring.board.model.vo.Board;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -91,14 +99,71 @@ public class UserMypage {
 		return list;
 	}
 	
-	/*
-	 * @RequestMapping("/mypage/insertReview.do")
-	 * 
-	 * @ResponseBody public boolean insertReview(@RequestParam Map<String, String>
-	 * map) { int result = service.insertReview(map);
-	 * 
-	 * }
-	 */
+	
+	  @RequestMapping("/mypage/insertReview.do")
+	  @ResponseBody
+	  public boolean insertReview(@RequestParam Map<String, String> map, ModelAndView mv, MultipartFile[] upload, HttpSession session) {
+		  
+			// 파일 저장 경로 가져오기
+			String path = session.getServletContext().getRealPath("/resources/img/mypage/review");
+			
+			List<Map<String, String>> files = new ArrayList<Map<String, String>>();
+			
+			File f = new File(path);
+			
+			// 폴더가 없을경우 생성
+			if(!f.exists())
+				f.mkdirs();
+			
+			// 파일저장 로직 구현
+			// fileRename 구성하기
+			for(MultipartFile mf : upload) {
+				if(!mf.isEmpty()) {
+					// 파일명 생성하기
+					String ori = mf.getOriginalFilename();
+					String ext = ori.substring(ori.lastIndexOf("."));
+					// 파일이름 리네임
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+					int rnd = (int)(Math.random()*1000);
+					String rename = sdf.format(System.currentTimeMillis()) + "_" + rnd + ext;
+					
+					// rename된 이름으로 파일 저장하기
+					
+					try {
+						// 실제 파일을 저장하는 메소드
+						mf.transferTo(new File(path+"/"+rename));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					
+					Map<String, String> m = new HashMap<String, String>();
+					m.put("r_img",rename);
+					files.add(m);
+					
+				}
+			}
+			
+			// board b객체, files list를 service에 전달
+			
+			int result = 0;
+			try {
+				result = service.insertReview(map);
+				result = service.insertReviewImg(files);
+			}catch (RuntimeException e) {
+				for(Map mm : files) {
+					File delF = new File(path+"/"+a.getRenamedFilename());
+					if(delF.exists()) {
+						delF.delete();
+					}
+				}
+			}		
+			
+			mv.setViewName("redirect:/board/boardList.do");
+			
+		/* return mv; */ // 경로
+	  
+	  }
+	 
 	
 	@RequestMapping("/mypage/review.do")
 	public String review(HttpSession session, @RequestParam Map map, Model m) {
