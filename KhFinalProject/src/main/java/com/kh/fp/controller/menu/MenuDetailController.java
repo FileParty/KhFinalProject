@@ -111,7 +111,7 @@ public class MenuDetailController {
 				log.debug(""+mo.get("unReqOp"));
 			}
 			log.debug(""+m);
-			mv.addObject("newOrder", m);
+			mv.addObject("orderList", m);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
