@@ -4,7 +4,7 @@
  	
  	<insert id="insertStore" parameterType="storeEnroll">
  		insert into store values(store_seq.nextval,#{saddr},#{sname},#{slimitprice},#{spayopt},#{stext}
- 		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{yl},#{xl},#{stime}
+ 		,'${phone1}-${phone2}-${phone3}',DEFAULT,DEFAULT,#{sorifoodinfo},#{logimg},#{xl},#{yl},#{stime}
  		,#{bno},#{sholiday,typeHandler=strArr},#{scoupon},TO_TIMESTAMP(#{sstarttime}, 'HH24'),TO_TIMESTAMP(#{sendtime}, 'HH24'),default,default,default,default,default)
  	
  		<selectKey order="AFTER" keyProperty="sno" resultType="_int">
@@ -48,9 +48,22 @@
 		where s_no=#{sno}
 	</update>
 	
+	<insert id="insertBestCategory">
+		insert into menu_category values(category_seq.nextval,'대표메뉴',#{no})
+	</insert>
+	
 	
 	<delete id="deleteCategory">
 		delete from store_category where s_no =#{sno}
 	</delete>
-
+	
+	<select id="getStoresInfo" resultType="map" parameterType="_int">
+		SELECT S_NO,S_NAME,S_ADDR,(S_TASTE+S_AMOUNT+S_DELIVERY)/DECODE(S_REVIEWCOUNT,S_REVIEWCOUNT,1)AS SCORE,S_REVIEWCOUNT,S_ENROLLDATE,S_ENROLLSTATUS FROM STORE WHERE S_NO=#{no}
+	</select>
+	
+	<select id="getSales" resultType="sales">
+		select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no}  group by o_date order by o_date
+	</select>
+	
+	
 </mapper>

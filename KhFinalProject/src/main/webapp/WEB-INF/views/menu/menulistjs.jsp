@@ -40,13 +40,6 @@
 		});
 		
 		$(".rec-cancel").click(function(e){
-			
-			/* $(this).parent().remove();
-			
-			if($(".rec-item").length%4==0){
-				$(this).parent().parent().remove();
-			} */
-			
 			var no = $(this).siblings("input").val();
 			console.log(no);
 			$.ajax({
@@ -231,8 +224,10 @@
 							$(".name-"+i).html(info['s_Name']);
 							
 							//별점
-							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
-							
+							if(info['s_ReviewCount']!=0)
+								$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+							else
+								$(".score-"+i).html('0');
 							//리뷰
 							$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 							
@@ -349,7 +344,10 @@
 						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						if(info['s_ReviewCount']!=0)
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						else
+							$(".score-"+i).html('0');
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
@@ -470,7 +468,10 @@
 						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						if(info['s_ReviewCount']!=0)
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						else
+							$(".score-"+i).html('0');
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
