@@ -20,7 +20,7 @@
 		 	<span class="text-center d-block">
 		 		최근 본 상품
 		 	</span>
-		 	<span class="text-center d-block text-danger">
+		 	<span class="text-center d-block text-danger rec-count">
 		 		${recentList.size()}
 		 	</span>
 		 	<div class="text-center border pt-3 pb-3 mt-3">	
@@ -32,12 +32,12 @@
 		 		<div>
 		 			<div>
 		 				<div class="mt-1 mb-1">
-		 					<c:if test="${empty recentList}">
-		 						<div class="pt-5 pb-5">
+		 					
+		 						<div class="pt-5 pb-5 rec-none ${empty recentList?'':'d-none'}">
 		 							최근 본 상품<br>
 		 							정보가 없습니다
 		 						</div>
-		 					</c:if>
+		 					
 		 					
 		 					<c:if test="${not empty recentList}">
 		 						
