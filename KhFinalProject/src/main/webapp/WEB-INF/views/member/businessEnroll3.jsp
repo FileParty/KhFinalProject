@@ -139,7 +139,7 @@
 	$("#userPwck").keyup(function(){
 		let pw=$("#userPw").val();
 		let pwck=$("#userPwck").val();
-		if(pw != "" && pwck != ""){
+	
 			if(pwck.trim().length>=pw.trim().length){
 				if(pw == pwck) {
 					$(".no1").hide();
@@ -152,14 +152,19 @@
 					$(".no1").attr("name","ok");
 					$(".ok1").attr("name","no");
 				}
+			}else{
+				$(".no1").hide();
+				$(".ok1").hide();
+				$(".no1").attr("name","no");
+				$(".ok1").attr("name","no");
 			}
-		}
+		
 	});
 	$("#userPw").keyup(function(){
 		let pw=$("#userPw").val();
 		let pwck=$("#userPwck").val();
 		const reg = /^(?=.*[a-z])(?=.*\d)[a-z\d]{5,10}$/;
-		if(pw.trim().length>4){
+		if(pw.trim().length>3){
 			if(!reg.test(pw)){
 				$(".ok3").hide();
 				$(".no3").show();
@@ -172,6 +177,11 @@
 				$(".ok3").attr("name","ok");
 				$(".no3").attr("name","no");
 			}
+		}else{
+			$(".ok3").hide();
+			$(".no3").hide();
+			$(".ok3").attr("name","no");
+			$(".no3").attr("name","no");
 		}
 		if(pw != "" && pwck != ""){
 			if(pwck.trim().length=pw.trim().length){

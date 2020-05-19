@@ -10,7 +10,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <jsp:include page="/WEB-INF/views/common/banner.jsp"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<section >
+<section>
 
 
 	 <div class="topnav">
