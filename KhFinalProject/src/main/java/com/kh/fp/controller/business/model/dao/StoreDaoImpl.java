@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Repository
@@ -70,6 +71,26 @@ public class StoreDaoImpl implements StoreDao {
 		return session.delete("store.deleteCategory",no);
 	}
 
+	@Override
+	public int insertBestCategory(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.insert("store.insertBestCategory",no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoresInfo(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return  session.selectList("store.getStoresInfo",no);
+	}
+
+	@Override
+	public List<Sales> getSales(SqlSessionTemplate session, Object no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getSales",no);
+	}
+
+	
+	
 	
 
 	

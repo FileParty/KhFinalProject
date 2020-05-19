@@ -13,7 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Stylish&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -53,27 +53,53 @@
       </tr>
     </thead>
     <tbody >
-      <tr style="height: 140px;">
-        <td style="width: 120px;padding: 15px;">
-          <img src="https://img.insight.co.kr/static/2018/08/07/700/ffs6yoo8it332vpwp549.jpg"
-          style="top:0; left: 0;
-          width: 120px;
-          height: 100px;">
-        </td>
-        <td width="400px" ><b style="padding:10px;font-size: 24px;">클래식 치즈판타지L 세트</b><br><br>
-                클래식 치즈판타지L+고르곤졸라 치즈볼+펩시 1.25L 세트</td>
-        <td>1</td>
-        <td>${newOrder} </td><!-- ${newOrder[0]['price']} -->
-        <td style="color:red;">2500원</td>
-        <td>46,200원</td>
-      </tr>
-  
+                              <%-- <c:forEach items="${list}" var="c">
+                         	
+                                <c:if test="${c['m_no']== loginMember['m_no'] }"> --%>
+     <c:forEach items="${orderList }" var="a">
+    		<tr style="height: 140px;border-bottom:1px solid rgb(228, 225, 225);">
+     	
+			        <td style="width: 120px;padding: 15px;">
+			          <img src="${path}/resources/upload/menu/${a['src']}" style="top:0; left: 0;width: 120px; height: 100px;">
+			        </td>
+			      
+			        <td width="400px" style="" ><b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
+			               <b style="color:rgb(95, 95, 95);font-size: 13px;">* 필수옵션</b> : <b style="font-size: 13x;">${a['reqOp']['reqOpName']}</b> <br>
+			   			   <b style="color:rgb(95, 95, 95);font-size: 13px;">* 추가옵션</b> :
+			   <c:forEach items="${a['unReqOp']}" var="b"> 
+			                <b style="">[${b['unReqOpName']}]</b>
+		   		</c:forEach>
+			       	</td>
+			             
+			        <td style="font-size: 21px;">
+			        	${a['count']}
+			        </td>
+			        <td style="font-size: 21px;">
+			        	${a['price']} 원
+			        </td><!-- ${newOrder[0]['price']} -->
+			        <td style="color:red;font-size: 21px;">
+			        	2500 원 
+			        </td>
+			        <td style="font-size: 21px;">
+			        	${a['price']+2500} 원
+			        </td>
+     		</tr>
+     		
+      </c:forEach>
+  <script>
+   console.log("1234",${sessionScope.orderList});
+  </script>
       
       
     </tbody>
-    
-  </table>
-  <hr style="width:1275px">
+<!--          	this.src = src; // 메뉴이미지이름
+        	this.name = name; // 메뉴이름
+        	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
+        	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
+        	this.count = count; // 메뉴 갯수
+        	this.price = price; // 메뉴 가격
+ -->  </table>
+  
 </main>
 
 
@@ -87,7 +113,7 @@
 
 
  <form  action="${path}/" method="post" onsubmit="return checkedNull();" >
-<div class="row" style="margin-top: 190px;">
+<div class="row">
   <div class="leftcolumn">
     <div class="card" style="padding-left: 25px;height: auto;">
       <h2>배송정보</h2>
@@ -139,6 +165,7 @@
   
   
     <style>
+    
     .label-cbx {
   user-select: none;
   cursor: pointer;
@@ -266,7 +293,7 @@
                 <div class="dialog__inner">
                 
                     <div class="dialog__content">
-                        <h3>쿠폰적용</h3><hr>
+                        <h3>쿠폰적용</h3> <button style="">모두취소</button><hr>
                        	
                           <table id="example-table-2" border="1" style="width:1150px;">
                               <tr>
@@ -361,7 +388,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width:200px;height:45px;text-align:right;" value="2500원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width:200px;height:45px;text-align:right;" value="2500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -389,15 +416,15 @@
   <div style="margin-top:75px;" >
     <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
   <div class="rightcolumn" style="padding-right:10px;" >
-    <h3 style="font-weight:bold;color:black;">합계</h3><h1 align="center" style="font-weight: bold;color:red">46,200원</h1>
+    <h3 style="font-weight:bold;color:black;">총 합계</h3><h1 align="center" style="font-weight: bold;color:red">46,200원</h1>
     <hr width="90%" >
 
     <div class="card"width="90%">
 
       <table style="width: 340px; height: auto;font-weight: bold;font-size: 20px;">
         <tr style="height:40px">
-            <td>상품금액</td>
-            <td id="td1234"style="width: 155px;text-align: right;font-size: 21px;">43700 원</td>
+            <td>총 상품금액</td>
+            <td id="td1234"style="width: 155px;text-align: right;font-size: 21px;">${orderList[0]['price']+2500} 원</td>
         </tr>
        <!--  <tr style="height:40px">
             <td>할인금액</td>
@@ -412,8 +439,8 @@
            <td>포인트 사용금액</td>
           <!--분기처리하고싶음. 모두사용체크도있으 input만 보이고 체크안되있으면 div만 보이게   -->
             <td style="text-align: right;">
-            	<div class="def" id="def123" style="color:red;font-weight:bold;height: 20px;text-align: right;font-size: 21px;margin-top: -11px;">0원</div>
-            	<input style="text-align: right;color:red;font-weight:bold;width: 101px;border:1px solid white;margin-top: -6px;margin-right: -2px;font-size: 21px;" type="text"id="allpay4" class="invisible" readonly>
+            	<div class="def" id="def123" style="color:red;font-weight:bold;height: 20px;text-align: right;font-size: 21px;margin-top: -11px;margin-right:-1">0원</div>
+            	<input style="text-align: right;color:red;font-weight:bold;width: 101px;border:1px solid white;margin-top: -6px;margin-right: -3px;font-size: 21px;" type="text"id="allpay4" class="invisible" readonly>
             </td>
          </tr>
          <tr style="height:40px">
@@ -852,6 +879,8 @@ $(".checkBtn").click(function(){
 			"<font color='red'>-" + name +"원</font>"	
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
+	
+	
 	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
 });
@@ -970,7 +999,7 @@ color: #fff;
 
 <style>
 * {
-   /*  border:1px solid red;    */
+     /* border:1px solid red;   */
     box-sizing: border-box;
 }
 body {
@@ -982,7 +1011,7 @@ body {
 }
 main {
                 width: 1305px;
-                height:100px;
+                height:auto;
                  display:block; 
                  justify-content:center;
             }
@@ -1332,7 +1361,7 @@ detectBackdropClick = (event) => {
 
 
 <!--=============================form 태그 스트립트 널값인거 예외처리하기 =========checkedNull()========================== -->
-checkedNull()
+
 </script>
 
 <style>

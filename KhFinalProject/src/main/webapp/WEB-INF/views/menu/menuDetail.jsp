@@ -11,7 +11,71 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 <div class="s-store-list-return">
-	<button onclick="returnList()">돌아가기</button>
+	<button onclick="returnList()" class="snip1535">돌아가기</button>
+	<style>
+	@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
+.snip1535 {
+  background-color: #070707;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.snip1535:before,
+.snip1535:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.snip1535:before {
+  border-color: #c47135;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.snip1535:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.snip1535:hover,
+.snip1535.hover {
+  background-color: #c47135;
+}
+.snip1535:hover:before,
+.snip1535.hover:before,
+.snip1535:hover:after,
+.snip1535.hover:after {
+  height: 100%;
+  width: 100%;
+}
+	</style>
+	<script>
+	$(".hover").mouseleave(
+			  function() {
+			    $(this).removeClass("hover");
+			  }
+			);
+	</script>
 </div>
 <div class="s-store container">
             <div class="s-store-left">
@@ -225,15 +289,12 @@
             </div>
 
             <div class="s-store-right">
-
                 <aside class="s-store-right-side">
-
                     <div class="s-store-order-title">
                         <h4 style="margin-top:5px;">주문표</h4>
                         <img src="${path}/resources/img/menuDetail/garbage_icon.png" onclick="deleteAllOrder()"
-                        	width="30px" height="30px" style="margin:5px;cursor: pointer;">
+                        	width="30px" height="30px" id="s-store-order-title-delete-btn">
                     </div>
-
                     <div class="s-store-order-content">
 	                    <div id="order-content-1">
 	                        <h5>주문표에 담긴 메뉴가 없습니다.</h5>
@@ -241,11 +302,9 @@
 	                    <div id="order-content-2">
 	                    </div>
                     </div>
-
                     <div class="s-store-order-delivery">
-                        <h6>배달요금 별도 2,500원 별도</h6>
+                        <h6>배달요금 2,500원 별도</h6>
                     </div>
-
                     <div class="s-store-order-delivery">
                         <h6>최소 주문금액 : <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원 이상</h6>
                     </div>
@@ -327,23 +386,26 @@
 </div>
 
 
-    <script>
+<script>
 
-        var height = $("#order-content-2").height();
-        console.log(height);
-    
-        if(height>400){
-            console.log("앙");
-            $("#order-content-2").css({
-                height : "400px",
-                overflowY : "scroll"
-            });
-        }else{
-            $("#order-content-2").css({
-                height : "auto",
-                overflowY : "hidden"
-            });
-        }
+	function orderListHeightCheck(){
+				
+		let height = $("#order-content-2").height();
+		console.log(height);
+		
+		if(height>400){
+		    console.log("앙");
+		    $("#order-content-2").css({
+		        height : "300px",
+		        overflowY : "scroll"
+		    });
+		}else{
+		    $("#order-content-2").css({
+		        height : "auto",
+		        overflowY : "hidden"
+		    });
+		}
+	}
         
         function storeMenuCategory(cNo){
            $.ajax({
@@ -565,21 +627,33 @@
 	        		}
 	        	}
 	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
-	        	console.log($("#menu-modal-menu-count-text").text());
+	        	
 	        	const oContent = $(".s-store-order-content");
 	        	let orderDiv = $("#order-content-2");
 	        	if($(oContent).children('#order-content-1').length>0){
 	        		$(oContent).children('#order-content-1').hide();
 	        	}
 	        	let orderContent = '<div class="s-store-order-button">';
-	        	orderContent += "<h4>"+menuName+"</h4><br/>";
+	        	orderContent += "<h4>"+menuName+"</h4>"
+	        	orderContent += "<span>";
+	        	orderContent += "&nbsp;&nbsp;옵션 : ";
+	        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
+	        	if(unReqOp!=null){
+		        	unReqOp.forEach(e=>{
+		        		orderContent += ", "+e['unReqOpName'];
+		        	});
+	        	}
+	        	orderContent += "</span>";
+	        	orderContent += "<br/>";
 	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
 	        	orderContent += '<input type="hidden" name="menuPrice" value="'+finalPrice+'">';
 	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
-	        	orderContent += '<div>';
-	        	orderContent += '<button class="btn btn-success" >X</button>';
+	        	orderContent += '<div class="s-store-order-count-controller-div">';
+	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
 	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn btn-success">-</button>&nbsp;<strong style="font-size: 20px;">'+menuCount+'</strong>&nbsp;<button class="btn btn-success">+</button></div>';
+	        	orderContent += '<div><button class="btn btn-success" onclick="orderCountMinus()">-</button>';
+	        	orderContent += '&nbsp;<strong class="order-count-check" style="font-size:20px;">'+menuCount+'</strong>';
+	        	orderContent += '&nbsp;<button class="btn btn-success" onclick="orderCountPlus()">+</button></div>';
 	        	orderContent += '</div>';
 	        	orderContent += '</div>';
 	        	let finalPriceCheck = Number($(".order-final-price").val());
@@ -589,6 +663,7 @@
 	        	orderDiv.append(orderContent);
 	        	oContent.append(orderDiv);
 	        	storeMenuModalClose();
+	        	orderListHeightCheck();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -624,7 +699,10 @@
 	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
-	        			location.href="${path}/pay/paylist.do";
+
+	        			location.reload();
+	        			location.replace("${path}/pay/paylist.do");
+
 	        		},
 	        		error:function(a,b,c){
 	        			console.log(a);
@@ -679,8 +757,27 @@
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
         		$(".s-store-order-button").remove();
-        		$("##order-content-1").show();
+        		$("#order-content-1").show();
+        		$("#s-store-order-title-delete-btn").hide();
+        		orderListHeightCheck();
         	}
+        }
+        
+        function orderDeleteThis(e){
+        	let flag = confirm("해당 주문을 취소하시겠습니까?");
+        	if(flag){
+        		$(e).parent().parent().remove();
+        		orderListHeightCheck();
+        		let length = $(".s-store-order-button").length;
+        		if(length==0){
+        			$("#order-content-1").show();
+        		}
+        	}
+        }
+        
+        function orderCountMinus(){
+        	let tar = $(event.target).parent();
+        	console.log(tar);
         }
         
         /* 돈 표시용 */
@@ -698,29 +795,6 @@
            return val;
         }
         
-        $(function(){
-        	
-        	/*let storeMainY = $(".s-store-left").offset().top;
-    		let storeMainHeight = $(".s-store-left").height();
-    		
-    		var storeMainH = storeMainY+storeMainHeight;
-        	$(window).on("scroll",function(e){
-        		let height = $(window).height();
-        		let scrollTop = $(window).scrollTop();
-        		let sideTop = $("aside").offset().top;
-        		if(scrollTop>sideTop){
-        			console.log($("aside").css("top"));
-        			$("aside").css("top",scrollTop-171);
-        			console.log($("aside").offset().top);
-        		} else if(scrollTop<171) {
-        			$("aside").css("top",0);
-        		} else if(scrollTop<sideTop){
-        			$("aside").css("top",0);
-        		}
-
-        	}) */
-        	
-        })
     
     </script>
 </section>
