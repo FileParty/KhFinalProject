@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes({"newOrder"})
 public class MenuDetailController {
 	@Autowired
 	ObjectMapper mapper;
@@ -53,19 +52,25 @@ public class MenuDetailController {
 		try {
 			store = (List)session.getAttribute("recentList");
 			log.debug("try"+store);
-			for(int i=0;i<store.size();i++) {
-				Map map = store.get(i);
-				log.debug("리스트사이즈:"+store.size()+"i:"+i+"storeNo:"+map.get("storeNo")+",no:"+no);
-				if(!(map.get("storeNo").equals(no))&&(i+1)==store.size()) {
-					storeSession.put("storeNo", no);
-					storeSession.put("storeImg", sdi.getS_logimg());
-					store.add(storeSession);
-					break;
-				} else {
-					if(map.get("storeNo").equals(no)) {
+			if(store.size()!=0) {
+				for(int i=0;i<store.size();i++) {
+					Map map = store.get(i);
+					log.debug("리스트사이즈:"+store.size()+"i:"+i+"storeNo:"+map.get("storeNo")+",no:"+no);
+					if(!(map.get("storeNo").equals(no))&&(i+1)==store.size()) {
+						storeSession.put("storeNo", no);
+						storeSession.put("storeImg", sdi.getS_logimg());
+						store.add(storeSession);
 						break;
+					} else {
+						if(map.get("storeNo").equals(no)) {
+							break;
+						}
 					}
 				}
+			} else {
+				storeSession.put("storeNo", no);
+				storeSession.put("storeImg", sdi.getS_logimg());
+				store.add(storeSession);
 			}
 		} catch(Exception e) {
 			store = new ArrayList();
@@ -106,7 +111,7 @@ public class MenuDetailController {
 				log.debug(""+mo.get("unReqOp"));
 			}
 			log.debug(""+m);
-			mv.addObject("newOrder", m);
+			mv.addObject("orderList", m);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
