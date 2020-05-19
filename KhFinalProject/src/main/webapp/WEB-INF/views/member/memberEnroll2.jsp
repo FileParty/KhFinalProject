@@ -31,7 +31,7 @@
 					<tr>			
 						<th>이메일</th>
 						<td class="emailMsg-container">
-							<input type="email" name="m_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required>
+							<input type="email" name="m_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." value="${m_email }" required>
 							<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
 							<span class="emailMsg no4">이미 가입된 이메일입니다.</span>
 						</td>

@@ -101,20 +101,22 @@ public class MenuDetailController {
 	
 	@RequestMapping("/menu/menuOrderEnd")
 	@ResponseBody
-	public void menuOrderEnd(ModelAndView mv, String newOrders) {
+	public void menuOrderEnd(ModelAndView mv, String newOrders,HttpSession session) {
 		try {
 			log.debug(newOrders);
 			List<Map> m = mapper.readValue(newOrders, List.class);
-			for(Map mo : m) {
-				log.debug(""+mo);
-				log.debug(""+mo.get("reqOp"));
-				log.debug(""+mo.get("unReqOp"));
-			}
 			log.debug(""+m);
-			mv.addObject("orderList", m);
+			session.removeAttribute("orderList");
+			log.debug(""+session.getAttribute("orderList"));
+			session.setAttribute("orderList", m);
+			List<Map> sM = (List<Map>)session.getAttribute("orderList");
+			for(Map ms : sM) {
+				log.debug("세션에 넣은거 : "+ms);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 
 }

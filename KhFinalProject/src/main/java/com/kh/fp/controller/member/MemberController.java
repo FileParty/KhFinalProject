@@ -234,6 +234,7 @@ public class MemberController {
 			status.setComplete();
 		}
 		
+		
 		return "redirect:/";
 	}
 	
@@ -926,7 +927,7 @@ public class MemberController {
 	}
 	
 	//네이버 로그인 성공시 callback호출 메소드
-	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/member/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
 	System.out.println("여기는 callback");
 	OAuth2AccessToken oauthToken;
@@ -953,16 +954,11 @@ public class MemberController {
 	
 	model.addAttribute("result", apiResult);
 	
-	return "member/login";
+	return "member/naverSuccess";
 	}
 	
-	//로그아웃
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
-	public String logout(HttpSession session)throws IOException {
-	System.out.println("여기는 logout");
-	session.invalidate();
-	return "redirect:index.jsp";
-	}
+
+	 
 
 	
 
