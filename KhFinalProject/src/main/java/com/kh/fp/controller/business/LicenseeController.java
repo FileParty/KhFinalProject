@@ -29,6 +29,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
 
 import lombok.extern.slf4j.Slf4j;
@@ -345,6 +346,18 @@ public class LicenseeController {
 	public List<Side> selectOption(int s_no) {
 		//추가옵션 조회
 		List<Side> list = service.selectOption(s_no);
+		return list;
+		
+	}
+	
+	@RequestMapping("/licensee/selectMenuSide")
+	@ResponseBody
+	public List<SideAll> selectMenuSide(int s_no,int me_no) {
+		//추가옵션 조회
+		Map<String,Object> map = new HashMap();
+		map.put("s_no", s_no);
+		map.put("me_no",me_no);
+		 List<SideAll> list = service.selectMenuSide(map);
 		return list;
 		
 	}

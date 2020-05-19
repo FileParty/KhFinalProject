@@ -48,4 +48,8 @@
   		SELECT * FROM MENU WHERE S_NO = #{s_no}
   	</select>
   	
+  	<select id="selectMenuSide" resultType="com.kh.fp.model.vo.SideAll">
+  		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
+  	</select>
+  	
 </mapper>
