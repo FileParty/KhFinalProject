@@ -101,7 +101,7 @@ public class MenuDetailController {
 	
 	@RequestMapping("/menu/menuOrderEnd")
 	@ResponseBody
-	public void menuOrderEnd(ModelAndView mv, String newOrders) {
+	public ModelAndView menuOrderEnd(ModelAndView mv, String newOrders) {
 		try {
 			log.debug(newOrders);
 			List<Map> m = mapper.readValue(newOrders, List.class);
@@ -115,6 +115,8 @@ public class MenuDetailController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		mv.setViewName("redirect:/pay/paylist.do");
+		return mv;
 	}
 
 }
