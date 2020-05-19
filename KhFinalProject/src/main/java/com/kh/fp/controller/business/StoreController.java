@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.StoreService;
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Controller
@@ -173,6 +174,27 @@ public class StoreController {
 		mv.addObject("msg", "가게 등록 수정 성공!");
 		mv.addObject("loc", "/store/storedetail");
 		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/store/mypage")
+	public ModelAndView myPage(ModelAndView mv,HttpSession session) {
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_no());
+		
+		
+		mv.addObject("stores",stores);
+		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+		mv.setViewName("business/mypage");
 		return mv;
 	}
 	

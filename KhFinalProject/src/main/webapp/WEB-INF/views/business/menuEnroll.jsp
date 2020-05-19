@@ -553,10 +553,10 @@
 				var cloneFile = $("#modalFile").clone();
 				cloneFile.removeAttr('id');
 				cloneFile.attr({
-					'display':'none',
-					'id':'test',
-					'name':'me_logImg'
-				})
+					'id':'cloneFile',
+					'name':'me_logImg',
+					
+				}).css('display','none');
 
 
 				var menuName = $(".menu-name").val();

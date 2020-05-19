@@ -3,12 +3,14 @@ package com.kh.fp.controller.business.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
 
 public interface LicenseeDao {
@@ -26,4 +28,5 @@ public interface LicenseeDao {
 	List<Store> selectStore(SqlSessionTemplate session,int bNo);
 	List<Store> selectStoreList(SqlSessionTemplate session,int b_no);
 	List<Menu> selectMenuList(SqlSessionTemplate session,int s_no);
+	List<SideAll> selectMenuSide(SqlSession session,Map<String,Object> map);
 }

@@ -54,6 +54,7 @@
                     			<td>010-1234-1234</td>
                     			<td>잘 부탁드립니다.</td>
                     			<td><input type="button" value="상세보기"></td>
+                    			<td><input type="button" value="배달요청"></td>
                     			
                     		</tr>
                     	</table>                    	
