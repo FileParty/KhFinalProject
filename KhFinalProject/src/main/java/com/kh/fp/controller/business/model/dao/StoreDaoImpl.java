@@ -1,5 +1,8 @@
 package com.kh.fp.controller.business.model.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +89,12 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public List<Sales> getSales(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
-		return session.selectList("store.getSales",no);
+		SimpleDateFormat format = new SimpleDateFormat("yy/MM");
+		Date time = new Date();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", no);
+		map.put("orderdate", format.format(time) );
+		return session.selectList("store.getSales",map);
 	}
 
 	

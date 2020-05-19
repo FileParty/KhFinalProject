@@ -7,9 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%
-	List<List<Sales>> sales = (List)request.getAttribute("sales");
-%>
+
 <style>
 		*{
 		 	  /* border : 1px solid red;    */
@@ -55,6 +53,7 @@ div#main {
       
       .graph{
       	display: flex;
+      	flex-direction : column;
        	justify-content: center;
        	align-items: center;
        	margin-top: 80px;
@@ -88,13 +87,13 @@ div#main {
                     			<td>${s.S_ADDR }</td>
                     			<td>${s.SCORE }</td>
                     			<td>${s.S_REVIEWCOUNT }</td>
-                    			<td>${s.S_ENROLLDATE }</td>
+                    			<td><fmt:formatDate value="${s.S_ENROLLDATE }" pattern="yyyy년 MM월 dd일"/></td>
                     			<td>${s.S_ENROLLSTATUS }</td>
                     		</tr>
                     		</c:forEach>
                 </table>
  			
- 			
+ 				
  			
  			</div>
  			
@@ -102,6 +101,13 @@ div#main {
  				<h2>매장 매출 그래프</h2><hr/>
 	 			<div class="graph">
 	 				<c:if test="${not empty sales}">
+	 				<div>
+		 				<select>
+		 					<c:forEach items="${stores }" var="s">
+		 						<option value="">${s.S_NAME }</option>
+		 					</c:forEach>
+		 				</select>
+	 				</div>
 	 				<div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
 	 				</c:if>
 	 				<c:if test="${empty sales}">
@@ -125,41 +131,44 @@ div#main {
  	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-    <c:if test="${not empty sales}">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-      
-	      function drawChart() {
-	    	  
-	        	var data = google.visualization.arrayToDataTable([
-	        		['month-day', 'Sales'],
+    
+    	<c:if test="${not empty sales}">
+		      google.charts.load('current', {'packages':['bar']});
+		      google.charts.setOnLoadCallback(drawChart);
 		      
-			      <c:forEach items="${sales}" var="l" varStatus="vs">
-			      	<c:if test='${vs.last}'>
-				      	['${l.orderDate.date}',${l.price}]
-			      	</c:if>
-			      	<c:if test='${not vs.last}'>
-			      		['${l.orderDate.date}',${l.price}],
-			      	</c:if>			      	
-			      	  </c:forEach>
-		      
-		    ]);
+			      function drawChart() {
+			    	  
+			        	var data = google.visualization.arrayToDataTable([
+			        		['month-day', 'Sales'],
+				      
+					      <c:forEach items="${sales}" var="l" varStatus="vs">
+					      	<c:if test='${vs.last}'>
+						      	['${l.orderDate.date}',${l.price}]
+					      	</c:if>
+					      	<c:if test='${not vs.last}'>
+					      		['${l.orderDate.date}',${l.price}],
+					      	</c:if>			      	
+					      	  </c:forEach>
+				      
+				    ]);
+					
+			        var options = {
+			          chart: {
+			            title: 'Delivery King Performance',
+			            subtitle: 'Sales : '+'<fmt:formatDate value="${sales[0].orderDate}" pattern="yyyy-MM"/>',
+			          }
+			        };
+			  
 			
-	        var options = {
-	          chart: {
-	            title: 'Delivery King Performance',
-	            subtitle: 'Sales : 2020 - ${sales[0].orderDate.month}',
-	          }
-	        };
-	  
-	
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-        
-      }
+		
+		        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+		
+		        chart.draw(data, google.charts.Bar.convertOptions(options));
+		        
+		      }
 	  	</c:if>
+	  	
+	  	
     </script>
  	
  	<%@ include file="../common/footer.jsp" %> 
