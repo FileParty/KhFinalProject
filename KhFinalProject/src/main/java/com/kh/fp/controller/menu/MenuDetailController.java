@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes({"newOrder"})
 public class MenuDetailController {
 	@Autowired
 	ObjectMapper mapper;
