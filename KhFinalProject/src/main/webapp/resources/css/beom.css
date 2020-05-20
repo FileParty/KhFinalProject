@@ -524,6 +524,10 @@ div.s-store-order-count-controller-div>div{
 }
 
 button.order-count-btns{
-	background-color:white;
+	background-color:red;
+	color:white;
+	font-weight:800;
+	font-size:1.5em;
+	width:30px;
 	border:0;
 }

@@ -392,7 +392,6 @@
 	function orderListHeightCheck(){
 				
 		let height = $("#order-content-2").height();
-		console.log(height);
 		
 		if(height>=320){
 		    $("#order-content-2").css({
@@ -400,7 +399,6 @@
 		        overflowY : "scroll"
 		    });
 		}else{
-			console.log("앙");
 		    $("#order-content-2").css({
 		        height : "auto",
 		        overflowY : "hidden"
@@ -415,7 +413,6 @@
               success:function(data){
                  let tar = $("#s-store-menu-category-no"+cNo);
                  let check = tar.children();
-                 console.log(check);
                  if(check.length==0){
                       for(let i=0;i<data.length;i++){
                           let content = $("<div>").attr({
@@ -460,8 +457,6 @@
               url:"${path}/menu/storeMenuSelectModalAjax",
               data:{'no':menuNo},
               success:function(data){
-                 console.log(data);
-                 console.log(menuNo);
                  $('#modalBox').modal('show');
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
@@ -478,7 +473,6 @@
                  $("#limitPrice_").val($("#s-store-limit-price").val());
                  $("#finalPrice_").val(data['me_price']);
                  $(".menu-modal-content-final-price").html(numberFormatting(data['me_price']));
-                 console.log(("#finalPrice_"));
                  $(".menu-modal-content-required-option-item").remove();
                  $(".menu-modal-content-un-required-option-item").remove();
                  for(let i=0;i<data['side'].length;i++){
@@ -632,44 +626,62 @@
 	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
 	        	
 	        	const oContent = $(".s-store-order-content");
-	        	let orderDiv = $("#order-content-2");
-	        	if($(oContent).children('#order-content-1').length>0){
-	        		$(oContent).children('#order-content-1').hide();
+	        	let orderAdd = new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	let flag = false;
+	        	let flagIndex = 0;
+	        	for(let i=0;i<orderListArr.length;i++){
+	        		flag = equlasObject(orderListArr[i],orderAdd);
+	        		flagIndex = i;
+	        		if(flag){
+	        			break;
+	        		}
 	        	}
-	        	let orderContent = '<div class="s-store-order-button">';
-	        	orderContent += "<h4>"+menuName+"</h4>"
-	        	orderContent += "<span>";
-	        	orderContent += "&nbsp;&nbsp;옵션 : ";
-	        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
-	        	if(unReqOp!=null){
-		        	unReqOp.forEach(e=>{
-		        		orderContent += ", "+e['unReqOpName'];
-		        	});
-	        	}
-	        	orderContent += "</span>";
-	        	orderContent += "<br/>";
-	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
-	        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
-	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
-	        	orderContent += '<div class="s-store-order-count-controller-div">';
-	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
-	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn" onclick="orderCountMinus()">-</button>';
-	        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
-	        	orderContent += '<button class="order-count-btns" onclick="orderCountPlus()"><img src="${path}/resources/img/menuDetail/plus_icon.png" width="30px" height="30px"/></button></div>';
-	        	orderContent += '</div>';
-	        	orderContent += '</div>';
-	        	let finalPriceCheck = Number($(".order-final-price").val());
-	        	finalPriceCheck += finalPrice
-	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
-	        	$(".order-final-price").val(finalPriceCheck);
-	        	$("#s-store-order-title-delete-btn").show();
-	        	orderDiv.append(orderContent);
-	        	oContent.append(orderDiv);
-	        	storeMenuModalClose();
-	        	orderListHeightCheck();
-	        	orderAllFinalPriceCacr();
-	        	orderListArr.push(new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice));
+	        	
+        		if(!flag){
+	        		let orderDiv = $("#order-content-2");
+		        	if($(oContent).children('#order-content-1').length>0){
+		        		$(oContent).children('#order-content-1').hide();
+		        	}
+		        	let orderContent = '<div data-index="'+$(".s-store-order-button").length+'" class="s-store-order-button">';
+		        	orderContent += "<h4>"+menuName+"</h4>"
+		        	orderContent += "<span>";
+		        	orderContent += "&nbsp;&nbsp;옵션 : ";
+		        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
+		        	if(unReqOp!=null){
+			        	unReqOp.forEach(e=>{
+			        		orderContent += ", "+e['unReqOpName'];
+			        	});
+		        	}
+		        	orderContent += "</span>";
+		        	orderContent += "<br/>";
+		        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-count" name="count" value="'+menuCount+'">';
+		        	orderContent += '<div class="s-store-order-count-controller-div">';
+		        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
+		        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
+		        	orderContent += '<div><button class="order-count-btns" onclick="orderCountMinus(this)">-</button>';
+		        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
+		        	orderContent += '<button class="orderCountPlusBtn order-count-btns" onclick="orderCountPlus(this)">+</button></div>';
+		        	orderContent += '</div>';
+		        	orderContent += '</div>';
+		        	let finalPriceCheck = Number($(".order-final-price").val());
+		        	finalPriceCheck += finalPrice
+		        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
+		        	$(".order-final-price").val(finalPriceCheck);
+		        	$("#s-store-order-title-delete-btn").show();
+		        	orderDiv.append(orderContent);
+		        	oContent.append(orderDiv);
+		        	orderListArr.push(orderAdd);
+		        	} else{
+		        		let tarDiv = $("div[data-index="+flagIndex+"]");
+		        		for(let i=0;i<Number(orderAdd['count']);i++){
+		        			orderCountPlus($(tarDiv).find(".orderCountPlusBtn"));
+		        		}
+		        	}
+		        	storeMenuModalClose();
+		        	orderListHeightCheck();
+		        	orderAllFinalPriceCacr();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -731,7 +743,6 @@
         
         function ShowlimitPriceTooTip(){
         	let tootip = $("#menu-modal-footer-tootip");
-        	console.log(tootip);
         	tootip.stop();
         	tootip.css("opacity",0).show();
         	tootip.animate({opacity:1},300);
@@ -754,7 +765,6 @@
         	loc += "&sortType=${rMap['sortType']}";
         	loc += "&search=${rMap['search']}";
         	loc += "&cPage=${rMap['cPage']}";
-        	console.log(loc);
         	location.replace(loc);
         }
         
@@ -762,6 +772,7 @@
         function deleteAllOrder(){
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
+        		orderListArr = new Array();
         		$(".s-store-order-button").remove();
         		$("#order-content-1").show();
         		$("#order-content-2").css("height","auto");
@@ -774,37 +785,66 @@
         function orderDeleteThis(e){
         	let flag = confirm("해당 주문을 취소하시겠습니까?");
         	if(flag){
+        		let tarIndex = Number($(e).parent().parent().attr("data-index"));
+        		orderListArr.splice(tarIndex,1);
+        		let length = $(".s-store-order-button").length;
+        		for(let i=0;i<length;i++){
+        			let tarNextIndex = Number($($(".s-store-order-button")[i]).attr("data-index"));
+        			console.log($($(".s-store-order-button")[i]),tarNextIndex);
+        			if(tarNextIndex>tarIndex){
+        				$($(".s-store-order-button")[i]).attr("data-index",(tarNextIndex-1));
+        			}
+        		}
+        		console.log($(".s-store-order-button"));
         		$(e).parent().parent().remove();
         		orderListHeightCheck();
-        		let length = $(".s-store-order-button").length;
         		if(length==0){
         			$("#order-content-1").show();
+        			orderListArr = new Array();
         		} else if(length<3){
         			$("#order-content-2").css("height","auto");
         		}
         	}
         }
         
-        function orderCountMinus(){
-        	let tar = $(event.target).parent().find(".order-count-check");
-        	console.log(tar);
+        function orderCountMinus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	if(count>1){
+        		let testPrice = price/count;
+        		price -= testPrice;
+        		count--;
+        		$(tar).find(".s-store-order-prices").val(price);
+        		$(tar).find(".s-store-order-count").val(count);
+        		$(tar).find(".order-count-check").text(count);
+        		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+        	}
+        	orderAllFinalPriceCacr();
         }
         
-        function orderCountPlus(){
-        	let tar = $(event.target).parent().find("strong");
-        	console.log(tar);
+        function orderCountPlus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	let testPrice = price/count;
+        	price += testPrice;
+    		count++;
+    		$(tar).find(".s-store-order-prices").val(price);
+    		$(tar).find(".s-store-order-count").val(count);
+    		$(tar).find(".order-count-check").text(count);
+    		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+    		orderAllFinalPriceCacr();
         }
         
         
         /* 주문표 가격계산 함수 */
         function orderAllFinalPriceCacr(){
         	let orderFinalPriceCheck = $(".s-store-order-prices");
-        	console.log(orderFinalPriceCheck);
         	let orderFinalPrice = 0;
         	for(let i=0;i<orderFinalPriceCheck.length;i++){
         		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
         	}
-        	console.log(orderFinalPrice);
         	$("#order-final-price").val(orderFinalPrice);
         	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
         }
@@ -843,6 +883,30 @@
            val += "원";
            return val;
         }
+        
+        /* order객체 동일성비교메소드 */
+        function equlasObject(x,y){
+        	if(x['src']!=y['src']){
+        		return false;
+        	}
+        	if(x['name']!=y['name']){
+        		return false;
+        	}
+       		if(x['reqOp']['reqOpNo']!=y['reqOp']['reqOpNo']){
+       			return false;
+       		}
+       		if(x['unReqOp'].length==y['unReqOp'].length){
+	       		for(let i=0;i<x['unReqOp'].length||i<y['unReqOp'].length;i++){
+	       			if(x['unReqOp'][i]['unReqOpNo']!=y['unReqOp'][i]['unReqOpNo']){
+	       				return false;
+	       			}
+	       		}
+       		} else {
+       			return false;
+       		}
+        	return true;
+        }
+        
         
     
     </script>
