@@ -29,7 +29,7 @@ ${sysdate }  --%>
 		    div#idMsg-container{position:relative; padding:0px;}
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
-		    div#idMsg-container span.no{color:red;}
+		    div#idMsg-conta  iner span.no{color:red;}
 		    
 </style>
 
