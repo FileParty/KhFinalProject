@@ -851,7 +851,10 @@
         
         /* 주문표에서 주문하기 */
         function orderListEnd(){
-        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
+        	let limitPrice = Number($("#order-limit-price").val());
+        	let orderFinalPrice = Number($("#order-final-price").val());
+        	if(orderFinalPrice>limitPrice){
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -866,6 +869,9 @@
 	        			console.log(c);
 	        		}
 	        	});
+        	} else {
+        		alert("최소 주문금액보다 높게 주문해야합니다!");
+        	}
         	
         }
         
