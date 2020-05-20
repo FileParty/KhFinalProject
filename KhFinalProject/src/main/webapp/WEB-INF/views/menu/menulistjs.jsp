@@ -40,13 +40,6 @@
 		});
 		
 		$(".rec-cancel").click(function(e){
-			
-			/* $(this).parent().remove();
-			
-			if($(".rec-item").length%4==0){
-				$(this).parent().parent().remove();
-			} */
-			
 			var no = $(this).siblings("input").val();
 			console.log(no);
 			$.ajax({
@@ -64,13 +57,23 @@
 						
 						console.log($(".rec-item").length);
 						
+						var co = $.trim($(".rec-count").html())-1;
+						
+						$(".rec-count").html(co);  
+						
 						if($(".rec-item").length%4==1){
+							//카운트 감소
+							
 							$(e.target).parent().parent().parent().remove();
 							
 							if(currentPage > 0){
 								currentPage = currentPage - 1;
 								changePage();
 								console.log(currentPage);
+							}
+							if(currentPage==0){
+								$(".rec-slider").addClass("d-none");
+								$(".rec-none").removeClass('d-none');
 							}
 						}else{
 							$(e.target).parent().parent().remove();
@@ -221,8 +224,10 @@
 							$(".name-"+i).html(info['s_Name']);
 							
 							//별점
-							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
-							
+							if(info['s_ReviewCount']!=0)
+								$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+							else
+								$(".score-"+i).html('0');
 							//리뷰
 							$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
 							
@@ -339,7 +344,10 @@
 						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						if(info['s_ReviewCount']!=0)
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						else
+							$(".score-"+i).html('0');
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);
@@ -460,7 +468,10 @@
 						$(".name-"+i).html(info['s_Name']);
 						
 						//별점
-						$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						if(info['s_ReviewCount']!=0)
+							$(".score-"+i).html('★ '+((info['s_Taste']+info['s_Amount']+info['s_Delivery'])/3/info['s_ReviewCount']).toFixed(2));
+						else
+							$(".score-"+i).html('0');
 						
 						//리뷰
 						$(".review-"+i).html('리뷰 '+info['s_ReviewCount']);

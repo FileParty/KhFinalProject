@@ -29,6 +29,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,10 +45,7 @@ public class LicenseeController {
 	@Autowired
 	Logger logger;
 	
-	@RequestMapping("/licensee/mypage")
-	public String myPage() {
-		return "business/mypage";
-	}
+	
 	@RequestMapping("/licensee/storeEnroll")
 	public String storeEnroll() {
 		//매장등록
@@ -137,8 +135,8 @@ public class LicenseeController {
 		return data;
 	}
 	@RequestMapping("/licensee/menuEnrollEnd")
-	@ResponseBody
-	public String menuEnroll(HttpSession session,HttpServletRequest req,MultipartFile[] me_logImg) {
+	
+	public String menuEnroll(HttpSession session,HttpServletRequest req,MultipartFile[] me_logImg,Model model) {
 		
 				
 		String path = session.getServletContext().getRealPath("/resources/upload/business/");
@@ -166,8 +164,6 @@ public class LicenseeController {
 		}
 		for(int i=0;i<mtNoEnd.length;i++) {
 			mtNoEnd[i] = Integer.parseInt(mtNo[i]);
-			System.out.println(mtNo[i]);
-			System.out.println(mtNoEnd[i]);
 		}
 		for(int i=0;i<mPrice.length;i++) {
 			menuPrice[i]= Integer.parseInt(mPrice[i]);
@@ -257,19 +253,30 @@ public class LicenseeController {
 				
 				
 			}
+			
+			String page ="";
+			if(result>0) {
+				page = "common/msg";
+				model.addAttribute("msg","메뉴등록 성공!");
+				model.addAttribute("loc","/licensee/menuStatus");
+			}else {
+				page = "common/msg";
+				model.addAttribute("msg","메뉴등록 실패!");
+				model.addAttribute("loc","/licensee/menuEnroll");
+			}
 		
-		return "";
+		return page;
 	}
 	
 	@RequestMapping("/licensee/optionEnroll")
-	@ResponseBody
-	public String optionEnroll(HttpServletRequest req) {
+	
+	public String optionEnroll(HttpServletRequest req,Model m) {
 		//추가옵션등록
 		String[] ess = req.getParameterValues("sd_name");
 		String[] price = req.getParameterValues("sd_price");
 		String[] division = req.getParameterValues("sd_division");
 		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
-		
+		int result = 0;
 		int[] prc = new int[price.length];
 		for(int i=0;i<price.length;i++) {
 			prc[i] = Integer.parseInt(price[i]);
@@ -281,24 +288,46 @@ public class LicenseeController {
 			map.put("sd_price",prc[i]);
 			map.put("sd_division",division[i]);
 			map.put("s_no",storeNo);
-			int result = service.insertSide(map);
+			result = service.insertSide(map);
 		}
+		String page ="";
+		if(result>0) {
+			page = "common/msg";
+			m.addAttribute("msg","옵션등록 성공!");
+			m.addAttribute("loc","/licensee/menuEnroll");
+		}else {
+			page = "common/msg";
+			m.addAttribute("msg","옵션등록 실패!");
+			m.addAttribute("loc","/licensee/menuEnroll");
+		}
+		return page;
 
-		return "business/menuEnroll";
 	}
 	@RequestMapping("/licensee/categoryEnroll")
-	public String categoryEnroll(HttpServletRequest req) {
+	public String categoryEnroll(HttpServletRequest req,Model m) {
 		//카테고리등록
 		String[] category = req.getParameterValues("category");
 		int storeNo = Integer.parseInt(req.getParameter("storeNo"));
+		int result = 0;
 		for(int i=0;i<category.length;i++) {
 			
 		Map<String,Object> map = new HashMap();
 		map.put("mt_name",category[i]);
 		map.put("s_no",storeNo);
-		int result = service.insertCategory(map);
+		 result = service.insertCategory(map);
 		}
-		return "business/menuEnroll";
+		
+		String page ="";
+		if(result>0) {
+			page = "common/msg";
+			m.addAttribute("msg","옵션등록 성공!");
+			m.addAttribute("loc","/licensee/menuEnroll");
+		}else {
+			page = "common/msg";
+			m.addAttribute("msg","옵션등록 실패!");
+			m.addAttribute("loc","/licensee/menuEnroll");
+		}
+		return page;
 	}
 	@RequestMapping("/licensee/selectCategory")
 	@ResponseBody
@@ -314,6 +343,18 @@ public class LicenseeController {
 	public List<Side> selectOption(int s_no) {
 		//추가옵션 조회
 		List<Side> list = service.selectOption(s_no);
+		return list;
+		
+	}
+	
+	@RequestMapping("/licensee/selectMenuSide")
+	@ResponseBody
+	public List<SideAll> selectMenuSide(int s_no,int me_no) {
+		//추가옵션 조회
+		Map<String,Object> map = new HashMap();
+		map.put("s_no", s_no);
+		map.put("me_no",me_no);
+		 List<SideAll> list = service.selectMenuSide(map);
 		return list;
 		
 	}

@@ -4,6 +4,7 @@ package com.kh.fp.controller.business.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
 public interface StoreService {
@@ -14,4 +15,6 @@ public interface StoreService {
 	List<Map<String, Object>> getStoresDetailfiles(int no);
 	Map<String, Object> getStoresUpdate(int no);
 	int storeUpdate(StoreEnroll s);
+	List<Map<String, Object>> getStoresInfo(int no);
+	List<Sales> getSales(Object no);
 }
