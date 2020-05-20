@@ -603,6 +603,8 @@
            $(".menu-modal-content-final-price").html(numberFormatting(cacrPrice));
         }
         
+        var orderListArr = new Array();
+        
         /* 주문표에 추가 */
         function addOrderList(){
         	let finalPrice = Number($("#finalPrice_").val());
@@ -667,6 +669,7 @@
 	        	storeMenuModalClose();
 	        	orderListHeightCheck();
 	        	orderAllFinalPriceCacr();
+	        	orderListArr.push(new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice));
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -696,16 +699,15 @@
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
-	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice,finalPrice)];
+	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
+	        	newOrders.push({"finalPrice":finalPrice})
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(newOrders)},
 	        		type:"post",
 	        		success:function(){
-
 	        			location.reload();
 	        			location.replace("${path}/pay/paylist.do");
-
 	        		},
 	        		error:function(a,b,c){
 	        			console.log(a);
@@ -718,14 +720,13 @@
         	}
         }
         
-        function newOrder(src,name,reqOp,unReqOp,count,price,allPrice){
+        function newOrder(src,name,reqOp,unReqOp,count,price){
         	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
         	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
         	this.count = count; // 메뉴 갯수
         	this.price = price; // 메뉴 가격
-        	this.allPrice = allprice // 총합가격
         }
         
         function ShowlimitPriceTooTip(){
@@ -810,37 +811,10 @@
         
         /* 주문표에서 주문하기 */
         function orderListEnd(){
-        	let newOrders = new Array();
-        	let finalPrice = Number($("#order-final-price").val());
-        	let limitPrice = Number($("#order-limit-price").val());
-        	if(finalPrice>=limitPrice){
-        		let orderMenuList = $(".s-store-order-button");
-        		for(let i=0;i<orderMenuList.length;i++){
-		        	let menuImgSrc = $(orderMenuList[i]).find("#modal-menu-img-src").val();
-		        	let menuName = $("#modal-menu-name").text();
-		        	let reqOp;
-		        	let reqOps = $(".menu-modal-content-required-option-radio");
-		        	for(let i=0;i<reqOps.length;i++){
-		        		if($(reqOps[i]).is(":checked")==true){
-		        			reqOp = {"reqOpNo":$(reqOps[i]).val(),
-		        					"reqOpName":$(reqOps[i]).parent().text().trim()};
-		        		}
-		        	}
-		        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
-		        	let unReqOp = new Array();
-		        	for(let i=0;i<unReqOps.length;i++){
-		        		if($(unReqOps[i]).is(":checked")==true){
-		        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
-		        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
-		        		}
-		        	}
-		        	let menuCount = $("#menu-modal-menu-count-text").text();
-		        	let orders = new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
-		        	newOrders.push(orders);
-        		}
+        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
-	        		data:{"newOrders":JSON.stringify(newOrders)},
+	        		data:{"newOrders":JSON.stringify(orderListArr)},
 	        		type:"post",
 	        		success:function(){
 	        			location.reload();
@@ -852,9 +826,7 @@
 	        			console.log(c);
 	        		}
 	        	});
-        	} else {
-        		ShowlimitPriceTooTip();
-        	}
+        	
         }
         
         /* 돈 표시용 */
