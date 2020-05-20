@@ -103,7 +103,6 @@ public class MenuDetailController {
 	@ResponseBody
 	public void menuOrderEnd(ModelAndView mv, String newOrders,HttpSession session) {
 		try {
-			log.debug(newOrders);
 			List<Map> m = mapper.readValue(newOrders, List.class);
 			log.debug(""+m);
 			session.removeAttribute("orderList");

@@ -147,11 +147,6 @@ public class StoreServiceImpl implements StoreService {
 		return dao.getStoresInfo(session,no);
 	}
 
-	@Override
-	public List<Map<String, Object>> getSales(int no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Sales> getSales(Object no) {
