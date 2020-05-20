@@ -49,7 +49,7 @@
       </beans:property>
    </beans:bean>
 	
-	<beans:bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<!-- <beans:bean class="com.fasterxml.jackson.databind.ObjectMapper"/>  -->
 	
    <aop:aspectj-autoproxy/>
 	
