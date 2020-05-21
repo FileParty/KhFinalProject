@@ -46,8 +46,11 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 
 	@Override
 	public List<StoreDetailReview> selectStoreDetailReview(int no, String searchType, int cPage) {
-		// TODO Auto-generated method stub
-		return null;
+		List<StoreDetailReview> rList = dao.selectStoreDetailReview(session,no,searchType,cPage);
+		for(StoreDetailReview sdr : rList) {
+			sdr.setR_imgs(dao.selectStroeDetailReviewImg(session,sdr.getR_no()));
+		}
+		return rList;
 	}
 	
 	

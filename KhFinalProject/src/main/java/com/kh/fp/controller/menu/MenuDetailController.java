@@ -119,8 +119,8 @@ public class MenuDetailController {
 	@RequestMapping("/menu/storeReview")
 	@ResponseBody
 	public List<StoreDetailReview> storeReview(@RequestParam int no, @RequestParam(defaultValue = "1") int cPage,
-			@RequestParam(required = false,defaultValue = "none") String searchType){
-		List<StoreDetailReview> list = service.selectStoreDetailReview(no,searchType,cPage);
+			@RequestParam(required = false) String onlyPhoto){
+		List<StoreDetailReview> list = service.selectStoreDetailReview(no,onlyPhoto,cPage);
 		return list;
 	}
 	
