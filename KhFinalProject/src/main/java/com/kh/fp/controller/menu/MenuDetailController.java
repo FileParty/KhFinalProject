@@ -13,13 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
-import com.kh.fp.model.vo.MenuDetailOrder;
 import com.kh.fp.model.vo.StoreDetailInfo;
+import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
 
 import lombok.extern.slf4j.Slf4j;
@@ -101,20 +100,29 @@ public class MenuDetailController {
 	
 	@RequestMapping("/menu/menuOrderEnd")
 	@ResponseBody
-	public void menuOrderEnd(ModelAndView mv, String newOrders) {
+	public void menuOrderEnd(ModelAndView mv, String newOrders,HttpSession session) {
 		try {
-			log.debug(newOrders);
 			List<Map> m = mapper.readValue(newOrders, List.class);
-			for(Map mo : m) {
-				log.debug(""+mo);
-				log.debug(""+mo.get("reqOp"));
-				log.debug(""+mo.get("unReqOp"));
-			}
 			log.debug(""+m);
-			mv.addObject("orderList", m);
+			session.removeAttribute("orderList");
+			log.debug(""+session.getAttribute("orderList"));
+			session.setAttribute("orderList", m);
+			List<Map> sM = (List<Map>)session.getAttribute("orderList");
+			for(Map ms : sM) {
+				log.debug("세션에 넣은거 : "+ms);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/menu/storeReview")
+	@ResponseBody
+	public List<StoreDetailReview> storeReview(@RequestParam int no, @RequestParam(defaultValue = "1") int cPage,
+			@RequestParam(required = false,defaultValue = "none") String searchType){
+		List<StoreDetailReview> list = service.selectStoreDetailReview(no,searchType,cPage);
+		return list;
+	}
+	
 
 }

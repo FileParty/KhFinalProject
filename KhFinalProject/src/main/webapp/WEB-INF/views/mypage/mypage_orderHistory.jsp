@@ -54,7 +54,7 @@ ${sysdate }  --%>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
                            <p>${(o.time-rdate.time)/(60*1000) }</p>
-                           <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['O_NO']}', '${m['M_NO'] }');">리뷰쓰기</button></p>
+                           <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }');">리뷰쓰기</button></p>
                            <table style="width:100%">
                                <tr>
                                    <td><img src="${path }/resources/upload/mypage/${m['S_LOGIMG']}"/></td>
@@ -115,12 +115,12 @@ ${sysdate }  --%>
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                    	<form name="review" action="${path}/mypage/insertReview.do" method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
-                    		<input id="o_no" type="hidden" /><input id="m_no" type="hidden" />
+                    	<form name="review" action="${path}/mypage/insertReview.do" method="post" onsubmit="return confirm();"  enctype="multipart/form-data" >
+                    		<input id="s_no" type="hidden" /><input id="m_no" type="hidden" />
 	                        <p style="text-align: center;"><strong></strong></p>
 	                        <table id="modal-tbl" style="width:100%">
 	                            <tr>
-	                                <th style="text-align:center;">${loginMember.m_nickname }</th>
+	                                <th style="text-align:center;"><h3>${loginMember.m_nickname }</h3></th>
 	                            </tr>
 	                            
 	                            <tr><td><br></td></tr>
@@ -128,35 +128,50 @@ ${sysdate }  --%>
 	                            <tr>  
 	                                <th id="scoreTaste" style="text-align:center;">
 	                                	<h3 style="display:inline; vertical-align:middle">맛: </h3>
+	                                	<input type="hidden" id="taste" name="taste" value="0">
 	                                </th>
 	                            </tr>
 	                            <tr>  
 	                                <th id="scoreAmount" style="text-align:center;">
 	                                	<h3 style="display:inline; vertical-align:middle">양: </h3>
+	                                	<input type="hidden" id="amount" name="amount" value="0">
 	                                </th>
 	                            </tr>
 	                            <tr>  
 	                                <th id="scoreDelivery" style="text-align:center;">
 	                                	<h3 style="display:inline; vertical-align:middle">배달: </h3>
+	                                	<input type="hidden" id="delivery" name="delivery" value="0">
 	                                </th>
 	                            </tr>
 	                            
 	                            <tr><td><br></td></tr>
 	                            
 	                            <tr>
-	                            	<td><textarea cols="38" rows="10" placeholder="리뷰내용을 작성해주세요"></textarea></td>
+	                            	<td><textarea cols="38" rows="10" id="reviewCon" name="reviewCon" placeholder="솔직한 리뷰 작성해주세요~~"></textarea></td>
 	                            </tr>
 	                        </table>
 	                        
-	                        <div class="border border-dark fileUp rounded row justify-content-center align-items-center" style="width:100px; height:100px">
-	                        
-	                        	<div>
-	                        		<img src="${path }/resources/img/mypage/picture.PNG"/>
-	                        	</div>
-	                        
+	                        <div id="preview" style="width:130%; height:100%; text-align:center; margin-left:50%; transform:translateX(-50%);" >
+	                        	
 	                        </div>
-	                        <input id="fileIn" type="file" name="upFile" class="rounded d-none">
-	                        <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
+	                        
+	                        <div id="fileUp" class="border border-dark rounded row justify-content-center align-items-center" style="width:100px; height:100px; margin-left:50%; transform:translateX(-50%); margin-top:10px;">
+	                        
+	                        	<div style="margin-top:20px">
+	                        		<img src="${path }/resources/img/mypage/picture.PNG" />
+	                        	</div>
+	                        	<p>사진추가</p>
+	                        </div>
+	                        <div style="text-align:center; margin-top:10px;">
+	                        	<input type="hidden" value="">
+	                        	<input type="submit" value="작성완료">
+							</div>
+	                        <!-- <input id='upload0' type='file' name='upload' class='rounded d-none'>
+	                        <input id='upload1' type='file' name='upload' class='rounded d-none'>
+	                        <input id='upload2' type='file' name='upload' class='rounded d-none'> -->
+	                        
+	                        
+	                        
 	                        
 	                        
 	                    </div>
@@ -171,20 +186,122 @@ ${sysdate }  --%>
         
         <script>
         
-        	var r_score_taste;
-        	var r_score_amount;
-        	var r_score_delivery;
         	
-        	$(".fileUp").on("click", function(){
-        		$("#fileIn").click();
+        	var img_count = 0;
+        	
+        	var preview = $("#preview");
+        	
+        	function chk_file_type(obj) {
+        		 var file_kind = obj.value.lastIndexOf('.');
+        		 var file_name = obj.value.substring(file_kind+1,obj.length);
+        		 var file_type = file_name.toLowerCase();
+
+
+
+        		 var check_file_type=new Array();​
+
+        		 check_file_type=['jpg','gif','png','jpeg','bmp'];
+
+
+
+        		 if(check_file_type.indexOf(file_type)==-1){
+        		  alert('이미지 파일만 선택할 수 있습니다.');
+        		  var parent_Obj=obj.parentNode
+        		  var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
+        		  return false;
+        		 }
+        		}
+        	
+        	function confirm(){
+        		if($("#taste").val()==0 || $("#amount").val()==0 || $("#delivery").val()==0){
+        			alert("별점을 입력해주세요!");
+        			return false;
+        		}
+        		
+        		if($("#reviewCon").val()==""){
+        			alert("리뉴 내용을 작성해주세요");
+        			return false;
+        		}
+        	}
+        	
+        	
+        	$("#fileUp").on("click", function(){
+        		$("#upload"+img_count).remove();
+        		$("#fileUp").after("<input id='upload"+ img_count +"' type='file' name='upload' class='rounded d-none' accept='image/jpeg,image/gif,image/png' onchange='img_preview(this);'/>");
+        		$("#upload" + img_count).click();
+        		
+        		console.log($("#upload" + img_count));
+        		console.log(img_count);
+        		
+        		
+        		if(document.getElementById("upload"+img_count).files.length==0){
+					        			
+        		}
+        		
         	});
         	
-        	$(function(){
-        		$('[name=upFile]').on("change",function(){
-        			const fileName=this.next().files[0].name;
-        			$(this).next().next(".custom-file-label").html(fileName);
-        		})
-        	});
+        	
+        	function img_preview(obj){
+        		
+        		var flag = chk_file_type(obj);
+        		if(!flag){
+        			return;
+        		}
+        		
+        		var upload = $("#upload"+img_count);
+        		
+        		var getFile = event.target.files;
+        		
+        		var image = document.createElement('img');
+        		
+        		var reader = new FileReader();
+        		
+        		 /* reader 시작시 함수 구현 */
+                reader.onload = (function (aImg) {
+                    console.log(1);
+         
+                    return function (e) {
+                        console.log(3);
+                        /* base64 인코딩 된 스트링 데이터 */
+                        aImg.src = e.target.result;
+                        aImg.width = 100;
+                        aImg.height = 100;
+                        aImg.style.marginTop = 10;
+                    }
+                })(image)
+         
+                if(getFile){
+                    /* 
+                        get_file[0] 을 읽어서 read 행위가 종료되면 loadend 이벤트가 트리거 되고 
+                        onload 에 설정했던 return 으로 넘어간다.
+                                                        이와 함게 base64 인코딩 된 스트링 데이터가 result 속성에 담겨진다.
+                    */
+                    reader.readAsDataURL(getFile[0]);
+                    console.log(2);
+                }
+        		
+        		if(img_count%3==0){
+        			$("#preview").append("<div id='img_"+ img_count +"' style='width:100%; height:100%; display:inline;'></div>");
+        			$("#img_"+img_count).append(image);
+        		}
+        		else if(img_count%3==1){
+        			image.style.marginLeft = 10;
+        			$("#img_"+(img_count-1)).append(image);
+        		}else{
+        			image.style.marginLeft = 10;
+        			$("#img_"+(img_count-2)).append(image);
+        		}
+        		
+        		
+        		if(event.target.files.length == 0){
+        			
+        			
+        		}else{
+        			img_count++;
+        		}
+        	}
+        	
+        	
         	
         
 	        function scoreTasteSet(no){
@@ -197,11 +314,12 @@ ${sysdate }  --%>
 	        	if(no==0){
 	        		
 	        		for(var i=0; i<1; i++){
-	        			$("#scoreTaste").append("<svg onclick='scoreTasteSet("+ i +")' id='score' class='bi bi-star-fill' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/></svg>");	        			
+	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score' class='bi bi-star-fill' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/></svg>");	        			
 	        		}
 	        		for(var i=1; i<5; i++){
-	        			$("#scoreTaste").append("<svg onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
+	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
+	        		$("#taste").val(1);
 	        		
 	        	}else if(no==1){
 	        		
@@ -211,7 +329,7 @@ ${sysdate }  --%>
 	        		for(var i=2; i<5; i++){
 	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#taste").val(2);
 	        	}else if(no==2){
 	        		
 	        		for(var i=0; i<3; i++){
@@ -220,7 +338,7 @@ ${sysdate }  --%>
 	        		for(var i=3; i<5; i++){
 	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#taste").val(3);
 	        	}else if(no==3){
 	        		
 	        		for(var i=0; i<4; i++){
@@ -229,12 +347,13 @@ ${sysdate }  --%>
 	        		for(var i=4; i<5; i++){
 	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#taste").val(4);
 	        	}else if(no==4){
 	        		
 	        		for(var i=0; i<5; i++){
 	        			$("#scoreTaste").append("<svg style='margin-right:3px;' onclick='scoreTasteSet("+ i +")' id='score"+ i +"' class='bi bi-star-fill' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/></svg>");	        			
 	        		}
+	        		$("#taste").val(5);
 	        	}
 	        }
 	        
@@ -253,7 +372,7 @@ ${sysdate }  --%>
 	        		for(var i=1; i<5; i++){
 	        			$("#scoreAmount").append("<svg style='margin-right:3px;' onclick='scoreAmountSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#amount").val(1);
 	        	}else if(no==1){
 	        		
 	        		for(var i=0; i<2; i++){
@@ -262,7 +381,7 @@ ${sysdate }  --%>
 	        		for(var i=2; i<5; i++){
 	        			$("#scoreAmount").append("<svg style='margin-right:3px;' onclick='scoreAmountSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#amount").val(2);
 	        	}else if(no==2){
 	        		
 	        		for(var i=0; i<3; i++){
@@ -271,7 +390,7 @@ ${sysdate }  --%>
 	        		for(var i=3; i<5; i++){
 	        			$("#scoreAmount").append("<svg style='margin-right:3px;' onclick='scoreAmountSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#amount").val(3);
 	        	}else if(no==3){
 	        		
 	        		for(var i=0; i<4; i++){
@@ -280,12 +399,13 @@ ${sysdate }  --%>
 	        		for(var i=4; i<5; i++){
 	        			$("#scoreAmount").append("<svg style='margin-right:3px;' onclick='scoreAmountSet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 	        		}
-	        		
+	        		$("#amount").val(4);
 	        	}else if(no==4){
 	        		
 	        		for(var i=0; i<5; i++){
 	        			$("#scoreAmount").append("<svg style='margin-right:3px;' onclick='scoreAmountSet("+ i +")' id='score"+ i +"' class='bi bi-star-fill' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/></svg>");	        			
 	        		}
+	        		$("#amount").val(5);
 	        	}
 	        }
 	        
@@ -304,7 +424,7 @@ ${sysdate }  --%>
 					for(var i=1; i<5; i++){
 						$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 					}
-					
+					$("#delivery").val(1);
 				}else if(no==1){
 					
 					for(var i=0; i<2; i++){
@@ -313,7 +433,7 @@ ${sysdate }  --%>
 					for(var i=2; i<5; i++){
 						$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 					}
-					
+					$("#delivery").val(2);
 				}else if(no==2){
 					
 					for(var i=0; i<3; i++){
@@ -322,7 +442,7 @@ ${sysdate }  --%>
 					for(var i=3; i<5; i++){
 						$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 					}
-					
+					$("#delivery").val(3);
 				}else if(no==3){
 					
 					for(var i=0; i<4; i++){
@@ -331,20 +451,21 @@ ${sysdate }  --%>
 					for(var i=4; i<5; i++){
 						$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");
 					}
-					
+					$("#delivery").val(4);
 				}else if(no==4){
 					
 					for(var i=0; i<5; i++){
 						$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star-fill' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/></svg>");	        			
 					}
+					$("#delivery").val(5);
 				}
 			}
 	        
 	        
         
-	        function reviewInsertModal(o_no, m_no){
+	        function reviewInsertModal(s_no, m_no){
 	        	
-	        	$("#o_no").val(o_no);
+	        	$("#s_no").val(s_no);
 	        	$("#m_no").val(m_no);
 	        	
 	        	$("#scoreTaste").html();

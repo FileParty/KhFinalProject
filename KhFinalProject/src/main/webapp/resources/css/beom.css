@@ -511,3 +511,28 @@ button#s-store-list-return-btn{
 	width:80px;
 	height:60px;
 }
+
+div.s-store-order-count-controller-div>div{
+	display:flex;
+	flex-direction:row;
+}
+
+.order-count-check{
+	font-size:24px;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+button.order-count-btns{
+	background-color:red;
+	color:white;
+	font-weight:800;
+	font-size:1.5em;
+	width:30px;
+	border:0;
+}
+
+.s-store-info-text{
+	font-weight:600;
+	margin-left:5px;
+}

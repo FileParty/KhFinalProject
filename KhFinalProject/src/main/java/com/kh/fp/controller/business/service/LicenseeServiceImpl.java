@@ -13,6 +13,7 @@ import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Side;
+import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
 
 @Service
@@ -106,6 +107,15 @@ public class LicenseeServiceImpl implements LicenseeService {
 		//메뉴상세
 		return dao.selectMenuList(session,s_no);
 	}
+
+	@Override
+	public List<SideAll> selectMenuSide(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		//메뉴사이드 조회
+		return dao.selectMenuSide(session,map);
+	}
+	
+	
 	
 	
 	

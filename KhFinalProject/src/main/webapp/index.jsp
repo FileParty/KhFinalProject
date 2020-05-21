@@ -10,12 +10,12 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <jsp:include page="/WEB-INF/views/common/banner.jsp"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<section>
+<section >
 
 
 	 <div class="topnav">
 
-		<a href="${path }/licensee/mypage">사업자 피파 바페도아닌 마페</a>
+		<a href="${path }/store/mypage">사업자 피파 바페도아닌 마페</a>
 		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
 		<a href="${path }/pay/paylist.do">결제 리스트</a>
 		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a>

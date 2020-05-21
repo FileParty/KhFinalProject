@@ -15,7 +15,8 @@
 			
 
 
-<!--윈도우-->  <property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:XE"/> 
+
+		<property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:XE"/> 
 
 
 
