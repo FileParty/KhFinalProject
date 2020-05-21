@@ -17,6 +17,7 @@ import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
 
 @Service
+@Transactional
 public class LicenseeServiceImpl implements LicenseeService {
 
 	
@@ -67,7 +68,7 @@ public class LicenseeServiceImpl implements LicenseeService {
 	}
 
 	@Override
-	@Transactional
+	
 	public int insertMenu(Menu m,List<MenuSide> list) {
 		// TODO Auto-generated method stub
 		int result = 0;
@@ -114,6 +115,32 @@ public class LicenseeServiceImpl implements LicenseeService {
 		//메뉴사이드 조회
 		return dao.selectMenuSide(session,map);
 	}
+
+	@Override
+	public int menuUpdate(Map<String, Object> map,int me_no) {
+		int result = 0;
+		
+		result = dao.menuUpdate(session,map);
+		if(result>0) {
+			result = dao.menuSideDelete(session, me_no);
+			}
+		
+		return result;
+	}
+
+	@Override
+	public int menuSideUpdate(List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		for(MenuSide ms : list) {
+			result = dao.menuSideUpdate(session,ms);
+		}
+		return result;
+	}
+	
+	
+	
+	
 	
 	
 	
