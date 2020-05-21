@@ -48,7 +48,7 @@
 					<tr style="margin-bottom:30px;">
 						<th>아이디</th>
 						<td class="idMsg-container">
-							<input type="text" id="userId" name="m_id" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용 " required>
+							<input type="text" id="userId" name="m_Id" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용 " required>
 							<span class="idMsg ok">사용가능한 아이디입니다.</span>
 							<span class="idMsg no">이미 존재하는 아이디입니다.</span>
 							<span class="idMsg error">올바른 아이디 형식이 아닙니다.</span>
@@ -57,7 +57,7 @@
 					<tr>
 						<th>비밀번호</th>
 						<td class="pwMsg-container">
-							<input type="password" id="userPw" name="m_pw" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용" required>
+							<input type="password" id="userPw" name="m_Pw" class="form-control" placeholder="숫자와 영(소)문자 조합 5~10자리를 사용" required>
 							<span class="pwMsg ok3">사용가능한 비밀번호 입니다.</span>
 							<span class="pwMsg no3">올바른 비밀번호 형식이 아닙니다.</span>
 						</td>
@@ -65,34 +65,34 @@
 					<tr>
 						<th></th>
 						<td class="pwckMsg-container">
-							<input type="password" id="userPwck" name="m_pwck" class="form-control" placeholder="비밀번호 확인" required>
+							<input type="password" id="userPwck" name="m_Pwck" class="form-control" placeholder="비밀번호 확인" required>
 							<span class="pwckMsg ok1">비밀번호가 일치합니다.</span>
 							<span class="pwckMsg no1">비밀번호가 일치하지 않습니다.</span>
 						</td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td><input type="text" id="name" name="m_name" class="form-control" placeholder="이름 입력" required></td>
+						<td><input type="text" id="name" name="m_Name" class="form-control" placeholder="이름 입력" required></td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td><input type="text" id="phone" name="m_phone" class="form-control" placeholder="전화번호 입력" required></td>
+						<td><input type="text" id="phone" name="m_Phone" class="form-control" placeholder="전화번호 입력" required></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
 						<td class="nameMsg-container">
-							<input type="text" id="nickname" name="m_nickname" class="form-control" placeholder="닉네임 입력" required>
+							<input type="text" id="nickname" name="m_Nickname" class="form-control" placeholder="닉네임 입력" required>
 							<span class="nameMsg ok2">사용가능한 닉네임입니다.</span>
 							<span class="nameMsg no2">중복된 닉네임입니다.</span>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="email" name="m_email" class="form-control" value="${m_email }" readonly="readonly"></td>
+						<td><input type="email" name="m_Email" class="form-control" value="${m_Email }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>종류</th>
-						<td><label><input type="radio" name="m_level" value="1">구매자</label>&emsp;<label><input type="radio" name="m_level" value="2">배달원</label></td>
+						<td><label><input type="radio" name="m_Level" value="1">구매자</label>&emsp;<label><input type="radio" name="m_Level" value="2">배달원</label></td>
 					</tr>
 				</table>
 				<div class="d-flex justify-content-center" style="margin:30px;">
@@ -279,7 +279,7 @@
         	return false;        	
         }
         //회원 종류 선택했는지
-        else if(!$("input:radio[name=m_level]").is(":checked")){
+        else if(!$("input:radio[name=m_Level]").is(":checked")){
 		    alert("회원 종류를 선택해 주세요.");
             return false; 
 		}

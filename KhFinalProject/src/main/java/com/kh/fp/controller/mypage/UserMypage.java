@@ -60,10 +60,10 @@ public class UserMypage {
 		}catch(Exception e) {
 		}
 		int numPerPage = 5;
-		int totalData = service.getTotalCount(loginMember.getM_no());
+		int totalData = service.getTotalCount(loginMember.getM_No());
 		String url = "/mypage/orderHistory.do";
 		
-		List<Map<String, String>> list = service.selectOrder(loginMember.getM_no(), cPage, numPerPage);
+		List<Map<String, String>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
 		
 		String pageBar = PageBarFactory(cPage, numPerPage, totalData, url);
 		
@@ -176,10 +176,10 @@ public class UserMypage {
 		}catch(Exception e) {
 		}
 		int numPerPage = 5;
-		int totalData = service.reviewTotalCount(loginMember.getM_no());
+		int totalData = service.reviewTotalCount(loginMember.getM_No());
 		String url = "/mypage/review.do";
 		
-		List<Map<String, String>> list = service.selectReview(loginMember.getM_no(), cPage, numPerPage);
+		List<Map<String, String>> list = service.selectReview(loginMember.getM_No(), cPage, numPerPage);
 		
 		String pageBar = PageBarFactory(cPage, numPerPage, totalData, url);
 		
@@ -200,7 +200,7 @@ public class UserMypage {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		List<Map<String, String>> list = service.selectPrefer(loginMember.getM_no());
+		List<Map<String, String>> list = service.selectPrefer(loginMember.getM_No());
 		
 		m.addAttribute("list", list);
 		
@@ -219,7 +219,7 @@ public class UserMypage {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		
-		List<Map<String, String>> list = service.selectCoupon(loginMember.getM_no());
+		List<Map<String, String>> list = service.selectCoupon(loginMember.getM_No());
 		
 		m.addAttribute("list", list);
 		

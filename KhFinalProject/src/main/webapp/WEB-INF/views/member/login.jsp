@@ -50,7 +50,7 @@
 					</form>
 					<div class="d-flex" style="margin-top:30px; margin-left:10px; margin-right:10px;">
 						<button class="btn btn-outline-dark" onclick="location.replace('${url }')" style="width:200px;">Naver 로그인</button>
-						<button class="btn btn-outline-dark" onclick="location.replace('${path}/member/enroll.do')" style="width:200px;">Google 로그인</button>	
+						<button class="btn btn-outline-dark" onclick="location.replace('${kakao_url}')" style="width:200px;">Kakao 로그인</button>	
 					</div>
 					<div class="" style="margin:30px;">
 						<span>배달킹이 처음이신가요? <a href="${path }/member/memberEnroll1.do">회원가입</a>을 해보세요!</span>
