@@ -80,7 +80,7 @@
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
-                    <span>${store['s_name']}</span>
+                    <span style="font-size:20px;font-weight:600;">${store['s_name']}</span>
                 </div>
                 <div class="s-store-info"> 
 
@@ -91,11 +91,11 @@
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span>${store['s_score']}</span></li>
-                            <li>운영시간<span><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></li>
-                            <li>최소주문 금액 <span>${store['s_limitprice']}</span></li>
-                            <li>결제 <span></span>${store['s_payopt']}</li>
-                            <li>배달시간 <span>${store['s_time']}분</span></li>
+                            <li><i class="fa fa-star"></i><span class="s-store-info-text">${store['s_star']}</span></li>
+                            <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
+                            <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
+                            <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
+                            <li>배달시간 <span class="s-store-info-text">${store['s_time']}분</span></li>
                         </ul>
 
                     </div>
@@ -109,7 +109,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review()">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}')">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -126,9 +126,9 @@
                                    <c:forEach items="${store['bestMenu']}" var="bm" varStatus="index">
                                       <c:if test="${bm['me_best'] eq 'Y' }">
                                           <div class="s-store-menu-content" onclick="storeMenuSelectModal('${bm['me_no']}')">
-                                              <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
+                                              <img src="${path }/resources/upload/business/${bm['me_logimg']}" width="100px" height="100px">
                                               <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
-                                              <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
+                                              <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
                                           </div>
                                        </c:if>
                                     </c:forEach>
@@ -154,16 +154,16 @@
 
                             <div class="s-store-star">
                                 <div>
-                                    <h1>4.4</h1>
+                                    <h1>${store['s_star']}</h1>
                                 </div>
                                 <div class="s-store-score">
                                     <div><i class="fa fa-star"></i><span>맛</span></div>
                                 </div>
                             </div>
-
+							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span>리뷰 <strong>121</strong>개</span><span>사장님 댓글 <strong>21</strong>개</span>
+                                    <span>리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
                                 <div>
                                 사진 리뷰만 :
@@ -204,26 +204,20 @@
                                 </table>
 
                             </div>
-                            
-                            
-                            
+                              
                         </div>
                         
-                       
+                        
                         <div id="info" class="container tab-pane fade"><br>
-                            
                             <div>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
                                 <p>
                                     고객님들께 알려드립니다.<br>
                                     죄송하게도 바로결제시에는 쿠폰이 지급되지 않습니다.
                                 </p>
                                 <br>
-                                
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -239,8 +233,7 @@
                                         <td>${store['s_addr'] }</td>
                                     </tr>
                                 </table>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/card.png" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -249,7 +242,6 @@
                                            <input type="hidden" id="s-store-limit-price" value="${store['s_limitprice'] }">
                                            <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원
                                         </td>
-                                    
                                     </tr>
                                     <tr>
                                         <td>결제수단</td>
@@ -257,7 +249,7 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.jpg.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -270,7 +262,7 @@
                                     </tr>
                                 </table>
                                 
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/carrots.png" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -431,7 +423,7 @@
                           span += "</span>"
                           let div2 = $("<div>");
                           let img = $("<img>").attr({
-                             src:"${path}/resources/upload/menu/"+data[i]['me_logimg'],
+                             src:"${path}/resources/upload/business/"+data[i]['me_logimg'],
                              width:"100px",
                              height:"100px"
                           });
@@ -460,7 +452,7 @@
                  $('#modalBox').modal('show');
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
-                 $("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
+                 $("#modal-menu-img").attr("src","${path}/resources/upload/business/"+data['me_logimg']);
                  $("#modal-menu-name").html(data['me_name']);
                  if(data['me_text']!=null){
                     $("#modal-menu-text").html(data['me_text']);
@@ -913,6 +905,10 @@
         	return true;
         }
         
+        /* 리뷰영역 */
+        function review(no){
+        	console.log(no);
+        }
         
     
     </script>

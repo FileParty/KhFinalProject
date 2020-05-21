@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.menuDetail.MenuDatailDao;
 import com.kh.fp.model.vo.StoreDetailInfo;
+import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
 import com.kh.fp.model.vo.StoreMenuSide;
 
@@ -41,6 +42,12 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 		StoreMenu selectMenu = dao.selectMenuDetail(session,no);
 		selectMenu.setSide(dao.selectMenuDetailSide(session,no));
 		return selectMenu;
+	}
+
+	@Override
+	public List<StoreDetailReview> selectStoreDetailReview(int no, String searchType, int cPage) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

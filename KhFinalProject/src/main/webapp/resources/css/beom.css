@@ -531,3 +531,8 @@ button.order-count-btns{
 	width:30px;
 	border:0;
 }
+
+.s-store-info-text{
+	font-weight:600;
+	margin-left:5px;
+}

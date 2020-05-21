@@ -13,13 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
-import com.kh.fp.model.vo.MenuDetailOrder;
 import com.kh.fp.model.vo.StoreDetailInfo;
+import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
 
 import lombok.extern.slf4j.Slf4j;
@@ -115,6 +114,14 @@ public class MenuDetailController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/menu/storeReview")
+	@ResponseBody
+	public List<StoreDetailReview> storeReview(@RequestParam int no, @RequestParam(defaultValue = "1") int cPage,
+			@RequestParam(required = false,defaultValue = "none") String searchType){
+		List<StoreDetailReview> list = service.selectStoreDetailReview(no,searchType,cPage);
+		return list;
 	}
 	
 
