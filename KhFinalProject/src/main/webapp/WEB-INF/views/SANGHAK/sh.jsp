@@ -53,14 +53,17 @@
       </tr>
     </thead>
     <tbody >
-                              <%-- <c:forEach items="${list}" var="c">
-                         	
-                                <c:if test="${c['m_no']== loginMember['m_no'] }"> --%>
-     <c:forEach items="${orderList }" var="a">
+                      
+     <c:forEach items="${orderList }" var="a" varStatus="status">
+   <c:set var="priceSum" value="${a['finalPrice']}"/>
+
+     	 <c:if test="${!status.last}"> 
+
+
     		<tr style="height: 140px;border-bottom:1px solid rgb(228, 225, 225);">
      	
 			        <td style="width: 120px;padding: 15px;">
-			          <img src="${path}/resources/upload/menu/${a['src']}" style="top:0; left: 0;width: 120px; height: 100px;">
+			          <img src="${path}/resources/upload/business/${a['src']}" style="top:0; left: 0;width: 120px; height: 100px;">
 			        </td>
 			      
 			        <td width="400px" style="" ><b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
@@ -74,25 +77,22 @@
 		   		</c:forEach>
 			        </td>
 			        <td style="font-size: 21px;">
-			        	${a['count']}
+			        	${a['count']}   <!--${orderList[0]['count']}  -->
+			        		${a['menuCount']}
 			        </td>
 			        <td style="font-size: 21px;">
-			        	${a['price']} 원
+			        	${a['price']} ${a['finalPrice']}원	<br>
+
 			        </td><!-- ${newOrder[0]['price']} -->
-			       
-			  
+
      		</tr>
      		
-     		
+     	</c:if>  
+     	
       </c:forEach>
+      
  			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
-	     		<td></td>
-	     		<td></td>
-	     		<td></td>
-	     		
-	     		<td style="font-weight:bold;text-align:right;color:red;font-size:16px">배달료&nbsp;:&nbsp;</td>
-	     		<td style="font-size:16px;text-align:left;">&nbsp;&nbsp;2500 원</td>
-     		
+	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
       
@@ -145,7 +145,7 @@
           </table>
           <br>
           <div style="display:flex; justify-content:center;padding-left: 490px;">
-          
+         
         </div>	
         
         <br>
@@ -422,7 +422,14 @@
   <div style="margin-top:75px;" >
     <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
   <div class="rightcolumn" style="padding-right:10px;" >
-    <h3 style="font-weight:bold;color:black;">총 합계</h3><h1 align="center" style="font-weight: bold;color:red">원</h1>
+    <h3 style="font-weight:bold;color:black;">총 합계</h3>
+    <div>
+    <h1 style="font-weight: bold;color:red">
+    <input style="text-align:center;width:100%;border:1px solid white;"type="text" value="${priceSum+2500}원" id="sum" name="sum" />
+    </h1>
+    </div>
+    
+    
     <hr width="90%" >
 
     <div class="card"width="90%">
@@ -430,28 +437,37 @@
       <table style="width: 340px; height: auto;font-weight: bold;font-size: 20px;">
         <tr style="height:40px">
             <td>총 상품금액</td>
-            <td id="td1234"style="width: 155px;text-align: right;font-size: 21px;">${orderList[0]['price']+2500} 원</td>
+               <c:forEach items="${orderList }" var="a" varStatus="status">
+               	<c:if test="${status.count==1}">
+            		<td id="td1234"style="width: 155px;text-align: right;font-size: 21px;"> 
+            			<c:out value="${priceSum}"/> 원 
+            			<!--******************************hidden***********************************************  -->
+            			<input type="hidden" value="${priceSum}"/>      	
+            		</td>
+            		</c:if>
+            </c:forEach>
         </tr>
-       <!--  <tr style="height:40px">
-            <td>할인금액</td>
-            <td><em style="color: red;">-2,000원</em></td>
-        </tr> -->
         <tr style="height:40px">
           <td>쿠폰 사용금액</td>
-          <td style="color: red;text-align: right;"><div class="" id="ex2_Result3" style="
-    font-size: 21px;">0원</div></td>
+          <td style="color: red;text-align: right;"><div class="" id="ex2_Result3" style="font-size: 21px;">0원</div></td>
          </tr>
          <tr style="height:40px">
            <td>포인트 사용금액</td>
-          <!--분기처리하고싶음. 모두사용체크도있으 input만 보이고 체크안되있으면 div만 보이게   -->
             <td style="text-align: right;">
             	<div class="def" id="def123" style="color:red;font-weight:bold;height: 20px;text-align: right;font-size: 21px;margin-top: -11px;margin-right:-1">0원</div>
-            	<input style="text-align: right;color:red;font-weight:bold;width: 101px;border:1px solid white;margin-top: -6px;margin-right: -3px;font-size: 21px;" type="text"id="allpay4" class="invisible" readonly>
+            	<!--******************************hidden***********************************************  -->
+            	
+            	<input style="text-align:right;color:red;font-weight:bold;width: 150px;border:1px solid white;margin-top: -6px;margin-right: -3px;font-size: 21px;" 
+            		type="text"id="allpay4" class="invisible" name="" readonly>
+            	<!--******************************hidden***********************************************  -->
+            	
             </td>
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
       <td style="text-align: right;font-size: 21px;">2500 원</td>
+      <!--******************************hidden***********************************************  -->
+      <input type="hidden" value="2500"/>    
   </tr>
           </table><br><hr>
                             <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -23px;height: 81px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
@@ -883,10 +899,11 @@ $(".checkBtn").click(function(){
 	
 	str +=
 			"<font color='red'>-" + name +"원</font>"	
+	sum1 += name
+		
 			
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
-	
 	
 	$(event.target).parent().parent().parent().children("td").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
@@ -1055,7 +1072,7 @@ color: #fff;
 
 <style>
 * {
-     /* border:1px solid red;   */
+     /*  border:1px solid red;  */  
     box-sizing: border-box;
 }
 body {

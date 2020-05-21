@@ -23,6 +23,8 @@
 		<typeAlias type="com.kh.fp.model.vo.StoreEnroll" alias="storeEnroll"/>	
 		<typeAlias type="com.kh.fp.common.StringArrayType" alias="strArr"/>
 		<typeAlias type="com.kh.fp.model.vo.Sales" alias="sales"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.StoreDetailReview" alias="storeDetailReview"/>
 	</typeAliases>
 </configuration>
 
