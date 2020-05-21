@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class SocketMessage {
 
 	private String type;	//배달자인지, 사업자 인지
-	private int storeNo;	//store 정보
-	private int deliveryNo; //delivery 정보
-	private String msg; //간단한 메시지
+	private String xl;	//위도
+	private String yl; //경도
+	private String state; //상태 (배달요청, 배달수락, 배달대기중, 배달 수락) , (N,Y) 대기(요청)W, (수락)Y, (거절)N
 	private String sender;
 	//사업자 -> 배달원 
 	//배달원 -> 사업자
