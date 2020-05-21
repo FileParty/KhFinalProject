@@ -28,7 +28,7 @@
 				<hr style="width:175px;">
 			</div>
 			<div class="updatePw-form d-flex justify-content-center">
-				<form action="${path}/member/updateMemberPwEnd.do" method="post" onsubmit="">
+				<form action="${path}/member/updateMemberPwEnd.do" method="post" onsubmit="fn_checkPwM();">
 					<table>
 						<tr>
 							<th>변경할 비밀번호</th>
@@ -74,6 +74,11 @@
 					$(".no1").attr("name","ok");
 					$(".ok1").attr("name","no");
 				}
+			}else{
+				$(".no1").hide();
+				$(".ok1").hide();
+				$(".no1").attr("name","no");
+				$(".ok1").attr("name","no");
 			}
 		}
 	});
@@ -94,6 +99,11 @@
 				$(".ok3").attr("name","ok");
 				$(".no3").attr("name","no");
 			}
+		}else{
+			$(".ok3").hide();
+			$(".no3").hide();
+			$(".ok3").attr("name","no");
+			$(".no3").attr("name","no");
 		}
 		if(pw != "" && pwck != ""){
 			if(pwck.trim().length=pw.trim().length){
@@ -111,6 +121,11 @@
 					
 				}
 			}
+		}else{
+			$(".no1").hide();
+			$(".ok1").hide();
+			$(".no1").attr("name","no");
+			$(".ok1").attr("name","no");
 		}
 	});
 	//비밀번호 형식이 잘못 됬거나 비밀번호 확인이 불일치 일때 변경 방지
