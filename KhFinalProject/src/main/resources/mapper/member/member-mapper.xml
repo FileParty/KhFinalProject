@@ -3,11 +3,11 @@
 <mapper namespace="member">
    <!-- 일반 아이디 회원가입 -->
   <insert id="insertMember" parameterType="member">
-  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_id},#{m_pw},'N',#{m_nickname},SYSDATE,0,#{m_level},#{m_phone},#{m_name},#{m_email})
+  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,0,#{m_Level},#{m_Phone},#{m_Name},#{m_Email})
   </insert>
   <!-- 사업자 아이디 회원가입 -->
   <insert id="insertBusiness" parameterType="business">
-  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_name},#{b_id},#{b_pw},#{b_businesscode},DEFAULT,#{b_email},default)
+  	INSERT INTO BUSINESS VALUES(business_seq.nextval,#{b_Name},#{b_Id},#{b_Pw},#{b_BusinessCode},DEFAULT,#{b_Email},default)
   </insert>
 <!--   <select id="selectMemberPay" parameterType="_int" resultType="memberSH">
   	SELECT * FROM MEMBER WHERE M_NO = #{m_no}

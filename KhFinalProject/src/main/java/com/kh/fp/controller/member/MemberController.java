@@ -191,19 +191,41 @@ public class MemberController {
 		
 		Member m =service.selectMember(userId);
 		
-		//로그인여부 확인하기
-		if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
-			//로그인성공
-			md.addAttribute("msg","로그인성공");
-			md.addAttribute("loginMember",m);
+		if(m.getM_Level()==2) {
+			
+			//로그인여부 확인하기
+			if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
+				//로그인성공
+				md.addAttribute("msg","로그인성공");
+				md.addAttribute("loginMember",m);
+			}else {
+				//로그인실패
+				md.addAttribute("msg","로그인실패");
+			}
+			md.addAttribute("loc","/delivery/deliveryView.do");
+			
 		}else {
-			//로그인실패
-			md.addAttribute("msg","로그인실패");
+			
+			//로그인여부 확인하기
+			if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
+				//로그인성공
+				md.addAttribute("msg","로그인성공");
+				md.addAttribute("loginMember",m);
+			}else {
+				//로그인실패
+				md.addAttribute("msg","로그인실패");
+			}
+			md.addAttribute("loc","/");		
 		}
-		md.addAttribute("loc","/");		
+		
 	
 		return "common/msg";
 
+	}
+	
+	@RequestMapping("/delivery/deliveryView.do")
+	public String deliveryView() {
+		return "delivery/deliveryView";
 	}
 	
 	//사업자 아이디 로그인
@@ -241,13 +263,13 @@ public class MemberController {
 	
 	// mailSending 코드
     @RequestMapping( value = "/member/auth.do" , method=RequestMethod.POST )
-    public ModelAndView mailSending(HttpServletRequest request, String m_email, HttpServletResponse response_email) throws IOException {
+    public ModelAndView mailSending(HttpServletRequest request, String m_Email, HttpServletResponse response_email) throws IOException {
 
         Random r = new Random();
         int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
         
         String setfrom = "hyeon9782@gamil.com";
-        String tomail = request.getParameter("m_email"); // 받는 사람 이메일
+        String tomail = request.getParameter("m_Email"); // 받는 사람 이메일
         String title = "대한민국 No.1 배달킹! 회원가입 인증 이메일 입니다!"; // 제목
         String content =
         
@@ -288,7 +310,7 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
         mv.setViewName("/member/memberEnroll2");     //뷰의이름
         mv.addObject("dice", dice);
-        mv.addObject("m_email", m_email);
+        mv.addObject("m_Email", m_Email);
         
         System.out.println("mv : "+mv);
 
@@ -309,7 +331,7 @@ public class MemberController {
 	//내가 입력한 인증번호와 메일로 입력한 인증번호가 맞는지 확인해서 맞으면 회원가입 페이지로 넘어가고,
 	//틀리면 다시 원래 페이지로 돌아오는 메소드
 	@RequestMapping(value = "/member/join_injeung.do{dice}", method = RequestMethod.POST)
-	public ModelAndView join_injeung(String email_injeung, String m_email, @PathVariable String dice, HttpServletResponse response_equals) throws IOException {
+	public ModelAndView join_injeung(String email_injeung, String m_Email, @PathVariable String dice, HttpServletResponse response_equals) throws IOException {
 	
 	    
 	    
@@ -336,7 +358,7 @@ public class MemberController {
 	        mv.setViewName("member/memberEnroll3");
 	        
 	        mv.addObject("email",email_injeung);
-	        mv.addObject("m_email", m_email);
+	        mv.addObject("m_Email", m_Email);
 	        
 	        //만약 인증번호가 같다면 이메일을 회원가입 페이지로 같이 넘겨서 이메일을
 	        //한번더 입력할 필요가 없게 한다.
@@ -372,13 +394,13 @@ public class MemberController {
 	
 	// 사업자 mailSending 코드
     @RequestMapping( value = "/member/authB.do" , method=RequestMethod.POST )
-    public ModelAndView mailSendingB(HttpServletRequest request, String b_email, HttpServletResponse response_email) throws IOException {
+    public ModelAndView mailSendingB(HttpServletRequest request, String b_Email, HttpServletResponse response_email) throws IOException {
 
         Random r = new Random();
         int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
         
         String setfrom = "hyeon9782@gamil.com";
-        String tomail = request.getParameter("b_email"); // 받는 사람 이메일
+        String tomail = request.getParameter("b_Email"); // 받는 사람 이메일
         String title = "대한민국 No.1 배달킹! 회원가입 인증 이메일 입니다!"; // 제목
         String content =
         
@@ -419,7 +441,7 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
         mv.setViewName("/member/businessEnroll2");     //뷰의이름
         mv.addObject("dice", dice);
-        mv.addObject("b_email", b_email);
+        mv.addObject("b_Email", b_Email);
         
         System.out.println("mv : "+mv);
 
@@ -435,7 +457,7 @@ public class MemberController {
 
 	//사업자 인증번호 확인 
 	@RequestMapping(value = "/member/join_injeungB.do{dice}", method = RequestMethod.POST)
-	public ModelAndView join_injeungB(String email_injeung, String b_email, @PathVariable String dice, HttpServletResponse response_equals) throws IOException {
+	public ModelAndView join_injeungB(String email_injeung, String b_Email, @PathVariable String dice, HttpServletResponse response_equals) throws IOException {
 	
 	    
 	    
@@ -462,7 +484,7 @@ public class MemberController {
 	        mv.setViewName("member/businessEnroll3");
 	        
 	        mv.addObject("email",email_injeung);
-	        mv.addObject("b_email", b_email);
+	        mv.addObject("b_Email", b_Email);
 	        
 	        //만약 인증번호가 같다면 이메일을 회원가입 페이지로 같이 넘겨서 이메일을
 	        //한번더 입력할 필요가 없게 한다.

@@ -53,7 +53,7 @@ public class StoreController {
 			mv.setViewName("common/msg");
 			return mv;
 		}
-		s.setBno(b.getB_no());
+		s.setBno(b.getB_No());
 		List<String> files = new ArrayList<String>();
 		int result=0;
 		File f= new File(path);
@@ -130,7 +130,7 @@ public class StoreController {
 			return mv;
 		}
 		
-		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_no());
+		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_No());
 		
 
 		
@@ -147,7 +147,7 @@ public class StoreController {
 	public boolean checkPw(String userpw,HttpSession session) {
 		Business b = (Business)session.getAttribute("loginMember");
 		boolean flag = false;
-		if(b!=null&&encoder.matches(userpw, b.getB_pw())) {
+		if(b!=null&&encoder.matches(userpw, b.getB_Pw())) {
 			flag = true;
 		}
 		return flag;
@@ -189,7 +189,7 @@ public class StoreController {
 			return mv;
 		}
 		
-		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_no());
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_No());
 		
 		
 		mv.addObject("stores",stores);

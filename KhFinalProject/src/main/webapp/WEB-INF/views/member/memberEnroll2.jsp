@@ -31,7 +31,7 @@
 					<tr>			
 						<th>이메일</th>
 						<td class="emailMsg-container">
-							<input type="email" name="m_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." value="${m_email }" required>
+							<input type="email" name="m_Email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." value="${m_Email }" required>
 							<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
 							<span class="emailMsg no4">이미 가입된 이메일입니다.</span>
 						</td>
@@ -46,7 +46,7 @@
 						<th>인증번호</th>
 						<td class="emailNoMsg-container">
 							<input type="number" name="email_injeung" id="emailNo"  class="form-control" placeholder="인증번호를 입력하세요." required>
-							<input type="hidden" name="m_email" id="hiddenEmail"  class="form-control" placeholder="이메일 주소를 입력하세요."  value="${m_email }" required>
+							<input type="hidden" name="m_Email" id="hiddenEmail"  class="form-control" placeholder="이메일 주소를 입력하세요."  value="${m_Email }" required>
 						</td>
 					</tr>
 					<tr>

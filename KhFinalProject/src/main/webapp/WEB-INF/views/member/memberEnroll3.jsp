@@ -279,7 +279,7 @@
         	return false;        	
         }
         //회원 종류 선택했는지
-        else if(!$("input:radio[name=m_level]").is(":checked")){
+        else if(!$("input:radio[name=m_Level]").is(":checked")){
 		    alert("회원 종류를 선택해 주세요.");
             return false; 
 		}
