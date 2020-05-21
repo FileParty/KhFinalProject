@@ -97,6 +97,12 @@ public class StoreDaoImpl implements StoreDao {
 		return session.selectList("store.getSales",map);
 	}
 
+	@Override
+	public List<Map<String, Object>> getOrderInfo(SqlSessionTemplate session, Object no) {
+		// TODO Auto-generated method stub
+		return  session.selectList("store.getOrderInfo",no);
+	}
+
 	
 	
 	

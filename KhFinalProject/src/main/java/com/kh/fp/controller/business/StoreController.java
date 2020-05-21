@@ -194,8 +194,37 @@ public class StoreController {
 		
 		mv.addObject("stores",stores);
 		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+		mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
 		mv.setViewName("business/mypage");
 		return mv;
+	}
+	
+	@RequestMapping("/store/orderInfoGet.do")
+	@ResponseBody
+	public List<Map<String, Object>> orderinfoGet(int no) {
+		List<Map<String, Object>> list=service.getOrderInfo(no);
+		
+		for(Map<String, Object> m : list) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+			String time=sdf.format(m.get("O_DATE"));
+			m.put("O_DATE", time);
+		}
+		
+		return list;
+	}
+	
+	@RequestMapping("/store/saleInfo.do")
+	@ResponseBody
+	public List<Sales> saleInfo(int no) {
+		List<Sales> list=service.getSales(no);
+		
+		for(Sales m : list) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd");
+			String time=sdf.format(m.getOrderDate());
+			m.setTime(time);
+		}
+		
+		return list;
 	}
 	
 	

@@ -59,6 +59,10 @@ div#main {
        	margin-top: 80px;
       }
       
+      .orderselect{
+      	text-align:  center;
+      }
+      
 </style>
 	<%@ include file="../common/header.jsp" %> 
  	<section style="width:auto;height:auto;">
@@ -99,15 +103,15 @@ div#main {
  			
  			<div class="first-storepage">
  				<h2>매장 매출 그래프</h2><hr/>
-	 			<div class="graph">
-	 				<c:if test="${not empty sales}">
-	 				<div>
-		 				<select>
+ 				<div style="margin-bottom: 40px;">
+		 				<select  id="saleselect">
 		 					<c:forEach items="${stores }" var="s">
-		 						<option value="">${s.S_NAME }</option>
+		 						<option value="${s.S_NO }">${s.S_NAME }</option>
 		 					</c:forEach>
 		 				</select>
 	 				</div>
+	 			<div class="graph">
+	 				<c:if test="${not empty sales}">
 	 				<div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
 	 				</c:if>
 	 				<c:if test="${empty sales}">
@@ -119,6 +123,45 @@ div#main {
  			
  			<div class="first-storepage">
  			<h2>주문 현황</h2><hr/>
+ 					<div style="margin-bottom: 40px;">
+		 				<select id="orderselect">
+		 					<c:forEach items="${stores }" var="s">
+		 						<option value="${s.S_NO }">${s.S_NAME }</option>
+		 					</c:forEach>
+		 				</select>
+	 				</div>
+	 				<c:if test="${not empty orderinfo }">
+		 				<table id="ordertable">
+		                    	
+		                    		<tr>
+		                    			<th>주문자</th>
+		                    			<th>주문자연락처</th>
+		                    			<th>주소</th>
+		                    			<th>가격</th>
+										<th>주문시간</th>
+										<th>상태</th>
+		                    		</tr>
+		                    		
+		                    	
+		                    	<c:forEach items="${orderinfo }" var="o">
+		                    	
+		                    		<tr>
+		                    			<td><c:out value="${o.O_NAME }"/></td>
+		                    			<td><c:out value="${o.O_PHONE }"/></td>
+		                    			<td><c:out value="${o.O_ADDR }"/></td>
+		                    			<td><c:out value="${o.O_ORIPRICE }"/></td>
+		                    			<td><fmt:formatDate value="${o.O_DATE }" pattern="yy/MM/dd HH:mm:ss"/></td>
+		                    			<td><c:out value="${o.O_STATUS }"/></td>
+		                    		</tr>
+		                    	</c:forEach>
+		                    	
+		                </table>
+                	</c:if>
+                   	<c:if test="${empty orderinfo }">
+                   		<h1>주문정보가 없습니다.</h1>
+                   	</c:if>
+ 			
+ 			
  			</div>
  			
  			
@@ -132,26 +175,25 @@ div#main {
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     
+		  var data;
+		  var chart;
+	      var options;
+	      google.charts.load('current', {'packages':['bar']});
+	      google.charts.setOnLoadCallback(drawChart);
+	      
     	<c:if test="${not empty sales}">
-		      google.charts.load('current', {'packages':['bar']});
-		      google.charts.setOnLoadCallback(drawChart);
+		      
 		      
 			      function drawChart() {
 			    	  
-			        	var data = google.visualization.arrayToDataTable([
-			        		['month-day', 'Sales'],
-				      
-					      <c:forEach items="${sales}" var="l" varStatus="vs">
-					      	<c:if test='${vs.last}'>
-						      	['${l.orderDate.date}',${l.price}]
-					      	</c:if>
-					      	<c:if test='${not vs.last}'>
-					      		['${l.orderDate.date}',${l.price}],
-					      	</c:if>			      	
-					      	  </c:forEach>
-				      
-				    ]);
-					
+			        	
+				    data = new google.visualization.DataTable();
+					  data.addColumn('string', 'month-day');
+					  data.addColumn('number', 'Sales');
+					  <c:forEach items="${sales}" var="l" varStatus="vs">
+					  data.addRow(["${l.orderDate.date}", ${l.price}]);
+					  </c:forEach>
+					  
 			        var options = {
 			          chart: {
 			            title: 'Delivery King Performance',
@@ -166,7 +208,127 @@ div#main {
 		        chart.draw(data, google.charts.Bar.convertOptions(options));
 		        
 		      }
+			      
+			     
 	  	</c:if>
+	  	
+	  	function addData(time,price){
+			data.addRow([time, price]);
+			chart.draw(data, options)
+	      }
+	  	
+	      function removeData(){
+			data.removeRow(0);
+			chart.draw(data, opstions)
+	      }
+
+
+
+
+
+			  	
+	  	
+	  	$("#orderselect").change(function(){
+	  		var no = this.value
+	  		$.ajax({
+	  			url : "${path}/store/orderInfoGet.do",
+	  			data : {no:no},
+	  			success : function(data){
+	  				console.log(data[0]);
+	  				$('#ordertable').remove();
+	  				if(data.length==0){
+	  					console.log($("#ordertable").parent());
+	  					
+	  					var table = $("<h2 id='ordertable'>").html("자료가 없습니다");
+	  					$("#orderselect").parent().parent().append(table);
+	  					
+	  				}else{
+	  					var table = $("<table id='ordertable'>");
+	  					var tr=$("<tr>");
+	  					
+	  					table.append(tr.html("<th>주문자</th><th>주문자연락처</th><th>주소</th><th>가격</th><th>주문시간</th><th>상태</th>"));
+	  					var tr2=$("<tr>");
+	  					
+	  					for(var i=0;i<data.length;i++){
+	  						
+	  						var td="<tr>";
+	  						td += "<td>"+data[i].O_NAME+"</td>";
+	  						td += "<td>"+data[i].O_PHONE+"</td>";
+	  						td += "<td>"+data[i].O_ADDR+"</td>";
+	  						td += "<td>"+data[i].O_ORIPRICE+"</td>";
+	  						td += "<td>"+data[i].O_DATE+"</td>";
+	  						td += "<td>"+data[i].O_STATUS+"</td>";
+	  						td +="</tr>";
+							
+	  						table.append(td);	
+	  					}
+	  					
+	  					
+	  					$("#orderselect").parent().parent().append(table);
+	  				}
+	  			}
+	  		})
+	  	})
+	  	
+	  	
+	  	$("#saleselect").change(function(){
+	  		var no = this.value
+	  		$.ajax({
+	  			url : "${path}/store/saleInfo.do",
+	  			data : {no:no},
+	  			success : function(data){
+	  				
+	  				console.log(data);
+	  				
+	  				$(".graph").remove();
+	  				if(data.length==0){
+	  				
+	  					var h2 = $("<h2 class='graph' style='margin-bottom:100px;'>").html("준비중입니다!");
+	  					$($(".first-storepage")[1]).append(h2);
+	  					
+	  				}else{
+	  					var div = $("<div class='graph'>").html("<div id='columnchart_material' style='width: 1000px; height: 500px;'></div>");
+	  					$($(".first-storepage")[1]).append(div);
+	  					 		var count=data.length;
+	  					 		var time = new Array();
+	  					 		var sales = new Array();
+	  					 		for(var i=0;i<count;i++){ 
+	  								 sales[i]=data[i].price;
+	  							 }
+	  					 		for(var i=0;i<count;i++){ 
+	  					 			time[i]=data[i].time;
+	  							 }
+	  					 		
+	  					 		
+	  							 data = new google.visualization.DataTable();
+	  							 data.addColumn('string', 'month-day');
+	  							  data.addColumn('number', 'Sales');
+	  							  
+	  							 for(var i=0;i<count;i++){ 
+	  								data.addRow([time[i],sales[i]]);
+	  							 }
+	  							 
+	  							var options = {
+	  						          chart: {
+	  						            title: 'Delivery King Performance',
+	  						            subtitle: 'Sales : '+'<fmt:formatDate value="${sales[0].orderDate}" pattern="yyyy-MM"/>',
+	  						          }
+	  						        };
+	  						  
+	  						
+	  					
+	  					        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+	  					
+	  					      chart.draw(data, google.charts.Bar.convertOptions(options));
+ 
+	  				
+	  						
+	  						  
+	  				}
+	  				
+	  			}
+	  		})
+	  	})
 	  	
 	  	
     </script>

@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class Sales {
 	private Date orderDate;
 	private int price;
+	private String time;
 }
