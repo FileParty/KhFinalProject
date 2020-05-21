@@ -40,7 +40,8 @@
   <update id="updateBusinessPw" parameterType="business">
   	UPDATE BUSINESS SET B_PW = #{b_pw} WHERE B_ID = #{b_id}
   </update>
-
+  
+  
 
   
   <select id="selectCoupon" resultType="CouponSH">

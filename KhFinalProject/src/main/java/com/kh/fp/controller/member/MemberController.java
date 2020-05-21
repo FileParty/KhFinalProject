@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.fp.common.NaverLoginBO;
 import com.kh.fp.model.servier.member.MemberService;
@@ -74,7 +75,7 @@ public class MemberController {
 	@RequestMapping("/member/enrollEnd.do")
 	public String enrollEnd(Member m,Model md) {
 		
-		m.setM_pw(encoder.encode(m.getM_pw()));
+		m.setM_Pw(encoder.encode(m.getM_Pw()));
 		
 		int result=service.insertMember(m);
 		
@@ -98,7 +99,7 @@ public class MemberController {
 	@RequestMapping("/member/businessEnrollEnd.do")
 	public String businessEnrollEnd(Business b,Model md) {
 		
-		b.setB_pw(encoder.encode(b.getB_pw()));
+		b.setB_Pw(encoder.encode(b.getB_Pw()));
 		
 		int result=service.insertBusiness(b);
 		
@@ -191,7 +192,7 @@ public class MemberController {
 		Member m =service.selectMember(userId);
 		
 		//로그인여부 확인하기
-		if(m!=null&&encoder.matches(userPw, m.getM_pw())) {
+		if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
 			//로그인성공
 			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",m);
@@ -212,7 +213,7 @@ public class MemberController {
 		Business b =service.selectBusiness(userId);
 		
 		//로그인여부 확인하기
-		if(b!=null&&encoder.matches(userPw, b.getB_pw())) {
+		if(b!=null&&encoder.matches(userPw, b.getB_Pw())) {
 			//로그인성공
 			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",b);
@@ -528,7 +529,7 @@ public class MemberController {
         
         System.getProperty("line.separator")+
 
-        " 회원님의 아이디는 " +m.getM_id()+ " 입니다. ";
+        " 회원님의 아이디는 " +m.getM_Id()+ " 입니다. ";
         
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -581,7 +582,7 @@ public class MemberController {
         
         System.getProperty("line.separator")+
 
-        " 회원님의 아이디는 " +b.getB_id()+ " 입니다. ";
+        " 회원님의 아이디는 " +b.getB_Id()+ " 입니다. ";
         
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -871,7 +872,7 @@ public class MemberController {
 		
 		Member m = new Member (0,m_id,m_pw,null,null,null,0,1,null,null,null);
 		
-		m.setM_pw(encoder.encode(m.getM_pw()));
+		m.setM_Pw(encoder.encode(m.getM_Pw()));
 		
 		int result = service.updateMemberPw(m);
 		
@@ -889,9 +890,9 @@ public class MemberController {
 	@RequestMapping("/member/updateBusinessPwEnd.do")
 	public String updateBusinessPwEnd(String b_id,String b_pw , Model md) {
 		
-		Business b = new Business (0,null,b_id,b_pw,null,'N',null);
+		Business b = new Business (0,null,b_id,b_pw,null,'N',null,null);
 		
-		b.setB_pw(encoder.encode(b.getB_pw()));
+		b.setB_Pw(encoder.encode(b.getB_Pw()));
 		
 		int result = service.updateBusinessPw(b);
 		
@@ -922,7 +923,14 @@ public class MemberController {
 	//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
 	System.out.println("네이버:" + naverAuthUrl);
 	//네이버
+	String kakaoUrl = KakaoController.getAuthorizationUrl(session);
+
+	
 	model.addAttribute("url", naverAuthUrl);
+	
+	model.addAttribute("kakao_url", kakaoUrl);
+
+	
 	return "member/login";
 	}
 	
@@ -957,32 +965,41 @@ public class MemberController {
 	return "member/naverSuccess";
 	}
 	
-
-	 
-
-	
-
-	
-
-	
-	
-	
-
-	
-
-
-
-	
-
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-
+	@RequestMapping(value = "/member/kakaoLogin", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST }) 
+	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception { 
+		System.out.println("카카오로그인 메소드 들어옴");
+		ModelAndView mav = new ModelAndView(); // 결과값을 node에 담아줌 
+		JsonNode node = KakaoController.getAccessToken(code); // accessToken에 사용자의 로그인한 모든 정보가 들어있음 
+		JsonNode accessToken = node.get("access_token"); // 사용자의 정보 
+		JsonNode userInfo = KakaoController.getKakaoUserInfo(accessToken); 
+		String kemail = null; 
+		String kname = null; 
+		String kgender = null; 
+		String kbirthday = null; 
+		String kage = null; 
+		String kimage = null; // 유저정보 카카오에서 가져오기 Get properties 
+		JsonNode properties = userInfo.path("properties"); 
+		JsonNode kakao_account = userInfo.path("kakao_account"); 
+		kemail = kakao_account.path("email").asText(); 
+		kname = properties.path("nickname").asText(); 
+		kimage = properties.path("profile_image").asText(); 
+		kgender = kakao_account.path("gender").asText(); 
+		kbirthday = kakao_account.path("birthday").asText(); 
+		kage = kakao_account.path("age_range").asText(); 
+		
+		session.setAttribute("kemail", kemail); 
+		session.setAttribute("loginMember", kname); 
+		session.setAttribute("kimage", kimage); 
+		session.setAttribute("kgender", kgender); 
+		session.setAttribute("kbirthday", kbirthday); 
+		session.setAttribute("kage", kage); 
+		mav.setViewName("redirect:/"); 
+		
+		
+		
+		return mav; 
+		
+		
+		
+		}// end kakaoLogin()
 }
