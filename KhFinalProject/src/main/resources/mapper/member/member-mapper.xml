@@ -34,11 +34,11 @@
   </select>
   <!-- 일반인 비밀번호 변경 -->
   <update id="updateMemberPw" parameterType="member">
-  	UPDATE MEMBER SET M_PW = #{m_pw} WHERE M_ID = #{m_id}
+  	UPDATE MEMBER SET M_PW = #{m_Pw} WHERE M_ID = #{m_Id}
   </update>
   <!-- 사업자 비밀번호 변경 -->
   <update id="updateBusinessPw" parameterType="business">
-  	UPDATE BUSINESS SET B_PW = #{b_pw} WHERE B_ID = #{b_id}
+  	UPDATE BUSINESS SET B_PW = #{b_Pw} WHERE B_ID = #{b_Id}
   </update>
   
   
@@ -48,6 +48,6 @@
   	SELECT*FROM COUPON
   </select>
   <select id="selectCouponCount" parameterType="_int" resultType="_int">
-  	SELECT COUNT(*)FROM COUPON WHERE M_NO=#{m_no}
+  	SELECT COUNT(*)FROM COUPON WHERE M_NO=#{m_No}
   </select>
 </mapper>

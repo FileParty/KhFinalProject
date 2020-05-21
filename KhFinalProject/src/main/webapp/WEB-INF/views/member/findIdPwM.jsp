@@ -5,12 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<style>
-   td.emailMsg-container{position:relative; padding:0px;}
-   span.emailMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
-   span.ok4{color:green;}
-   span.no4{color:red;}
-</style>
+
 <section>
 	<div class="container d-flex justify-content-center">
 			<div class="find-container d-flex justify-content-center " style="width:600px; border:1px solid black; margin-top:50px;">
@@ -24,10 +19,8 @@
 						<form action="findMemberId.do" method="post">
 							<tr>			
 								<th>이메일</th>
-								<td class="emailMsg-container">
-									<input type="email" name="m_email" id="email"  class="form-control" style="width:300px;"placeholder="가입했던 이메일 입력" required>
-									<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
-									<span class="emailMsg no4">사용 불가능한 이메일입니다.</span>
+								<td>
+									<input type="email" name="m_Email" id="email"  class="form-control" style="width:300px;"placeholder="가입했던 이메일 입력" required>
 								</td>
 							</tr>
 							<tr>
@@ -42,14 +35,13 @@
 						<form action="findMemberPw.do" method="post">
 							<tr>
 								<th>아이디</th>
-								<td><input type="text" name="id" id="id"  class="form-control" placeholder="아이디를 입력해주세요." style="width:300px;" required></td>
+								<td><input type="text" name="id" id="id"  class="form-control" value="${m_id }" placeholder="아이디를 입력해주세요." style="width:300px;" required></td>
 							</tr>
 							<tr>			
 								<th>이메일</th>
 								<td class="emailMsg-container">
-									<input type="email" name="m_email" id="email"  class="form-control" placeholder="이메일 주소를 입력하세요." required>
-									<span class="emailMsg ok4">사용가능한 이메일입니다.</span>
-									<span class="emailMsg no4">사용 불가능한 이메일입니다.</span>
+									<input type="email" name="m_Email" id="email"  class="form-control" value="${m_Email }" placeholder="이메일 주소를 입력하세요." required>
+								
 									
 								</td>
 							</tr>
