@@ -19,7 +19,7 @@
       
 
       </style>
-
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <section style="width:1366px;height:968px;">
  	<div class="container" >
  		<div class="row">
@@ -54,12 +54,78 @@
                     			<td>010-1234-1234</td>
                     			<td>잘 부탁드립니다.</td>
                     			<td><input type="button" value="상세보기"></td>
-                    			<td><input type="button" value="배달요청"></td>
-                    			
+                    			<td>
+                    				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#del-modal">
+									  배달 요청
+									</button>
+                    			</td>		
                     		</tr>
                     	</table>                    	
                     </div>
                  </div>   
             </div>
    		</div>
+   		
+   		
+	
+
+<!-- Modal -->
+<div class="modal fade" id="del-modal" tabindex="-1" role="dialog" aria-labelledby="del-modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
    	</section>
+   	
+  <script>
+  $(function(){
+	  function SocketMessage(type, sender, receiver, msg){
+			this.type = type;
+			this.storeNo = storeNo;
+			this.deliveryNo = deliveryNo;
+			this.msg = msg;
+		}
+	  
+	  const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+		//서버가 실행되었을때
+		websocket.onopen = function(data){
+			console.log(data);
+			
+			websocket.send(JSON.stringify(new SocketMessage("business",storeNo,0,"", ${loginMember.m_id})));
+		}
+  
+		$('#del-modal').on('show.bs.modal', function (e) {
+	  		//가게 번호
+	   		var storeNo = ;
+			var confirm = ;
+			
+	  		websocket.send(JSON.stringify(new SocketMessage("business", storeNo, 0, "", ${loginMember.m_id})))
+	  		
+	   		//server에서 메시지 보냈을 때
+	   		websocket.onmessage = function(data){
+	   			console.log(data);
+	   			
+	   			const msg = JSON.parse(data.data);
+	   			}   		
+	   	});
+		
+  });
+ 
+  
+   	
+   	</script> 

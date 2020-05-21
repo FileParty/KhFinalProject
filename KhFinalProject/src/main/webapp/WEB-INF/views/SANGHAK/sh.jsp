@@ -46,10 +46,10 @@
       <tr class="topnava">
         <th>주문상품 사진 </th>
         <th>주문상품정보</th>
+        <th>옵션</th>
         <th>수량</th>
         <th>상품금액</th>
-        <th>배송비</th>
-        <th>구매예정가</th>
+      
       </tr>
     </thead>
     <tbody >
@@ -64,31 +64,36 @@
 			        </td>
 			      
 			        <td width="400px" style="" ><b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
-			               <b style="color:rgb(95, 95, 95);font-size: 13px;">* 필수옵션</b> : <b style="font-size: 13x;">${a['reqOp']['reqOpName']}</b> <br>
-			   			   <b style="color:rgb(95, 95, 95);font-size: 13px;">* 추가옵션</b> :
-			   <c:forEach items="${a['unReqOp']}" var="b"> 
-			                <b style="">[${b['unReqOpName']}]</b>
-		   		</c:forEach>
+			               
 			       	</td>
-			             
+			        <td style="text-align:left;">
+			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
+			   			   <b style="color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
+			   <c:forEach items="${a['unReqOp']}" var="b"> 
+			                <b style="font-size: 17px;font-family: 'Stylish', sans-serif;">[${b['unReqOpName']}]</b>
+		   		</c:forEach>
+			        </td>
 			        <td style="font-size: 21px;">
 			        	${a['count']}
 			        </td>
 			        <td style="font-size: 21px;">
 			        	${a['price']} 원
 			        </td><!-- ${newOrder[0]['price']} -->
-			        <td style="color:red;font-size: 21px;">
-			        	2500 원 
-			        </td>
-			        <td style="font-size: 21px;">
-			        	${a['price']+2500} 원
-			        </td>
+			       
+			  
      		</tr>
      		
+     		
       </c:forEach>
-  <script>
-   console.log("1234",${sessionScope.orderList});
-  </script>
+ 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
+	     		<td></td>
+	     		<td></td>
+	     		<td></td>
+	     		
+	     		<td style="font-weight:bold;text-align:right;color:red;font-size:16px">배달료&nbsp;:&nbsp;</td>
+	     		<td style="font-size:16px;text-align:left;">&nbsp;&nbsp;2500 원</td>
+     		
+     		</tr>
       
       
     </tbody>
@@ -293,7 +298,7 @@
                 <div class="dialog__inner">
                 
                     <div class="dialog__content">
-                        <h3>쿠폰적용</h3> <button style="">모두취소</button><hr>
+                        <h3>쿠폰적용</h3>  <hr>
                        	
                           <table id="example-table-2" border="1" style="width:1150px;">
                               <tr>
@@ -320,8 +325,9 @@
 	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small>
 	                                </td>
 	                                <td id="td1">
-	<!-- <button onclick="pick();" style="color:white;width:50px;height:28px;background: linear-gradient(to right, #dce35b, #45b649);border-radius: 25px;">선택</button> -->
-	  <input type="button" id="clickevent" class="checkBtn" value="클릭" />
+
+								  <input type="button" id="clickevent" class="checkBtn" value="쿠폰적용" /> 
+								  <input type="button" style="display:none;" id="alloffHidden" class="alloff" value="적용취소" />
 	                                	<input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
 	                                </td>
 	                              </tr>
@@ -416,7 +422,7 @@
   <div style="margin-top:75px;" >
     <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
   <div class="rightcolumn" style="padding-right:10px;" >
-    <h3 style="font-weight:bold;color:black;">총 합계</h3><h1 align="center" style="font-weight: bold;color:red">46,200원</h1>
+    <h3 style="font-weight:bold;color:black;">총 합계</h3><h1 align="center" style="font-weight: bold;color:red">원</h1>
     <hr width="90%" >
 
     <div class="card"width="90%">
@@ -851,7 +857,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 <script>  // 선택버튼 (id="pick")을 누르면 왼쪽 옆옆 의 값( cn_price)이 input태그(id="pickresult")에 나오게.
 //버튼 클릭시 Row 값 가져오기
 $(".checkBtn").click(function(){ 
-	
+	 $('.alloff').css("display","inline");
 	var str = ""
 	var tdArr = new Array();	// 배열 선언
 	var checkBtn = $(this);
@@ -877,12 +883,62 @@ $(".checkBtn").click(function(){
 	
 	str +=
 			"<font color='red'>-" + name +"원</font>"	
+			
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
 	
 	
-	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+	$(event.target).parent().parent().parent().children("td").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
+});
+<!--=====================쿠폰체크 취소=========================================== -->
+
+
+/* 
+$("#clickevent").click(function(){
+	 $('#alloffHidden').css("display","inline");
+	
+});
+$("#alloffHidden").click(function(){
+	 $('.alloff').css("display","none");
+	
+}); */
+
+
+	$(".alloff").click(function(){
+		 $('.alloff').css("display","none");
+	var str = ""
+		var tdArr = new Array();	// 배열 선언
+		var checkBtn = $(this);
+		
+		// checkBtn.parent() : checkBtn의 부모는 <td>이다.
+		// checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+		var tr = checkBtn.parent().parent();
+		var td = tr.children();
+		
+		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+		
+		var no = td.eq(0).text();
+		var userid = td.eq(1).text();
+		var name = td.eq(2).text();
+		var email = td.eq(3).text();
+		
+		
+		// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+		td.each(function(i){	
+			tdArr.push(td.eq(i).text());
+		});
+		
+		
+		str +=
+				"<font color='red'>-" + name +"원</font>"	
+				
+		$("#ex2_Result2").html('');
+		$("#ex2_Result3").html('0원');
+		
+
+		$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+		 $(event.target).parent().parent().parent().css("border","solid 1px black").css("border-collapse","collapse");
 });
 
 </script>
@@ -1266,66 +1322,6 @@ main {
  });
 
 
-  <!--===============================연락처 하이바(-)입력 스크립트================================ -->
-  $(document).ready(function() {
-	  
-	    $("#phone_2").focus(focused); //input에 focus일 때
-	    $("#phone_2").blur(blured);   //focus out일 때
-	  })
-
-	function focused(){
-	  var input = $("#phone_2").val();
-	  
-	  //input안에서 하이픈(-) 제거
-	  var phone = input.replace( /-/gi, '');
-	    //number 타입으로 변경(숫자만 입력)
-	  $("#phone_2").prop('type', 'text');
-	  
-	  $("#phone_2").val(phone);
-	}
-
-	function blured(){
-	  var input = $("#phone_2").val();
-	  
-	  //숫자에 하이픈(-) 추가
-	    var phone = chkItemPhone(input);
-	  //text 타입으로 변경
-	  $("#phone_2").prop('type', 'text');
-	  
-	  $("#phone_2").val(phone);
-	}
-
-
-	//전화번호 문자(-)
-	function chkItemPhone(temp) {
-	    var number = temp.replace(/[^0-9]/g, "");
-	    var phone = "";
-
-	    if (number.length < 9) {
-	        return number;
-	    } else if (number.length < 10) {
-	        phone += number.substr(0, 2);
-	        phone += "-";
-	        phone += number.substr(2, 3);
-	        phone += "-";
-	        phone += number.substr(5);
-	    } else if (number.length < 11) {
-	        phone += number.substr(0, 3);
-	        phone += "-";
-	        phone += number.substr(3, 3);
-	        phone += "-";
-	        phone += number.substr(6);
-	    } else {
-	        phone += number.substr(0, 3);
-	        phone += "-";
-	        phone += number.substr(3, 4);
-	        phone += "-";
-	        phone += number.substr(7);
-	    }
-
-	    return phone;
-	}
-	 <!--================================================================ -->
   </script>
    <!--=====================쿠폰사용 스크립트=========================================== -->
   <script>
