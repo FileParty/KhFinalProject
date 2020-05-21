@@ -132,13 +132,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_name']}" readonly><br>
+            	<input type="text"  id="name_1" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
 		           <span id="result"></span> 
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_phone']}"readonly>
+            <td><br><input type="text" id="phone_1"style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -313,7 +313,7 @@
 					
                           <c:forEach items="${list}" var="c">
                          	
-                                <c:if test="${c['m_no']== loginMember['m_no'] }">
+                                <c:if test="${c['m_no']== loginMember['m_No'] }">
 	                              <tr>
 	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large>
 	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large> <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small></td>
@@ -389,8 +389,8 @@
      
      <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
       <div style="display: inline;padding-left: 7px;">(보유 포인트
-      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_point']}" readonly>point)
-   <input type="hidden" id="point19" value="${loginMember['m_point']}" readonly>
+      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_Point']}" readonly>point)
+   <input type="hidden" id="point19" value="${loginMember['m_Point']}" readonly>
   </div>
       <br>
     </td>
@@ -1331,7 +1331,7 @@ main {
     	})
     	 $(".abc").keyup(function(){
 
-    		 if($("#allpay3").val()<=${loginMember['m_point']}){
+    		 if($("#allpay3").val()<=${loginMember['m_Point']}){
 			let a=$(".abc").val();
     	   $(".def").text(a);
     		 }else{
@@ -1388,7 +1388,7 @@ main {
 })
  $(".abc").change(function(){
 
-  if($("#allpay3").val()<=${loginMember['m_point']}){
+  if($("#allpay3").val()<=${loginMember['m_Point']}){
 	  
 	  let a=$(".abc").val()
 	  $(".def").text(a);
