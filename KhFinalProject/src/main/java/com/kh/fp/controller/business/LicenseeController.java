@@ -64,7 +64,7 @@ public class LicenseeController {
 				mv.setViewName("common/msg");
 				return mv;
 		 }
-		List<Store> list = service.selectStore(b.getB_no());
+		List<Store> list = service.selectStore(b.getB_No());
 		mv.addObject("store",list);
 		mv.setViewName("business/menuStatus");
 		return mv;
@@ -88,7 +88,7 @@ public class LicenseeController {
 				mv.setViewName("common/msg");
 				return mv;
 		 }
-		 List<Store> store = service.selectStore(b.getB_no());
+		 List<Store> store = service.selectStore(b.getB_No());
 		 
 		 mv.addObject("store",store);
 		 mv.setViewName("business/menuEnroll");

@@ -80,7 +80,7 @@
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
-                    <span>${store['s_name']}</span>
+                    <span style="font-size:20px;font-weight:600;">${store['s_name']}</span>
                 </div>
                 <div class="s-store-info"> 
 
@@ -91,11 +91,11 @@
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span>${store['s_score']}</span></li>
-                            <li>운영시간<span><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></li>
-                            <li>최소주문 금액 <span>${store['s_limitprice']}</span></li>
-                            <li>결제 <span></span>${store['s_payopt']}</li>
-                            <li>배달시간 <span>${store['s_time']}분</span></li>
+                            <li><i class="fa fa-star"></i><span class="s-store-info-text">${store['s_star']}</span></li>
+                            <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
+                            <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
+                            <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
+                            <li>배달시간 <span class="s-store-info-text">${store['s_time']}분</span></li>
                         </ul>
 
                     </div>
@@ -109,7 +109,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review()">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}')">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -126,9 +126,9 @@
                                    <c:forEach items="${store['bestMenu']}" var="bm" varStatus="index">
                                       <c:if test="${bm['me_best'] eq 'Y' }">
                                           <div class="s-store-menu-content" onclick="storeMenuSelectModal('${bm['me_no']}')">
-                                              <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
+                                              <img src="${path }/resources/upload/business/${bm['me_logimg']}" width="100px" height="100px">
                                               <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
-                                              <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
+                                              <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
                                           </div>
                                        </c:if>
                                     </c:forEach>
@@ -154,16 +154,16 @@
 
                             <div class="s-store-star">
                                 <div>
-                                    <h1>4.4</h1>
+                                    <h1>${store['s_star']}</h1>
                                 </div>
                                 <div class="s-store-score">
                                     <div><i class="fa fa-star"></i><span>맛</span></div>
                                 </div>
                             </div>
-
+							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span>리뷰 <strong>121</strong>개</span><span>사장님 댓글 <strong>21</strong>개</span>
+                                    <span>리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
                                 <div>
                                 사진 리뷰만 :
@@ -204,26 +204,20 @@
                                 </table>
 
                             </div>
-                            
-                            
-                            
+                              
                         </div>
                         
-                       
+                        
                         <div id="info" class="container tab-pane fade"><br>
-                            
                             <div>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
                                 <p>
                                     고객님들께 알려드립니다.<br>
                                     죄송하게도 바로결제시에는 쿠폰이 지급되지 않습니다.
                                 </p>
                                 <br>
-                                
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -239,8 +233,7 @@
                                         <td>${store['s_addr'] }</td>
                                     </tr>
                                 </table>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/card.png" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -249,7 +242,6 @@
                                            <input type="hidden" id="s-store-limit-price" value="${store['s_limitprice'] }">
                                            <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원
                                         </td>
-                                    
                                     </tr>
                                     <tr>
                                         <td>결제수단</td>
@@ -257,7 +249,7 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.jpg.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -270,7 +262,7 @@
                                     </tr>
                                 </table>
                                 
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/carrots.png" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -392,7 +384,6 @@
 	function orderListHeightCheck(){
 				
 		let height = $("#order-content-2").height();
-		console.log(height);
 		
 		if(height>=320){
 		    $("#order-content-2").css({
@@ -400,7 +391,6 @@
 		        overflowY : "scroll"
 		    });
 		}else{
-			console.log("앙");
 		    $("#order-content-2").css({
 		        height : "auto",
 		        overflowY : "hidden"
@@ -415,7 +405,6 @@
               success:function(data){
                  let tar = $("#s-store-menu-category-no"+cNo);
                  let check = tar.children();
-                 console.log(check);
                  if(check.length==0){
                       for(let i=0;i<data.length;i++){
                           let content = $("<div>").attr({
@@ -434,7 +423,7 @@
                           span += "</span>"
                           let div2 = $("<div>");
                           let img = $("<img>").attr({
-                             src:"${path}/resources/upload/menu/"+data[i]['me_logimg'],
+                             src:"${path}/resources/upload/business/"+data[i]['me_logimg'],
                              width:"100px",
                              height:"100px"
                           });
@@ -460,12 +449,10 @@
               url:"${path}/menu/storeMenuSelectModalAjax",
               data:{'no':menuNo},
               success:function(data){
-                 console.log(data);
-                 console.log(menuNo);
                  $('#modalBox').modal('show');
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
-                 $("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
+                 $("#modal-menu-img").attr("src","${path}/resources/upload/business/"+data['me_logimg']);
                  $("#modal-menu-name").html(data['me_name']);
                  if(data['me_text']!=null){
                     $("#modal-menu-text").html(data['me_text']);
@@ -478,7 +465,6 @@
                  $("#limitPrice_").val($("#s-store-limit-price").val());
                  $("#finalPrice_").val(data['me_price']);
                  $(".menu-modal-content-final-price").html(numberFormatting(data['me_price']));
-                 console.log(("#finalPrice_"));
                  $(".menu-modal-content-required-option-item").remove();
                  $(".menu-modal-content-un-required-option-item").remove();
                  for(let i=0;i<data['side'].length;i++){
@@ -632,44 +618,62 @@
 	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
 	        	
 	        	const oContent = $(".s-store-order-content");
-	        	let orderDiv = $("#order-content-2");
-	        	if($(oContent).children('#order-content-1').length>0){
-	        		$(oContent).children('#order-content-1').hide();
+	        	let orderAdd = new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	let flag = false;
+	        	let flagIndex = 0;
+	        	for(let i=0;i<orderListArr.length;i++){
+	        		flag = equlasObject(orderListArr[i],orderAdd);
+	        		flagIndex = i;
+	        		if(flag){
+	        			break;
+	        		}
 	        	}
-	        	let orderContent = '<div class="s-store-order-button">';
-	        	orderContent += "<h4>"+menuName+"</h4>"
-	        	orderContent += "<span>";
-	        	orderContent += "&nbsp;&nbsp;옵션 : ";
-	        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
-	        	if(unReqOp!=null){
-		        	unReqOp.forEach(e=>{
-		        		orderContent += ", "+e['unReqOpName'];
-		        	});
-	        	}
-	        	orderContent += "</span>";
-	        	orderContent += "<br/>";
-	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
-	        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
-	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
-	        	orderContent += '<div class="s-store-order-count-controller-div">';
-	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
-	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn" onclick="orderCountMinus()">-</button>';
-	        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
-	        	orderContent += '<button class="order-count-btns" onclick="orderCountPlus()"><img src="${path}/resources/img/menuDetail/plus_icon.png" width="30px" height="30px"/></button></div>';
-	        	orderContent += '</div>';
-	        	orderContent += '</div>';
-	        	let finalPriceCheck = Number($(".order-final-price").val());
-	        	finalPriceCheck += finalPrice
-	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
-	        	$(".order-final-price").val(finalPriceCheck);
-	        	$("#s-store-order-title-delete-btn").show();
-	        	orderDiv.append(orderContent);
-	        	oContent.append(orderDiv);
-	        	storeMenuModalClose();
-	        	orderListHeightCheck();
-	        	orderAllFinalPriceCacr();
-	        	orderListArr.push(new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice));
+	        	
+        		if(!flag){
+	        		let orderDiv = $("#order-content-2");
+		        	if($(oContent).children('#order-content-1').length>0){
+		        		$(oContent).children('#order-content-1').hide();
+		        	}
+		        	let orderContent = '<div data-index="'+$(".s-store-order-button").length+'" class="s-store-order-button">';
+		        	orderContent += "<h4>"+menuName+"</h4>"
+		        	orderContent += "<span>";
+		        	orderContent += "&nbsp;&nbsp;옵션 : ";
+		        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
+		        	if(unReqOp!=null){
+			        	unReqOp.forEach(e=>{
+			        		orderContent += ", "+e['unReqOpName'];
+			        	});
+		        	}
+		        	orderContent += "</span>";
+		        	orderContent += "<br/>";
+		        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-count" name="count" value="'+menuCount+'">';
+		        	orderContent += '<div class="s-store-order-count-controller-div">';
+		        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
+		        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
+		        	orderContent += '<div><button class="order-count-btns" onclick="orderCountMinus(this)">-</button>';
+		        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
+		        	orderContent += '<button class="orderCountPlusBtn order-count-btns" onclick="orderCountPlus(this)">+</button></div>';
+		        	orderContent += '</div>';
+		        	orderContent += '</div>';
+		        	let finalPriceCheck = Number($(".order-final-price").val());
+		        	finalPriceCheck += finalPrice
+		        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
+		        	$(".order-final-price").val(finalPriceCheck);
+		        	$("#s-store-order-title-delete-btn").show();
+		        	orderDiv.append(orderContent);
+		        	oContent.append(orderDiv);
+		        	orderListArr.push(orderAdd);
+		        	} else{
+		        		let tarDiv = $("div[data-index="+flagIndex+"]");
+		        		for(let i=0;i<Number(orderAdd['count']);i++){
+		        			orderCountPlus($(tarDiv).find(".orderCountPlusBtn"));
+		        		}
+		        	}
+		        	storeMenuModalClose();
+		        	orderListHeightCheck();
+		        	orderAllFinalPriceCacr();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -731,7 +735,6 @@
         
         function ShowlimitPriceTooTip(){
         	let tootip = $("#menu-modal-footer-tootip");
-        	console.log(tootip);
         	tootip.stop();
         	tootip.css("opacity",0).show();
         	tootip.animate({opacity:1},300);
@@ -754,7 +757,6 @@
         	loc += "&sortType=${rMap['sortType']}";
         	loc += "&search=${rMap['search']}";
         	loc += "&cPage=${rMap['cPage']}";
-        	console.log(loc);
         	location.replace(loc);
         }
         
@@ -762,6 +764,7 @@
         function deleteAllOrder(){
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
+        		orderListArr = new Array();
         		$(".s-store-order-button").remove();
         		$("#order-content-1").show();
         		$("#order-content-2").css("height","auto");
@@ -774,44 +777,76 @@
         function orderDeleteThis(e){
         	let flag = confirm("해당 주문을 취소하시겠습니까?");
         	if(flag){
+        		let tarIndex = Number($(e).parent().parent().attr("data-index"));
+        		orderListArr.splice(tarIndex,1);
+        		let length = $(".s-store-order-button").length;
+        		for(let i=0;i<length;i++){
+        			let tarNextIndex = Number($($(".s-store-order-button")[i]).attr("data-index"));
+        			console.log($($(".s-store-order-button")[i]),tarNextIndex);
+        			if(tarNextIndex>tarIndex){
+        				$($(".s-store-order-button")[i]).attr("data-index",(tarNextIndex-1));
+        			}
+        		}
+        		console.log($(".s-store-order-button"));
         		$(e).parent().parent().remove();
         		orderListHeightCheck();
-        		let length = $(".s-store-order-button").length;
         		if(length==0){
         			$("#order-content-1").show();
+        			orderListArr = new Array();
         		} else if(length<3){
         			$("#order-content-2").css("height","auto");
         		}
         	}
         }
         
-        function orderCountMinus(){
-        	let tar = $(event.target).parent().find(".order-count-check");
-        	console.log(tar);
+        function orderCountMinus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	if(count>1){
+        		let testPrice = price/count;
+        		price -= testPrice;
+        		count--;
+        		$(tar).find(".s-store-order-prices").val(price);
+        		$(tar).find(".s-store-order-count").val(count);
+        		$(tar).find(".order-count-check").text(count);
+        		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+        	}
+        	orderAllFinalPriceCacr();
         }
         
-        function orderCountPlus(){
-        	let tar = $(event.target).parent().find("strong");
-        	console.log(tar);
+        function orderCountPlus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	let testPrice = price/count;
+        	price += testPrice;
+    		count++;
+    		$(tar).find(".s-store-order-prices").val(price);
+    		$(tar).find(".s-store-order-count").val(count);
+    		$(tar).find(".order-count-check").text(count);
+    		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+    		orderAllFinalPriceCacr();
         }
         
         
         /* 주문표 가격계산 함수 */
         function orderAllFinalPriceCacr(){
         	let orderFinalPriceCheck = $(".s-store-order-prices");
-        	console.log(orderFinalPriceCheck);
         	let orderFinalPrice = 0;
         	for(let i=0;i<orderFinalPriceCheck.length;i++){
         		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
         	}
-        	console.log(orderFinalPrice);
         	$("#order-final-price").val(orderFinalPrice);
         	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
         }
         
         /* 주문표에서 주문하기 */
         function orderListEnd(){
-        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
+        	let limitPrice = Number($("#order-limit-price").val());
+        	let orderFinalPrice = Number($("#order-final-price").val());
+        	if(orderFinalPrice>limitPrice){
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -826,6 +861,9 @@
 	        			console.log(c);
 	        		}
 	        	});
+        	} else {
+        		alert("최소 주문금액보다 높게 주문해야합니다!");
+        	}
         	
         }
         
@@ -842,6 +880,34 @@
            val = val.split('').reverse().join('');
            val += "원";
            return val;
+        }
+        
+        /* order객체 동일성비교메소드 */
+        function equlasObject(x,y){
+        	if(x['src']!=y['src']){
+        		return false;
+        	}
+        	if(x['name']!=y['name']){
+        		return false;
+        	}
+       		if(x['reqOp']['reqOpNo']!=y['reqOp']['reqOpNo']){
+       			return false;
+       		}
+       		if(x['unReqOp'].length==y['unReqOp'].length){
+	       		for(let i=0;i<x['unReqOp'].length||i<y['unReqOp'].length;i++){
+	       			if(x['unReqOp'][i]['unReqOpNo']!=y['unReqOp'][i]['unReqOpNo']){
+	       				return false;
+	       			}
+	       		}
+       		} else {
+       			return false;
+       		}
+        	return true;
+        }
+        
+        /* 리뷰영역 */
+        function review(no){
+        	console.log(no);
         }
         
     

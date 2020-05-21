@@ -22,4 +22,5 @@ public interface StoreDao {
 	int insertBestCategory(SqlSessionTemplate session,int no);
 	List<Map<String, Object>> getStoresInfo(SqlSessionTemplate session,int no);
 	List<Sales> getSales(SqlSessionTemplate session, Object no);
+	List<Map<String, Object>> getOrderInfo(SqlSessionTemplate session, Object no);
 }

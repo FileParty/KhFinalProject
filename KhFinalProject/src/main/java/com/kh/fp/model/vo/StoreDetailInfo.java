@@ -23,7 +23,7 @@ public class StoreDetailInfo {
 	private String s_enrollStatus;
 	private String s_oriFoodInfo;
 	private String s_logimg;
-	private int s_score;
+	private double s_star;
 	private String s_time;
 	private int s_reviewCount;
 	private int b_no;
