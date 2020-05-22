@@ -18,4 +18,5 @@ public interface StoreService {
 	List<Map<String, Object>> getStoresInfo(int no);
 	List<Sales> getSales(Object no);
 	List<Map<String,Object>> getOrderInfo(Object no);
+	List<Map<String, Object>> getSaleMonth(Object no);
 }
