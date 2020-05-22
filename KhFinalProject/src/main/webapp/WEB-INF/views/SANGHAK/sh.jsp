@@ -73,7 +73,10 @@
 			      	
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
-			               <input type="hidden" value="">
+			           <%--     <input type="hidden" value="${a['reqOp']['reqOpNo']}">
+			            <c:forEach items="${a['unReqOp']}" var="c">   
+			                <input type="hidden" value="${c['unReqOpName']}">
+			              </c:forEach>  --%>
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>

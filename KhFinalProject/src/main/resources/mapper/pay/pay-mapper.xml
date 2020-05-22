@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="OrderInfo">
+ 
+  <insert id="insertOrderInfo" parameterType="OrderInfo">
+ <!--  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,0,#{m_Level},#{m_Phone},#{m_Name},#{m_Email}) -->
+ 
+  </insert>
+
+</mapper>

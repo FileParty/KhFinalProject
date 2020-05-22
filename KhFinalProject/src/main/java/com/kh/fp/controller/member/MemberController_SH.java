@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.fp.model.servier.member.MemberService_SH;
 import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member;
+import com.kh.fp.model.vo.OrderInfo;
 
 
 
@@ -53,9 +54,11 @@ public class MemberController_SH {
 	public String payList2() {
 		return ("/SANGHAK/sh2");
 	}
+	
 	//결제 db에넣기 
 		@RequestMapping("/pay/payment.do")
-		public String payComplete() {
+		public String payComplete(OrderInfo o) {
+			int result = service.insertOrderInfo(o);
 			
 			
 			return  ("/SANGHAK/sh2");
