@@ -59,6 +59,7 @@
    <div class="col-lg-2" id="side">
                 
                     <ul class="list-group" >
+                    	<li class="list-group"><a class="menu list-group-item list-group-item-action" href="${path }/store/mypage">메인화면</a></li>
                         <li class="list-group bar-store" ><a class="menu list-group-item disabled" href="#">매장
                         <img src="${path }/resources/img/sidebar/shop.png" style="width:40px;height:40px;"></a>
                         </li>
@@ -67,7 +68,7 @@
                         <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/menuStatus">매장 메뉴</a></li>
                        	<li class="list-group"><a class="menu list-group-item list-group-item-action " href="${path }/licensee/calculate">매출 도표</a></li>
                        	<li class="list-group"><a class="menu list-group-item list-group-item-action " href="${path }/licensee/order">주문 내역</a></li>
-                        <li class="list-group"><a class="menu list-group-item " href="${path }/licensee/review">리뷰 관리</a></li>
+                        <li class="list-group"><a class="menu list-group-item list-group-item-action" href="${path }/licensee/review">리뷰 관리</a></li>
 
                     </ul>
             </div>
