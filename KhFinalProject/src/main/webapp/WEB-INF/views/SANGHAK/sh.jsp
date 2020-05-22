@@ -76,12 +76,16 @@
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
 			        	
-			        	 <!--다나옴  -->
-
-			           <%--   <input type="text" value="${a['reqOp']['reqOpNo']}"> <!--주문코드 -->
+			        	
+<!-- =============================================================================================================================== -->
+			            <input  type="text" value="${a['reqOp']['reqOpNo']}"> <!--주문코드 -->
+			          <input  type="text" value="${a['no']}"><!--메뉴코드  --><br>
+			        
 			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
-			                <input type="text" value="${c['unReqOpName']}">
-			              </c:forEach>   --%>
+			            <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
+			            </c:forEach>  
+			             <!--  <input id="addMenu2" type="text"/> -->
+<!-- =============================================================================================================================== -->
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
@@ -1301,6 +1305,9 @@ main {
 	    $('#btn-container').css("border","solid 3px red");
 	    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
 	    $(this).val("2");
+	  /*   var addMenu=document.getElementById('addMenu').value;
+	 
+	    $("#addMenu2").val(addMenu); */
 	 }else{
 		   $(this).val("1");
 		   $('#btn-container').css("border","solid 1px black");
