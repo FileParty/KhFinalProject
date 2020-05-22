@@ -112,7 +112,7 @@ public class StoreController {
 		}
 		
 		mv.addObject("msg", "가게 등록성공!");
-		mv.addObject("loc", "/licensee/mypage");
+		mv.addObject("loc", "/store/mypage");
 		mv.setViewName("common/msg");
 		return mv;
 	}
@@ -193,8 +193,10 @@ public class StoreController {
 		
 		
 		mv.addObject("stores",stores);
-		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
-		mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
+		if(!stores.isEmpty()) {
+			mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+			mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
+		}
 		mv.setViewName("business/mypage");
 		return mv;
 	}
@@ -219,12 +221,49 @@ public class StoreController {
 		List<Sales> list=service.getSales(no);
 		
 		for(Sales m : list) {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
 			String time=sdf.format(m.getOrderDate());
 			m.setTime(time);
 		}
 		
 		return list;
+	}
+	
+	@RequestMapping("/store/salesMonth.do")
+	@ResponseBody
+	public List<Map<String, Object>> salesMonth(int no){
+		 List<Map<String, Object>> list = service.getSaleMonth(no);
+		return list;
+	}
+	
+	@RequestMapping("/licensee/calculate")
+	public ModelAndView calculate(HttpSession session,ModelAndView mv) {
+		//정산내역
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_No());
+		
+		if(stores.isEmpty()) {
+			mv.addObject("msg", "가게등록해 주세요");
+			mv.addObject("loc", "/store/mypage");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		System.out.println(service.getSaleMonth(stores.get(0).get("S_NO")));
+		mv.addObject("stores",stores);
+		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+		mv.addObject("salesmonth",service.getSaleMonth(stores.get(0).get("S_NO")));
+		mv.setViewName("business/calculate");	
+		return mv;
 	}
 	
 	

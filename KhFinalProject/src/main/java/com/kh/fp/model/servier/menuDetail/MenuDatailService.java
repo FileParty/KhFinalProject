@@ -1,6 +1,7 @@
 package com.kh.fp.model.servier.menuDetail;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.fp.model.vo.StoreDetailInfo;
 import com.kh.fp.model.vo.StoreDetailReview;
@@ -14,6 +15,6 @@ public interface MenuDatailService {
 
 	StoreMenu selectMenuDetail(int no);
 
-	List<StoreDetailReview> selectStoreDetailReview(int no, String searchType, int cPage);
+	List selectStoreDetailReview(Map que, int cPage);
 
 }

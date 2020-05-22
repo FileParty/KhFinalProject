@@ -129,7 +129,7 @@ aside.s-store-right-side-move{
 
 .s-store-star{
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
    border: 1px solid lightgray;
@@ -142,7 +142,7 @@ aside.s-store-right-side-move{
 
 .s-store-score{
    display: flex;
-   flex-direction: column;
+   flex-direction:row;
    margin-left: 10px;
 }
 
@@ -158,7 +158,7 @@ aside.s-store-right-side-move{
 
 .s-store-review-count{
    display: flex;
-   justify-content: space-between;
+   justify-content:space-between;
    border: 1px solid lightgray;
    padding: 5px;
 }
@@ -174,7 +174,13 @@ aside.s-store-right-side-move{
 }
 
 .report{
-   float: right;
+   margin-left:615px;
+   font-size:16px;
+}
+
+.report:hover{
+	cursor:pointer;
+	color:red;
 }
 
 .s-store-review td{
@@ -246,8 +252,7 @@ aside.s-store-right-side-move{
     padding: 15px;
     display: flex;
     justify-content: flex-end;
-    color : green;
-    background-color: yellow;
+    color : red;
     border-top: 1px solid lightgray;
 }
 
@@ -535,4 +540,54 @@ button.order-count-btns{
 .s-store-info-text{
 	font-weight:600;
 	margin-left:5px;
+}
+
+.s-store-star-css-true{
+	color:#FFBF00;
+	font-size:28px;
+	font-weight:800;
+}
+.s-store-star-css-false{
+	color:lightgray;
+	font-size:28px;
+	font-weight:800;
+}
+
+.s-store-star-css-min-true{
+	color:#FFBF00;
+	font-size:16px;
+	font-weight:800;
+}
+.s-store-star-css-min-false{
+	color:lightgray;
+	font-size:16px;
+	font-weight:800;
+}
+
+.s-store-star-type-text{
+	font-size:20px;
+	font-weight:600;
+}
+
+.s-store-review-search-photo{
+	display:flex;
+	flex-direction:row;
+}
+
+.s-store-review-nickname{
+	font-size:22px;
+	font-weight:500;
+	color:black;
+}
+
+.s-store-star-type-text-min{
+	font-size:14px;
+	font-weight:600;
+	margin-left:2px;
+}
+
+.s-store-review-menu-text{
+	font-size:14px;
+	color:#FAAC58;
+	font-weight:500;
 }

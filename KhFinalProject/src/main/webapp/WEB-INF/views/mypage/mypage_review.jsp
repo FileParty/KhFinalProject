@@ -27,11 +27,11 @@
                     <table class="table content">
 
                         <tr>
-                            <th>날짜</th>
-                            <th>상호명</th>
-                            <th>별점</th>
-                            <th>리뷰내용</th>
-                            <th></th>
+                            <th style="text-align:center">날짜</th>
+                            <th style="text-align:center">상호명</th>
+                            <th style="text-align:center">별점</th>
+                            <th style="text-align:center">리뷰내용</th>
+                            <th style="text-align:center"></th>
                         </tr>
                         
                         <c:forEach items="${list }" var="rev">
@@ -168,6 +168,8 @@
             $("body").attr("style","overflow-y:scroll");
         });
         
+        
+        
 
     </script>
 
@@ -212,6 +214,10 @@
     }   
     
     #modal th{
+    	text-align:center;
+    }
+    
+    table td{
     	text-align:center;
     }
     </style>
