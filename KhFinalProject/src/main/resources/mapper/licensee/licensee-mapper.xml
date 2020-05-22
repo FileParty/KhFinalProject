@@ -53,8 +53,8 @@
   	</select>
   	
 
-  	<select id="storesNo" resultType="_int">
-  		select s_no from store where rownum =1 and b_no=#{no}
+  	<select id="storesNo" resultType="menuList">
+  		select s_no,s_name from store where b_no=#{no}
   	</select>
 
   	<update id="menuUpdate" parameterType="map">

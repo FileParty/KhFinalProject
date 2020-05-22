@@ -7,15 +7,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
 		*{
-		 	  /* border : 1px solid red;    */
+		 	  /*  border : 1px solid red;   */  
 		}
 
 div#main {
-            border: 1px soild black;
-            height: atuo; 
+            margin-left:250px;
+	      	margin-top:150px;
+	  		width:1000px;
+	      	height : auto;
+	      	padding : 0;
         }
         
         .first-storepage{
@@ -66,15 +70,22 @@ div#main {
 </style>
 	<%@ include file="../common/header.jsp" %> 
  	<section style="width:auto;height:auto;">
- 		<div class="row" style="margin-left: 300px;">
+ 	<div class="container">
+ 		<div class="row" >
  			<%@ include file="sideBar.jsp" %>
- 		</div>
- 	<div class="container" id="main" >
+ 		
+ 	<div class="col-lg-10" id="main" >
  		
  		<div>
  			<div class="first-storepage" >
  			<h2>나의 매장</h2>
  				<hr/>
+ 				<c:if test="${empty stores }">
+ 				<div style="margin-bottom: 300px;">
+ 					<h1>현재 등록된 매장이 없습니다.</h1>
+ 				</div>
+ 				</c:if>
+ 				<c:if test="${not empty stores }">
  				<table>
                     	
                     		<tr>
@@ -98,9 +109,9 @@ div#main {
                 </table>
  			
  				
- 			
+ 				</c:if>
  			</div>
- 			
+ 			<c:if test="${not empty stores }">
  			<div class="first-storepage">
  				<h2>매장 매출 그래프</h2><hr/>
  				<div style="margin-bottom: 40px;">
@@ -112,7 +123,7 @@ div#main {
 	 				</div>
 	 			<div class="graph">
 	 				<c:if test="${not empty sales}">
-	 				<div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
+	 				<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
 	 				</c:if>
 	 				<c:if test="${empty sales}">
 	 					<h1>준비중</h1>
@@ -162,17 +173,17 @@ div#main {
                    	</c:if>
  			
  			
+ 				</div>
+ 			
+ 			</c:if>
  			</div>
- 			
- 			
+ 			</div>
  		</div>
- 		
  	</div>
  	</section>
  	
  	
- 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ 	
     <script type="text/javascript">
     
 		  var data;

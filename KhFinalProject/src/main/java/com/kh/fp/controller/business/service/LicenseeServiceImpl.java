@@ -117,7 +117,7 @@ public class LicenseeServiceImpl implements LicenseeService {
 	}
 
 	@Override
-	public int storesNo(int no) {
+	public List<Store> storesNo(int no) {
 		// TODO Auto-generated method stub
 		return dao.storesNo(session,no);
 	}

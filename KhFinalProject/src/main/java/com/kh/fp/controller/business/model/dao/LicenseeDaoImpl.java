@@ -104,9 +104,9 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	}
 
 	@Override
-	public int storesNo(SqlSessionTemplate session, int no) {
+	public List<Store> storesNo(SqlSessionTemplate session, int no) {
 		// TODO Auto-generated method stub
-		return session.selectOne("licensee.storesNo",no);
+		return session.selectList("licensee.storesNo",no);
 	}
 
 	public int menuUpdate(SqlSessionTemplate session, Map<String, Object> map) {
