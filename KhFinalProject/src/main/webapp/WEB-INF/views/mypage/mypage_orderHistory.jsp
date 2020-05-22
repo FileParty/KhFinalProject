@@ -14,12 +14,6 @@ ${(o.time-odate.time)/(24*60*60*1000)}
 
 <c:set var="o" value="<%=new Date(new GregorianCalendar().getTimeInMillis())%>" />
 <fmt:parseDate value="2020/05/18 00:00:00" pattern="yyyy/MM/dd HH:mm:ss" var="odate"/>
-${(o.time-odate.time)}
-분차${(o.time-odate.time)/(60*1000)}
-시차${(o.time-odate.time)/(24*60*1000)}
-일차${(o.time-odate.time)/(24*24*60*1000)}
-${o.time/(24*24*60*1000) }
-${odate.time/(24*24*60*1000) }
 <%-- <fmt:formatDate value="${(o.time-odate.time)/(24*60*60*1000)}" pattern="yyyy/MM/dd HH:mm:ss" var="sysdate"/>
 ${sysdate }  --%>
 
@@ -29,7 +23,7 @@ ${sysdate }  --%>
 		    div#idMsg-container{position:relative; padding:0px;}
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
-		    div#idMsg-container span.no{color:red;}
+		    div#idMsg-conta  iner span.no{color:red;}
 		    
 </style>
 
@@ -54,7 +48,7 @@ ${sysdate }  --%>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
                            <p>${(o.time-rdate.time)/(60*1000) }</p>
-                           <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }');">리뷰쓰기</button></p>
+                           <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button></p>
                            <table style="width:100%">
                                <tr>
                                    <td><img src="${path }/resources/upload/mypage/${m['S_LOGIMG']}"/></td>
@@ -116,11 +110,11 @@ ${sysdate }  --%>
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                     	<form name="review" action="${path}/mypage/insertReview.do" method="post" onsubmit="return confirm();"  enctype="multipart/form-data" >
-                    		<input id="s_no" type="hidden" /><input id="m_no" type="hidden" />
+                    		<input id="s_no" name="s_no" type="hidden" /><input id="m_no" name="m_no" type="hidden" /><input id="o_no" name="o_no" type="hidden" />
 	                        <p style="text-align: center;"><strong></strong></p>
 	                        <table id="modal-tbl" style="width:100%">
 	                            <tr>
-	                                <th style="text-align:center;"><h3>${loginMember.m_nickname }</h3></th>
+	                                <th style="text-align:center;"><h3>${loginMember.m_Nickname }</h3></th>
 	                            </tr>
 	                            
 	                            <tr><td><br></td></tr>
@@ -184,6 +178,35 @@ ${sysdate }  --%>
         
         <!--  -->
         
+        
+        <div id="modal3" style="display: none;">
+            <div class="modal_content">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <p style="text-align: center;"><strong></strong></p>
+                        <table id="modal-tbl" style="width:100%">
+                            <tr>
+                                <td><img/></td>
+                                <td style="text-align: right;">
+                                    <p style="text-align: right;"><strong></strong></p>
+                                    <p style="text-align: right;"><strong></strong></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table class="table" id="menu-tbl">
+                        </table>
+                    </div>
+                    <div class="col-md-2"></div>
+            	</div>
+            <div class="modal_layer"></div>
+        	</div>
+        </div>
+        
+        
+        <!--  -->
+        
         <script>
         
         	
@@ -191,26 +214,28 @@ ${sysdate }  --%>
         	
         	var preview = $("#preview");
         	
-        	function chk_file_type(obj) {
+        	 function chk_file_type(obj) {
         		 var file_kind = obj.value.lastIndexOf('.');
         		 var file_name = obj.value.substring(file_kind+1,obj.length);
         		 var file_type = file_name.toLowerCase();
 
 
 
-        		 var check_file_type=new Array();​
+        		 var check_file_type = check_file_type=['jpg','gif','png','jpeg','bmp'];
 
-        		 check_file_type=['jpg','gif','png','jpeg','bmp'];
+        		 
 
 
 
-        		 if(check_file_type.indexOf(file_type)==-1){
+       			if(check_file_type.indexOf(file_type)==-1){
         		  alert('이미지 파일만 선택할 수 있습니다.');
         		  var parent_Obj=obj.parentNode
         		  var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
         		  return false;
-        		 }
-        		}
+       			}
+       			
+       			return true;
+       		} 
         	
         	function confirm(){
         		if($("#taste").val()==0 || $("#amount").val()==0 || $("#delivery").val()==0){
@@ -463,10 +488,11 @@ ${sysdate }  --%>
 	        
 	        
         
-	        function reviewInsertModal(s_no, m_no){
+	        function reviewInsertModal(s_no, m_no, o_no){
 	        	
 	        	$("#s_no").val(s_no);
 	        	$("#m_no").val(m_no);
+	        	$("#o_no").val(o_no);
 	        	
 	        	$("#scoreTaste").html();
 	        	$("#scoreAmount").html();
@@ -486,6 +512,7 @@ ${sysdate }  --%>
 					$("#scoreDelivery").append("<svg style='margin-right:3px;' onclick='scoreDeliverySet("+ i +")' id='score"+ i +"' class='bi bi-star' width='30px' height='30px' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 00-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L1.71 6.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658a.525.525 0 00.393.288l4.052.575-2.906 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z' clip-rule='evenodd'/></svg>");	        			
 				}
 	        	
+	        	
 	        	$("#modal2").attr("style", "display:flex");
 	            $("body").attr("style","overflow-y:hidden");
 	        }
@@ -494,6 +521,8 @@ ${sysdate }  --%>
     
         
             $(".order_content").on("click",function(){
+            	
+            	console.log("실행");
             	
             	if(event.target.className=='reviewInsertButton')
                     return;
@@ -525,8 +554,7 @@ ${sysdate }  --%>
 						
 						for(let i=0; i<data.length; i++){
 							option = data[i]['SD_ARRAY'].split(',');
-							console.log(option);
-							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'>" + data[i]['ME_LOGIMG'] + "</td><td style='text-align: right;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img src='${path}/resources/img/mypage/review/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
 							
 							if(option.length>0){
 								
@@ -592,6 +620,17 @@ ${sysdate }  --%>
 			
 				});
             }
+            
+            $("#modal2").click(function(){
+            	
+            	if(event.target.className!="modal_layer")
+            		return;
+            		
+            	
+            	
+            	 $("#modal2").attr("style", "display:none");
+                 $("body").attr("style","overflow-y:scroll");
+            })
     
         </script>
     
@@ -665,6 +704,45 @@ ${sysdate }  --%>
         }
         
         #modal2 .modal_layer {
+          position:fixed;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          background:rgba(0, 0, 0, 0.5);
+          z-index:-1;
+        }   
+        
+         #modal3 {
+          position:fixed;
+          top: 50px;
+          width:100%;
+          height:100%;
+          z-index:1;
+        }
+        
+        #modal3 h2 {
+          margin:0;   
+        }
+        
+        #modal3 button {
+          display:inline-block;
+          width:100px;
+          margin-left:calc(100% - 100px - 10px);
+        }
+        
+        #modal3 .modal_content {
+          width:450px;
+          height: 50%;
+          margin:100px auto;
+          padding:20px 10px;
+          background:#fff;
+          border:2px solid #666;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
+        
+        #modal3 .modal_layer {
           position:fixed;
           top:0;
           left:0;

@@ -160,6 +160,12 @@ public class StoreServiceImpl implements StoreService {
 		return dao.getOrderInfo(session, no);
 	}
 
+	@Override
+	public List<Map<String, Object>> getSaleMonth(Object no) {
+		// TODO Auto-generated method stub
+		return dao.getSaleMonth(session,no);
+	}
+
 	
 	
 	

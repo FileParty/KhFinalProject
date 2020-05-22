@@ -264,7 +264,7 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.jpg.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -723,7 +723,7 @@
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
 	        	let newOrders = [new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
-	        	newOrders.push({"finalPrice":finalPrice})
+	        	newOrders.push({"finalPrice":finalPrice,"s_no":${store['s_no']}});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(newOrders)},
@@ -868,7 +868,7 @@
         	let limitPrice = Number($("#order-limit-price").val());
         	let orderFinalPrice = Number($("#order-final-price").val());
         	if(orderFinalPrice>limitPrice){
-	        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":${store['s_no']}});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -1036,9 +1036,8 @@
         $(function(){
        		$(window).scroll(function(){
 	        	if(scrollFalg){
-	        		console.log($(window).scrollTop(),$(document).height(),$(window).height());
-        			if($(window).scrollTop() == $(document).height() - $(window).height()){
-        				console.log("나나나 콧노래가 나오다가 나도 몰래 눈물날것같애 아닌것같애 내가 아닌 것 같아");
+        			if($(window).scrollTop() == $(document).height()-1237){
+        				console.log("걸림");
         			}
 	        	}
         	})

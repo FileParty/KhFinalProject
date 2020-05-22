@@ -60,13 +60,42 @@ div#main {
       	flex-direction : column;
        	justify-content: center;
        	align-items: center;
-       	margin-top: 80px;
+
       }
       
       .orderselect{
       	text-align:  center;
       }
       
+      div#select_box {
+		  position: relative;
+		  width: 200px;
+		  height: 32px;
+		  background: url(http://cfile1.uf.tistory.com/image/27423E43565F8EF627B215) 0 center no-repeat;
+		  /* 화살표 이미지 */
+		}
+		
+		div#select_box label {
+		  position: absolute;
+		  font-size: 14px;
+		  color: #fff;
+		  top: 7px;
+		  left: 12px;
+		  letter-spacing: 1px;
+		}
+		
+		div#select_box select#saleselect ,div#select_box select#orderselect{
+		  width: 100%;
+		  height: 32px;
+		  min-height: 32px;
+		  line-height: 32px;
+		  padding: 0 10px;
+		  opacity: 0;
+		  filter: alpha(opacity=0);
+		  /* IE 8 */
+		}
+      	
+      	
 </style>
 	<%@ include file="../common/header.jsp" %> 
  	<section style="width:auto;height:auto;">
@@ -115,15 +144,18 @@ div#main {
  			<div class="first-storepage">
  				<h2>매장 매출 그래프</h2><hr/>
  				<div style="margin-bottom: 40px;">
+ 					<div id="select_box">
+ 						<label for="saleselect">${stores[0].S_NAME }</label>
 		 				<select  id="saleselect">
 		 					<c:forEach items="${stores }" var="s">
 		 						<option value="${s.S_NO }">${s.S_NAME }</option>
 		 					</c:forEach>
 		 				</select>
 	 				</div>
+	 				</div>
 	 			<div class="graph">
 	 				<c:if test="${not empty sales}">
-	 				<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+	 				<div id="columnchart_material" style="width: 900px; height: 500px;"></div>
 	 				</c:if>
 	 				<c:if test="${empty sales}">
 	 					<h1>준비중</h1>
@@ -135,11 +167,14 @@ div#main {
  			<div class="first-storepage">
  			<h2>주문 현황</h2><hr/>
  					<div style="margin-bottom: 40px;">
+ 						<div id="select_box">
+ 						<label for="orderselect">${stores[0].S_NAME }</label>
 		 				<select id="orderselect">
 		 					<c:forEach items="${stores }" var="s">
 		 						<option value="${s.S_NO }">${s.S_NAME }</option>
 		 					</c:forEach>
 		 				</select>
+		 				</div>
 	 				</div>
 	 				<c:if test="${not empty orderinfo }">
 		 				<table id="ordertable">
@@ -202,13 +237,13 @@ div#main {
 					  data.addColumn('string', 'month-day');
 					  data.addColumn('number', 'Sales');
 					  <c:forEach items="${sales}" var="l" varStatus="vs">
-					  data.addRow(["${l.orderDate.date}", ${l.price}]);
+					  data.addRow([(<fmt:formatNumber value='${l.orderDate.month}'/>+1)+"/${l.orderDate.date}", ${l.price}]);
 					  </c:forEach>
 					  
 			        var options = {
 			          chart: {
 			            title: 'Delivery King Performance',
-			            subtitle: 'Sales : '+'<fmt:formatDate value="${sales[0].orderDate}" pattern="yyyy-MM"/>',
+			            subtitle: 'Recent 31 Day Sales',
 			          }
 			        };
 			  
@@ -275,7 +310,7 @@ div#main {
 	  					}
 	  					
 	  					
-	  					$("#orderselect").parent().parent().append(table);
+	  					$($(".first-storepage")[2]).append(table);
 	  				}
 	  			}
 	  		})
@@ -298,7 +333,7 @@ div#main {
 	  					$($(".first-storepage")[1]).append(h2);
 	  					
 	  				}else{
-	  					var div = $("<div class='graph'>").html("<div id='columnchart_material' style='width: 1000px; height: 500px;'></div>");
+	  					var div = $("<div class='graph'>").html("<div id='columnchart_material' style='width: 900px; height: 500px;'></div>");
 	  					$($(".first-storepage")[1]).append(div);
 	  					 		var count=data.length;
 	  					 		var time = new Array();
@@ -322,7 +357,7 @@ div#main {
 	  							var options = {
 	  						          chart: {
 	  						            title: 'Delivery King Performance',
-	  						            subtitle: 'Sales : '+'<fmt:formatDate value="${sales[0].orderDate}" pattern="yyyy-MM"/>',
+	  						            subtitle: 'Recent 31 Day Sales',
 	  						          }
 	  						        };
 	  						  
@@ -342,6 +377,20 @@ div#main {
 	  	})
 	  	
 	  	
+	  	var select = $("select#saleselect");
+
+		  select.change(function() {
+		    var select_name = $(this).children("option:selected").text();
+		    $(this).siblings("label").text(select_name);
+		  })
+		  
+		  var select2 = $("select#orderselect");
+
+		  select2.change(function() {
+		    var select_name = $(this).children("option:selected").text();
+		    $(this).siblings("label").text(select_name);
+		  })
+			  	
     </script>
  	
  	<%@ include file="../common/footer.jsp" %> 

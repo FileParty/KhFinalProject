@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.fp.model.dao.member.MemberDao_SH;
 import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member_SH;
+import com.kh.fp.model.vo.OrderInfo;
 
 @Service
 public class MemberServiceImpl_SH implements MemberService_SH {
@@ -28,6 +29,12 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 	public int selectCouponCount(int m_no) {
 		// TODO Auto-generated method stub
 		return dao.selectCouponCount(session,m_no);
+	}
+
+	@Override
+	public int insertOrderInfo(OrderInfo o) {
+		// TODO Auto-generated method stub
+		return dao.insertOrderInfo(session,o);
 	}
 
 //	@Override

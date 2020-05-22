@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 
+  
 
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -36,7 +37,11 @@
   <a href="#">메뉴3</a>
  
 </div> -->
- 
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
+
+
+
+ <form  action="${path}/pay/payment.do" method="post"  id="baguniForm" onsubmit="return checkedNull();"> 
 <main>
   <h2 style="text-align: center; ">주문/결제</h2>
   <p><b style="font-size: 17px;">주문내역</b></p>
@@ -65,9 +70,13 @@
 			        <td style="width: 120px;padding: 15px;">
 			          <img src="${path}/resources/upload/business/${a['src']}" style="top:0; left: 0;width: 120px; height: 100px;">
 			        </td>
-			      
-			        <td width="400px" style="" ><b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
-			               
+			      	
+			        <td width="400px" style="" >
+			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
+			                <input type="hidden" value="${a['reqOp']['reqOpNo']}">
+			            <c:forEach items="${a['unReqOp']}" var="c">   
+			                <input type="hidden" value="${c['unReqOpName']}">
+			              </c:forEach>  
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
@@ -113,11 +122,6 @@
 
 
 
-
-
-
-
- <form  action="${path}/" method="post" onsubmit="return checkedNull();" >
 <div class="row">
   <div class="leftcolumn">
     <div class="card" style="padding-left: 25px;height: auto;">
@@ -132,13 +136,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
-		           <span id="result"></span> 
+            	<input type="text"  id="name_1" name="ordername" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
+		          <input type="hidden" name="mNo" value="${loginMember['m_No']}"/>
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
+            <td><br><input type="text" id="phone_1" name="orderphone" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -252,21 +256,24 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
+  <td><input type="text"  id="name_2" name="receivename" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2" style="width:300px;height:45px; padding-left: 10;"required><br></td>
+  <td><br><input type="text"  id="phone_2"  name="receivephone" style="width:300px;height:45px; padding-left: 10;"required><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
+  <td><br><input type="text" id="address0" name="address"  style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
 			value="${addr } "  readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
-  <td><input type="text" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br></td>
+  <td>
+  		<input type="text" id="address" name="address2" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
+  		<input type="hidden" name="addr" id="addr"/>
+  </td>
 </tr>
 <tr>
   <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
@@ -452,7 +459,7 @@
             		<td id="td1234"style="width: 155px;text-align: right;font-size: 21px;"> 
             			<c:out value="${priceSum}"/> 원 
             			<!--******************************hidden***********************************************  -->
-            			<input type="hidden" id="priceSum" value="${priceSum}"/>      	
+            			<input type="hidden" id="priceSum" name="priceSum" value="${priceSum}"/>      	
             		</td>
             		</c:if>
             </c:forEach>
@@ -490,9 +497,9 @@
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
-                          <button id="dopay"type="submit" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                          <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button>
+                          </button><!--id="paymentBtn"  -->
   
 
     </div>
@@ -501,6 +508,8 @@
 </div>
   
   </form>
+  
+  
   
   
  <!-- Modal -->
@@ -995,6 +1004,48 @@ $("#alloffHidden").click(function(){
 
  
 </body>
+<!--======================================결제api==================================================  -->
+  <script>
+  var IMP = window.IMP;
+	var test=0;
+	IMP.init('imp27157799');
+	
+
+	//결제버튼 클릭시 결제 API 실행
+	$(".paymentBtn").on("click", function(){
+	var totalPrice=$("#sum").val();
+	console.log("총가격 : "+totalPrice);
+	alert("결제할 가격은 "+totalPrice+"원 입니다.");
+    var userMail = "${loginMember['m_Email']}";
+    var userName = "${loginMember['m_Name']}";
+    var userTel = "${loginMember['m_Phone']}";
+    var userAddr = "${addr}"+" "+$("#address").val();; 
+     console.log(userAddr);
+       IMP.request_pay({
+        pg: 'html5_inicis', // version 1.1.0부터 지원.
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        name: '배달킹 결제',
+        amount: totalPrice,
+        buyer_email: userMail,
+        buyer_name: userName,
+        buyer_tel: userTel,
+        buyer_addr: userAddr
+    }, function (rsp) { //callback 함수
+        if (rsp.success) {
+            $("#baguniForm").submit();
+            var msg = '결제에 성공하였습니다.';
+            
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+            
+        } 
+        alert(msg);
+     });   
+    
+});
+  </script>
 <!--============================================================결제하기버튼css======================================================================-->
   <style>
     @import url("https://fonts.googleapis.com/css?family=Mukta:700");
@@ -1422,6 +1473,27 @@ main {
  });
 
  });
+  <!--=====================주소합치기 버튼=========================== -->
+  $(document).ready(function(){
+
+		$("#address").click(function(){
+		
+	})
+	 $("#address").change(function(){
+		    var address0=document.getElementById('address0').value;
+		    var address=document.getElementById('address').value;
+		   
+			
+
+			console.log("처음주소: "+address0);
+			console.log("두번쨰주소: "+address);
+			
+	 	
+	 
+	 		$("#addr").val(address0+""+address); 
+	  });
+  });
+	
   <!--=====================포인트취소 버튼=========================== -->
   function cancle() {
 	  var totaldate=document.getElementById('sum').value;

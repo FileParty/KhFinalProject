@@ -18,6 +18,7 @@ public class SocketMessage {
 	private String yl; //경도
 	private String state; //상태 (배달요청, 배달수락, 배달대기중, 배달 수락) , (N,Y) 대기(요청)W, (수락)Y, (거절)N
 	private String sender;
+	private String msg;	//메시지
 	//사업자 -> 배달원 
 	//배달원 -> 사업자
 }
