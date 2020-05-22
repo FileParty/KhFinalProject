@@ -37,9 +37,24 @@
 	                    			<td><c:out value="${o.O_ORIPRICE }"/></td>
 	                    			<td><c:out value="${o.O_ADDR}"/></td>
 	                    			<td><c:out value="${o.O_DATE }"/></td>
-	                    			<c:if test="${o.O_STATUS eq '주문대기' }">
-	                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
-	                    			</c:if>
+	                    			<c:choose>
+	                    				<c:when test="${o.O_STATUS eq '주문대기' }">
+			                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '주문취소' }">
+			                    			<td>주문취소</td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '주문완료' }">
+			                    			<td><input type="button" value="완료"></td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '배달중' }">
+			                    			<td>배달중</td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '배달완료' }">
+			                    			<td>배달완료</td>
+			                    		</c:when>
+	                    			</c:choose>
+	                    			
 	                    			<td>
 	                    			<input type="button" data-toggle="modal" data-target="#myModal" onclick="order_detail(${o.O_NO });" value="상세보기">
 	                    			</td>

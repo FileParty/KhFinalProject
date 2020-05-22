@@ -52,4 +52,8 @@
   		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
   	</select>
   	
+  	<select id="storesNo" resultType="_int">
+  		select s_no from store where rownum =1 and b_no=#{no}
+  	</select>
+  	
 </mapper>

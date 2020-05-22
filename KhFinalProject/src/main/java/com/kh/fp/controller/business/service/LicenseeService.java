@@ -27,5 +27,5 @@ public interface LicenseeService {
 	List<Store> selectStoreList(int b_no);
 	List<Menu> selectMenuList(int s_no);
 	List<SideAll> selectMenuSide(Map<String,Object> map);
-	
+	int storesNo(int no);
 }

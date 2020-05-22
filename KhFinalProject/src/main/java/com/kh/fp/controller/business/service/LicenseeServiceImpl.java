@@ -114,6 +114,12 @@ public class LicenseeServiceImpl implements LicenseeService {
 		//메뉴사이드 조회
 		return dao.selectMenuSide(session,map);
 	}
+
+	@Override
+	public int storesNo(int no) {
+		// TODO Auto-generated method stub
+		return dao.storesNo(session,no);
+	}
 	
 	
 	

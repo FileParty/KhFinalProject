@@ -103,9 +103,20 @@ public class LicenseeController {
 	
 	@RequestMapping("/licensee/order")
 	public ModelAndView order(ModelAndView mv,@RequestParam(required = false,defaultValue = "1")int cPage,
-			@RequestParam(required = false ,defaultValue = "2")int numPerpage) {
+			@RequestParam(required = false ,defaultValue = "2")int numPerpage,@RequestParam(required = false,defaultValue = "0")int no,HttpSession session) {
 		//주문내역
-		int no=1;
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		if(no==0) {
+			no= service.storesNo(b.getB_No());;
+		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
 		
