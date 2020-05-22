@@ -1,10 +1,11 @@
 package com.kh.fp.model.servier.member;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member_SH;
-import com.kh.fp.model.vo.OrderInfo;
+
 
 public interface MemberService_SH {
 
@@ -12,7 +13,9 @@ public interface MemberService_SH {
 
 	int selectCouponCount(int m_no);
 
-	int insertOrderInfo(OrderInfo o);
+	int insertOrderInfo(Map<String, String> map);
+
+
 
 //	Object selectMemberPay(int m_no);
 

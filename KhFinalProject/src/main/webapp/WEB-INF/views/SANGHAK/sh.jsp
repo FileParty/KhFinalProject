@@ -41,7 +41,8 @@
 
 
 
- <form  action="${path}/pay/payment.do" method="post"  id="baguniForm" onsubmit="return checkedNull();"> 
+ <form  action="${path }/pay/payment.do" method="post" > <!-- id="baguniForm" onsubmit="return checkedNull();" -->
+
 <main>
   <h2 style="text-align: center; ">주문/결제</h2>
   <p><b style="font-size: 17px;">주문내역</b></p>
@@ -58,10 +59,11 @@
       </tr>
     </thead>
     <tbody >
-                      
+         
+            
      <c:forEach items="${orderList }" var="a" varStatus="status">
    <c:set var="priceSum" value="${a['finalPrice']}"/>
-
+      
      	 <c:if test="${!status.last}"> 
 
 
@@ -73,17 +75,24 @@
 			      	
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
-			                <input type="hidden" value="${a['reqOp']['reqOpNo']}">
-			            <c:forEach items="${a['unReqOp']}" var="c">   
-			                <input type="hidden" value="${c['unReqOpName']}">
-			              </c:forEach>  
+			        	
+			        	 <!--다나옴  -->
+
+			           <%--   <input type="text" value="${a['reqOp']['reqOpNo']}"> <!--주문코드 -->
+			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
+			                <input type="text" value="${c['unReqOpName']}">
+			              </c:forEach>   --%>
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
 			   			   <b style="color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
+			  
 			   <c:forEach items="${a['unReqOp']}" var="b"> 
 			                <b style="font-size: 17px;font-family: 'Stylish', sans-serif;">[${b['unReqOpName']}]</b>
+			                  
 		   		</c:forEach>
+		   
+		   		
 			        </td>
 			        <td style="font-size: 21px;">
 			        	${a['count']}   <!--${orderList[0]['count']}  -->
@@ -97,7 +106,12 @@
      		</tr>
      		
      	</c:if>  
-     	
+     	    <c:if test="${status.last}"> 
+                
+           			<input type="hidden" name="sNo" value="${a['s_no'] }">     <!--가게코드 불러오기 -->
+           </c:if>
+           			
+         
       </c:forEach>
       
  			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
@@ -136,13 +150,14 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" name="ordername" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
+            	<input type="text"  id="name_1"  style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
 		          <input type="hidden" name="mNo" value="${loginMember['m_No']}"/>
+		          <input type="hidden"  id="name_1" name="orderName" value="${loginMember['m_Name']}">
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1" name="orderphone" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
+            <td><br><input type="text" id="phone_1" name="orderPhone" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -256,11 +271,11 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" name="receivename" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
+  <td><input type="text"  id="name_2" name="receiveName" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2"  name="receivephone" style="width:300px;height:45px; padding-left: 10;"required><br></td>
+  <td><br><input type="text"  id="phone_2"  name="receivePhone" style="width:300px;height:45px; padding-left: 10;"required><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
@@ -272,7 +287,7 @@
   <td></td>
   <td>
   		<input type="text" id="address" name="address2" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
-  		<input type="hidden" name="addr" id="addr"/>
+  		<input type="hidden" name="addr123" id="addr"/>
   </td>
 </tr>
 <tr>
@@ -497,9 +512,10 @@
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
-                          <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                        <input type="submit" value="결제하기" >
+<!--                           <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button><!--id="paymentBtn"  -->
+                          </button> -->
   
 
     </div>

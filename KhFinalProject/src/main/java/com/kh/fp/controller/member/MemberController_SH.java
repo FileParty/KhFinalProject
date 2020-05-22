@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.fp.model.servier.member.MemberService_SH;
 import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member;
-import com.kh.fp.model.vo.OrderInfo;
+
 
 
 
@@ -57,13 +57,14 @@ public class MemberController_SH {
 	
 	//결제 db에넣기 
 		@RequestMapping("/pay/payment.do")
-		public String payComplete(OrderInfo o) {
-			int result = service.insertOrderInfo(o);
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map) {
 			
 			
-			return  ("/SANGHAK/sh2");
+			
+			int result = service.insertOrderInfo(map);
+			
+		
+			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
+			return mv;
 		}
-	
-	
-	
 }

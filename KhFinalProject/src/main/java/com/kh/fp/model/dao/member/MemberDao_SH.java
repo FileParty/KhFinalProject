@@ -1,12 +1,13 @@
 package com.kh.fp.model.dao.member;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.Coupon_SH;
 import com.kh.fp.model.vo.Member_SH;
-import com.kh.fp.model.vo.OrderInfo;
+
 
 public interface MemberDao_SH {
 
@@ -14,7 +15,9 @@ public interface MemberDao_SH {
 
 	int selectCouponCount(SqlSessionTemplate session,int m_no);
 
-	int insertOrderInfo(SqlSessionTemplate session, OrderInfo o);
+	int insertOrderInfo(SqlSessionTemplate session, Map<String, String> map);
+
+
 
 //	Object selectMemberPay(SqlSessionTemplate session, int m_no);
 
