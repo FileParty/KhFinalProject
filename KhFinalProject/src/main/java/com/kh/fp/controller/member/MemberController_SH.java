@@ -53,5 +53,14 @@ public class MemberController_SH {
 	public String payList2() {
 		return ("/SANGHAK/sh2");
 	}
+	//결제 db에넣기 
+		@RequestMapping("/pay/payment.do")
+		public String payComplete() {
+			
+			
+			return  ("/SANGHAK/sh2");
+		}
+	
+	
 	
 }

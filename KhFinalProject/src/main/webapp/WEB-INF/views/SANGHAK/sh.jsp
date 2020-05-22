@@ -37,7 +37,11 @@
   <a href="#">메뉴3</a>
  
 </div> -->
- 
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
+
+
+
+ <form  action="${path}/pay/payment.do" method="post"  id="baguniForm" onsubmit="return checkedNull();"> 
 <main>
   <h2 style="text-align: center; ">주문/결제</h2>
   <p><b style="font-size: 17px;">주문내역</b></p>
@@ -66,9 +70,10 @@
 			        <td style="width: 120px;padding: 15px;">
 			          <img src="${path}/resources/upload/business/${a['src']}" style="top:0; left: 0;width: 120px; height: 100px;">
 			        </td>
-			      
-			        <td width="400px" style="" ><b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
-			               
+			      	
+			        <td width="400px" style="" >
+			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
+			               <input type="hidden" value="">
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
@@ -113,12 +118,7 @@
 
 
 
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
 
-
-
-
- <form  action="" method="post"  id="baguniForm" > onsubmit="return checkedNull();"
 <div class="row">
   <div class="leftcolumn">
     <div class="card" style="padding-left: 25px;height: auto;">
@@ -1009,7 +1009,7 @@ $("#alloffHidden").click(function(){
 	$(".paymentBtn").on("click", function(){
 	var totalPrice=$("#sum").val();
 	console.log("총가격 : "+totalPrice);
-	alert("totalPrice="+totalPrice);
+	alert("결제할 가격은 "+totalPrice+"원 입니다.");
     var userMail = "${loginMember['m_Email']}";
     var userName = "${loginMember['m_Name']}";
     var userTel = "${loginMember['m_Phone']}";
