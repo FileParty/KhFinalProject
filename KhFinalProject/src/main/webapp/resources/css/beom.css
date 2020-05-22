@@ -174,7 +174,13 @@ aside.s-store-right-side-move{
 }
 
 .report{
-   float: right;
+   margin-left:615px;
+   font-size:16px;
+}
+
+.report:hover{
+	cursor:pointer;
+	color:red;
 }
 
 .s-store-review td{
@@ -547,6 +553,17 @@ button.order-count-btns{
 	font-weight:800;
 }
 
+.s-store-star-css-min-true{
+	color:#FFBF00;
+	font-size:16px;
+	font-weight:800;
+}
+.s-store-star-css-min-false{
+	color:lightgray;
+	font-size:16px;
+	font-weight:800;
+}
+
 .s-store-star-type-text{
 	font-size:20px;
 	font-weight:600;
@@ -563,7 +580,14 @@ button.order-count-btns{
 	color:black;
 }
 
-textarea.s-store-textarea-nosize{
-	resize:none;
-	border:0;
+.s-store-star-type-text-min{
+	font-size:14px;
+	font-weight:600;
+	margin-left:2px;
+}
+
+.s-store-review-menu-text{
+	font-size:14px;
+	color:#FAAC58;
+	font-weight:500;
 }
