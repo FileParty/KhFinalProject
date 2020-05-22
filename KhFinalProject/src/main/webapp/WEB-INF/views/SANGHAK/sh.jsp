@@ -72,7 +72,7 @@
 			        </td>
 			      	
 			        <td width="400px" style="" >
-			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name']}</b><br><br>
+			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] </b><br><br>
 			           <%--     <input type="hidden" value="${a['reqOp']['reqOpNo']}">
 			            <c:forEach items="${a['unReqOp']}" var="c">   
 			                <input type="hidden" value="${c['unReqOpName']}">
@@ -136,13 +136,13 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
-		           <span id="result"></span> 
+            	<input type="text"  id="name_1" name="ordername" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
+		          <input type="hidden" name="mNo" value="${loginMember['m_No']}"/>
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1"style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
+            <td><br><input type="text" id="phone_1" name="orderphone" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -256,21 +256,24 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
+  <td><input type="text"  id="name_2" name="receivename" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2" style="width:300px;height:45px; padding-left: 10;"required><br></td>
+  <td><br><input type="text"  id="phone_2"  name="receivephone" style="width:300px;height:45px; padding-left: 10;"required><br></td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
+  <td><br><input type="text" id="address0" name="address"  style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
 			value="${addr } "  readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
-  <td><input type="text" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br></td>
+  <td>
+  		<input type="text" id="address" name="address2" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
+  		<input type="hidden" name="addr" id="addr"/>
+  </td>
 </tr>
 <tr>
   <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
@@ -456,7 +459,7 @@
             		<td id="td1234"style="width: 155px;text-align: right;font-size: 21px;"> 
             			<c:out value="${priceSum}"/> 원 
             			<!--******************************hidden***********************************************  -->
-            			<input type="hidden" id="priceSum" value="${priceSum}"/>      	
+            			<input type="hidden" id="priceSum" name="priceSum" value="${priceSum}"/>      	
             		</td>
             		</c:if>
             </c:forEach>
@@ -1470,6 +1473,27 @@ main {
  });
 
  });
+  <!--=====================주소합치기 버튼=========================== -->
+  $(document).ready(function(){
+
+		$("#address").click(function(){
+		
+	})
+	 $("#address").change(function(){
+		    var address0=document.getElementById('address0').value;
+		    var address=document.getElementById('address').value;
+		   
+			
+
+			console.log("처음주소: "+address0);
+			console.log("두번쨰주소: "+address);
+			
+	 	
+	 
+	 		$("#addr").val(address0+""+address); 
+	  });
+  });
+	
   <!--=====================포인트취소 버튼=========================== -->
   function cancle() {
 	  var totaldate=document.getElementById('sum').value;
