@@ -198,11 +198,13 @@ public class MemberController {
 				//로그인성공
 				md.addAttribute("msg","로그인성공");
 				md.addAttribute("loginMember",m);
+				md.addAttribute("loc","/delivery/deliveryView.do");
 			}else {
 				//로그인실패
 				md.addAttribute("msg","로그인실패");
+				md.addAttribute("loc","/");
 			}
-			md.addAttribute("loc","/delivery/deliveryView.do");
+			
 			
 		}else {
 			
@@ -230,7 +232,7 @@ public class MemberController {
 	
 	//사업자 아이디 로그인
 	@RequestMapping("/member/businessLogin.do")
-	public String businessLogin(String userId,String userPw,Model md,HttpSession session) {
+	public String businessLogin(String userId,String userPw,Model md,HttpSession session,HttpServletRequest request) {
 		
 		Business b =service.selectBusiness(userId);
 		
@@ -244,7 +246,7 @@ public class MemberController {
 			md.addAttribute("msg","로그인실패");
 		}
 		md.addAttribute("loc","/");		
-	
+		
 		return "common/msg";
 
 	}
@@ -638,13 +640,13 @@ public class MemberController {
     
     // 일반인 비밀번호 찾기 mailSending 코드
     @RequestMapping( value = "/member/findMemberPw.do" , method=RequestMethod.POST )
-    public ModelAndView findMemberPw(HttpServletRequest request, String id,String m_email, HttpServletResponse response_email) throws IOException {
+    public ModelAndView findMemberPw(HttpServletRequest request, String id,String m_Email, HttpServletResponse response_email) throws IOException {
 
         Random r = new Random();
         int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
         
         String setfrom = "hyeon9782@gamil.com";
-        String tomail = request.getParameter("m_email"); // 받는 사람 이메일
+        String tomail = request.getParameter("m_Email"); // 받는 사람 이메일
         String title = "대한민국 No.1 배달킹! 비밀번호 찾기 인증 이메일 입니다!"; // 제목
         String content =
         
@@ -685,7 +687,7 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
         mv.setViewName("/member/findIdPwM");     //뷰의이름
         mv.addObject("dice", dice);
-        mv.addObject("m_email", m_email);
+        mv.addObject("m_Email", m_Email);
         mv.addObject("m_id",id);
         
         System.out.println("mv : "+mv);
@@ -702,13 +704,13 @@ public class MemberController {
     
     // 사업자 비밀번호 찾기 mailSending 코드
     @RequestMapping( value = "/member/findBusinessPw.do" , method=RequestMethod.POST )
-    public ModelAndView findBusinessPw(HttpServletRequest request, String id,String b_email, HttpServletResponse response_email) throws IOException {
+    public ModelAndView findBusinessPw(HttpServletRequest request, String id,String b_Email, HttpServletResponse response_email) throws IOException {
 
         Random r = new Random();
         int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
         
         String setfrom = "hyeon9782@gamil.com";
-        String tomail = request.getParameter("b_email"); // 받는 사람 이메일
+        String tomail = request.getParameter("b_Email"); // 받는 사람 이메일
         String title = "대한민국 No.1 배달킹! 비밀번호 찾기 인증 이메일 입니다!"; // 제목
         String content =
         
@@ -749,7 +751,7 @@ public class MemberController {
         ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
         mv.setViewName("/member/findIdPwB");     //뷰의이름
         mv.addObject("dice", dice);
-        mv.addObject("b_email", b_email);
+        mv.addObject("b_Email", b_Email);
         mv.addObject("b_id",id);
         
         System.out.println("mv : "+mv);
@@ -798,7 +800,7 @@ public class MemberController {
   	        
   	        response_equals.setContentType("text/html; charset=UTF-8");
   	        PrintWriter out_equals = response_equals.getWriter();
-  	        out_equals.println("<script>alert('인증번호가 일치하였습니다. 비밀번호 찾기 페이지로 이동합니다.');</script>");
+  	        out_equals.println("<script>alert('인증번호가 일치하였습니다. 비밀번호 변경 페이지로 이동합니다.');</script>");
   	        out_equals.flush();
   	
   	        return mv;
@@ -860,7 +862,7 @@ public class MemberController {
   	        
   	        response_equals.setContentType("text/html; charset=UTF-8");
   	        PrintWriter out_equals = response_equals.getWriter();
-  	        out_equals.println("<script>alert('인증번호가 일치하였습니다. 회원가입창으로 이동합니다.');</script>");
+  	        out_equals.println("<script>alert('인증번호가 일치하였습니다. 비밀번호 변경 페이지로 이동합니다.');</script>");
   	        out_equals.flush();
   	
   	        return mv;

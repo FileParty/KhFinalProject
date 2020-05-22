@@ -91,7 +91,7 @@
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span class="s-store-info-text">${store['s_star']}</span></li>
+                            <li><span class="s-store-star-css-true">★</span><span class="s-store-info-text">${store['s_star']}</span></li>
                             <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
                             <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
                             <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
@@ -109,7 +109,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}')">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}',1,'0')">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -154,57 +154,75 @@
 
                             <div class="s-store-star">
                                 <div>
-                                    <h1>${store['s_star']}</h1>
+                                    <h1 style="color:red;">${store['s_star']}</h1>
                                 </div>
-                                <div class="s-store-score">
-                                    <div><i class="fa fa-star"></i><span>맛</span></div>
+                                <div class="s-store-scores">
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">양 : </span>
+	                                   	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_amount_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_amount_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">배달 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_delivery_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_delivery_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">맛 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_taste_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_taste_tru'] }</span>
+                                    </div>
                                 </div>
                             </div>
 							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span>리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
+                                    <span class="s-store-star-type-text">리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
-                                <div>
-                                사진 리뷰만 :
+                                <div class="s-store-review-search-photo">
+                                	<span class="s-store-star-type-text">사진 리뷰만 : &nbsp;</span>
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="onlyPhoto" value="true" onclick="storeReviewSearchPhoto(${store['s_no']})">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="s-store-review">
-
-                                <table>
-
-                                    <tr>
-                                        <td><strong>성연이형</strong>&nbsp;&nbsp;<span>3일 전</span></td>
-                                    </tr>
-                        
-                                    <tr>
-                                        <td>
-                                            맛 : <i class="fa fa-star"></i> 
-                                            <span class="report">신고</span>
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td><img src="#" width="650px;" height="300px"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>메뉴이름</td>
-                                    </tr>
-                                        
-                                    <tr>
-                                        <td>내용</td>
-                                    </tr>
-                                </table>
-
                             </div>
-                              
                         </div>
                         
                         
@@ -212,10 +230,7 @@
                             <div>
                                 <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
-                                <p>
-                                    고객님들께 알려드립니다.<br>
-                                    죄송하게도 바로결제시에는 쿠폰이 지급되지 않습니다.
-                                </p>
+                                <pre>${store['s_text'] }</pre>
                                 <br>
                                 <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
@@ -304,7 +319,7 @@
 					
                     <div class="s-store-order-price">
                     	<input type="hidden" name="allPrice" value="" id="order-final-price"/>
-                        <h5 class="s-store-order-final-price">합계 : 0 원</h5>
+                        <h5 class="s-store-order-final-price">0 원</h5>
                     </div>
 
                     <div class="s-store-order">
@@ -325,6 +340,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header menu-modal-header">
+         	<input type="hidden" id="modalMenuNo" value="">
             <h5 style="margin-top:8px;margin-left:200px;">메뉴 상세</h5>
             <button class="menu-modal-header-close" data-dismiss="modal">X</button>
          </div>
@@ -450,6 +466,7 @@
               data:{'no':menuNo},
               success:function(data){
                  $('#modalBox').modal('show');
+                 $("#modalMenuNo").val(menuNo);
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
                  $("#modal-menu-img").attr("src","${path}/resources/upload/business/"+data['me_logimg']);
@@ -596,6 +613,7 @@
         	let finalPrice = Number($("#finalPrice_").val());
         	let limitPrice = Number($("#limitPrice_").val());
         	if(finalPrice>=limitPrice){
+        		let no = $("#modalMenuNo").val();
         		let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -618,7 +636,7 @@
 	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
 	        	
 	        	const oContent = $(".s-store-order-content");
-	        	let orderAdd = new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	let orderAdd = new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
 	        	let flag = false;
 	        	let flagIndex = 0;
 	        	for(let i=0;i<orderListArr.length;i++){
@@ -684,6 +702,7 @@
         	let finalPrice = Number($("#finalPrice_").val());
         	let limitPrice = Number($("#limitPrice_").val());
         	if(finalPrice>=limitPrice){
+        		let no = $("#modalMenuNo").val();
 	        	let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -703,7 +722,7 @@
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
-	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
+	        	let newOrders = [new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
 	        	newOrders.push({"finalPrice":finalPrice})
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
@@ -724,7 +743,8 @@
         	}
         }
         
-        function newOrder(src,name,reqOp,unReqOp,count,price){
+        function newOrder(no,src,name,reqOp,unReqOp,count,price){
+        	this.no = no; // 메뉴코드
         	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
@@ -770,6 +790,7 @@
         		$("#order-content-2").css("height","auto");
         		$("#s-store-order-title-delete-btn").hide();
         		orderListHeightCheck();
+        		$(".s-store-order-final-price").text("0원");
         	}
         }
         
@@ -790,6 +811,7 @@
         		console.log($(".s-store-order-button"));
         		$(e).parent().parent().remove();
         		orderListHeightCheck();
+        		orderAllFinalPriceCacr();
         		if(length==0){
         			$("#order-content-1").show();
         			orderListArr = new Array();
@@ -838,7 +860,7 @@
         		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
         	}
         	$("#order-final-price").val(orderFinalPrice);
-        	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
+        	$(".s-store-order-final-price").text(numberFormatting(orderFinalPrice));
         }
         
         /* 주문표에서 주문하기 */
@@ -905,9 +927,135 @@
         	return true;
         }
         
-        /* 리뷰영역 */
-        function review(no){
-        	console.log(no);
+        const yearCalc = 1000 * 60 * 24 * 30 * 12;
+        const dateCalc = 1000 * 60 * 24 * 30;
+        const dayCalc = 1000 * 60 * 60 * 24;
+        const hourCalc = 1000 * 60 * 60;
+        const minCalc = 1000 * 60;
+        
+        var reviewLength = 0;
+        
+        /* 리뷰 ajax */
+        function review(no,cPage){
+        	reviewAjax(no,cPage,"all");
+        }
+        
+        /* 사진있는 리뷰만 출력 */
+        function storeReviewSearchPhoto(no){
+        	let tar = event.target;
+        	reviewLength = 0;
+        	$(".s-store-review").slideUp(1000,function(){
+	        	$(".s-store-review").find("table").remove();
+	        	$(".s-store-review").find("hr").remove();
+	        	if(tar.checked){
+	        		reviewAjax(no,1,"photo");
+	        	} else {
+	        		reviewAjax(no,1,"all");
+	        	} 
+	        	$(".s-store-review").slideDown(1000);
+        	});
+        }
+        
+        /* review ajax */
+        function reviewAjax(no,cPage,type){
+        	$.ajax({
+        		url:"${path}/menu/storeReview",
+        		data:{"no":no,"cPage":cPage,"type":type},
+        		success:function(data){
+        			console.log(data);
+        			let reviewDiv = $(".s-store-review");
+        			for(let i=0;i<(data.length-1);i++){
+	        			let table = $("<table>");
+	        			let trStar = "<tr><td>";
+                   		for(let k=1;k<=5;k++){
+                   			if(Number(data[i]['r_score'])>=k){
+	        					trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   			} else {
+                   				trStar += '<span class="s-store-star-css-min-false">★</span>';
+                   			}
+                   		}
+                   		trStar += "<span class='s-store-star-type-text-min'>"+data[i]['r_score']+"</span>&nbsp;&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>양 : "+data[i]['r_score_amount']+"</span>&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>배달 : "+data[i]['r_score_delivery']+"</span>&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>맛 : "+data[i]['r_score_taste']+"</span>&nbsp;";
+	        			trStar += "</td></tr>";
+	        			table.append(trStar);
+	        			let tr1 = "<tr><td><span class='s-store-review-nickname'>"+securityNickName(data[i]['m_nickName'])+"님</span>";
+	        			tr1 += "&nbsp;&nbsp;<span>";
+	        			let rDate = new Date(Date.now()-Number(data[i]['r_date']));
+	        			if(parseInt(rDate/minCalc)<60){
+	        				tr1 += parseInt(rDate/minCalc)+"분 전";
+	        			} else if(parseInt(rDate/hourCalc)<24){
+	        				tr1 += parseInt(rDate/hourCalc)+"시간 전";
+	        			} else if(parseInt(rDate/dayCalc)<30) {
+	        				tr1 += parseInt(rDate/dayCalc)+"일 전";
+	        			} else if(parseInt(rDate/dateCalc)<12){
+	        				tr1 += parseInt(rDate/dateCalc)+"개월 전";
+	        			} else {
+	        				tr1 += parseInt(rDate/yearCalc)+"년 전";
+	        			}
+	        			tr1 += "</span>";
+	        			tr1 += "<span class='report' onclick='reviewReport('"+data[i]['s_no']+"','"+data[i]['r_no']+"')'>신고</span></td>";
+	        			table.append(tr1);
+	        			if(data[i]['r_imgs'].length!=0){
+	        			let tr3 = "<tr><td>";
+	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
+	        					tr3 += "<img src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        				}
+	        			tr3 += "</td></tr>";
+	        			table.append(tr3);
+	        			}
+	        			let tr5 = "<tr><td>";
+	        			tr5 += "<span class='s-store-review-menu-text'>"+data[i]['me_name']+"::"+data[i]['sd_array']+"</span>";
+	        			tr5 += "</td></tr>";
+	        			table.append(tr5);
+	        			let tr4 = "<tr><td>";
+	        			tr4 += "<pre>"+data[i]['r_text']+"</pre>";
+	        			tr4 += "</td></tr>";
+	        			table.append(tr4);
+	        			let hr= $("<hr>");
+	        			reviewDiv.append(table);
+	        			reviewDiv.append(hr);
+        			}
+        			reviewLength += (data.length-1);
+        			if(data[(data.length-1)]>reviewLength){
+        				scrollFalg = true;
+        			} else {
+        				scrollFalg = false;
+        			}
+        		}
+        	});
+        }
+        
+        var scrollFalg = false;
+        
+        /* review infinite scroll */
+        $(function(){
+       		$(window).scroll(function(){
+	        	if(scrollFalg){
+	        		console.log($(window).scrollTop(),$(document).height(),$(window).height());
+        			if($(window).scrollTop() == $(document).height() - $(window).height()){
+        				console.log("나나나 콧노래가 나오다가 나도 몰래 눈물날것같애 아닌것같애 내가 아닌 것 같아");
+        			}
+	        	}
+        	})
+        	
+        });
+        
+        
+        /* 닉네임 암호화 */
+        function securityNickName(name){
+        	name = name.substring(0,2);
+        	name += "**";
+        	return name;
+        }
+        
+        /* 리뷰 신고하기 */
+        function reviewReport(no){
+        	
         }
         
     

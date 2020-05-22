@@ -32,6 +32,9 @@ public class StoreDetailInfo {
 	private Date s_startTime;
 	private Date s_endTime;
 	private String b_businesscode;
+	private double s_taste_tru;
+	private double s_amount_tru;
+	private double s_delivery_tru;
 	private List<StoreCategory> storeCategory;
 	private List<StoreMenu> bestMenu;
 	
