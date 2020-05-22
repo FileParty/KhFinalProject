@@ -20,5 +20,10 @@ public class ReviewAll {
 	private int m_no;
 	private int s_no;
 	private int o_no;
+	private String sd_array;
+	private int r_score;
+	private String m_email;
+	private String me_name;
+	private String me_img;
 	private String r_img;
 }

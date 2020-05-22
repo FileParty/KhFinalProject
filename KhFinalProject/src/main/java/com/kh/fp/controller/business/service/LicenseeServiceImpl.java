@@ -76,16 +76,16 @@ public class LicenseeServiceImpl implements LicenseeService {
 		int meNo =0;
 		
 		
-		result = dao.insertMenu(session,m);
-		
-			if(result>0) {
-				 meNo = dao.selectMenu(session);
-				 
-				for(MenuSide ms : list) {		
-					ms.setMe_no(meNo);
-				result = dao.insertMenuSide(session,ms);
-				}
-			}
+//		result = dao.insertMenu(session,m);
+//		
+//			if(result>0) {
+//				 meNo = dao.selectMenu(session);
+//				 
+//				for(MenuSide ms : list) {		
+//					ms.setMe_no(meNo);
+//				result = dao.insertMenuSide(session,ms);
+//				}
+//			}
 
 		return result;
 		}

@@ -179,7 +179,7 @@ public class LicenseeController {
 		//리뷰
 		//셀렉용
 				
-		List<ReviewAll> list = service.selectReview(s_no);
+		List<ReviewAll> list = service.selectReview(1);
 		
 		
 		
@@ -205,6 +205,14 @@ public class LicenseeController {
 		String[] mPrice = req.getParameterValues("me_price");		
 		String[] detail = req.getParameterValues("me_text");
 		String[] sdNoEnd = req.getParameterValues("sdNoEnd");
+		for(int i=0;i<menuName.length;i++) {
+		if(sdNoEnd[i] == null) {
+					
+			sdNoEnd[i] = "널널";
+		}
+		System.out.println("옵션번호?"+sdNoEnd[i]);
+		}
+				
 		String[] counts = req.getParameterValues("count");
 		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
 
@@ -306,7 +314,7 @@ public class LicenseeController {
 					}
 					
 				}				
-				result= service.insertMenu(list.get(i),list3);
+//				result= service.insertMenu(list.get(i),list3);
 				
 				
 			}

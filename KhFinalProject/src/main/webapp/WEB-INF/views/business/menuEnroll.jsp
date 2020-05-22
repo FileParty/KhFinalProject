@@ -192,12 +192,12 @@
 		
 		function text() {
 			//옵션 폼
-			let sd_name = $("input[name=sd_name]").val();
+		/* 	let sd_name = $("input[name=sd_name]").val();
 			let sd_price = $("input[name=sd_name]").val();
 			if(sd_name.trim().length==0 || sd_price.trim().length==0) {
 				
 				return false;
-			}
+			} */
 		}
 		$(function() {
 		$("#textArea").on('keyup',function(){
@@ -544,22 +544,22 @@
 				}
 			
 				
-				if($("input[name=radio]:checked").length==0){
+				/* if($("input[name=radio]:checked").length==0){
 					alert('필수옵션 선택해주세요!');
 					$("input[name=radio]:checked").focus();
 					$("#optionEnroll").removeAttr('data-dismiss');
 					return;
 				}else {
 				$("#optionEnroll").attr('data-dismiss','modal');
-				}
+				} */
 				
-				 if(checkCount == 0) {
+				/*  if(checkCount == 0) {
 					 alert('추가옵션은 1개 이상 선택해주세요!');
 					 $("#optionEnroll").removeAttr('data-dismiss');
 					 return;
 				 }else {
 						$("#optionEnroll").attr('data-dismiss','modal');
-					}
+					} */
 				
 				
 				var cloneFile = $("#modalFile").clone();
