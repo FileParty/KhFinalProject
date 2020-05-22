@@ -50,11 +50,9 @@ public class MenuDetailController {
 		Map storeSession = new HashMap();
 		try {
 			store = (List)session.getAttribute("recentList");
-			log.debug("try"+store);
 			if(store.size()!=0) {
 				for(int i=0;i<store.size();i++) {
 					Map map = store.get(i);
-					log.debug("리스트사이즈:"+store.size()+"i:"+i+"storeNo:"+map.get("storeNo")+",no:"+no);
 					if(!(map.get("storeNo").equals(no))&&(i+1)==store.size()) {
 						storeSession.put("storeNo", no);
 						storeSession.put("storeImg", sdi.getS_logimg());
@@ -73,14 +71,12 @@ public class MenuDetailController {
 			}
 		} catch(Exception e) {
 			store = new ArrayList();
-			log.debug("catch"+store);
 			storeSession.put("storeNo", no);
 			storeSession.put("storeImg", sdi.getS_logimg());
 			store.add(storeSession);
 		}
 		session.setAttribute("recentList", store);
 		mv.setViewName("/menu/menuDetail");
-		log.debug("세션에 넣음 : "+session.getAttribute("recentList"));
 		return mv;
 	}
 	
@@ -94,7 +90,6 @@ public class MenuDetailController {
 	@ResponseBody
 	public StoreMenu storeMenuSelectModalAjax(int no) {
 		StoreMenu sm = service.selectMenuDetail(no);
-		log.debug(""+sm);
 		return sm;
 	}
 	
@@ -103,14 +98,10 @@ public class MenuDetailController {
 	public void menuOrderEnd(ModelAndView mv, String newOrders,HttpSession session) {
 		try {
 			List<Map> m = mapper.readValue(newOrders, List.class);
-			log.debug(""+m);
 			session.removeAttribute("orderList");
-			log.debug(""+session.getAttribute("orderList"));
 			session.setAttribute("orderList", m);
+			log.debug(""+session.getAttribute("orderList"));
 			List<Map> sM = (List<Map>)session.getAttribute("orderList");
-			for(Map ms : sM) {
-				log.debug("세션에 넣은거 : "+ms);
-			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -118,9 +109,15 @@ public class MenuDetailController {
 	
 	@RequestMapping("/menu/storeReview")
 	@ResponseBody
-	public List<StoreDetailReview> storeReview(@RequestParam int no, @RequestParam(defaultValue = "1") int cPage,
-			@RequestParam(required = false) String onlyPhoto){
-		List<StoreDetailReview> list = service.selectStoreDetailReview(no,onlyPhoto,cPage);
+	public List storeReview(@RequestParam int no, @RequestParam(defaultValue = "1") int cPage,
+			@RequestParam(required = false) String type, @RequestParam(defaultValue = "0") int r_no){
+		Map que = new HashMap();
+		que.put("no", no);
+		que.put("type",type);
+		if(r_no!=0) {
+			que.put("r_no", r_no);
+		}
+		List list = service.selectStoreDetailReview(que,cPage);
 		return list;
 	}
 	

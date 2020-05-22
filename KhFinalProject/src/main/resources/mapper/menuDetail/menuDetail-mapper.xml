@@ -24,12 +24,26 @@
 	<select id="selectMenuDetailSide" parameterType="_int" resultType="storeMenuSide">
 		SELECT * FROM SIDE WHERE SD_NO IN(SELECT SD_NO FROM MENU_SIDE WHERE ME_NO=#{no})
 	</select>
-	<select id="selectStoreReview" parameterType="_int" resultType="storeDetailReview">
-		SELECT R.*, 
-		(SELECT M_NICKNAME FROM MEMBER WHERE M_NO=R.M_NO) AS M_NICKNAME 
-		FROM REVIEW R WHERE S_NO=#{no} ORDER BY R_DATE DESC
+	<select id="selectStoreReview" parameterType="map" resultType="storeDetailReview">
+		SELECT R.*, O.SD_ARRAY AS SD_ARRAY,
+			TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
+			(SELECT M_NICKNAME FROM MEMBER WHERE M_NO=R.M_NO) AS M_NICKNAME,
+			(SELECT ME_NAME FROM MENU WHERE ME_NO = O.ME_NO) AS ME_NAME
+		FROM REVIEW R JOIN ORDER_MENU O ON R.O_NO = O.O_NO
+		WHERE R.S_NO=#{no} 
+		<choose>
+			<when test="type=='photo'">AND R.R_NO IN(SELECT R_NO FROM REVIEW_IMG)</when>
+			<when test="type=='report'">AND R.R_NO = #{r_no}</when>
+		</choose>
+		ORDER BY R.R_DATE DESC
 	</select>
 	<select id="selectStoreReviewImg" parameterType="_int" resultType="string">
-		SELECT * FROM REVIEW_IMG WHERE R_NO=#{r_no}
+		SELECT R_IMG FROM REVIEW_IMG WHERE R_NO=#{r_no}
+	</select>
+	<select id="selectStoreReviewCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW WHERE S_NO=#{no}
+		<if test="type=='photo'">
+			AND R_NO IN(SELECT R_NO FROM REVIEW_IMG)
+		</if>
 	</select>
 </mapper>

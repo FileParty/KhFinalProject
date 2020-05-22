@@ -1,7 +1,7 @@
 package com.kh.fp.model.servier.menuDetail;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import com.kh.fp.model.dao.menuDetail.MenuDatailDao;
 import com.kh.fp.model.vo.StoreDetailInfo;
 import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
-import com.kh.fp.model.vo.StoreMenuSide;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,11 +44,12 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 	}
 
 	@Override
-	public List<StoreDetailReview> selectStoreDetailReview(int no, String searchType, int cPage) {
-		List<StoreDetailReview> rList = dao.selectStoreDetailReview(session,no,searchType,cPage);
-		for(StoreDetailReview sdr : rList) {
+	public List selectStoreDetailReview(Map que, int cPage) {
+		List rList = dao.selectStoreDetailReview(session,que,cPage);
+		for(StoreDetailReview sdr : (List<StoreDetailReview>)rList) {
 			sdr.setR_imgs(dao.selectStroeDetailReviewImg(session,sdr.getR_no()));
 		}
+		rList.add(dao.selectStoreDetailReviewCount(session,que));
 		return rList;
 	}
 	
