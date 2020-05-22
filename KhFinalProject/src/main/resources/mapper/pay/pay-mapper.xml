@@ -4,7 +4,7 @@
  
   <insert id="insertOrderInfo" parameterType="OrderInfo">
  <!--  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,0,#{m_Level},#{m_Phone},#{m_Name},#{m_Email}) -->
- 
+ 	INSERT INTO ORDER_INFO VALUES(SEQ_ORDER_INFO)
   </insert>
 
 </mapper>

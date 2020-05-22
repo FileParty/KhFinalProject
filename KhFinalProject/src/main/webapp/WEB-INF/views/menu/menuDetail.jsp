@@ -1036,8 +1036,9 @@
         $(function(){
        		$(window).scroll(function(){
 	        	if(scrollFalg){
-        			if(($(window).scrollTop() + $(window).height()-1237) > $(document).height()){
-        				console.log("123");
+	        		console.log($(window).scrollTop(),$(document).height(),$(window).height());
+        			if($(window).scrollTop() == $(document).height() - $(window).height()){
+        				console.log("나나나 콧노래가 나오다가 나도 몰래 눈물날것같애 아닌것같애 내가 아닌 것 같아");
         			}
 	        	}
         	})
