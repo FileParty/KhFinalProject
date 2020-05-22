@@ -114,7 +114,7 @@ ${sysdate }  --%>
 	                        <p style="text-align: center;"><strong></strong></p>
 	                        <table id="modal-tbl" style="width:100%">
 	                            <tr>
-	                                <th style="text-align:center;"><h3>${loginMember.m_nickname }</h3></th>
+	                                <th style="text-align:center;"><h3>${loginMember.m_Nickname }</h3></th>
 	                            </tr>
 	                            
 	                            <tr><td><br></td></tr>
