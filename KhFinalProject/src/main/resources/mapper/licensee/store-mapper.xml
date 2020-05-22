@@ -65,5 +65,8 @@
 		select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no} and o_date like '%${orderdate}%' group by o_date order by o_date
 	</select>
 	
+	<select id="getOrderInfo" resultType="map">
+		select * from(select ROWNUM as rnum , a.* from (select * from order_info where s_no=#{no} order by o_date ) a) where rnum between 1 and 5
+	</select>
 	
 </mapper>

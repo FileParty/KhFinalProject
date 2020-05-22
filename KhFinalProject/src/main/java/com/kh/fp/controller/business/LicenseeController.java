@@ -64,7 +64,7 @@ public class LicenseeController {
 				mv.setViewName("common/msg");
 				return mv;
 		 }
-		List<Store> list = service.selectStore(b.getB_no());
+		List<Store> list = service.selectStore(b.getB_No());
 		mv.addObject("store",list);
 		mv.setViewName("business/menuStatus");
 		return mv;
@@ -88,30 +88,44 @@ public class LicenseeController {
 				mv.setViewName("common/msg");
 				return mv;
 		 }
-		 List<Store> store = service.selectStore(b.getB_no());
+		 List<Store> store = service.selectStore(b.getB_No());
 		 
 		 mv.addObject("store",store);
 		 mv.setViewName("business/menuEnroll");
 		return mv;
 	}
 	
-	@RequestMapping("/licensee/calculate")
-	public String calculate() {
-		//정산내역
-		return "business/calculate";
-	}
 	
 	@RequestMapping("/licensee/order")
 	public ModelAndView order(ModelAndView mv,@RequestParam(required = false,defaultValue = "1")int cPage,
-			@RequestParam(required = false ,defaultValue = "2")int numPerpage) {
+			@RequestParam(required = false ,defaultValue = "7")int numPerpage,@RequestParam(required = false,defaultValue = "0")int no,HttpSession session) {
 		//주문내역
-		int no=1;
+		Business b = (Business)session.getAttribute("loginMember");
+		List<Store> stores = new ArrayList<Store>();
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		stores= service.storesNo(b.getB_No());
+		if(no==0) {
+			
+				if(!stores.isEmpty()) {
+						no=stores.get(0).getS_No();			
+				}else {
+					mv.addObject("msg", "가게를 등록해주세요");
+					mv.addObject("loc", "/store/mypage");
+					mv.setViewName("common/msg");
+					return mv;
+				}
+		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
 		
-		
-		
+		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
+		mv.addObject("check",no);
 		mv.addObject("list", list);
 		mv.addObject("pageBar", PageBarFactory( cPage, numPerpage, totalData,"/spring/licensee/order"));
 		mv.setViewName("business/order");
@@ -357,6 +371,46 @@ public class LicenseeController {
 		 List<SideAll> list = service.selectMenuSide(map);
 		return list;
 		
+	}
+	
+	@RequestMapping("/licensee/menuUpdate")
+	public String menuUpdate(HttpServletRequest req) {
+		int s_no = Integer.parseInt(req.getParameter("s_no"));
+		int me_no = Integer.parseInt(req.getParameter("me_no"));
+		int mt_no = Integer.parseInt(req.getParameter("mt_no"));
+		String[] sd = req.getParameterValues("sd_no");
+		String me_name = req.getParameter("me_name");
+		int me_price = Integer.parseInt(req.getParameter("me_price"));
+		String me_text = req.getParameter("me_text");
+		int sd_no[] = new int[sd.length];
+		
+		log.debug("가게번호"+s_no);
+		log.debug("메뉴번호"+me_no);
+		log.debug("카테고리"+mt_no);
+		log.debug("메뉴명"+me_name);
+		log.debug("메뉴가격"+me_price);
+		log.debug("메뉴설명"+me_text);
+		Map<String,Object> map = new HashMap();
+		map.put("me_name",me_name);
+		map.put("me_no",me_no);
+		map.put("me_price",me_price);
+		map.put("mt_no",mt_no);
+		map.put("me_text",me_text);
+		map.put("s_no",s_no);
+		List<MenuSide> list = new ArrayList<MenuSide>();
+		for(int i=0;i<sd_no.length;i++) {
+			MenuSide ms = new MenuSide();
+			sd_no[i]=Integer.parseInt(sd[i]);
+			 ms.setSd_no(sd_no[i]);
+			 ms.setMe_no(me_no);
+			log.debug("추가번호"+sd_no[i]);
+			list.add(ms);
+		}
+		int result = service.menuUpdate(map,me_no);
+		if(result>0) {
+			result = service.menuSideUpdate(list);
+		}
+		return "";
 	}
 	
 	

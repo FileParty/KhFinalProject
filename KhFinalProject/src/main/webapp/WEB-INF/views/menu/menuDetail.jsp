@@ -80,7 +80,7 @@
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
-                    <span>${store['s_name']}</span>
+                    <span style="font-size:20px;font-weight:600;">${store['s_name']}</span>
                 </div>
                 <div class="s-store-info"> 
 
@@ -91,11 +91,11 @@
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span>${store['s_score']}</span></li>
-                            <li>운영시간<span><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></li>
-                            <li>최소주문 금액 <span>${store['s_limitprice']}</span></li>
-                            <li>결제 <span></span>${store['s_payopt']}</li>
-                            <li>배달시간 <span>${store['s_time']}분</span></li>
+                            <li><span class="s-store-star-css-true">★</span><span class="s-store-info-text">${store['s_star']}</span></li>
+                            <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
+                            <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
+                            <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
+                            <li>배달시간 <span class="s-store-info-text">${store['s_time']}분</span></li>
                         </ul>
 
                     </div>
@@ -109,7 +109,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review()">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}',1,'0')">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -126,9 +126,9 @@
                                    <c:forEach items="${store['bestMenu']}" var="bm" varStatus="index">
                                       <c:if test="${bm['me_best'] eq 'Y' }">
                                           <div class="s-store-menu-content" onclick="storeMenuSelectModal('${bm['me_no']}')">
-                                              <img src="${path }/resources/upload/menu/${bm['me_logimg']}" width="100px" height="100px">
+                                              <img src="${path }/resources/upload/business/${bm['me_logimg']}" width="100px" height="100px">
                                               <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
-                                              <span><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
+                                              <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
                                           </div>
                                        </c:if>
                                     </c:forEach>
@@ -154,76 +154,85 @@
 
                             <div class="s-store-star">
                                 <div>
-                                    <h1>4.4</h1>
+                                    <h1 style="color:red;">${store['s_star']}</h1>
                                 </div>
-                                <div class="s-store-score">
-                                    <div><i class="fa fa-star"></i><span>맛</span></div>
+                                <div class="s-store-scores">
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">양 : </span>
+	                                   	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_amount_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_amount_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">배달 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_delivery_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_delivery_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">맛 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_taste_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_taste_tru'] }</span>
+                                    </div>
                                 </div>
                             </div>
-
+							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span>리뷰 <strong>121</strong>개</span><span>사장님 댓글 <strong>21</strong>개</span>
+                                    <span class="s-store-star-type-text">리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
-                                <div>
-                                사진 리뷰만 :
+                                <div class="s-store-review-search-photo">
+                                	<span class="s-store-star-type-text">사진 리뷰만 : &nbsp;</span>
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="onlyPhoto" value="true" onclick="storeReviewSearchPhoto(${store['s_no']})">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="s-store-review">
-
-                                <table>
-
-                                    <tr>
-                                        <td><strong>성연이형</strong>&nbsp;&nbsp;<span>3일 전</span></td>
-                                    </tr>
-                        
-                                    <tr>
-                                        <td>
-                                            맛 : <i class="fa fa-star"></i> 
-                                            <span class="report">신고</span>
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td><img src="#" width="650px;" height="300px"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>메뉴이름</td>
-                                    </tr>
-                                        
-                                    <tr>
-                                        <td>내용</td>
-                                    </tr>
-                                </table>
-
                             </div>
-                            
-                            
-                            
                         </div>
                         
-                       
+                        
                         <div id="info" class="container tab-pane fade"><br>
-                            
                             <div>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
-                                <p>
-                                    고객님들께 알려드립니다.<br>
-                                    죄송하게도 바로결제시에는 쿠폰이 지급되지 않습니다.
-                                </p>
+                                <pre>${store['s_text'] }</pre>
                                 <br>
-                                
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -239,8 +248,7 @@
                                         <td>${store['s_addr'] }</td>
                                     </tr>
                                 </table>
-
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/card.png" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -249,7 +257,6 @@
                                            <input type="hidden" id="s-store-limit-price" value="${store['s_limitprice'] }">
                                            <fmt:formatNumber value="${store['s_limitprice'] }" pattern="###,###,###,###"/>원
                                         </td>
-                                    
                                     </tr>
                                     <tr>
                                         <td>결제수단</td>
@@ -257,7 +264,7 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.jpg.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -270,7 +277,7 @@
                                     </tr>
                                 </table>
                                 
-                                <div class="s-store-detail"><img src="#" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/carrots.png" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -312,7 +319,7 @@
 					
                     <div class="s-store-order-price">
                     	<input type="hidden" name="allPrice" value="" id="order-final-price"/>
-                        <h5 class="s-store-order-final-price">합계 : 0 원</h5>
+                        <h5 class="s-store-order-final-price">0 원</h5>
                     </div>
 
                     <div class="s-store-order">
@@ -333,6 +340,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header menu-modal-header">
+         	<input type="hidden" id="modalMenuNo" value="">
             <h5 style="margin-top:8px;margin-left:200px;">메뉴 상세</h5>
             <button class="menu-modal-header-close" data-dismiss="modal">X</button>
          </div>
@@ -392,7 +400,6 @@
 	function orderListHeightCheck(){
 				
 		let height = $("#order-content-2").height();
-		console.log(height);
 		
 		if(height>=320){
 		    $("#order-content-2").css({
@@ -400,7 +407,6 @@
 		        overflowY : "scroll"
 		    });
 		}else{
-			console.log("앙");
 		    $("#order-content-2").css({
 		        height : "auto",
 		        overflowY : "hidden"
@@ -415,7 +421,6 @@
               success:function(data){
                  let tar = $("#s-store-menu-category-no"+cNo);
                  let check = tar.children();
-                 console.log(check);
                  if(check.length==0){
                       for(let i=0;i<data.length;i++){
                           let content = $("<div>").attr({
@@ -434,7 +439,7 @@
                           span += "</span>"
                           let div2 = $("<div>");
                           let img = $("<img>").attr({
-                             src:"${path}/resources/upload/menu/"+data[i]['me_logimg'],
+                             src:"${path}/resources/upload/business/"+data[i]['me_logimg'],
                              width:"100px",
                              height:"100px"
                           });
@@ -460,12 +465,11 @@
               url:"${path}/menu/storeMenuSelectModalAjax",
               data:{'no':menuNo},
               success:function(data){
-                 console.log(data);
-                 console.log(menuNo);
                  $('#modalBox').modal('show');
+                 $("#modalMenuNo").val(menuNo);
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);
-                 $("#modal-menu-img").attr("src","${path}/resources/upload/menu/"+data['me_logimg']);
+                 $("#modal-menu-img").attr("src","${path}/resources/upload/business/"+data['me_logimg']);
                  $("#modal-menu-name").html(data['me_name']);
                  if(data['me_text']!=null){
                     $("#modal-menu-text").html(data['me_text']);
@@ -478,7 +482,6 @@
                  $("#limitPrice_").val($("#s-store-limit-price").val());
                  $("#finalPrice_").val(data['me_price']);
                  $(".menu-modal-content-final-price").html(numberFormatting(data['me_price']));
-                 console.log(("#finalPrice_"));
                  $(".menu-modal-content-required-option-item").remove();
                  $(".menu-modal-content-un-required-option-item").remove();
                  for(let i=0;i<data['side'].length;i++){
@@ -610,6 +613,7 @@
         	let finalPrice = Number($("#finalPrice_").val());
         	let limitPrice = Number($("#limitPrice_").val());
         	if(finalPrice>=limitPrice){
+        		let no = $("#modalMenuNo").val();
         		let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -632,44 +636,62 @@
 	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
 	        	
 	        	const oContent = $(".s-store-order-content");
-	        	let orderDiv = $("#order-content-2");
-	        	if($(oContent).children('#order-content-1').length>0){
-	        		$(oContent).children('#order-content-1').hide();
+	        	let orderAdd = new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	        	let flag = false;
+	        	let flagIndex = 0;
+	        	for(let i=0;i<orderListArr.length;i++){
+	        		flag = equlasObject(orderListArr[i],orderAdd);
+	        		flagIndex = i;
+	        		if(flag){
+	        			break;
+	        		}
 	        	}
-	        	let orderContent = '<div class="s-store-order-button">';
-	        	orderContent += "<h4>"+menuName+"</h4>"
-	        	orderContent += "<span>";
-	        	orderContent += "&nbsp;&nbsp;옵션 : ";
-	        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
-	        	if(unReqOp!=null){
-		        	unReqOp.forEach(e=>{
-		        		orderContent += ", "+e['unReqOpName'];
-		        	});
-	        	}
-	        	orderContent += "</span>";
-	        	orderContent += "<br/>";
-	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
-	        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
-	        	orderContent += '<input type="hidden" name="count" value="'+menuCount+'">';
-	        	orderContent += '<div class="s-store-order-count-controller-div">';
-	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
-	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-	        	orderContent += '<div><button class="btn" onclick="orderCountMinus()">-</button>';
-	        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
-	        	orderContent += '<button class="order-count-btns" onclick="orderCountPlus()"><img src="${path}/resources/img/menuDetail/plus_icon.png" width="30px" height="30px"/></button></div>';
-	        	orderContent += '</div>';
-	        	orderContent += '</div>';
-	        	let finalPriceCheck = Number($(".order-final-price").val());
-	        	finalPriceCheck += finalPrice
-	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
-	        	$(".order-final-price").val(finalPriceCheck);
-	        	$("#s-store-order-title-delete-btn").show();
-	        	orderDiv.append(orderContent);
-	        	oContent.append(orderDiv);
-	        	storeMenuModalClose();
-	        	orderListHeightCheck();
-	        	orderAllFinalPriceCacr();
-	        	orderListArr.push(new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice));
+	        	
+        		if(!flag){
+	        		let orderDiv = $("#order-content-2");
+		        	if($(oContent).children('#order-content-1').length>0){
+		        		$(oContent).children('#order-content-1').hide();
+		        	}
+		        	let orderContent = '<div data-index="'+$(".s-store-order-button").length+'" class="s-store-order-button">';
+		        	orderContent += "<h4>"+menuName+"</h4>"
+		        	orderContent += "<span>";
+		        	orderContent += "&nbsp;&nbsp;옵션 : ";
+		        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
+		        	if(unReqOp!=null){
+			        	unReqOp.forEach(e=>{
+			        		orderContent += ", "+e['unReqOpName'];
+			        	});
+		        	}
+		        	orderContent += "</span>";
+		        	orderContent += "<br/>";
+		        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
+		        	orderContent += '<input type="hidden" class="s-store-order-count" name="count" value="'+menuCount+'">';
+		        	orderContent += '<div class="s-store-order-count-controller-div">';
+		        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
+		        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
+		        	orderContent += '<div><button class="order-count-btns" onclick="orderCountMinus(this)">-</button>';
+		        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
+		        	orderContent += '<button class="orderCountPlusBtn order-count-btns" onclick="orderCountPlus(this)">+</button></div>';
+		        	orderContent += '</div>';
+		        	orderContent += '</div>';
+		        	let finalPriceCheck = Number($(".order-final-price").val());
+		        	finalPriceCheck += finalPrice
+		        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
+		        	$(".order-final-price").val(finalPriceCheck);
+		        	$("#s-store-order-title-delete-btn").show();
+		        	orderDiv.append(orderContent);
+		        	oContent.append(orderDiv);
+		        	orderListArr.push(orderAdd);
+		        	} else{
+		        		let tarDiv = $("div[data-index="+flagIndex+"]");
+		        		for(let i=0;i<Number(orderAdd['count']);i++){
+		        			orderCountPlus($(tarDiv).find(".orderCountPlusBtn"));
+		        		}
+		        	}
+		        	storeMenuModalClose();
+		        	orderListHeightCheck();
+		        	orderAllFinalPriceCacr();
         	} else {
         		ShowlimitPriceTooTip();
         	}
@@ -680,6 +702,7 @@
         	let finalPrice = Number($("#finalPrice_").val());
         	let limitPrice = Number($("#limitPrice_").val());
         	if(finalPrice>=limitPrice){
+        		let no = $("#modalMenuNo").val();
 	        	let menuImgSrc = $("#modal-menu-img-src").val();
 	        	let menuName = $("#modal-menu-name").text();
 	        	let reqOp;
@@ -699,7 +722,7 @@
 	        		}
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
-	        	let newOrders = [new newOrder(menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
+	        	let newOrders = [new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
 	        	newOrders.push({"finalPrice":finalPrice})
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
@@ -720,7 +743,8 @@
         	}
         }
         
-        function newOrder(src,name,reqOp,unReqOp,count,price){
+        function newOrder(no,src,name,reqOp,unReqOp,count,price){
+        	this.no = no; // 메뉴코드
         	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
@@ -731,7 +755,6 @@
         
         function ShowlimitPriceTooTip(){
         	let tootip = $("#menu-modal-footer-tootip");
-        	console.log(tootip);
         	tootip.stop();
         	tootip.css("opacity",0).show();
         	tootip.animate({opacity:1},300);
@@ -754,7 +777,6 @@
         	loc += "&sortType=${rMap['sortType']}";
         	loc += "&search=${rMap['search']}";
         	loc += "&cPage=${rMap['cPage']}";
-        	console.log(loc);
         	location.replace(loc);
         }
         
@@ -762,11 +784,13 @@
         function deleteAllOrder(){
         	let flag = confirm("모든 주문표를 삭제하시겠습니까?");
         	if(flag){
+        		orderListArr = new Array();
         		$(".s-store-order-button").remove();
         		$("#order-content-1").show();
         		$("#order-content-2").css("height","auto");
         		$("#s-store-order-title-delete-btn").hide();
         		orderListHeightCheck();
+        		$(".s-store-order-final-price").text("0원");
         	}
         }
         
@@ -774,44 +798,77 @@
         function orderDeleteThis(e){
         	let flag = confirm("해당 주문을 취소하시겠습니까?");
         	if(flag){
+        		let tarIndex = Number($(e).parent().parent().attr("data-index"));
+        		orderListArr.splice(tarIndex,1);
+        		let length = $(".s-store-order-button").length;
+        		for(let i=0;i<length;i++){
+        			let tarNextIndex = Number($($(".s-store-order-button")[i]).attr("data-index"));
+        			console.log($($(".s-store-order-button")[i]),tarNextIndex);
+        			if(tarNextIndex>tarIndex){
+        				$($(".s-store-order-button")[i]).attr("data-index",(tarNextIndex-1));
+        			}
+        		}
+        		console.log($(".s-store-order-button"));
         		$(e).parent().parent().remove();
         		orderListHeightCheck();
-        		let length = $(".s-store-order-button").length;
+        		orderAllFinalPriceCacr();
         		if(length==0){
         			$("#order-content-1").show();
+        			orderListArr = new Array();
         		} else if(length<3){
         			$("#order-content-2").css("height","auto");
         		}
         	}
         }
         
-        function orderCountMinus(){
-        	let tar = $(event.target).parent().find(".order-count-check");
-        	console.log(tar);
+        function orderCountMinus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	if(count>1){
+        		let testPrice = price/count;
+        		price -= testPrice;
+        		count--;
+        		$(tar).find(".s-store-order-prices").val(price);
+        		$(tar).find(".s-store-order-count").val(count);
+        		$(tar).find(".order-count-check").text(count);
+        		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+        	}
+        	orderAllFinalPriceCacr();
         }
         
-        function orderCountPlus(){
-        	let tar = $(event.target).parent().find("strong");
-        	console.log(tar);
+        function orderCountPlus(e){
+        	let tar = $(e).parent().parent().parent();
+        	let price = Number($(tar).find(".s-store-order-prices").val());
+        	let count = Number($(tar).find(".s-store-order-count").val());
+        	let testPrice = price/count;
+        	price += testPrice;
+    		count++;
+    		$(tar).find(".s-store-order-prices").val(price);
+    		$(tar).find(".s-store-order-count").val(count);
+    		$(tar).find(".order-count-check").text(count);
+    		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+    		orderAllFinalPriceCacr();
         }
         
         
         /* 주문표 가격계산 함수 */
         function orderAllFinalPriceCacr(){
         	let orderFinalPriceCheck = $(".s-store-order-prices");
-        	console.log(orderFinalPriceCheck);
         	let orderFinalPrice = 0;
         	for(let i=0;i<orderFinalPriceCheck.length;i++){
         		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
         	}
-        	console.log(orderFinalPrice);
         	$("#order-final-price").val(orderFinalPrice);
-        	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
+        	$(".s-store-order-final-price").text(numberFormatting(orderFinalPrice));
         }
         
         /* 주문표에서 주문하기 */
         function orderListEnd(){
-        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
+        	let limitPrice = Number($("#order-limit-price").val());
+        	let orderFinalPrice = Number($("#order-final-price").val());
+        	if(orderFinalPrice>limitPrice){
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -826,6 +883,9 @@
 	        			console.log(c);
 	        		}
 	        	});
+        	} else {
+        		alert("최소 주문금액보다 높게 주문해야합니다!");
+        	}
         	
         }
         
@@ -842,6 +902,160 @@
            val = val.split('').reverse().join('');
            val += "원";
            return val;
+        }
+        
+        /* order객체 동일성비교메소드 */
+        function equlasObject(x,y){
+        	if(x['src']!=y['src']){
+        		return false;
+        	}
+        	if(x['name']!=y['name']){
+        		return false;
+        	}
+       		if(x['reqOp']['reqOpNo']!=y['reqOp']['reqOpNo']){
+       			return false;
+       		}
+       		if(x['unReqOp'].length==y['unReqOp'].length){
+	       		for(let i=0;i<x['unReqOp'].length||i<y['unReqOp'].length;i++){
+	       			if(x['unReqOp'][i]['unReqOpNo']!=y['unReqOp'][i]['unReqOpNo']){
+	       				return false;
+	       			}
+	       		}
+       		} else {
+       			return false;
+       		}
+        	return true;
+        }
+        
+        const yearCalc = 1000 * 60 * 24 * 30 * 12;
+        const dateCalc = 1000 * 60 * 24 * 30;
+        const dayCalc = 1000 * 60 * 60 * 24;
+        const hourCalc = 1000 * 60 * 60;
+        const minCalc = 1000 * 60;
+        
+        var reviewLength = 0;
+        
+        /* 리뷰 ajax */
+        function review(no,cPage){
+        	reviewAjax(no,cPage,"all");
+        }
+        
+        /* 사진있는 리뷰만 출력 */
+        function storeReviewSearchPhoto(no){
+        	let tar = event.target;
+        	reviewLength = 0;
+        	$(".s-store-review").slideUp(1000,function(){
+	        	$(".s-store-review").find("table").remove();
+	        	$(".s-store-review").find("hr").remove();
+	        	if(tar.checked){
+	        		reviewAjax(no,1,"photo");
+	        	} else {
+	        		reviewAjax(no,1,"all");
+	        	} 
+	        	$(".s-store-review").slideDown(1000);
+        	});
+        }
+        
+        /* review ajax */
+        function reviewAjax(no,cPage,type){
+        	$.ajax({
+        		url:"${path}/menu/storeReview",
+        		data:{"no":no,"cPage":cPage,"type":type},
+        		success:function(data){
+        			console.log(data);
+        			let reviewDiv = $(".s-store-review");
+        			for(let i=0;i<(data.length-1);i++){
+	        			let table = $("<table>");
+	        			let trStar = "<tr><td>";
+                   		for(let k=1;k<=5;k++){
+                   			if(Number(data[i]['r_score'])>=k){
+	        					trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   			} else {
+                   				trStar += '<span class="s-store-star-css-min-false">★</span>';
+                   			}
+                   		}
+                   		trStar += "<span class='s-store-star-type-text-min'>"+data[i]['r_score']+"</span>&nbsp;&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>양 : "+data[i]['r_score_amount']+"</span>&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>배달 : "+data[i]['r_score_delivery']+"</span>&nbsp;";
+                   		trStar += '<span class="s-store-star-css-min-true">★</span>';
+                   		trStar += "<span class='s-store-star-type-text-min'>맛 : "+data[i]['r_score_taste']+"</span>&nbsp;";
+	        			trStar += "</td></tr>";
+	        			table.append(trStar);
+	        			let tr1 = "<tr><td><span class='s-store-review-nickname'>"+securityNickName(data[i]['m_nickName'])+"님</span>";
+	        			tr1 += "&nbsp;&nbsp;<span>";
+	        			let rDate = new Date(Date.now()-Number(data[i]['r_date']));
+	        			if(parseInt(rDate/minCalc)<60){
+	        				tr1 += parseInt(rDate/minCalc)+"분 전";
+	        			} else if(parseInt(rDate/hourCalc)<24){
+	        				tr1 += parseInt(rDate/hourCalc)+"시간 전";
+	        			} else if(parseInt(rDate/dayCalc)<30) {
+	        				tr1 += parseInt(rDate/dayCalc)+"일 전";
+	        			} else if(parseInt(rDate/dateCalc)<12){
+	        				tr1 += parseInt(rDate/dateCalc)+"개월 전";
+	        			} else {
+	        				tr1 += parseInt(rDate/yearCalc)+"년 전";
+	        			}
+	        			tr1 += "</span>";
+	        			tr1 += "<span class='report' onclick='reviewReport('"+data[i]['s_no']+"','"+data[i]['r_no']+"')'>신고</span></td>";
+	        			table.append(tr1);
+	        			if(data[i]['r_imgs'].length!=0){
+	        			let tr3 = "<tr><td>";
+	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
+	        					tr3 += "<img src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        				}
+	        			tr3 += "</td></tr>";
+	        			table.append(tr3);
+	        			}
+	        			let tr5 = "<tr><td>";
+	        			tr5 += "<span class='s-store-review-menu-text'>"+data[i]['me_name']+"::"+data[i]['sd_array']+"</span>";
+	        			tr5 += "</td></tr>";
+	        			table.append(tr5);
+	        			let tr4 = "<tr><td>";
+	        			tr4 += "<pre>"+data[i]['r_text']+"</pre>";
+	        			tr4 += "</td></tr>";
+	        			table.append(tr4);
+	        			let hr= $("<hr>");
+	        			reviewDiv.append(table);
+	        			reviewDiv.append(hr);
+        			}
+        			reviewLength += (data.length-1);
+        			if(data[(data.length-1)]>reviewLength){
+        				scrollFalg = true;
+        			} else {
+        				scrollFalg = false;
+        			}
+        		}
+        	});
+        }
+        
+        var scrollFalg = false;
+        
+        /* review infinite scroll */
+        $(function(){
+       		$(window).scroll(function(){
+	        	if(scrollFalg){
+	        		console.log($(window).scrollTop(),$(document).height(),$(window).height());
+        			if($(window).scrollTop() == $(document).height() - $(window).height()){
+        				console.log("나나나 콧노래가 나오다가 나도 몰래 눈물날것같애 아닌것같애 내가 아닌 것 같아");
+        			}
+	        	}
+        	})
+        	
+        });
+        
+        
+        /* 닉네임 암호화 */
+        function securityNickName(name){
+        	name = name.substring(0,2);
+        	name += "**";
+        	return name;
+        }
+        
+        /* 리뷰 신고하기 */
+        function reviewReport(no){
+        	
         }
         
     

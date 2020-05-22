@@ -17,6 +17,7 @@ public class Menu {
 	private String me_text;
 	private String me_best;
 	private int s_no;
+	private String mt_name;
 	
 	
 }

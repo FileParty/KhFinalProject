@@ -53,7 +53,7 @@ public class StoreController {
 			mv.setViewName("common/msg");
 			return mv;
 		}
-		s.setBno(b.getB_no());
+		s.setBno(b.getB_No());
 		List<String> files = new ArrayList<String>();
 		int result=0;
 		File f= new File(path);
@@ -130,7 +130,7 @@ public class StoreController {
 			return mv;
 		}
 		
-		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_no());
+		List<Map<String, Object>> stores= service.getStoresDetail(b.getB_No());
 		
 
 		
@@ -147,7 +147,7 @@ public class StoreController {
 	public boolean checkPw(String userpw,HttpSession session) {
 		Business b = (Business)session.getAttribute("loginMember");
 		boolean flag = false;
-		if(b!=null&&encoder.matches(userpw, b.getB_pw())) {
+		if(b!=null&&encoder.matches(userpw, b.getB_Pw())) {
 			flag = true;
 		}
 		return flag;
@@ -189,12 +189,72 @@ public class StoreController {
 			return mv;
 		}
 		
-		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_no());
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_No());
+		
+		
+		mv.addObject("stores",stores);
+		if(!stores.isEmpty()) {
+			mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+			mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
+		}
+		mv.setViewName("business/mypage");
+		return mv;
+	}
+	
+	@RequestMapping("/store/orderInfoGet.do")
+	@ResponseBody
+	public List<Map<String, Object>> orderinfoGet(int no) {
+		List<Map<String, Object>> list=service.getOrderInfo(no);
+		
+		for(Map<String, Object> m : list) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+			String time=sdf.format(m.get("O_DATE"));
+			m.put("O_DATE", time);
+		}
+		
+		return list;
+	}
+	
+	@RequestMapping("/store/saleInfo.do")
+	@ResponseBody
+	public List<Sales> saleInfo(int no) {
+		List<Sales> list=service.getSales(no);
+		
+		for(Sales m : list) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd");
+			String time=sdf.format(m.getOrderDate());
+			m.setTime(time);
+		}
+		
+		return list;
+	}
+	
+	@RequestMapping("/licensee/calculate")
+	public ModelAndView calculate(HttpSession session,ModelAndView mv) {
+		//정산내역
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_No());
+		
+		if(stores.isEmpty()) {
+			mv.addObject("msg", "가게등록해 주세요!");
+			mv.addObject("loc", "/store/mypage");
+			mv.setViewName("common/msg");
+			return mv;
+		}
 		
 		
 		mv.addObject("stores",stores);
 		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
-		mv.setViewName("business/mypage");
+		mv.setViewName("business/calculate");	
 		return mv;
 	}
 	

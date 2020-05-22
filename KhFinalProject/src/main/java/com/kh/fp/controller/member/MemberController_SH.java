@@ -39,7 +39,7 @@ public class MemberController_SH {
 //            System.out.println(""+mo.get("unReqOp"));
 //         }
 		
-		int m_no=member.getM_no();
+		int m_no=member.getM_No();
 		int totalData=service.selectCouponCount(m_no);
 		session.getAttribute("newOrder");
 		

@@ -102,6 +102,31 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectList("licensee.selectMenuSide",map);
 	}
+
+	@Override
+	public List<Store> storesNo(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.storesNo",no);
+	}
+
+	public int menuUpdate(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.menuUpdate",map);
+	}
+
+	@Override
+	public int menuSideDelete(SqlSessionTemplate session, int me_no) {
+		// TODO Auto-generated method stub
+		return session.delete("licensee.menuSideDelete",me_no);
+	}
+
+	@Override
+	public int menuSideUpdate(SqlSessionTemplate session, MenuSide ms) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.menuSideUpdate",ms);
+	}
+	
+	
 	
 	
 	
