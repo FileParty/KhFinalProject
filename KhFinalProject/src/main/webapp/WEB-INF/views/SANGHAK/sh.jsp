@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 
+  
 
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -112,12 +113,12 @@
 
 
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
 
 
 
 
-
- <form  action="${path}/" method="post" onsubmit="return checkedNull();" >
+ <form  action="" method="post"  id="baguniForm" > onsubmit="return checkedNull();"
 <div class="row">
   <div class="leftcolumn">
     <div class="card" style="padding-left: 25px;height: auto;">
@@ -266,7 +267,7 @@
 </tr>
 <tr>
   <td></td>
-  <td><input type="text" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br></td>
+  <td><input type="text" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br></td>
 </tr>
 <tr>
   <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
@@ -490,9 +491,9 @@
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
-                          <button id="dopay"type="submit" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                          <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button>
+                          </button><!--id="paymentBtn"  -->
   
 
     </div>
@@ -501,6 +502,8 @@
 </div>
   
   </form>
+  
+  
   
   
  <!-- Modal -->
@@ -995,6 +998,48 @@ $("#alloffHidden").click(function(){
 
  
 </body>
+<!--======================================결제api==================================================  -->
+  <script>
+  var IMP = window.IMP;
+	var test=0;
+	IMP.init('imp27157799');
+	
+
+	//결제버튼 클릭시 결제 API 실행
+	$(".paymentBtn").on("click", function(){
+	var totalPrice=$("#sum").val();
+	console.log("총가격 : "+totalPrice);
+	alert("totalPrice="+totalPrice);
+    var userMail = "${loginMember['m_Email']}";
+    var userName = "${loginMember['m_Name']}";
+    var userTel = "${loginMember['m_Phone']}";
+    var userAddr = "${addr}"+" "+$("#address").val();; 
+     console.log(userAddr);
+       IMP.request_pay({
+        pg: 'html5_inicis', // version 1.1.0부터 지원.
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        name: '배달킹 결제',
+        amount: totalPrice,
+        buyer_email: userMail,
+        buyer_name: userName,
+        buyer_tel: userTel,
+        buyer_addr: userAddr
+    }, function (rsp) { //callback 함수
+        if (rsp.success) {
+            $("#baguniForm").submit();
+            var msg = '결제에 성공하였습니다.';
+            
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+            
+        } 
+        alert(msg);
+     });   
+    
+});
+  </script>
 <!--============================================================결제하기버튼css======================================================================-->
   <style>
     @import url("https://fonts.googleapis.com/css?family=Mukta:700");
