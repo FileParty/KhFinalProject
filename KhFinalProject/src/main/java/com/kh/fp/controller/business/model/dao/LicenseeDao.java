@@ -30,4 +30,7 @@ public interface LicenseeDao {
 	List<Menu> selectMenuList(SqlSessionTemplate session,int s_no);
 	List<SideAll> selectMenuSide(SqlSession session,Map<String,Object> map);
 	int storesNo(SqlSessionTemplate session,int no);
+	int menuUpdate(SqlSessionTemplate session,Map<String,Object> map);
+	int menuSideDelete(SqlSessionTemplate session,int me_no);
+	int menuSideUpdate(SqlSessionTemplate session,MenuSide ms);
 }

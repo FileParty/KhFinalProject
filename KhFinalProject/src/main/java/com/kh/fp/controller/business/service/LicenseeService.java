@@ -28,4 +28,7 @@ public interface LicenseeService {
 	List<Menu> selectMenuList(int s_no);
 	List<SideAll> selectMenuSide(Map<String,Object> map);
 	int storesNo(int no);
+	int menuUpdate(Map<String,Object> map,int me_no);
+	int menuSideUpdate(List<MenuSide> list);
+
 }

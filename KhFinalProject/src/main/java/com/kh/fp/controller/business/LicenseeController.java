@@ -370,6 +370,46 @@ public class LicenseeController {
 		
 	}
 	
+	@RequestMapping("/licensee/menuUpdate")
+	public String menuUpdate(HttpServletRequest req) {
+		int s_no = Integer.parseInt(req.getParameter("s_no"));
+		int me_no = Integer.parseInt(req.getParameter("me_no"));
+		int mt_no = Integer.parseInt(req.getParameter("mt_no"));
+		String[] sd = req.getParameterValues("sd_no");
+		String me_name = req.getParameter("me_name");
+		int me_price = Integer.parseInt(req.getParameter("me_price"));
+		String me_text = req.getParameter("me_text");
+		int sd_no[] = new int[sd.length];
+		
+		log.debug("가게번호"+s_no);
+		log.debug("메뉴번호"+me_no);
+		log.debug("카테고리"+mt_no);
+		log.debug("메뉴명"+me_name);
+		log.debug("메뉴가격"+me_price);
+		log.debug("메뉴설명"+me_text);
+		Map<String,Object> map = new HashMap();
+		map.put("me_name",me_name);
+		map.put("me_no",me_no);
+		map.put("me_price",me_price);
+		map.put("mt_no",mt_no);
+		map.put("me_text",me_text);
+		map.put("s_no",s_no);
+		List<MenuSide> list = new ArrayList<MenuSide>();
+		for(int i=0;i<sd_no.length;i++) {
+			MenuSide ms = new MenuSide();
+			sd_no[i]=Integer.parseInt(sd[i]);
+			 ms.setSd_no(sd_no[i]);
+			 ms.setMe_no(me_no);
+			log.debug("추가번호"+sd_no[i]);
+			list.add(ms);
+		}
+		int result = service.menuUpdate(map,me_no);
+		if(result>0) {
+			result = service.menuSideUpdate(list);
+		}
+		return "";
+	}
+	
 	
 
 }

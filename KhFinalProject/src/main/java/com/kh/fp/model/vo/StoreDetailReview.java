@@ -1,6 +1,7 @@
 package com.kh.fp.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class StoreDetailReview {
 	private Date r_date;
 	private int m_no;
 	private int s_no;
-	private String[] r_imgs;
+	private String m_nickName;
+	private List<String> r_imgs;
 
 }

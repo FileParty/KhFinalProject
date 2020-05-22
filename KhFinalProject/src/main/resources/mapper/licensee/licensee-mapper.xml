@@ -45,15 +45,29 @@
   	</select>
   	
   	<select id="selectMenuList" parameterType="_int" resultType="com.kh.fp.model.vo.Menu">
-  		SELECT * FROM MENU WHERE S_NO = #{s_no}
+  		SELECT * FROM MENU C JOIN MENU_CATEGORY M USING(MT_NO) WHERE M.S_NO = #{s_no}
   	</select>
   	
   	<select id="selectMenuSide" resultType="com.kh.fp.model.vo.SideAll">
   		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
   	</select>
   	
+
   	<select id="storesNo" resultType="_int">
   		select s_no from store where rownum =1 and b_no=#{no}
   	</select>
+
+  	<update id="menuUpdate" parameterType="map">
+  		UPDATE MENU SET ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
+  	</update>
+  	
+  	<delete id="menuSideDelete" parameterType="_int">
+  		DELETE FROM MENU_SIDE WHERE ME_NO = #{me_no}
+  	</delete>
+  	
+  	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
+  		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
+  	</insert>
+
   	
 </mapper>

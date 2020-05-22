@@ -91,7 +91,7 @@
                     <div class="s-store-content">
                        
                         <ul>
-                            <li><i class="fa fa-star"></i><span class="s-store-info-text">${store['s_star']}</span></li>
+                            <li><span class="s-store-star-css-true">★</span><span class="s-store-info-text">${store['s_star']}</span></li>
                             <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
                             <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
                             <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
@@ -109,7 +109,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}')">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}',1)">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -154,57 +154,75 @@
 
                             <div class="s-store-star">
                                 <div>
-                                    <h1>${store['s_star']}</h1>
+                                    <h1 style="color:red;">${store['s_star']}</h1>
                                 </div>
-                                <div class="s-store-score">
-                                    <div><i class="fa fa-star"></i><span>맛</span></div>
+                                <div class="s-store-scores">
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">양 : </span>
+	                                   	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_amount_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_amount_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">배달 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_delivery_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_delivery_tru'] }</span>
+                                    </div>
+                                    <div class="s-store-score-ta">
+	                                   	<span class="s-store-star-type-text">맛 : </span>
+                                    	<span>
+	                                   		<c:forEach begin="1" end="5" step="1" varStatus="status">
+		                                   		<c:choose>
+		                                   		<c:when test="${status.index<=store['s_taste_tru']}">
+		                                   			<span class="s-store-star-css-true">★</span>
+		                                   		</c:when>
+		                                   		<c:otherwise>
+		                                   			<span class="s-store-star-css-false">★</span>
+		                                   		</c:otherwise>
+		                                   		</c:choose>
+	                                   		</c:forEach>
+	                                   	</span>
+	                                   	<span class="s-store-star-type-text">${store['s_taste_tru'] }</span>
+                                    </div>
                                 </div>
                             </div>
 							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span>리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
+                                    <span class="s-store-star-type-text">리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
-                                <div>
-                                사진 리뷰만 :
-                                    <label class="switch">
-                                        <input type="checkbox">
+                                <div class="s-store-review-search-photo">
+                                	<span class="s-store-star-type-text">사진 리뷰만 : &nbsp;</span>
+                                    <label class="switch" onclick="storeReviewSearchPhoto()">
+                                        <input type="checkbox" name="onlyPhoto">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="s-store-review">
-
-                                <table>
-
-                                    <tr>
-                                        <td><strong>성연이형</strong>&nbsp;&nbsp;<span>3일 전</span></td>
-                                    </tr>
-                        
-                                    <tr>
-                                        <td>
-                                            맛 : <i class="fa fa-star"></i> 
-                                            <span class="report">신고</span>
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td><img src="#" width="650px;" height="300px"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>메뉴이름</td>
-                                    </tr>
-                                        
-                                    <tr>
-                                        <td>내용</td>
-                                    </tr>
-                                </table>
-
                             </div>
-                              
                         </div>
                         
                         
@@ -212,10 +230,7 @@
                             <div>
                                 <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
-                                <p>
-                                    고객님들께 알려드립니다.<br>
-                                    죄송하게도 바로결제시에는 쿠폰이 지급되지 않습니다.
-                                </p>
+                                <textarea class="s-store-textarea-nosize" cols="92" rows="12" readonly="readonly">${store['s_text'] }</textarea>
                                 <br>
                                 <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
@@ -304,7 +319,7 @@
 					
                     <div class="s-store-order-price">
                     	<input type="hidden" name="allPrice" value="" id="order-final-price"/>
-                        <h5 class="s-store-order-final-price">합계 : 0 원</h5>
+                        <h5 class="s-store-order-final-price">0 원</h5>
                     </div>
 
                     <div class="s-store-order">
@@ -770,6 +785,7 @@
         		$("#order-content-2").css("height","auto");
         		$("#s-store-order-title-delete-btn").hide();
         		orderListHeightCheck();
+        		$(".s-store-order-final-price").text("0원");
         	}
         }
         
@@ -790,6 +806,7 @@
         		console.log($(".s-store-order-button"));
         		$(e).parent().parent().remove();
         		orderListHeightCheck();
+        		orderAllFinalPriceCacr();
         		if(length==0){
         			$("#order-content-1").show();
         			orderListArr = new Array();
@@ -838,7 +855,7 @@
         		orderFinalPrice += Number($(orderFinalPriceCheck[i]).val());
         	}
         	$("#order-final-price").val(orderFinalPrice);
-        	$(".s-store-order-final-price").text("합계 : " + numberFormatting(orderFinalPrice));
+        	$(".s-store-order-final-price").text(numberFormatting(orderFinalPrice));
         }
         
         /* 주문표에서 주문하기 */
@@ -905,9 +922,78 @@
         	return true;
         }
         
-        /* 리뷰영역 */
-        function review(no){
-        	console.log(no);
+        const yearCalc = 1000 * 60 * 24 * 30 * 12;
+        const dateCalc = 1000 * 60 * 24 * 30;
+        const dayCalc = 1000 * 60 * 60 * 24;
+        const hourCalc = 1000 * 60 * 60;
+        const minCalc = 1000 * 60;
+        
+        /* 리뷰 ajax */
+        function review(no,cPage){
+        	$.ajax({
+        		url:"${path}/menu/storeReview",
+        		data:{"no":no,"cPage":cPage},
+        		success:function(data){
+        			console.log(data);
+        			let reviewDiv = $(".s-store-review");
+        			for(let i=0;i<data.length;i++){
+	        			let table = $("<table>");
+	        			let trStar = "<tr><td>";
+	        			trStar += "";
+	        			trStar += "</td></tr>";
+	        			table.append(trStar);
+	        			let tr1 = "<tr><td><span class='s-store-review-nickname'>"+securityNickName(data[i]['m_nickName'])+"님</span>";
+	        			tr1 += "&nbsp;&nbsp;<span>";
+	        			let rDate = new Date(Date.now()-Number(data[i]['r_date']));
+	        			if(parseInt(rDate/minCalc)<60){
+	        				tr1 += parseInt(rDate/minCalc)+"분 전";
+	        			} else if(parseInt(rDate/hourCalc)<24){
+	        				tr1 += parseInt(rDate/hourCalc)+"시간 전";
+	        			} else if(parseInt(rDate/dayCalc)<30) {
+	        				tr1 += parseInt(rDate/dayCalc)+"일 전";
+	        			} else if(parseInt(rDate/dateCalc)<12){
+	        				tr1 += parseInt(rDate/dateCalc)+"개월 전";
+	        			} else {
+	        				tr1 += parseInt(rDate/yearCalc)+"년 전";
+	        			}
+	        			tr1 += "</span>";
+	        			table.append(tr1);
+	        			let tr2 = "<tr><td><span class='report'>신고</span></td></tr>";
+	        			table.append(tr2);
+	        			let tr3 = "<tr><td>";
+	        			if(data[i]['r_imgs'].length!=0){
+	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
+	        					tr3 += "<img src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        				}
+	        			}
+	        			tr3 += "</td></tr>";
+	        			table.append(tr3);
+	        			let tr4 = "<tr><td>";
+	        			tr4 += "메뉴이름드가야됨";
+	        			tr4 += "</td></tr>";
+	        			table.append(tr4);
+	        			let tr5 = "<tr><td>";
+	        			tr5 += '<textarea class="s-store-textarea-nosize" cols="92" rows="7" readonly="readonly">';
+	        			tr5 += data[i]['r_text']+"</textarea>";
+	        			tr5 += "</td></tr>";
+	        			table.append(tr5);
+	        			reviewDiv.append(table);
+        			}
+        			
+        		}
+        	});
+        }
+        
+        /* 사진있는 리뷰만 출력 */
+        function storeReviewSearchPhoto(){
+        	
+        }
+        
+        /* 닉네임 암호화 */
+        function securityNickName(name){
+        	name = name.substring(0,2);
+        	name += "**";
+        	return name;
         }
         
     
