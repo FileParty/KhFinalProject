@@ -89,18 +89,24 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public List<Sales> getSales(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
-		SimpleDateFormat format = new SimpleDateFormat("yy/MM");
-		Date time = new Date();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("orderdate", format.format(time) );
-		return session.selectList("store.getSales",map);
+		/*
+		 * SimpleDateFormat format = new SimpleDateFormat("yy/MM"); Date time = new
+		 * Date(); Map<String, Object> map = new HashMap<String, Object>();
+		 * map.put("no", no); map.put("orderdate", format.format(time) );
+		 */
+		return session.selectList("store.getSales",no);
 	}
 
 	@Override
 	public List<Map<String, Object>> getOrderInfo(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
 		return  session.selectList("store.getOrderInfo",no);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSaleMonth(SqlSessionTemplate session, Object no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getSaleMonth",no);
 	}
 
 	

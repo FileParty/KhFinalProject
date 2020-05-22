@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="storeMenuDetail">
 	<select id="selectStoreDetailInfo" parameterType="_int" resultType="storeDetail">
-		SELECT S.*,(SELECT b_businesscode FROM business B WHERE B.B_NO = S.B_NO) B_BUSINESSCODE , 
-			TRUNC(((S_TASTE+S_AMOUNT+S_DELIVERY)/(S_REVIEWCOUNT*3)),1) S_STAR,
-    		TRUNC((S_TASTE/S_REVIEWCOUNT),1) S_TASTE_TRU,
-    		TRUNC((S_AMOUNT/S_REVIEWCOUNT),1)  S_AMOUNT_TRU,
-    		TRUNC((S_DELIVERY/S_REVIEWCOUNT),1) S_DELIVERY_TRU
+		SELECT S.*,(SELECT b_businesscode FROM business B WHERE B.B_NO = S.B_NO) B_BUSINESSCODE, 
+        	TRUNC((S_TASTE+S_AMOUNT+S_DELIVERY)/(DECODE((S_REVIEWCOUNT),0,-1,S_REVIEWCOUNT)*3),1) S_STAR,
+        	TRUNC(S_TASTE/(DECODE((S_REVIEWCOUNT),0,-1,S_REVIEWCOUNT)),1) S_TASTE_TRU,
+        	TRUNC(S_AMOUNT/(DECODE((S_REVIEWCOUNT),0,-1,S_REVIEWCOUNT)),1)  S_AMOUNT_TRU,
+        	TRUNC(S_DELIVERY/(DECODE((S_REVIEWCOUNT),0,-1,S_REVIEWCOUNT)),1) S_DELIVERY_TRU
 		FROM STORE S WHERE S_NO=#{no}
 	</select>
 	<select id="selectStoreDetailCategory" parameterType="_int" resultType="storeDetailCategory">

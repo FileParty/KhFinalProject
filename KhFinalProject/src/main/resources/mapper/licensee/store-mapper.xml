@@ -62,11 +62,15 @@
 	</select>
 	
 	<select id="getSales" resultType="sales">
-		select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no} and o_date like '%${orderdate}%' group by o_date order by o_date
+		 select  * from(select rownum as rnum, a.* from( select o_date as orderdate , sum(o_oriprice) as price from order_info where s_no=#{no} group by o_date order by o_date desc)a)where  rnum between 1 and 31 order by orderdate
 	</select>
-	
+	<!-- select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no} and o_date like '%${orderdate}%' group by o_date order by o_date  -->
 	<select id="getOrderInfo" resultType="map">
 		select * from(select ROWNUM as rnum , a.* from (select * from order_info where s_no=#{no} order by o_date ) a) where rnum between 1 and 5
+	</select>
+	
+	<select id="getSaleMonth" resultType="map">
+		select to_char(o_date,'YYYY/MM') as o_date ,sum(o_oriprice) as price from order_info where s_no=#{no} group by to_char(o_date,'YYYY/MM')
 	</select>
 	
 </mapper>
