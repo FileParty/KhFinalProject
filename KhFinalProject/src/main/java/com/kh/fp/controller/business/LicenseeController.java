@@ -28,6 +28,7 @@ import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -154,10 +155,35 @@ public class LicenseeController {
 		//주문완료내역
 		return "business/orderEnd";
 	}
+	
 	@RequestMapping("/licensee/review")
-	public String review() {
-		//리뷰관리
-		return "business/review";
+	public ModelAndView review(ModelAndView mv,HttpSession session) {
+		//메뉴등록
+		//셀렉용
+		Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		List<Store> list = service.selectStore(b.getB_No());
+		mv.addObject("store",list);
+		mv.setViewName("business/review");
+		return mv;
+	}
+	
+	@RequestMapping("/licensee/reviewSelect")
+	@ResponseBody
+	public List<ReviewAll> reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
+		//리뷰
+		//셀렉용
+				
+		List<ReviewAll> list = service.selectReview(s_no);
+		
+		
+		
+		return list;
 	}
 	
 	@RequestMapping("/licensee/getdetailorder")

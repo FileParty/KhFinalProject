@@ -36,30 +36,32 @@
                     <ul class="ss nav nav-tabs nav-justified">
                         <li class="nav-item"><a href="#" class="list nav-link active">일반 리뷰</a></li>					
                     </ul>
+                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:400px;width:auto;display:block;">
+                    		<c:forEach items="${store}" var="s">
+                    			<option for="storeInfo" value="${s.s_No }"><c:out value="${s.s_Name }" /></option>
+                    		</c:forEach> 
+                    		</select>
+                    	
                     
-                    <div class="row row1">
-                    <div class="review">
-                    	<p style="margin:0;">baemin123**</p>
-                    	<p style="margin:0;">★★★★☆  오늘</p>
-                    	<img  style="border:1px solid black;width:170px;height:100px;">
-                    	<p style="margin:0;">음식이 따뜻하고 포장이 깔끔해서 좋습니다.</p>
-                    	<p style="display:inline;margin:0;">★한우 육회비빔밥★</p>
-                    	<input style="margin:0;"type="button" value="답글">
-                    </div>
-                    <div class="review"></div>
-                    <div class="review"></div>
-                    <div class="review"></div>
-                    </div>
-                    <div class="row row1">
-                    <div class="review"></div>
-                    <div class="review"></div>
-                    <div class="review"></div>
-                    <div class="review"></div>
-                    </div>
                  </div>
                  
             </div>
    		</div>
+   		<script>
+   		
+   			 $(function() {
+   				$.ajax({
+   					url:"${path}/licensee/reviewSelect",
+   					data:{s_no:$("#storeInfo").val()},
+   					success:function(data) {
+   						console.log('??',data);
+   						if(data.length == 0) {
+   							alert('등록 된 리뷰가 없습니다!');
+   						}
+   					}
+   				})
+   			}) 
+   		</script>
    	</section>
    	
    	<%@ include file="../common/footer.jsp" %>

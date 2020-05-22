@@ -12,6 +12,7 @@ import com.kh.fp.controller.business.model.dao.LicenseeDao;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -142,6 +143,14 @@ public class LicenseeServiceImpl implements LicenseeService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<ReviewAll> selectReview(int s_no) {
+		// TODO Auto-generated method stub
+		return dao.selectReview(session,s_no);
+	}
+	
+	
 	
 	
 	

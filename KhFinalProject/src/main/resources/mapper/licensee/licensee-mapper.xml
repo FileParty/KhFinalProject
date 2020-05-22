@@ -68,6 +68,11 @@
   	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
   		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
   	</insert>
+  	
+  	<select id="selectReview" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewAll">
+  		SELECT * FROM REVIEW JOIN REVIEW_IMG USING(R_NO) WHERE S_NO = #{s_no}
+  		
+  	</select>
 
   	
 </mapper>

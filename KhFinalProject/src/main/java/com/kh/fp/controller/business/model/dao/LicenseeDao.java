@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -33,4 +34,5 @@ public interface LicenseeDao {
 	int menuUpdate(SqlSessionTemplate session,Map<String,Object> map);
 	int menuSideDelete(SqlSessionTemplate session,int me_no);
 	int menuSideUpdate(SqlSessionTemplate session,MenuSide ms);
+	List<ReviewAll> selectReview(SqlSessionTemplate session,int s_no);
 }

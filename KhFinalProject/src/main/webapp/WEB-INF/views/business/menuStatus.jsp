@@ -454,8 +454,7 @@
    			$("#store").change(function () {
    				
    				$("#categoryList").children().remove();
-   				
-   				
+
    				$.ajax({
 					url:"${path}/licensee/selectCategory",
 					data:{s_no:$("#store").val()},
@@ -502,10 +501,10 @@
    						console.log('?',data);
    						
 						let remove = $(".row1").children().remove();
-					
-						let rowDiv = $("<div>").attr('class','row row1')
+						let divs = $("<div>");
+						let rowDivs = $("<div>").attr('class','row row1')
 						
-						var menuDiv = $("<div>").attr({
+						var menuDivs = $("<div>").attr({
 							'class':'carousel-item active',	
 							 								
 						}).css({
@@ -553,25 +552,24 @@
 							
 							
 							if(i<3) { 
-							rowDiv.append(div);
-							menuDiv.append(rowDiv);
+							rowDivs.append(div);
+							menuDivs.append(rowDivs);
 							}else {
 								if(i%3==0) {
-									var rowDiv2 = $("<div>").attr('class','row row1');
-									var menuDiv2 = $("<div>").attr({
+									var rowDiv3 = $("<div>").attr('class','row row1');
+									var menuDiv3 = $("<div>").attr({
 										'class':'carousel-item',	
 										 								
 									}).css({
 										'border':'1px solid red',
 							      		'width':'900',
-							      		
-							      		
+
 									})
 								}
-								rowDiv2.append(div);
-								menuDiv2.append(rowDiv2);
+								rowDiv3.append(div);
+								menuDiv3.append(rowDiv3);
 							}
-							$(".menuDiv").append(menuDiv).append(menuDiv2);
+							$(".menuDiv").append(menuDivs).append(menuDiv3);
 							
 						}
 						
