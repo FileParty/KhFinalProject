@@ -327,6 +327,8 @@
    		
 		
    			copy.find('input').removeAttr('disabled').removeAttr('checked');
+   			console.log(copy.find('input:hidden'));
+   			copy.find('input:hidden').removeAttr('name').attr('name','sdNo');
    			copy1.find('input').removeAttr('readonly');
    			copy1.find('textarea').removeAttr('readonly');
    			
@@ -429,15 +431,11 @@
    							'display':'inline'
    						}).html(data[i].sd_name+data[i].sd_price+'원');
    						
-   						let sd_no = $("<input>").attr({
-   							'type':'hidden',
-   							'name':'sd_no',
-   							'value':data[i].sd_no
-   						})
+   					
    						if(data[i].sd_division=='Y'){
-   							span.after($("<br>")).after(sd_no).after(label).after(input);
+   							span.after($("<br>")).after(label).after(input);
    						}else {
-   							span1.after($("<br>")).after(sd_no).after(label).after(input);
+   							span1.after($("<br>")).after(label).after(input);
    						}
    					}
    						let btn = $("<input>").attr({
@@ -501,108 +499,118 @@
    					url:"${path}/licensee/menuSelect",
    					data:{s_no:$("#store").val()},
    					success:function(data) {
-   						console.log('메뉴성공',data);
-   						let remove = $(".row1").children().remove();
-   						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
-   						let rowDiv = $("<div>").attr('class','row row1')
+   						console.log('?',data);
    						
-   						var menuDiv = $("<div>").attr({
-								'class':'carousel-item active',	
-								 								
+						let remove = $(".row1").children().remove();
+					
+						let rowDiv = $("<div>").attr('class','row row1')
+						
+						var menuDiv = $("<div>").attr({
+							'class':'carousel-item active',	
+							 								
+						}).css({
+							'border':'1px solid red',
+				      		'width':'900',
+	
+						})
+						
+						for(let i=0;i<data.length;i++) {
+							 $(".menuView"+i).hide(); 
+							console.log('i입니다',i%3);
+							
+							let div = $("<div>").attr({
+								'class':'col menuList',								
+								}).css({
+									'width':'100',
+									'border':'1px solid orange',
+									',margin-left':'50px',
+									
+									});
+							let menuImg = $("<img>").attr({
+								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
+								'class':'menuImg'
 							}).css({
-								'border':'1px solid red',
-					      		'width':'900',	
+								'width':'240',
+								'height':'100'
 							})
-   						for(let i=0;i<data.length;i++) {
-   							$(".menuView"+i).hide();
- 							let div = $("<div>").attr({
- 								'class':'col menuList'
- 								}).css({
- 									'width':'100',
- 									'border':'1px solid orange',
- 									',margin-left':'50px',
- 									
- 									});
-   							let menuImg = $("<img>").attr({
-   								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
-   								'class':'menuImg'
-   							}).css({
-   								'width':'240',
-   								'height':'100'
-   							})
-   							
-   							let hidden = $("<input>").attr({
-   								'type':'hidden',
-   								'value':data[i].me_no,
-   								'class':'me_no'
-   							})
-   							let hidden2 = $("<input>").attr({
-   								'type':'hidden',
-   								'value':data[i].mt_no,
-   								'class':'mt_no'
-   							})   							
-   							let menuText = $("<span>").html(data[i].me_text);
-   							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
-   							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
-   							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
-   							
-   							if(i<3) { 
-   							rowDiv.append(div);
-   							menuDiv.append(rowDiv);
-   							}else {
-   								if(i%3==0) {
-   									var rowDiv2 = $("<div>").attr('class','row row1');
-   									var menuDiv2 = $("<div>").attr({
-   										'class':'carousel-item',	
-   										 								
-   									}).css({
-   										'border':'1px solid red',
-   							      		'width':'900',
-   							      		
-   							      		
-   									})
-   								}
-   								rowDiv2.append(div);
-   								menuDiv2.append(rowDiv2);
-   							}
-   							$(".menuDiv").append(menuDiv).append(menuDiv2);
-	 	
-   						}
-   						
-							for(let i=0;i<data.length;i++) {
+							
+							let hidden = $("<input>").attr({
+								'type':'hidden',
+								'value':data[i].me_no,
+								'class':'me_no'
+							})
+							let hidden2 = $("<input>").attr({
+								'type':'hidden',
+								'value':data[i].mt_no,
+								'class':'mt_no'
+							})
+							
+
+							let menuText = $("<span>").html(data[i].me_text);
+							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
+							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
+							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
+							
+							
+							if(i<3) { 
+							rowDiv.append(div);
+							menuDiv.append(rowDiv);
+							}else {
+								if(i%3==0) {
+									var rowDiv2 = $("<div>").attr('class','row row1');
+									var menuDiv2 = $("<div>").attr({
+										'class':'carousel-item',	
+										 								
+									}).css({
+										'border':'1px solid red',
+							      		'width':'900',
+							      		
+							      		
+									})
+								}
+								rowDiv2.append(div);
+								menuDiv2.append(rowDiv2);
+							}
+							$(".menuDiv").append(menuDiv).append(menuDiv2);
+							
+						}
+						
+						for(let i=0;i<data.length;i++) {
+
 						 	for(let j=0;j<data.length;j++) {
 						 		let divTest = $("<div>").attr('class','col-lg-6');
 								let divTest2 = $("<div>").attr('class','col-lg-6');
+									
 								let rowDev = $("<div>").attr({
 									'class':'row',
 									'onclick':'test();'
 									});
+									
 								let menuImg = $("<img>").attr({
 									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
 									'class':'menuImg'
-								}).css({
+									}).css({
 									'width':'100%',
 									'height':'100'
-								})
-									let menuText = $("<input>").attr({
+									})
+								let menuText = $("<input>").attr({
 										'type':'text',
 										'class':'menuName form-control',
 										'value':data[j].me_text,
 										'readonly':'true'
-									}).css({'background-color':'white','width':'300px;'}); 
+									}).css({'background-color':'white','width':'300px;'}).after($("<br>")); 
 								let menuName = $("<input>").attr({
 									'type':'text',
 									'class':'menuName form-control',
 									'value':data[j].me_name,
 									'readonly':'true'
-									}).css({'background-color':'white','width':'auto'}); 							
+									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
 										let menuPrice = $("<input>").attr({
 											'type':'number',
 											'class':'menuName form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
-									}).css({'background-color':'white','width':'auto','color':'red'}); 
-								
+									}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
 								
 								let me_no = $("<input>").attr({
 									'type':'hidden',
@@ -622,20 +630,21 @@
 									'value':$("#store").val()
 								})
 								
-								divTest.append(menuName).append(menuPrice).append(menuText).append(me_no).append(mt_no).append(s_no)
+								divTest.append(menuName).append(menuPrice).append(menuText).append(me_no).append(mt_no).append(s_no);
 								divTest2.append(menuImg);
 								rowDev.append(divTest).append(divTest2);
+								rowDev.next($("<br>"));
 							 if($(".mt_no"+i).val() == data[j].mt_no) {								
 								 $(".menuView"+i).append(rowDev);							
 							}else{
 								continue;
 							}
 							 
-							
-   					
+							} 
+	
    					}
 		}
-		}
+		
    				})
    			})
    			

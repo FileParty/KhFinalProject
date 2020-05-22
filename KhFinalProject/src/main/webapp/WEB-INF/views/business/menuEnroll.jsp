@@ -195,7 +195,7 @@
 			let sd_name = $("input[name=sd_name]").val();
 			let sd_price = $("input[name=sd_name]").val();
 			if(sd_name.trim().length==0 || sd_price.trim().length==0) {
-				alert('ㅎㅎㅎ');
+				
 				return false;
 			}
 		}
@@ -205,6 +205,18 @@
 				$(this).val($(this).val().substring(0,30));
 			}
 		});
+			$.ajax({
+				url:'${path}/licensee/businessStore',
+				success:function(data) {
+					
+					if(data.length == 0) {
+						var msg = confirm('등록된 가게가 없습니다.등록하시겠습니까?');
+						if(msg) {
+							location.replace('${path}/store/storeEnroll.do');
+						}
+					}
+				}
+			})
 		});
 			$(".close").click(function() {
 			

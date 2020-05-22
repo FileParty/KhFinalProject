@@ -70,6 +70,23 @@ public class LicenseeController {
 		return mv;
 	}
 	
+	@RequestMapping("/licensee/businessStore")
+	public ModelAndView businessStore(ModelAndView mv,HttpSession session) {
+		//메뉴등록
+		//셀렉용
+		Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		List<Store> list = service.selectStore(b.getB_No());
+		mv.addObject("store",list);
+		mv.setViewName("business/menuEnroll");
+		return mv;
+	}
+	
 	@RequestMapping("/licensee/menuSelect")
 	@ResponseBody
 	public List<Menu> menuSelect(ModelAndView mv,HttpSession session,int s_no) {
@@ -360,11 +377,11 @@ public class LicenseeController {
 	}
 	
 	@RequestMapping("/licensee/menuUpdate")
-	public String menuUpdate(HttpServletRequest req) {
+	public String menuUpdate(HttpServletRequest req,Model m) {
 		int s_no = Integer.parseInt(req.getParameter("s_no"));
 		int me_no = Integer.parseInt(req.getParameter("me_no"));
 		int mt_no = Integer.parseInt(req.getParameter("mt_no"));
-		String[] sd = req.getParameterValues("sd_no");
+		String[] sd = req.getParameterValues("sdNo");
 		String me_name = req.getParameter("me_name");
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
@@ -396,7 +413,18 @@ public class LicenseeController {
 		if(result>0) {
 			result = service.menuSideUpdate(list);
 		}
-		return "";
+		String page ="";
+		if(result>0) {
+			page = "common/msg";
+			m.addAttribute("msg","수정 성공!");
+			m.addAttribute("loc","/licensee/menuStatus");
+		}else {
+			page = "common/msg";
+			m.addAttribute("msg","수정 실패!");
+			m.addAttribute("loc","/licensee/menuStatus");
+		}
+		
+		return page;
 	}
 	
 	
