@@ -14,15 +14,11 @@
 			value="oracle.jdbc.driver.OracleDriver"/>
 			
 
-
+		<property name="username" value="men7"/>
+		<property name="password" value="men7"/>
 
 		<property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:XE"/> 
 
-
-
-
-		<property name="username" value="men7"/>
-		<property name="password" value="men7"/>
 
 	</bean>
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">

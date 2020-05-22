@@ -20,13 +20,13 @@ public class MypageServiceImpl implements MypageService {
 	private SqlSessionTemplate session;
 
 	@Override
-	public int getTotalCount(int o_no) {
-		return dao.getTotalCount(session, o_no);
+	public int getTotalCount(int m_no) {
+		return dao.getTotalCount(session, m_no);
 	}
 
 	@Override
-	public List<Map<String, String>> selectOrder(int o_no, int cPage, int numPerPage) {
-		return dao.selectOrder(session, o_no, cPage, numPerPage);
+	public List<Map<String, String>> selectOrder(int m_no, int cPage, int numPerPage) {
+		return dao.selectOrder(session, m_no, cPage, numPerPage);
 	}
 
 	@Override
@@ -84,6 +84,11 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int insertReview(Map<String, String> map) {
 		return dao.insertReview(session, map);
+	}
+
+	@Override
+	public int insertReviewImg(Map<String, String> map) {
+		return dao.insertReviewImg(session, map);
 	}
 	
 	

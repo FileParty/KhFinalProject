@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,13 +14,13 @@ import com.kh.fp.model.vo.Member;
 public class MypageDaoImpl implements MypageDao {
 
 	@Override
-	public int getTotalCount(SqlSessionTemplate session, int o_no) {
-		return session.selectOne("mypage.totalCount", o_no);
+	public int getTotalCount(SqlSessionTemplate session, int m_no) {
+		return session.selectOne("mypage.totalCount", m_no);
 	}
 
 	@Override
-	public List<Map<String, String>> selectOrder(SqlSessionTemplate session, int o_no, int cPage, int numPerPage) {
-		return session.selectList("mypage.selectOrder", o_no, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	public List<Map<String, String>> selectOrder(SqlSessionTemplate session, int m_no, int cPage, int numPerPage) {
+		return session.selectList("mypage.selectOrder", m_no, new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
 
 	@Override
@@ -76,6 +77,13 @@ public class MypageDaoImpl implements MypageDao {
 	public int insertReview(SqlSessionTemplate session, Map<String, String> map) {
 		return session.insert("mypage.insertReview", map);
 	}
+
+	@Override
+	public int insertReviewImg(SqlSessionTemplate session, Map<String, String> map) {
+		return session.insert("mypage.insertReviewImg", map);
+	}
+	
+	
 	
 	
 
