@@ -117,6 +117,11 @@ public class LicenseeServiceImpl implements LicenseeService {
 	}
 
 	@Override
+	public List<Store> storesNo(int no) {
+		// TODO Auto-generated method stub
+		return dao.storesNo(session,no);
+	}
+
 	public int menuUpdate(Map<String, Object> map,int me_no) {
 		int result = 0;
 		
@@ -141,6 +146,7 @@ public class LicenseeServiceImpl implements LicenseeService {
 	
 	
 	
+
 	
 	
 	

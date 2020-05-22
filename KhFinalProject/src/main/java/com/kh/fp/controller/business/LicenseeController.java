@@ -112,23 +112,37 @@ public class LicenseeController {
 		return mv;
 	}
 	
-	@RequestMapping("/licensee/calculate")
-	public String calculate() {
-		//정산내역
-		return "business/calculate";
-	}
 	
 	@RequestMapping("/licensee/order")
 	public ModelAndView order(ModelAndView mv,@RequestParam(required = false,defaultValue = "1")int cPage,
-			@RequestParam(required = false ,defaultValue = "2")int numPerpage) {
+			@RequestParam(required = false ,defaultValue = "7")int numPerpage,@RequestParam(required = false,defaultValue = "0")int no,HttpSession session) {
 		//주문내역
-		int no=1;
+		Business b = (Business)session.getAttribute("loginMember");
+		List<Store> stores = new ArrayList<Store>();
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		stores= service.storesNo(b.getB_No());
+		if(no==0) {
+			
+				if(!stores.isEmpty()) {
+						no=stores.get(0).getS_No();			
+				}else {
+					mv.addObject("msg", "가게를 등록해주세요");
+					mv.addObject("loc", "/store/mypage");
+					mv.setViewName("common/msg");
+					return mv;
+				}
+		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
 		
-		
-		
+		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
+		mv.addObject("check",no);
 		mv.addObject("list", list);
 		mv.addObject("pageBar", PageBarFactory( cPage, numPerpage, totalData,"/spring/licensee/order"));
 		mv.setViewName("business/order");

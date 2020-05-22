@@ -232,7 +232,7 @@ public class MemberController {
 	
 	//사업자 아이디 로그인
 	@RequestMapping("/member/businessLogin.do")
-	public String businessLogin(String userId,String userPw,Model md,HttpSession session) {
+	public String businessLogin(String userId,String userPw,Model md,HttpSession session,HttpServletRequest request) {
 		
 		Business b =service.selectBusiness(userId);
 		
@@ -246,7 +246,7 @@ public class MemberController {
 			md.addAttribute("msg","로그인실패");
 		}
 		md.addAttribute("loc","/");		
-	
+		
 		return "common/msg";
 
 	}

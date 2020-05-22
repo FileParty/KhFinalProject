@@ -193,8 +193,10 @@ public class StoreController {
 		
 		
 		mv.addObject("stores",stores);
-		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
-		mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
+		if(!stores.isEmpty()) {
+			mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+			mv.addObject("orderinfo",service.getOrderInfo(stores.get(0).get("S_NO")));
+		}
 		mv.setViewName("business/mypage");
 		return mv;
 	}
@@ -225,6 +227,35 @@ public class StoreController {
 		}
 		
 		return list;
+	}
+	
+	@RequestMapping("/licensee/calculate")
+	public ModelAndView calculate(HttpSession session,ModelAndView mv) {
+		//정산내역
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		
+		if(b==null) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		List<Map<String, Object>> stores= service.getStoresInfo(b.getB_No());
+		
+		if(stores.isEmpty()) {
+			mv.addObject("msg", "가게등록해 주세요!");
+			mv.addObject("loc", "/store/mypage");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		
+		mv.addObject("stores",stores);
+		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
+		mv.setViewName("business/calculate");	
+		return mv;
 	}
 	
 	

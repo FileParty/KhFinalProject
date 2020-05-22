@@ -52,6 +52,11 @@
   		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
   	</select>
   	
+
+  	<select id="storesNo" resultType="menuList">
+  		select s_no,s_name from store where b_no=#{no}
+  	</select>
+
   	<update id="menuUpdate" parameterType="map">
   		UPDATE MENU SET ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
   	</update>
@@ -63,5 +68,6 @@
   	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
   		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
   	</insert>
+
   	
 </mapper>
