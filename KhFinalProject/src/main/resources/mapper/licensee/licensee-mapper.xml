@@ -68,6 +68,28 @@
   	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
   		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
   	</insert>
+  	
+  	<select id="selectReview" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewAll">
+  		    SELECT R.*,RI.R_IMG, O.SD_ARRAY AS SD_ARRAY,
+         
+            TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
+         
+         (SELECT M_EMAIL FROM MEMBER WHERE M_NO=R.M_NO) AS M_EMAIL,
+         (SELECT ME_NAME FROM MENU WHERE ME_NO = O.ME_NO) AS ME_NAME
+         
+      FROM REVIEW R  LEFT JOIN REVIEW_IMG RI ON(R.R_NO=RI.R_NO) JOIN ORDER_MENU O ON R.O_NO = O.O_NO 
+      WHERE R.S_NO= #{s_no}
+  		
+  	</select>
+   	
+  	<update id="updateReviewReply" parameterType="map">
+  		UPDATE REVIEW SET R_REPLY = #{r_reply} WHERE R_NO = #{r_no}
+  	</update> 
+  	
+  	<select id="selectReviewReply" parameterType="map" resultType="com.kh.fp.model.vo.Review">
+  		SELECT R_REPLY FROM REVIEW WHERE R_NO = #{r_no}
+  	</select>
 
+	
   	
 </mapper>
