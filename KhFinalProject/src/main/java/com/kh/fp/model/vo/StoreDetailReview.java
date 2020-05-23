@@ -24,6 +24,7 @@ public class StoreDetailReview {
 	private String m_nickName;
 	private String sd_array;
 	private String me_name;
+	private String r_reply;
 	private List<String> r_imgs;
 
 }

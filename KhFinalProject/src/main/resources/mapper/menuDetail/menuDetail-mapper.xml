@@ -46,4 +46,7 @@
 			AND R_NO IN(SELECT R_NO FROM REVIEW_IMG)
 		</if>
 	</select>
+	<insert id="insertReport" parameterType="report">
+		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no})
+	</insert>
 </mapper>
