@@ -76,12 +76,9 @@
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-                     <ul class="nav nav-tabs nav-justified">
-                        <li class="nav-item">
-                        	<a href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</a>
-                        </li>
-                         <li class="nav-item">
-                        	<a href="${path }/licensee/menuStatus" class="list nav-link">메뉴 관리</a>
+                     <ul class="nav">
+                        <li class="">
+                        	<p style="font-size:30px;color:black;"href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</p>
                         </li>
                     </ul>
                     <br>                 
@@ -89,7 +86,7 @@
                     	<div class="col-12">
                     	<br>
                     		
-                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:400px;width:100px;display:block;">
+                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:400px;width:auto;display:block;">
                     		<c:forEach items="${store}" var="s">
                     			<option for="storeInfo" value="${s.s_No }"><c:out value="${s.s_Name }" /></option>
                     		</c:forEach> 
@@ -185,19 +182,17 @@
 						      </div>
 						    </div>
 						  </div>
-						 
-						  
-						  	
+	  	
 		<script>
 		
 		function text() {
 			//옵션 폼
-			let sd_name = $("input[name=sd_name]").val();
+		/* 	let sd_name = $("input[name=sd_name]").val();
 			let sd_price = $("input[name=sd_name]").val();
 			if(sd_name.trim().length==0 || sd_price.trim().length==0) {
-				alert('ㅎㅎㅎ');
+				
 				return false;
-			}
+			} */
 		}
 		$(function() {
 		$("#textArea").on('keyup',function(){
@@ -205,6 +200,18 @@
 				$(this).val($(this).val().substring(0,30));
 			}
 		});
+			$.ajax({
+				url:'${path}/licensee/businessStore',
+				success:function(data) {
+					
+					if(data.length == 0) {
+						var msg = confirm('등록된 가게가 없습니다.등록하시겠습니까?');
+						if(msg) {
+							location.replace('${path}/store/storeEnroll.do');
+						}
+					}
+				}
+			})
 		});
 			$(".close").click(function() {
 			
@@ -237,38 +244,43 @@
 				$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
 			}
 			 function categoryPlus() {
-				 $("#myModal3").modal('show');
-				 let storeNo = $("<input>").attr({
-					 'type':'hidden',
-					 'name':'storeNo',
-					 'value':$("#storeInfo").val()
-				 });
-				 $("#form").append(storeNo);
-				 
-			 }
+
+						 $("#myModal3").modal('show');
+						 $(".modal-body").children().find('input[name=storeNo]').remove();
+						 let storeNo = $("<input>").attr({
+							 'type':'hidden',
+							 'name':'storeNo',
+							 'value':$("#storeInfo").val()
+						 });
+						 $("#form").append(storeNo);
+
+					 }
+	 
+			 
 			 function optionPlus() {
-				 $("#myModal").modal('show');
-				 let storeNo = $("<input>").attr({
-					 'type':'hidden',
-					 'name':'storeNum',
-					 'value':$("#storeInfo").val()
-				 });
-				 $("#option2-container").append(storeNo);
-			 }
+			
+							 $("#myModal").modal('show');
+							 let storeNo = $("<input>").attr({
+								 'type':'hidden',
+								 'name':'storeNum',
+								 'value':$("#storeInfo").val()
+							 });
+							 $("#option2-container").append(storeNo);
+						 }
+
 			 function menuEnroll() {
-				
-				$("#myModal2").modal({backdrop:'static'});
-				
-				var sel = $("<select>").attr({
-					'id':'selectCategory',
-					'class':'form-control',				
-				}).css('width','auto');
-				 
 
 				$.ajax({
 					url:'${path}/licensee/selectCategory',
 					data:{s_no:$("#storeInfo").val()},
 					success:function(data){
+						$("#myModal2").modal({backdrop:'static'});
+						
+						var sel = $("<select>").attr({
+							'id':'selectCategory',
+							'class':'form-control',				
+						}).css('width','auto');
+						 
 						
 						for(let i=0;i<data.length;i++) {
 							var op = $("<option>").attr({
@@ -313,8 +325,11 @@
 					div2.remove();
 					console.log('성공');
 					console.log(data);
-					
-					
+					if(data.length == 0 || data.sd_division == 'Y') {
+						var xh = $("<h3>").html('등록 된  옵션이 없습니다!');						
+						$(".body-container2").append(xh);					
+					}
+					else {
 					var hh3 = $("<h3>").attr({
 						'class':'hh3text'
 					}).html('필수선택');
@@ -373,6 +388,7 @@
 					}
 					}
 					
+				}
 				},
 				error:function(){
 					console.log("실패");
@@ -532,22 +548,22 @@
 				}
 			
 				
-				if($("input[name=radio]:checked").length==0){
+				/* if($("input[name=radio]:checked").length==0){
 					alert('필수옵션 선택해주세요!');
 					$("input[name=radio]:checked").focus();
 					$("#optionEnroll").removeAttr('data-dismiss');
 					return;
 				}else {
 				$("#optionEnroll").attr('data-dismiss','modal');
-				}
+				} */
 				
-				 if(checkCount == 0) {
+				/*  if(checkCount == 0) {
 					 alert('추가옵션은 1개 이상 선택해주세요!');
 					 $("#optionEnroll").removeAttr('data-dismiss');
 					 return;
 				 }else {
 						$("#optionEnroll").attr('data-dismiss','modal');
-					}
+					} */
 				
 				
 				var cloneFile = $("#modalFile").clone();
@@ -616,13 +632,16 @@
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
-			/* 	div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>"); */
+			 	/* div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>");  */
 			
-				
+				if($("input[name=radio]:checked").length !=0) {
 				 var strong = $("<strong>");
 				 var pTag = $("<p>").html("필수");
 				 strong.append(pTag);
-				 div1.append(strong);				 
+				 div1.append(strong);	
+				}else {
+					div1.append($("<span>").css('display','block').html('선택 된 필수 옵션이 없습니다!'));
+				}
 
 				let mCheck = [];
 				let mPrice = [];
@@ -632,6 +651,7 @@
 					 mCheck[i]=$(this).val();
 					 mPrice[i]=$(this).next().next().html();
 					 sdNum[i]=$(this).prev().val();
+					 console.log('옵옵'+sdNum[i]);
 				        var mCheckbox = $("<input>").attr({
 				        	'type':'checkbox',
 				        	'name':'checked',
@@ -660,11 +680,15 @@
 					 let check = [];
 					let price =[];
 					let sdNo=[];
-					
+					if($("input[name=check]:checked").length !=0) {
 					var strong1 = $("<strong>");
 					var pTag1 = $("<p>").html("추가");
 					strong1.append(pTag1);
 					div1.append(strong1);
+					}else {
+						div1.append($("<span>").html('선택 된 추가 옵션이 없습니다!'));
+					}
+					
 					
 				 $("input[name=check]:checked").each(function(i) { 
 
@@ -690,7 +714,7 @@
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
 							'value':sdNo[i],
-							'name':'sdNoEnd'
+							'name':'sdNoEnds'
 						});
 	
 				        div1.append(sdNoInput).append(good).append(goods).append(spanValues).append($("<br>"));
@@ -711,17 +735,16 @@
 				 	})
 				 	
 				 	var testss = $(".bodyTwo"+num);
-				 	
-				 	var hiddenInput = $("<input>").attr({
-				 		'type':'hidden',
-				 		'name':'count',
-				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
-				 	})
+				 					
 				 	 let storeNo = $("<input>").attr({
 					 'type':'hidden',
 					 'name':'storeNum',
 					 'value':$("#storeInfo").val()
-				 });
+					 });
+				 	
+				 	
+				 	
+				 	
 		 
 				var divv = $("<div>")
 				divv.append(hiddenInput);
@@ -741,8 +764,13 @@
 				 		'name':'count',
 				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
 				 	})
+				 	var hiddenInput1 = $("<input>").attr({
+				 		'type':'hidden',
+				 		'name':'counts',
+				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnds]")).length
+				 	})
 				
-				 div3.append(hiddenInput).append(storeNo);
+				 div3.append(hiddenInput).append(hiddenInput1).append(storeNo);
 				 
 
 				 }
