@@ -422,7 +422,7 @@
 				<p id="review-report-header-text">리뷰 신고하기</p>
 				<button class="menu-modal-header-close" data-dismiss="modal">X</button>
 			</div>
-			<div class="modal-content">
+			<div class="modal-content report-modal-content">
 				<select id="report-modal-report-type-select" name="reportType">
 					<option value="욕설">욕설</option>
 					<option value="광고">광고</option>
@@ -1138,7 +1138,7 @@
         $("#report-modal-report-type-select").on("change",function(){
         	let report = $(this).parent().parent().find("#report-modal-report-type-select").val();
         	if(report=="작성"){
-        		let reportWriter = "<textarea id='report-modal-report-writer' cols='50' rows='10' style='resize:none'>"
+        		let reportWriter = "<textarea id='report-modal-report-writer' cols='45' rows='10' style='resize:none'>"
         		reportWriter += "</textarea>";
         		$(this).parent().append(reportWriter);
         	} else {
@@ -1151,9 +1151,10 @@
         function reportEnd(r_no){
         	let report = $(event.target).parent().parent().find("#report-modal-report-type-select").val();
         	if(report=="작성"){
-        		let reportWriter = $(this).parent().parent().find("#report-modal-report-writer").val();
-        		if($.trim(reportWriter)==0||reportWriter.length==0){
+        		let reportWriter = $(event.target).parent().parent().find("#report-modal-report-writer").val();
+        		if($.trim(reportWriter).length==0){
         			alert("신고내용을 입력해주세요!");
+        			return;
         		} else {
         			report = reportWriter;
         		}
@@ -1163,15 +1164,18 @@
         	if(!flag){
         		return;
         	}else {
-        		console.log(report);
         		let reportVar = {'r_no':r_no,'m_send':"${loginMember['m_No']}","re_content":report}
-        		console.log(reportVar);
         		$.ajax({
         			url:"${path}/menu/reviewReport",
         			data:{"reportVar":JSON.stringify(reportVar)},
         			type:"post",
         			success:function(data){
-        				console.log(data);
+        				if(data==1){
+        					alert("신고가 접수되었습니다.\n빠르게 처리하겠습니다.");
+        					$("#report-modal").modal("hide");
+        				} else {
+        					alert("신고 접수에 문제가 발생했습니다.\n다시 시도하시거나 관리자에게 문의해주세요");
+        				}
         			}
         		})
         	}
