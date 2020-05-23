@@ -82,7 +82,7 @@
 			          <input  type="text" value="${a['no']}"><!--메뉴코드  --><br>
 			        
 			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
-			            <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
+			            	<p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
 			            </c:forEach>  
 			             <!--  <input id="addMenu2" type="text"/> -->
 <!-- =============================================================================================================================== -->
