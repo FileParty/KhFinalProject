@@ -12,6 +12,7 @@ import com.kh.fp.controller.business.model.dao.LicenseeDao;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
@@ -76,16 +77,18 @@ public class LicenseeServiceImpl implements LicenseeService {
 		int meNo =0;
 		
 		
-//		result = dao.insertMenu(session,m);
-//		
-//			if(result>0) {
-//				 meNo = dao.selectMenu(session);
-//				 
-//				for(MenuSide ms : list) {		
-//					ms.setMe_no(meNo);
-//				result = dao.insertMenuSide(session,ms);
-//				}
-//			}
+		result = dao.insertMenu(session,m);
+		
+			if(result>0) {
+				 meNo = dao.selectMenu(session);
+				
+				for(MenuSide ms : list) {		
+					ms.setMe_no(meNo);
+					System.out.println("서비스에요"+ms.getSd_no());
+				result = dao.insertMenuSide(session,ms);
+				}
+			
+			}
 
 		return result;
 		}
@@ -149,6 +152,26 @@ public class LicenseeServiceImpl implements LicenseeService {
 		// TODO Auto-generated method stub
 		return dao.selectReview(session,s_no);
 	}
+
+	@Override
+	public Review updateReviewReply(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		Review r = new Review();
+		result = dao.updateReviewReply(session, map);
+		if(result>0) {
+			r = dao.selectReviewReply(session,map);
+		}
+		return r;
+	}
+
+	
+
+	
+	
+	
+	
+	
 	
 	
 	

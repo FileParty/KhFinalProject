@@ -7,6 +7,7 @@ import java.util.Map;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
@@ -32,5 +33,7 @@ public interface LicenseeService {
 	int menuUpdate(Map<String,Object> map,int me_no);
 	int menuSideUpdate(List<MenuSide> list);
 	List<ReviewAll> selectReview(int s_no);
-
+	Review updateReviewReply(Map<String,Object> map);
+	
+	
 }

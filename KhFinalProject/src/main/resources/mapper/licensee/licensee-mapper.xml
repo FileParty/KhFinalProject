@@ -81,6 +81,14 @@
       WHERE R.S_NO= #{s_no}
   		
   	</select>
+   	
+  	<update id="updateReviewReply" parameterType="map">
+  		UPDATE REVIEW SET R_REPLY = #{r_reply} WHERE R_NO = #{r_no}
+  	</update> 
+  	
+  	<select id="selectReviewReply" parameterType="map" resultType="com.kh.fp.model.vo.Review">
+  		SELECT R_REPLY FROM REVIEW WHERE R_NO = #{r_no}
+  	</select>
 
 	
   	

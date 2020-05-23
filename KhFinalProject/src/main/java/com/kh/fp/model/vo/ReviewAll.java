@@ -26,4 +26,5 @@ public class ReviewAll {
 	private String me_name;
 	private String me_img;
 	private String r_img;
+	private String r_reply;
 }
