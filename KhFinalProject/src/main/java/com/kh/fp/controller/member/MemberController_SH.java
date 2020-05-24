@@ -63,8 +63,12 @@ public class MemberController_SH {
 			
 			int result = service.insertOrderInfo(map);			//order_info  insert문
 			System.out.println("첫번쨰"+map);
+			
+			
 			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
-			System.out.println("두번쨰"+map);
+		
+			
+			
 			int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
 		
 		

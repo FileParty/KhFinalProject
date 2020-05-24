@@ -80,7 +80,7 @@
 <!-- =============================================================================================================================== -->
 			          
 			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>
-			        
+			         <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  -->
 			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
 			            	<%-- <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p> --%>
 			            	   <input  type="text" name="sd_array" value=" ${c['unReqOpName']}">
@@ -934,7 +934,7 @@ $(".checkBtn").click(function(){
 	var td = tr.children();
 
 	 
-	var no = td.eq(0).text(); 				//음 이게 쿠폰no가아니고 그 td 첫번쨰공간값? td첫번쨰칸에들어있는 값전체 이거 jsp바꾸면될거같은데?
+	var no = td.eq(0).text(); 				
 	var userid = td.eq(1).text();
 	var name = td.eq(2).text();
 	var email = td.eq(3).text();
@@ -946,9 +946,6 @@ $(".checkBtn").click(function(){
 
 	str +=name;
 
-
-		
-			
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
 	
