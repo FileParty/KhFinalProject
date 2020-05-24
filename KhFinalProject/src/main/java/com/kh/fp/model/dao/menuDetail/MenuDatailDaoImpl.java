@@ -7,9 +7,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.Report;
 import com.kh.fp.model.vo.StoreCategory;
 import com.kh.fp.model.vo.StoreDetailInfo;
-import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
 import com.kh.fp.model.vo.StoreMenuSide;
 
@@ -63,6 +63,11 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 	@Override
 	public int selectStoreDetailReviewCount(SqlSessionTemplate session, Map que) {
 		return session.selectOne("storeMenuDetail.selectStoreReviewCount",que);
+	}
+
+	@Override
+	public int insertReport(SqlSessionTemplate session, Report report) {
+		return session.insert("storeMenuDetail.insertReport",report);
 	}
 	
 	

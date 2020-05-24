@@ -252,7 +252,7 @@
 										for(var i=0; i<data.length;i++){
 											var td="<tr>";
 											td +="<td>"+data[i].O_DATE+"</td>";
-											td +="<td>"+data[i].PRICE+"</td>";
+											td +="<td>"+AmountCommas(data[i].PRICE)+"</td>";
 											td +="</tr>";
 											table.append(td);
 											
@@ -276,7 +276,11 @@
 	  select.change(function() {
 	    var select_name = $(this).children("option:selected").text();
 	    $(this).siblings("label").text(select_name);
-	  })
+	  });
+	  
+	  function AmountCommas(val){
+		    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		}
 	
 	
    	
