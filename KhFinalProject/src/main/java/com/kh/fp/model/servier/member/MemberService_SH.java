@@ -22,7 +22,8 @@ public interface MemberService_SH {
 
 	Member selectMember(int m_no);
 
-	int couponDelete(int cn_no);
+
+	int couponDelete(int couponNo);
 
 
 

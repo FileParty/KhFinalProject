@@ -343,7 +343,7 @@
                          	
                                 <c:if test="${c['m_no']== loginMember['m_No'] }">
 	                              <tr>
-	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large>
+	                               <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_no'] }</large></td>
 	                                <td id="td1"><large><b style="color:rgba(235, 129, 30, 0.788);font-size: 18px;">${c['cn_name'] }</b></large> <br><small style="color:gray;  font-style: italic;">[최소주문] ${c['cn_limitprice'] }이상 구매</small></td>
 	                                <td id="td1"><large style="font-weight: bold;font-size: 18px;">${c['cn_price'] }</large>
 	                               
@@ -400,8 +400,11 @@
             </dialog>
              <!-- ===================================================================================== -->
              
-        <div style="display: inline;padding-left: 7px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)</div>
-        <input type="hidden" name="couponNo" id="strNo" />
+        <div style="display: inline;padding-left: 7px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)
+        
+          <input type="text" name="couponNo" id="strNo" /> 
+       </div>
+      
         <br> 
       </td>
     </tr>
@@ -920,8 +923,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 //버튼 클릭시 Row 값 가져오기
 $(".checkBtn").click(function(){ 
 	 $('.alloff').css("display","inline");
-	var str = ""
-	var strNo =""
+	var str = "";
+	var strNo ="";  
 	var tdArr = new Array();	// 배열 선언
 	var checkBtn = $(this);
 	
@@ -929,28 +932,27 @@ $(".checkBtn").click(function(){
 	// checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
 	var tr = checkBtn.parent().parent();
 	var td = tr.children();
-	
-	
-	var no = td.eq(0).text();
+
+	 
+	var no = td.eq(0).text(); 				//음 이게 쿠폰no가아니고 그 td 첫번쨰공간값? td첫번쨰칸에들어있는 값전체 이거 jsp바꾸면될거같은데?
 	var userid = td.eq(1).text();
 	var name = td.eq(2).text();
 	var email = td.eq(3).text();
 	
 	
-	// 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-	td.each(function(i){	
-		tdArr.push(td.eq(i).text());
-	});
-	
-	
-	str +=name
-	
-	strNo +=no
+	strNo =no; 
+	$("#strNo").attr('value',strNo);
+	console.log("선택한쿠폰의 no:"+strNo+";");
+
+	str +=name;
+
+
 		
 			
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
-	$("#strNo").val(strNo);
+	
+	
 
 	var totaldate=document.getElementById('sum').value;
 	var priceSum=document.getElementById('priceSum').value;

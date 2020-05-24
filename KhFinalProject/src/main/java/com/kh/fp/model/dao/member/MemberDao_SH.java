@@ -25,7 +25,7 @@ public interface MemberDao_SH {
 
 	Member selectMember(SqlSessionTemplate session, int m_no);
 
-	int deleteCoupon(SqlSessionTemplate session,int cn_no);
+	int couponDelete(SqlSessionTemplate session, int couponNo);
 
 
 

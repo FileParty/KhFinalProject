@@ -58,13 +58,15 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		return dao.selectMember(session,m_no);
 	}
 
+	@Override
+	public int couponDelete(int couponNo) {
+		// TODO Auto-generated method stub
+		return dao.couponDelete(session, couponNo);
+	}
+
+	
 	
 
-	@Override
-	public int couponDelete(int cn_no) {
-		// TODO Auto-generated method stub
-		return dao.deleteCoupon(session,cn_no);
-	}
 
 
 	
