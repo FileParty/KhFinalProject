@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
    <style>
 
  	div#main{
@@ -13,9 +12,10 @@
       	margin-left:30px;
       	margin-top:50px;
       }
-      div.menuDiv div {
-      width:100%;
+      div.menuDiv  {
+      margin-bottom:20px;
       }
+
   .xBtn {
 		box-shadow:inset 0px 1px 0px 0px #fce2c1;
 		background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
@@ -37,8 +37,64 @@
 	}
 	div#myModal1{
 		height:auto;
+		
 	}
-
+	#store{
+		background-color:#CDCDCD;
+		color:white;
+		font-weight:700;
+	}
+	div#demo{
+		background:linear-gradient( #FFFFFF 5%);		 
+		 width:800px;
+		 margin-left:60px;
+	}
+	div.menuList{
+	background-color:white;
+	border:1px solid lightgray;
+	 margin-bottom:20px;
+	}
+	div.carousel-item{
+		
+	}
+	span#prev{
+		
+	  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234B4B4B' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+	}
+	span#next{
+		margin-left:6px;
+		background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234B4B4B' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") ;
+	}
+	a#prevA{
+	width:30px;
+	height:30px;
+	margin-top:150px;
+	border:1px solid lightgray;
+	}
+	a#nextA{
+	width:30px;
+	height:30px;
+	margin-top:150px;
+	border:1px solid lightgray;
+	}
+	input.menuName{
+		border:none;
+		margin-top:5px;
+		font-weight:1000;
+	}
+	
+	input.sss{
+		border:none;
+		margin-top:5px;
+		margin-left:20px;
+		font-weight:1000;
+	}
+	input.menuPrice{
+		border:none;
+		margin-top:5px;
+		font-weight:1000;
+	}
+	
  
       </style>
 	<%@include file="../common/header.jsp" %>
@@ -47,6 +103,7 @@
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
+            
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
                         	<p style="font-size:30px;color:black;">메뉴 관리</p>
@@ -68,11 +125,11 @@
 					   
 					  </div>
 
-					  <a style="background-color:gray;width:30px;"class="carousel-control-prev" href="#demo" data-slide="prev">
-					    <span style="color:black;"class="carousel-control-prev-icon"></span>
+					  <a id="prevA" class="carousel-control-prev" href="#demo" data-slide="prev">
+					    <span id="prev" class="carousel-control-prev-icon"></span>
 					  </a>
-					  <a style="background-color:gray;width:30px;"class="carousel-control-next" href="#demo" data-slide="next">
-					    <span class="carousel-control-next-icon"></span>
+					  <a id="nextA" class="carousel-control-next" href="#demo" data-slide="next">
+					    <span id="next" class="carousel-control-next-icon"></span>
 					  </a>
 					</div>
 					<div id="categoryList">
@@ -162,10 +219,10 @@
 						var menuDiv = $("<div>").attr({
 							'class':'carousel-item active',	
 							 								
-						}).css({
-							'border':'1px solid red',
-				      		'width':'900',
-	
+						}).css({							
+				      		'width':'700',					      		
+				      		'margin-left':'20px',
+				      		'margin-bottom':'20px'
 						})
 						
 						for(let i=0;i<data.length;i++) {
@@ -175,18 +232,19 @@
 							let div = $("<div>").attr({
 								'class':'col menuList',								
 								}).css({
-									'width':'100',
-									'border':'1px solid orange',
-									',margin-left':'50px',
-									
-									});
+									'width':'150',
+									'height':'250',
+									'margin-left':'20px',
+									'padding':'0'
+				});
 							let menuImg = $("<img>").attr({
 								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
 								'class':'menuImg'
 							}).css({
-								'width':'240',
-								'height':'100'
-							})
+								'width':'100%',
+								'height':'130',								
+								
+								})
 							
 							let hidden = $("<input>").attr({
 								'type':'hidden',
@@ -200,24 +258,28 @@
 							})
 							
 
-							let menuText = $("<span>").html(data[i].me_text);
-							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
+							
+							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name).css('font-weight','800');   								
 							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
-							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
+							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(hidden).append(hidden2);   							
 							
 							
-							if(i<3) { 
+							if(i<4) { 
 							rowDiv.append(div);
 							menuDiv.append(rowDiv);
+							console.log(menuDiv.find($(".menuList")).length);
 							}else {
-								if(i%3==0) {
+								if(i%4==0) {
 									var rowDiv2 = $("<div>").attr('class','row row1');
 									var menuDiv2 = $("<div>").attr({
-										'class':'carousel-item',	
+										'class':'carousel-item ',	
 										 								
 									}).css({
-										'border':'1px solid red',
-							      		'width':'900',
+										
+										'width':'700',	
+							      		'height':'400',
+							      		'margin-left':'20px',
+							      		'margin-bottom':'20px'
 							      		
 							      		
 									})
@@ -226,6 +288,7 @@
 								menuDiv2.append(rowDiv2);
 							}
 							$(".menuDiv").append(menuDiv).append(menuDiv2);
+						 
 							
 						}
 						
@@ -246,12 +309,13 @@
 									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
 									'class':'menuImg'
 									}).css({
-									'width':'100%',
-									'height':'100'
+									'width':'50%',
+									'height':'100',
+									'margin-top':'10'
 									})
 								let menuText = $("<input>").attr({
 										'type':'text',
-										'class':'menuName form-control',
+										'class':'menuText form-control',
 										'value':data[j].me_text,
 										'readonly':'true'
 									}).css({'background-color':'white','width':'300px;'}).after($("<br>")); 
@@ -260,10 +324,11 @@
 									'class':'menuName form-control',
 									'value':data[j].me_name,
 									'readonly':'true'
-									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
+									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 	
+								
 										let menuPrice = $("<input>").attr({
 											'type':'number',
-											'class':'menuName form-control',
+											'class':'menuPrice form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
 									}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
@@ -447,7 +512,7 @@
 			
    		}
    		
-   	
+   	/* 
    			$("#store").change(function () {
    				
    				$("#categoryList").children().remove();
@@ -505,8 +570,8 @@
 							'class':'carousel-item active',	
 							 								
 						}).css({
-							'border':'1px solid red',
-				      		'width':'900',
+							'width':'800',	
+				      		'margin-left':'20px',
 	
 						})
 						
@@ -517,16 +582,17 @@
 							let div = $("<div>").attr({
 								'class':'col menuList',								
 								}).css({
-									'width':'100',
-									'border':'1px solid orange',
-									',margin-left':'50px',
+									'width':'200px',
+									'height':'250',
+									'margin-left':'20px',
+									'padding':'0'
 									
 									});
 							let menuImg = $("<img>").attr({
 								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
 								'class':'menuImg'
 							}).css({
-								'width':'240',
+								'width':'100%',
 								'height':'100'
 							})
 							
@@ -548,18 +614,19 @@
 							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
 							
 							
-							if(i<3) { 
+							if(i<4) { 
 							rowDivs.append(div);
 							menuDivs.append(rowDivs);
+							
 							}else {
-								if(i%3==0) {
+								if(i%4==0) {
 									var rowDiv3 = $("<div>").attr('class','row row1');
 									var menuDiv3 = $("<div>").attr({
 										'class':'carousel-item',	
 										 								
 									}).css({
 										'border':'1px solid red',
-							      		'width':'900',
+							      		'width':'800',
 
 									})
 								}
@@ -641,7 +708,7 @@
 		}
 		
    				})
-   			})
+   			}) */
    			
    			
    			
