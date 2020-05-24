@@ -76,12 +76,18 @@
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
 			        	
-			        	 <!--다나옴  -->
-
-			           <%--   <input type="text" value="${a['reqOp']['reqOpNo']}"> <!--주문코드 -->
+			        	
+<!-- =============================================================================================================================== -->
+			          
+			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>
+			        
 			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
-			                <input type="text" value="${c['unReqOpName']}">
-			              </c:forEach>   --%>
+			            	<%-- <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p> --%>
+			            	   <input  type="text" name="sd_array" value=" ${c['unReqOpName']}">
+			            </c:forEach>  
+			             <!--  <input id="addMenu2" type="text"/> -->
+			          <%--      <input  type="text" name="oNo" value="${a['reqOp']['reqOpNo']}"> <!--사이드코드 --> --%>
+<!-- =============================================================================================================================== -->
 			       	</td>
 			        <td style="text-align:left;">
 			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
@@ -411,12 +417,14 @@
      
      <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
       <div style="display: inline;padding-left: 7px;">(보유 포인트
-      			<input style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_Point']}" readonly>point)
+      			<input name="remainPoint" style="width:80px;text-align: center;border: 1px solid white;color:red;font-weight: bold;"type="text" id="allpay2" value="${loginMember['m_Point']}" readonly>point)
    <input type="hidden" id="point19" value="${loginMember['m_Point']}" readonly>
+   <input type="hidden" name="remainPoint" id="allpoint6">
+   
   </div>
       <br>
     </td>
-  </tr>
+  </tr> 		
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
@@ -1301,6 +1309,9 @@ main {
 	    $('#btn-container').css("border","solid 3px red");
 	    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
 	    $(this).val("2");
+	  /*   var addMenu=document.getElementById('addMenu').value;
+	 
+	    $("#addMenu2").val(addMenu); */
 	 }else{
 		   $(this).val("1");
 		   $('#btn-container').css("border","solid 1px black");
@@ -1467,14 +1478,14 @@ main {
 		var point=document.getElementById('allpay3').value;
 		var coupon=document.getElementById('ex2_Result3').innerHTML;
 		var basicpoint=document.getElementById('allpay2').value;
+		
 
-		console.log("전체상품: "+totaldate2);
-		console.log("쿠폰: "+coupon);
-		console.log("포인트: "+totaldate2);
  	
  
  		$("#sum").val(totaldate-point); 
  		$("#allpay2").val(basicpoint-point); 
+ 		$("#allpoint6").val(basicpoint-point); 
+ 		
  		  $("#allpay3").attr("readonly",true).css("background-color","rgb(243, 243, 243)"); 
   }else{
 	  alert("최대로 사용할 수 있는 point를 초과하였습니다.");
