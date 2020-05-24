@@ -105,7 +105,7 @@ public class UserMypage {
 	
 	  @RequestMapping("/mypage/insertReview.do")
 //	  @ResponseBody
-	  public String insertReview(@RequestParam Map<String, String> map, ModelAndView mv, MultipartFile[] upload, HttpSession session, Model mo) {
+	  public ModelAndView insertReview(@RequestParam Map<String, String> map, ModelAndView mv, MultipartFile[] upload, HttpSession session, Model mo, HttpServletRequest req) {
 		  
 			// 파일 저장 경로 가져오기
 			String path = session.getServletContext().getRealPath("/resources/img/mypage/review");
@@ -167,9 +167,9 @@ public class UserMypage {
 				}
 			}		
 			
-			mv.setViewName("redirect:/board/boardList.do");
+			mv.setViewName("redirect:/mypage/review.do");
 			
-		return review(session, null, mo);
+		return mv;
 	  
 	  }
 	
@@ -177,20 +177,22 @@ public class UserMypage {
 	 
 	
 	@RequestMapping("/mypage/review.do")
-	public String review(HttpSession session, @RequestParam Map map, Model m) {
+	public String review(HttpSession session, @RequestParam Map map, Model m, HttpServletRequest req) {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		
-		int cPage=1;
+		int cPage;
 		
 		try {
-			cPage = (int)map.get("cPage");
+			cPage = Integer.parseInt(req.getParameter("cPage"));
 		}catch(Exception e) {
+			cPage = 1;
 		}
 		int numPerPage = 5;
 		int totalData = service.reviewTotalCount(loginMember.getM_No());
-		String url = "/mypage/review.do";
+		String url = "/spring/mypage/review.do";
+		
+		System.out.println("cPage: " + cPage);
 		
 		List<Map<String, String>> list = service.selectReview(loginMember.getM_No(), cPage, numPerPage);
 		
