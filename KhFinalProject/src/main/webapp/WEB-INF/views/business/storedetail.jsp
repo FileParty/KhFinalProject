@@ -57,8 +57,8 @@
 			                  					</tr>
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">최소금액</th>
-			                  						<th class="store-enroll-info"><c:out value="${s.S_LIMITPRICE }" /> 원</th>
-			                  					</tr>
+			                  						<th class="store-enroll-info"><fmt:formatNumber maxFractionDigits="3" value="${s.S_LIMITPRICE }" /> 원</th>
+			                  					</tr> 
 			                  					<tr>
 			                  						<th class="store-enroll-info-title">결제방법</th>
 			                  						<th class="store-enroll-info"><c:out value="${s.S_PAYOPT }" /></th>

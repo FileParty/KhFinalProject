@@ -1,8 +1,5 @@
 package com.kh.fp.controller.business.model.dao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.OrderInfo;
+import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
@@ -112,9 +111,15 @@ public class StoreDaoImpl implements StoreDao {
 
 	
 	@Override
-	public Map<String, Object> orderDetail(SqlSessionTemplate session, int no) {
+	public OrderInfo orderDetail(SqlSessionTemplate session, int no) {
 		// TODO Auto-generated method stub
 		return session.selectOne("store.orderDetail",no);
+	}
+
+	@Override
+	public List<OrderMenu> orderMenu(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.orderMenu",no);
 	}
 	
 	

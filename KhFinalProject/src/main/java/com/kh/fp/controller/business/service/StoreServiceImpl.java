@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.fp.common.MyException;
 import com.kh.fp.controller.business.model.dao.StoreDaoImpl;
+import com.kh.fp.model.vo.OrderInfo;
+import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
@@ -168,9 +170,12 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Map<String, Object> orderDetail(int no) {
+	public OrderInfo orderDetail(int no) {
 		// TODO Auto-generated method stub
-		return dao.orderDetail(session,no);
+		OrderInfo o = dao.orderDetail(session,no);
+		List<OrderMenu> list = dao.orderMenu(session,no);
+		o.setO_menu(list);
+		return o;
 	}
 	
 	
