@@ -38,4 +38,5 @@ public interface LicenseeDao {
 	List<ReviewAll> selectReview(SqlSessionTemplate session,int s_no);
 	int updateReviewReply(SqlSessionTemplate session,Map<String,Object> map);
 	Review selectReviewReply(SqlSessionTemplate session,Map<String,Object> map);
+	int menuSideAdd(SqlSessionTemplate session,MenuSide ms); 
 }

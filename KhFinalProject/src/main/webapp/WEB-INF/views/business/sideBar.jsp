@@ -15,7 +15,7 @@
       
         div#side {
             border: 1px soild black;
-            margin-top:150px;
+            margin-top:100px;
             position: fixed;
             width:200px;
         }

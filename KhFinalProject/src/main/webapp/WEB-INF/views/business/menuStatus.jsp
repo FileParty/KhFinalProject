@@ -40,7 +40,7 @@
 		
 	}
 	#store{
-		background-color:#CDCDCD;
+		background-color:#E1E1E1;
 		color:white;
 		font-weight:700;
 	}
@@ -94,9 +94,13 @@
 		margin-top:5px;
 		font-weight:1000;
 	}
-	
- 
+	div.modal-body2 {
+	overflow-y:scroll;
+	}
+
       </style>
+      
+      
 	<%@include file="../common/header.jsp" %>
     <section style="width:1366px;height:auto;margin-bottom:400px;">
  	<div class="container" >
@@ -106,10 +110,11 @@
             
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
-                        	<p style="font-size:30px;color:black;">메뉴 관리</p>
+                        	<p style="font-size:40px;color:#FF5A5A;font-weight:600;text-shadow:3px 3px 5px lightgray;">메뉴 관리</p>
                         </li>
                                         
                     </ul>
+                    
                   
                     <br>
                     <br>
@@ -122,7 +127,7 @@
                     	<br>
                     	<div id="demo" class="carousel slide" data-ride="carousel">
 					  <div class="carousel-inner menuDiv">
-					   
+					   <marquee>ㅎㅇㅎㅇ </marquee>
 					  </div>
 
 					  <a id="prevA" class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -142,14 +147,12 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header">
-						          <h4 class="modal-title">메뉴 수정</h4>
-						          
+						          <h4 class="modal-title">메뉴 수정</h4>						          
 						          <button type="button" class="close" data-dismiss="modal">&times;</button>
 						        </div>
 						         
 						        <div class="modal-body2" align=center>	
-						        <br>
-						        <br>
+						        
 						        <form id="form" action="${path }/licensee/menuUpdate" method="post" class="categoryForm"> 
 						        	<div id="menuUpdate">
 						        		
@@ -236,15 +239,26 @@
 									'height':'250',
 									'margin-left':'20px',
 									'padding':'0'
-				});
-							let menuImg = $("<img>").attr({
-								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
-								'class':'menuImg'
-							}).css({
-								'width':'100%',
-								'height':'130',								
+							});
+						
 								
-								})
+								let menuImg = $("<img>").attr({									
+									'class':'menuImg'
+								}).css({
+									'width':'100%',
+									'height':'130',								
+									
+									})
+									if(data[i].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[i].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+							
 							
 							let hidden = $("<input>").attr({
 								'type':'hidden',
@@ -260,7 +274,7 @@
 
 							
 							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name).css('font-weight','800');   								
-							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
+							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원').css('color','orange');
 							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(hidden).append(hidden2);   							
 							
 							
@@ -276,8 +290,7 @@
 										 								
 									}).css({
 										
-										'width':'700',	
-							      		'height':'400',
+										'width':'700',								      		
 							      		'margin-left':'20px',
 							      		'margin-bottom':'20px'
 							      		
@@ -297,22 +310,33 @@
 					
 							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6');
-								let divTest2 = $("<div>").attr('class','col-lg-6');
+						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+								let divTest2 = $("<div>").attr('class','col-lg-5');
 									
 								let rowDev = $("<div>").attr({
 									'class':'row',
 									'onclick':'test();'
 									});
-									
-								let menuImg = $("<img>").attr({
-									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+			
+										let menuImg = $("<img>").attr({									
 									'class':'menuImg'
 									}).css({
 									'width':'50%',
 									'height':'100',
-									'margin-top':'10'
+									'margin-top':'10',
+									'margin-left':'200'	
+									
 									})
+									if(data[j].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+										
 								let menuText = $("<input>").attr({
 										'type':'text',
 										'class':'menuText form-control',
@@ -328,6 +352,7 @@
 								
 										let menuPrice = $("<input>").attr({
 											'type':'number',
+											'step':'1000',
 											'class':'menuPrice form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
@@ -372,29 +397,72 @@
    		
    		function category() {
 
-   			$(event.target).next().next().slideToggle(500);
+   			$(event.target).next().next().slideToggle(1000);
    		}
    		function menuUpdate() {
    			$("#myModal2").modal('show');
-   			$("#myModal1").modal('hide'); 
+   			$("#myModal1").modal('hide');  			
    			$("#menuUpdate").children().remove();
    			console.log($(event.target).prev().prev());
    			let div = $("<div>")
-   			let prev =$(event.target).prev();
-   			let prev1 =$(event.target).prev().prev();
-   			let prev2 =$(event.target).prev().prev().prev();
-   			let copy = prev.clone();
-   			let copy1 = prev1.clone();
-   			let copy2 = prev2.clone();
-   		
-		
-   			copy.find('input').removeAttr('disabled').removeAttr('checked');
-   			console.log(copy.find('input:hidden'));
-   			copy.find('input:hidden').removeAttr('name').attr('name','sdNo');
-   			copy1.find('input').removeAttr('readonly');
-   			copy1.find('textarea').removeAttr('readonly');
    			
-   			$("#menuUpdate").append(copy2).append(copy1).append(copy);
+   			
+   			let prev2 =$(event.target).prev().prev().prev();
+   			let prev3 =$(event.target).prev().prev().prev().prev();
+   			
+   			
+   			let copy2 = prev2.clone();
+   			let copy3 = prev3.clone();
+		
+   		 	let hide = $("<input>").attr({
+   		 		'type':'hidden',
+   		 		'name':'optionCount',
+   		 		'value':$("#optionCount").val()
+   		 	})
+   			
+   			
+   			copy2.find('input').removeAttr('readonly').css({'border':'1px solid lightgray','text-align':'center','margin-left':'30px'});
+   			copy2.find('textarea').removeAttr('readonly'); 
+   			$.ajax({
+   				url:"${path}/licensee/selectOption",
+					data:{s_no:$("#store").val()},
+					success:function(data) {
+						console.log('데이터아ㅛ',data);
+						let span = $("<span>").html("필수!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20'});
+	   					let span1 = $("<span>").html("추가!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20','margin-top':'20'});
+	   					if(data.length == 0) {
+	   					span.html('필수옵션이 없습니다ㅠㅠ');
+	   					span1.html('추가옵션이 없습니다ㅠㅠ');
+	   					}
+	   					div.append(span).append(span1).append(hide);
+						for(let i=data.length-1;i>=0;i--) {
+	   						let input = $("<input>").attr({
+	   							'type':'checkbox',
+	   							'value':data[i].sd_no,	
+	   							'name':'sdNo',
+	   							'id':'chck'+i,	
+	   						}).css({
+	   							
+	   							'display':'inline',
+	   							'margin-right':'100px;'
+	   						})
+	   						let label = $("<label>").attr({
+	   							'for':'chck'+i,
+	   						}).css({
+	   							'width':'auto',
+	   							'display':'inline',   							
+	   						}).html(data[i].sd_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].sd_price+'원');
+	   					
+	   					
+	   						if(data[i].sd_division=='Y'){
+	   							span.after($("<br>")).after(label).after(input);
+	   						}else {
+	   							span1.after($("<br>")).after(label).after(input);
+	   						}	   						
+	   					}
+					}
+   			})
+   			$("#menuUpdate").append(copy3).append(copy2).append(div);
    			
    		}
    		
@@ -417,29 +485,30 @@
 				'height':'300'
 				})
 			 let menuText = $("<textarea>").attr({					
-					'class':'menuName form-control',
+					'class':'menuTexts form-control',
 					'cols':'30',
 					'rows':'2',
 					'name':'me_text',
 					
 					'readonly':'true'
-				}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;'}).after($("<br>"));
+				}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
 			
 			let menuName = $("<input>").attr({
 				'type':'text',
-				'class':'menuName form-control',
+				'class':'menuNames form-control',
 				'value':$(event.target).parent().find('div:eq(0)').find('input:eq(0)').val(),
 				'name':'me_name',
 				'readonly':'true'
-				}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
+				}).css({'background-color':'white','width':'auto','margin-left':'80','border':'none','font-weight':'700','font-size':'20px'}).after($("<br>")); 							
 					
 			let menuPrice = $("<input>").attr({
 						'type':'number',
-						'class':'menuName form-control',
+						'class':'menuPrices form-control',
+						'step':'1000',
 						'value':$(event.target).parent().find('div:eq(0)').find('input:eq(1)').val(),
 						'name':'me_price',
 						'readonly':'true'
-				}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
+				}).css({'background-color':'white','width':'auto','color':'red','margin-left':'100','border':'none'}).after($("<br>")); 
 			
 			let me_no = $("<input>").attr({
 				'type':'hidden',
@@ -459,22 +528,35 @@
 				'value':$("#store").val()
 			}) 
    			 div1.append(menuImg);
-			
+
 			 div2.append($("<br>")).append(menuName).append(menuPrice).append($("<br>")).append(menuText).append(me_no).append(mt_no).append(s_no).append($("<br>"));
 			$(".modal-body1").append(div1).append(div2);
    			
-			
+			console.log('메뉴번호',$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val());
 			$.ajax({
    				url:'${path}/licensee/selectMenuSide',
    				data:{me_no:$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val(),s_no:$("#store").val()},
    				success:function(data) {
    					console.log("메뉴옵션 성공!",data);
    					let div = $("<div>");
-   					let span = $("<span>").html("필수!!!!!!!!!").css('display','block');
-   					let span1 = $("<span>").html("추가!!!!!!!!!").css('display','block');
-
-   					div.append(span).append(span1);
-   					for(let i=0;i<data.length;i++) {
+   					let span = $("<span>").html("필수!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20'});
+   					let span1 = $("<span>").html("추가!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20','margin-top':'20'});
+   					if(data.length == 0) {
+   					span.html('필수옵션이 없습니다ㅠㅠ');
+   					span1.html('추가옵션이 없습니다ㅠㅠ');
+   					}
+   					
+						let hide = $("<input>").attr({
+							'type':'hidden',
+							'id':'optionCount'
+						})
+						if(data.length == 0) {
+							hide.attr('value','0');
+						}else {
+							hide.attr('value','1');
+						}
+   					div.append(span).append(span1).append(hide);
+   					for(let i=data.length-1;i>=0;i--) {
    						let input = $("<input>").attr({
    							'type':'checkbox',
    							'value':data[i].sd_no,
@@ -484,14 +566,14 @@
    						}).css({
    							
    							'display':'inline',
-   							'margin-right':'50px;'
+   							'margin-right':'100px;'
    						})
    						let label = $("<label>").attr({
    							'for':'chck'+i,
    						}).css({
    							'width':'auto',
-   							'display':'inline'
-   						}).html(data[i].sd_name+data[i].sd_price+'원');
+   							'display':'inline',   							
+   						}).html(data[i].sd_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].sd_price+'원');
    						
    					
    						if(data[i].sd_division=='Y'){
@@ -506,14 +588,13 @@
    							'class':'btn btn-outline-warning',
    							'onclick':'menuUpdate();'
    						})
-   					$(".modal-body1").append(div).append(btn);
+   					$(".modal-body1").append(div).append($("<br>")).append(btn);
    				}
    			})
 			
    		}
-   		
-   	/* 
-   			$("#store").change(function () {
+   
+   			$("#store").on('change',function () {
    				
    				$("#categoryList").children().remove();
 
@@ -544,57 +625,56 @@
 						}
 					}
 				}) 
-   			
-   				$.ajax({
-   					url:"${path}/licensee/selectOption",
-   					data:{s_no:$("#store").val()},
-   					success:function(data) {
-   						console.log("옵션성공",data);
-   				
-   						}
-   						
-   					
-   				})
-   				
-   				$.ajax({
-   					url:"${path}/licensee/menuSelect",
-   					data:{s_no:$("#store").val()},
-   					success:function(data) {
-   						console.log('?',data);
-   						
-						let remove = $(".row1").children().remove();
-						let divs = $("<div>");
-						let rowDivs = $("<div>").attr('class','row row1')
+				
+   			$.ajax({
+   				url:"${path}/licensee/menuSelect",
+					data:{s_no:$("#store").val()},
+					success:function(data) {
+						$(".menuDiv").children().remove();
+						console.log('메뉴성공',data);						
+						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
+						let rowDiv = $("<div>").attr('class','row row1')
 						
-						var menuDivs = $("<div>").attr({
+						var menuDivv = $("<div>").attr({
 							'class':'carousel-item active',	
 							 								
-						}).css({
-							'width':'800',	
+						}).css({							
+				      		'width':'700',					      		
 				      		'margin-left':'20px',
-	
+				      		'margin-bottom':'20px'
 						})
 						
 						for(let i=0;i<data.length;i++) {
-							 $(".menuView"+i).hide(); 
+							$(".menuView"+i).hide();
 							console.log('i입니다',i%3);
-							
+							let divTest = $("<div>");
 							let div = $("<div>").attr({
 								'class':'col menuList',								
 								}).css({
-									'width':'200px',
+									'width':'150',
 									'height':'250',
 									'margin-left':'20px',
 									'padding':'0'
+							});
+						
+								
+								let menuImg = $("<img>").attr({									
+									'class':'menuImg'
+								}).css({
+									'width':'100%',
+									'height':'130',								
 									
-									});
-							let menuImg = $("<img>").attr({
-								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
-								'class':'menuImg'
-							}).css({
-								'width':'100%',
-								'height':'100'
-							})
+									})
+									if(data[i].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[i].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+							
 							
 							let hidden = $("<input>").attr({
 								'type':'hidden',
@@ -608,56 +688,74 @@
 							})
 							
 
-							let menuText = $("<span>").html(data[i].me_text);
-							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
-							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
-							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
+							
+							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name).css('font-weight','800');   								
+							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원').css('color','orange');
+							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(hidden).append(hidden2);   							
 							
 							
 							if(i<4) { 
-							rowDivs.append(div);
-							menuDivs.append(rowDivs);
+							rowDiv.append(div);
+							menuDivv.append(rowDiv);
 							
 							}else {
 								if(i%4==0) {
 									var rowDiv3 = $("<div>").attr('class','row row1');
 									var menuDiv3 = $("<div>").attr({
-										'class':'carousel-item',	
+										'class':'carousel-item ',	
 										 								
 									}).css({
-										'border':'1px solid red',
-							      		'width':'800',
-
+										
+										'width':'700',								      		
+							      		'margin-left':'20px',
+							      		'margin-bottom':'20px'
+							      		
+							      		
 									})
 								}
 								rowDiv3.append(div);
 								menuDiv3.append(rowDiv3);
 							}
-							$(".menuDiv").append(menuDivs).append(menuDiv3);
+							$(".menuDiv").append(menuDivv).append(menuDiv3);
+						 
 							
 						}
 						
 						for(let i=0;i<data.length;i++) {
-
+						
+					
+							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6');
-								let divTest2 = $("<div>").attr('class','col-lg-6');
+						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+								let divTest2 = $("<div>").attr('class','col-lg-5');
 									
 								let rowDev = $("<div>").attr({
 									'class':'row',
 									'onclick':'test();'
 									});
-									
-								let menuImg = $("<img>").attr({
-									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+			
+										let menuImg = $("<img>").attr({									
 									'class':'menuImg'
 									}).css({
-									'width':'100%',
-									'height':'100'
+									'width':'50%',
+									'height':'100',
+									'margin-top':'10',
+									'margin-left':'200'	
+									
 									})
+									if(data[j].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+										
 								let menuText = $("<input>").attr({
 										'type':'text',
-										'class':'menuName form-control',
+										'class':'menuText form-control',
 										'value':data[j].me_text,
 										'readonly':'true'
 									}).css({'background-color':'white','width':'300px;'}).after($("<br>")); 
@@ -666,10 +764,12 @@
 									'class':'menuName form-control',
 									'value':data[j].me_name,
 									'readonly':'true'
-									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
+									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 	
+								
 										let menuPrice = $("<input>").attr({
 											'type':'number',
-											'class':'menuName form-control',
+											'step':'1000',
+											'class':'menuPrice form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
 									}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
@@ -703,12 +803,13 @@
 							}
 							 
 							} 
-	
-   					}
-		}
-		
-   				})
-   			}) */
+							 
+						}
+						
+					
+					}
+   			})
+   			}) 
    			
    			
    			

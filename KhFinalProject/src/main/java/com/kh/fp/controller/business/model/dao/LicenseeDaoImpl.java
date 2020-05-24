@@ -146,6 +146,14 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		return session.selectOne("licensee.selectReviewReply",map);
 	}
 
+	@Override
+	public int menuSideAdd(SqlSessionTemplate session, MenuSide ms) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.insertMenuSide",ms);
+	}
+	
+	
+
 	
 	
 	

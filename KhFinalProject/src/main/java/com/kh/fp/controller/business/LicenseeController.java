@@ -494,7 +494,10 @@ public class LicenseeController {
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
 		int sd_no[] = new int[sd.length];
-		
+		int optionCount = Integer.parseInt(req.getParameter("optionCount"));
+		if(optionCount == 0) {
+			
+		}
 		log.debug("가게번호"+s_no);
 		log.debug("메뉴번호"+me_no);
 		log.debug("카테고리"+mt_no);
@@ -517,9 +520,15 @@ public class LicenseeController {
 			log.debug("추가번호"+sd_no[i]);
 			list.add(ms);
 		}
-		int result = service.menuUpdate(map,me_no);
+		int result = service.menuUpdate(map,me_no,optionCount);
+		if(optionCount == 0 ) {
+			if(result>0) {
+				result = service.menuSideAdd(list);
+			}
+		}else {
 		if(result>0) {
 			result = service.menuSideUpdate(list);
+		}
 		}
 		String page ="";
 		if(result>0) {

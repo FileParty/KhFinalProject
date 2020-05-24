@@ -126,14 +126,15 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.storesNo(session,no);
 	}
 
-	public int menuUpdate(Map<String, Object> map,int me_no) {
+	public int menuUpdate(Map<String, Object> map,int me_no,int optionCount) {
 		int result = 0;
 		
 		result = dao.menuUpdate(session,map);
 		if(result>0) {
+			if(optionCount==1) {
 			result = dao.menuSideDelete(session, me_no);
 			}
-		
+		}
 		return result;
 	}
 
@@ -164,6 +165,19 @@ public class LicenseeServiceImpl implements LicenseeService {
 		}
 		return r;
 	}
+
+	@Override
+	public int menuSideAdd(List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		for(MenuSide ms : list) {
+			result = dao.insertMenuSide(session,ms);
+		}
+		return result;
+
+	}
+	
+	
 
 	
 

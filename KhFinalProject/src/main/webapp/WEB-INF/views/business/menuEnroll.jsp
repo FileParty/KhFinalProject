@@ -99,6 +99,8 @@
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
                     		<div class="container addCategory">	
+                    		<br>
+                    		<br>
                     		</div>
                     		<br>
                     		<br>
@@ -666,7 +668,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(mCheck[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
@@ -725,7 +727,7 @@
 				 		'name':'categoryEnd',
 				 		'value':$("#selectCategory").val(),
 				 		'readonly':'true'
-				 	})
+				 	}).css('margin-top','30');
 				 	
 				 	
 				 	var mtNoInput = $("<input>").attr({
