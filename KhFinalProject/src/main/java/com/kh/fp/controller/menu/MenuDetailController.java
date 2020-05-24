@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
+import com.kh.fp.model.vo.Report;
 import com.kh.fp.model.vo.StoreDetailInfo;
-import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
 
 import lombok.extern.slf4j.Slf4j;
@@ -119,6 +121,16 @@ public class MenuDetailController {
 		}
 		List list = service.selectStoreDetailReview(que,cPage);
 		return list;
+	}
+	
+	
+	@RequestMapping("/menu/reviewReport")
+	@ResponseBody
+	public int storeReviewReport(@RequestParam String reportVar) throws JsonMappingException, JsonProcessingException {
+		Report report = mapper.readValue(reportVar, Report.class);
+		int result = service.insertReport(report);
+		log.debug("신고"+report);
+		return result;
 	}
 	
 

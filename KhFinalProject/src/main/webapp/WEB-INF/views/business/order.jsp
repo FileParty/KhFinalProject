@@ -56,7 +56,7 @@
 			                    			<td>주문취소</td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '주문완료' }">
-			                    			<td><input type="button" value="완료"></td>
+			                    			<td><input type="button" value="배달출발"></td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '배달중' }">
 			                    			<td>배달중</td>
