@@ -38,5 +38,10 @@
 <!--============================ 쓴쿠폰 삭제하기  ============================ -->
 <!-- delete from coupon where cn_no=21; -->
 
+	<delete id="deleteCoupon" parameterType="_int">
+		DELETE FROM COUPON WHERE CN_NO = #{couponNo}
+		
+	</delete>
+	
 </mapper>
 	

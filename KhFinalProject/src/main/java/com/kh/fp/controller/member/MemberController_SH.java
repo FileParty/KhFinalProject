@@ -57,13 +57,17 @@ public class MemberController_SH {
 	
 	//결제 db에넣기 
 		@RequestMapping("/pay/payment.do")
-		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session,int cn_no) {
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session) {
 			
 			Member m = (Member )session.getAttribute("loginMember");
 			
 			int result = service.insertOrderInfo(map);			//order_info  insert문
 			System.out.println("첫번쨰"+map);
 			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
+			System.out.println("두번쨰"+map);
+			int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
+		
+		
 			
 			int resultPoint = service.updateMemberPoint(map);  //m_point update문
 			if(resultPoint > 0) {
@@ -76,8 +80,11 @@ public class MemberController_SH {
 				
 			  
 			}
-			int couponDelete =service.couponDelete(cn_no); //coupon테이블 delete 
+		
 			
+			
+			
+		
 			
 			
 			

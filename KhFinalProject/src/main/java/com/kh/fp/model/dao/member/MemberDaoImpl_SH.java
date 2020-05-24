@@ -58,10 +58,12 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 	}
 
 	@Override
-	public  int deleteCoupon(SqlSessionTemplate session,int cn_no) {
+	public int couponDelete(SqlSessionTemplate session, int couponNo) {
 		// TODO Auto-generated method stub
-		return session.delete("infoOrder.deleteCoupon", cn_no);
+		return session.delete("infoOrder.deleteCoupon",couponNo);
 	}
+
+
 
 
 
