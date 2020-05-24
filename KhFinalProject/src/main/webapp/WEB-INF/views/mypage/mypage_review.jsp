@@ -27,11 +27,11 @@
                     <table class="table content">
 
                         <tr>
-                            <th>날짜</th>
-                            <th>상호명</th>
-                            <th>별점</th>
-                            <th>리뷰내용</th>
-                            <th></th>
+                            <th style="text-align:center">날짜</th>
+                            <th style="text-align:center">상호명</th>
+                            <th style="text-align:center">별점</th>
+                            <th style="text-align:center">리뷰내용</th>
+                            <th style="text-align:center"></th>
                         </tr>
                         
                         <c:forEach items="${list }" var="rev">
@@ -40,7 +40,7 @@
 	                            <td>${rev['S_NAME'] }</td>
 	                            <td>${rev['R_SCORE_TASTE'] } ${rev['R_SCORE_AMOUNT'] } ${rev['R_SCORE_DELIVERY'] } </td>
 	                            <td>${rev['R_TEXT'] } </td>
-	                            <td><button onclick="reviewDetail('${rev['r_no']}');">상세보기</button></td>
+	                            <td><button onclick="reviewDetail('${rev['R_NO']}');">상세보기</button></td>
 	                        </tr>
                         	
                         </c:forEach>
@@ -168,6 +168,8 @@
             $("body").attr("style","overflow-y:scroll");
         });
         
+        
+        
 
     </script>
 
@@ -211,7 +213,11 @@
       z-index:-1;
     }   
     
-    .table th{
+    #modal th{
+    	text-align:center;
+    }
+    
+    table td{
     	text-align:center;
     }
     </style>

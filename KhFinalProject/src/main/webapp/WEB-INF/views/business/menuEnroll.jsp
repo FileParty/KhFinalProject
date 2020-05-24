@@ -3,6 +3,8 @@
     
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
   <style>
@@ -74,24 +76,25 @@
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-                     <ul class="nav nav-tabs nav-justified">
-                        <li class="nav-item">
-                        	<a href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</a>
-                        </li>
-                         <li class="nav-item">
-                        	<a href="${path }/licensee/menuStatus" class="list nav-link">메뉴 관리</a>
+                     <ul class="nav">
+                        <li class="">
+                        	<p style="font-size:30px;color:black;"href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</p>
                         </li>
                     </ul>
                     <br>                 
 
                     	<div class="col-12">
                     	<br>
-                    		<h5 style="text-align:center;"><strong><span style="color:red;">* 카테고리</span> -><span style="color:orange;"> 추가옵션 </span>-> <span style="color:lightgreen;">메뉴등록</span> 순으로 등록하시면 편리합니다.</strong></h5>
-                    	<br>
-                    	<br>
-                    	   
-                    	   <button type="button" id="subBtn" class="btnC btn btn-outline-success" data-toggle="modal" data-target="#myModal3">카테고리 추가</button> 
-                    	   <button type="button" id="subBtn1" class="btn btn-outline-warning btnC1" data-toggle="modal" data-target="#myModal">옵션 추가</button>
+                    		
+                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:400px;width:auto;display:block;">
+                    		<c:forEach items="${store}" var="s">
+                    			<option for="storeInfo" value="${s.s_No }"><c:out value="${s.s_Name }" /></option>
+                    		</c:forEach> 
+                    		</select>
+                    		<br>
+                    		<br>
+                    	   <button type="button" id="subBtn" class="btnC btn btn-outline-success" onclick="categoryPlus();">카테고리 추가</button> 
+                    	   <button type="button" id="subBtn1" class="btn btn-outline-warning btnC1" onclick="optionPlus();">옵션 추가</button>
                     	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();">메뉴 등록</button>
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
@@ -118,7 +121,7 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						        <form action="${path }/licensee/categoryEnroll" method="post" class="categoryForm"> 
+						        <form id="form" action="${path }/licensee/categoryEnroll" method="post" class="categoryForm"> 
 						        	<button type="submit">등록</button>
 						        </form>
 						        </div>					        
@@ -136,7 +139,7 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						        	<form action="${path }/licensee/optionEnroll" method="post">	         	
+						        	<form id="optionForm" action="${path }/licensee/optionEnroll" method="post" onsubmit="return text();">	         	
 						          	<input style="width:60px;display:inline" type="text" id="plusOption2" name="e_option" class="form-control" placeholder="필수" disabled>
 						          	<button type="button" class="btn btn-outline-success plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
@@ -148,6 +151,7 @@
 						          	<br>
 						          	<br>
 						          	<div id="option2-container"></div>
+						          	 
 						          	<button type="submit" class="btn btn-outline-danger" >등록</button>		
 						          	</form>		        
 						        </div>					        
@@ -169,9 +173,7 @@
 						        		<input type="text" placeholder="메뉴명" class="menu-name form-control" name="menu-name">
 						        		<input type="number" placeholder="메뉴가격" class="menu-price form-control" name="menu-price">
 						        		<textarea cols="20" rows="1" placeholder="메뉴간단설명(30자 제한)" id="textArea" class="menu-detail form-control" name="menu-detail"></textarea>
-						        		
-						        		<input  type="hidden" value="" id="hid" >					         
-						        		<br>							        		
+						        		<br>
 						        	</div>
 						        	<div style="margin-top:200px;"class="body-container2"></div>
 						        	<div style=""class="body-container3"></div>
@@ -179,15 +181,46 @@
 						        </div>
 						      </div>
 						    </div>
-						  </div>	
+						  </div>
+	  	
 		<script>
+		
+		function text() {
+			//옵션 폼
+		/* 	let sd_name = $("input[name=sd_name]").val();
+			let sd_price = $("input[name=sd_name]").val();
+			if(sd_name.trim().length==0 || sd_price.trim().length==0) {
+				
+				return false;
+			} */
+		}
 		$(function() {
 		$("#textArea").on('keyup',function(){
 			if($(this).val().length>20) {
 				$(this).val($(this).val().substring(0,30));
 			}
 		});
+			$.ajax({
+				url:'${path}/licensee/businessStore',
+				success:function(data) {
+					
+					if(data.length == 0) {
+						var msg = confirm('등록된 가게가 없습니다.등록하시겠습니까?');
+						if(msg) {
+							location.replace('${path}/store/storeEnroll.do');
+						}
+					}
+				}
+			})
 		});
+			$(".close").click(function() {
+			
+				$("input[name=category]").remove();
+				$("input[name=sd_name]").parent().parent().remove();
+				$("input[name=sd_price]").parent().remove();
+				$(".deleteBtn").remove();
+				
+			})
 			var num = 0;			
 			 $("#modalFile").change(function(){
 				 console.log($("#modalFile").val());
@@ -208,46 +241,72 @@
 				$(".menu-price").val("");
 				$(".menu-detail").val("");
 				$("#modalFile").val("");
-				$(".fileName").html('');
+				$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
 			}
-			function menuEnroll() {
-				
-				$("#myModal2").modal({backdrop:'static'});
-				
-				var sel = $("<select>").attr({
-					'id':'selectCategory',
-					'class':'form-control',				
-				}).css({
-					'width':'120'
-				});
-				
-				
+			 function categoryPlus() {
+
+						 $("#myModal3").modal('show');
+						 $(".modal-body").children().find('input[name=storeNo]').remove();
+						 let storeNo = $("<input>").attr({
+							 'type':'hidden',
+							 'name':'storeNo',
+							 'value':$("#storeInfo").val()
+						 });
+						 $("#form").append(storeNo);
+
+					 }
+	 
+			 
+			 function optionPlus() {
+			
+							 $("#myModal").modal('show');
+							 let storeNo = $("<input>").attr({
+								 'type':'hidden',
+								 'name':'storeNum',
+								 'value':$("#storeInfo").val()
+							 });
+							 $("#option2-container").append(storeNo);
+						 }
+
+			 function menuEnroll() {
+
 				$.ajax({
 					url:'${path}/licensee/selectCategory',
+					data:{s_no:$("#storeInfo").val()},
 					success:function(data){
+						$("#myModal2").modal({backdrop:'static'});
+						
+						var sel = $("<select>").attr({
+							'id':'selectCategory',
+							'class':'form-control',				
+						}).css('width','auto');
+						 
+						
 						for(let i=0;i<data.length;i++) {
 							var op = $("<option>").attr({
 								'for':'selectCategory',
 								'value':data[i].mt_name,
-								'alt':data[i].mt_no
+								
 								
 							}).html(data[i].mt_name);
 							
 							var mtNo = $("<input>").attr({
 								'type':'hidden',
 								'value':data[i].mt_no,
-								'name':'mt_nos',
+								'name':'mt_no',
 								'class':'mtNo'+data[i].mt_no
 							})
 							sel.append(op).append(mtNo);
 						}
-						$(".body-container").append(sel).append($("<br>"));
+						
+						$(".body-container").append(sel);
+						
 						
 					}
 				})
 				num++;
 			}
-			
+			 
 			
 			function add() {
 				$(".categoryForm").append($("<input>").attr({'type':'text','class':'form-control','name':'category','placeholder':'카테고리를 입력해주세요.'}));
@@ -260,13 +319,17 @@
 				let div2 = $(".body-container3").children();
 				 	$.ajax({
 				url:'${path }/licensee/selectOption',
+				data:{s_no:$("#storeInfo").val()},
 				success:function(data) {
 					div.remove();
 					div2.remove();
 					console.log('성공');
 					console.log(data);
-					
-					
+					if(data.length == 0 || data.sd_division == 'Y') {
+						var xh = $("<h3>").html('등록 된  옵션이 없습니다!');						
+						$(".body-container2").append(xh);					
+					}
+					else {
 					var hh3 = $("<h3>").attr({
 						'class':'hh3text'
 					}).html('필수선택');
@@ -280,7 +343,7 @@
 					for(let i=0;i<data.length;i++) {
 						if(data[i].sd_division=='Y') {
 					var input =  $("<input>").attr({
-						'type':'radio',
+						'type':'checkbox',
 						'value':data[i].sd_name,
 						'id':'sideOption'+i,
 						'name':'radio'
@@ -325,6 +388,7 @@
 					}
 					}
 					
+				}
 				},
 				error:function(){
 					console.log("실패");
@@ -332,7 +396,7 @@
 			});	 
 			})
 			
-			var tbl = $("<table>");
+			var tbl = $("<table>").attr('id','option1');
 			var tr = $("<tr>");
 			var th = $("<th>").html('옵션');
 			var th1 = $("<th>").html('가격');
@@ -348,6 +412,7 @@
 				var tr1 = $("<tr>");
 				var td = $("<td>");
 				var td1 = $("<td>");
+				var td2 = $("<td>");
 				var text = $("<input>").attr({
 					'type':'text',
 					'name':'sd_name',
@@ -365,13 +430,29 @@
 					'type':'hidden',
 					'value':'Y'
 				})
+				let deleteBtn = $("<input>").attr({
+					'class':'deleteBtn',
+					'type':'button',
+					'value':'x',
+					'onclick':'deleteX();'
+					
+				})
 				td.append(text);
 				td1.append(number).append(hidden);
-				tr.append(td).append(td1);
+				td2.append(deleteBtn);
+				tr.append(td).append(td1).append(td2);
 				tbl.append(tr);
 				$("#option1-container").append(tbl);			
 			}
-			var tbl2 = $("<table>");
+			
+			function deleteX() {
+				console.log(event.target.parentNode.parentNode);
+				let deleteX = event.target.parentNode.parentNode;
+				deleteX.remove();
+				
+			}
+			
+			var tbl2 = $("<table>").attr('id','option2');
 			var tr2 = $("<tr>");
 			var th2 = $("<th>").html('옵션');
 			var th3 = $("<th>").html('가격');
@@ -380,11 +461,13 @@
 			tbl2.attr({
 				'class':'table table-hover'
 			})
+			
 			function option1() {
 				var tr = $("<tr>");
 				var tr1 = $("<tr>");
 				var td = $("<td>");
 				var td1 = $("<td>");
+				var td2 = $("<td>");
 				var texts = $("<input>").attr({
 					'type':'text',
 					'name':'sd_name',
@@ -403,16 +486,24 @@
 					'type':'hidden',
 					'value':'N'
 				})
+				
+				let deleteBtn = $("<input>").attr({
+					'class':'deleteBtn',
+					'type':'button',
+					'value':'x',
+					'onclick':'deleteX();'
+					
+				})
 				td.append(texts);
 				td1.append(numbers).append(hidden);
-				tr.append(td).append(td1);
+				td2.append(deleteBtn);
+				tr.append(td).append(td1).append(td2);
 				tbl2.append(tr);
 				$("#option2-container").append(tbl2);					
 			}
 		
 			
 			function menu_enroll() {
-			
 				if($("input[name=menu-name]").val().trim().length==0){
 					alert('메뉴명을 적어주세요!');
 					$("input[name=menu-name]").focus();
@@ -457,63 +548,33 @@
 				}
 			
 				
-				if($("input[name=radio]:checked").length==0){
+				/* if($("input[name=radio]:checked").length==0){
 					alert('필수옵션 선택해주세요!');
 					$("input[name=radio]:checked").focus();
 					$("#optionEnroll").removeAttr('data-dismiss');
 					return;
 				}else {
 				$("#optionEnroll").attr('data-dismiss','modal');
-				}
+				} */
 				
-				 if(checkCount == 0) {
+				/*  if(checkCount == 0) {
 					 alert('추가옵션은 1개 이상 선택해주세요!');
 					 $("#optionEnroll").removeAttr('data-dismiss');
 					 return;
 				 }else {
 						$("#optionEnroll").attr('data-dismiss','modal');
-					}
+					} */
 				
 				
 				var cloneFile = $("#modalFile").clone();
 				cloneFile.removeAttr('id');
 				cloneFile.attr({
-					'display':'none',
-					'id':'test',
-					'name':'me_logImg'
-				})
-				var values = $("input[name=radio]:checked").val();
-				var spanValue = $("input[name=radio]:checked").next().next().html();
-				
-				
-				var inputR = $("<input>").attr({
-					 'type':'radio',
-					 'name':'end',
-					 'id':'end',
-					 'value':values,
-					 'checked':'true',
-					'class':'form-control'
+					'id':'cloneFile',
+					'name':'me_logImg',
 					
-				 }).css({'display':'inline','width':'20','height':'20'});
-				 var labelR = $("<label>").attr({
-					 'for':'end',
-					 
-				 }).html($("input[name=radio]:checked").val());
-				
-				 let sdNoHid = $("<input>").attr({
-					 'type':'hidden',
-					 'name':'sdNoEnd',
-					 'value':$("input[name=radio]:checked").prev().val()
-				 })
-				 
-				 var spans = $("<input>").attr({'type':'number','name':'rPrice','value':spanValue,'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
-				 var strong = $("<strong>");
-				 var pTag = $("<p>").html("필수");
-				 
-				 strong.append(pTag);
-				
-				
-				
+				}).css('display','none');
+
+
 				var menuName = $(".menu-name").val();
 				var menuPrice = $(".menu-price").val();
 				var menuDetail = $(".menu-detail").val();
@@ -571,15 +632,64 @@
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
-				div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>");
-				let check = [];
-				let price =[];
-				let sdNo=[];
-				var strong1 = $("<strong>");
-				var pTag1 = $("<p>").html("추가");
-				strong1.append(pTag1);
-				div1.append(strong1);
-				
+			 	/* div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>");  */
+			
+				if($("input[name=radio]:checked").length !=0) {
+				 var strong = $("<strong>");
+				 var pTag = $("<p>").html("필수");
+				 strong.append(pTag);
+				 div1.append(strong);	
+				}else {
+					div1.append($("<span>").css('display','block').html('선택 된 필수 옵션이 없습니다!'));
+				}
+
+				let mCheck = [];
+				let mPrice = [];
+				let sdNum = [];
+				 $("input[name=radio]:checked").each(function(i) { 
+
+					 mCheck[i]=$(this).val();
+					 mPrice[i]=$(this).next().next().html();
+					 sdNum[i]=$(this).prev().val();
+					 console.log('옵옵'+sdNum[i]);
+				        var mCheckbox = $("<input>").attr({
+				        	'type':'checkbox',
+				        	'name':'checked',
+				        	'value':mCheck[i],
+				        	'id':'addEnd'+i,
+				        	'class':'form-control checkk',
+				        	'checked':'true',
+				        	'readonly':'true'
+				        	
+				        }).css({'display':'inline','width':'20'});
+				        var mLabel = $("<label>").attr({
+				        	'for':'addEnd'+i,
+				        	
+				        }).html(mCheck[i]).css({'display':'inline'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				    	
+				       let sdNoInput = $("<input>").attr({
+							'type':'hidden',
+							'value':sdNum[i],
+							'name':'sdNoEnd'
+						});
+				   
+				        div1.append(sdNoInput).append(mCheckbox).append(mLabel).append(spanValues).append($("<br>"));
+				 });
+				 
+					 let check = [];
+					let price =[];
+					let sdNo=[];
+					if($("input[name=check]:checked").length !=0) {
+					var strong1 = $("<strong>");
+					var pTag1 = $("<p>").html("추가");
+					strong1.append(pTag1);
+					div1.append(strong1);
+					}else {
+						div1.append($("<span>").html('선택 된 추가 옵션이 없습니다!'));
+					}
+					
+					
 				 $("input[name=check]:checked").each(function(i) { 
 
 				        check[i]=$(this).val();
@@ -592,6 +702,7 @@
 				        	'id':'addEnd'+i,
 				        	'class':'form-control checkk',
 				        	'checked':'true',
+				        	'readonly':'true'
 				        	
 				        }).css({'display':'inline','width':'20'});
 				        var goods = $("<label>").attr({
@@ -600,10 +711,10 @@
 				        }).html(check[i]).css({'display':'inline'});
 				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
 				    	
-				       var sdNoInput = $("<input>").attr({
+				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
 							'value':sdNo[i],
-							'name':'sdNoEnd'
+							'name':'sdNoEnds'
 						});
 	
 				        div1.append(sdNoInput).append(good).append(goods).append(spanValues).append($("<br>"));
@@ -620,15 +731,20 @@
 				 	var mtNoInput = $("<input>").attr({
 				 		'type':'hidden',
 				 		'name':'mt_no',
-				 		'value':$("option:selected").next().val(),
+				 		'value':$("#selectCategory option:selected").next().val(),
 				 	})
-				 	var testss = $(".bodyTwo"+num);
 				 	
-				 	var hiddenInput = $("<input>").attr({
-				 		'type':'hidden',
-				 		'name':'count',
-				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
-				 	})
+				 	var testss = $(".bodyTwo"+num);
+				 					
+				 	 let storeNo = $("<input>").attr({
+					 'type':'hidden',
+					 'name':'storeNum',
+					 'value':$("#storeInfo").val()
+					 });
+				 	
+				 	
+				 	
+				 	
 		 
 				var divv = $("<div>")
 				divv.append(hiddenInput);
@@ -648,11 +764,17 @@
 				 		'name':'count',
 				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnd]")).length
 				 	})
+				 	var hiddenInput1 = $("<input>").attr({
+				 		'type':'hidden',
+				 		'name':'counts',
+				 		'value':$(".categoryPlus"+num).find($("input[name=sdNoEnds]")).length
+				 	})
 				
-				 div3.append(hiddenInput);
+				 div3.append(hiddenInput).append(hiddenInput1).append(storeNo);
 				 
 
 				 }
+
 			
 		
 		

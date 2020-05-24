@@ -15,15 +15,15 @@
   	</select>
   	
   	 <insert id="insertSide" parameterType="map">
-  		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},1,#{sd_division})
+  		INSERT INTO SIDE VALUES(SEQ_SIDE_NO.NEXTVAL,#{sd_name},#{sd_price},#{s_no},#{sd_division})
   	</insert> 
   	
   	<insert id="insertCategory" parameterType="map">
-  		INSERT INTO MENU_CATEGORY VALUES(SEQ_MT_NO.NEXTVAL,#{mt_name},1)
+  		INSERT INTO MENU_CATEGORY VALUES(CATEGORY_SEQ.NEXTVAL,#{mt_name},#{s_no})
   	</insert>
   	
   	<insert id="insertMenu" parameterType="com.kh.fp.model.vo.Menu">
-  		INSERT INTO MENU VALUES(SEQ_MENU_NO.NEXTVAL,#{me_name},#{me_price},#{me_logImg},#{mt_no},#{me_text},#{me_best},1)		
+  		INSERT INTO MENU VALUES(SEQ_MENU_NO.NEXTVAL,#{me_name},#{me_price},#{me_logImg},#{mt_no},#{me_text},#{me_best},#{s_no})		
   	</insert>
   	
   	<select id="selectMenu" resultType="_int">
@@ -33,11 +33,63 @@
   		INSERT INTO MENU_SIDE VALUES(#{me_no},#{sd_no})
   	</insert>  
   	<select id="selectOption" parameterType="_int" resultType="com.kh.fp.model.vo.Side">
-  		SELECT * FROM SIDE WHERE S_NO = #{sNo}
+  		SELECT * FROM SIDE WHERE S_NO = #{s_no}
   	</select>
   	
   	<select id="selectCategory" parameterType="_int" resultType="com.kh.fp.model.vo.MenuCategory">
-  		SELECT * FROM MENU_CATEGORY WHERE S_NO = 1
+  		SELECT * FROM MENU_CATEGORY WHERE S_NO = #{s_no}
   	</select>
+  	
+  	<select id="selectStoreNo" parameterType="_int" resultType="com.kh.fp.model.vo.Store">
+  		SELECT * FROM STORE WHERE B_NO = #{b_no}
+  	</select>
+  	
+  	<select id="selectMenuList" parameterType="_int" resultType="com.kh.fp.model.vo.Menu">
+  		SELECT * FROM MENU C JOIN MENU_CATEGORY M USING(MT_NO) WHERE M.S_NO = #{s_no}
+  	</select>
+  	
+  	<select id="selectMenuSide" resultType="com.kh.fp.model.vo.SideAll">
+  		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
+  	</select>
+  	
+
+  	<select id="storesNo" resultType="menuList">
+  		select s_no,s_name from store where b_no=#{no}
+  	</select>
+
+  	<update id="menuUpdate" parameterType="map">
+  		UPDATE MENU SET ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
+  	</update>
+  	
+  	<delete id="menuSideDelete" parameterType="_int">
+  		DELETE FROM MENU_SIDE WHERE ME_NO = #{me_no}
+  	</delete>
+  	
+  	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
+  		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
+  	</insert>
+  	
+  	<select id="selectReview" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewAll">
+  		    SELECT R.*,RI.R_IMG, O.SD_ARRAY AS SD_ARRAY,
+         
+            TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
+         
+         (SELECT M_EMAIL FROM MEMBER WHERE M_NO=R.M_NO) AS M_EMAIL,
+         (SELECT ME_NAME FROM MENU WHERE ME_NO = O.ME_NO) AS ME_NAME
+         
+      FROM REVIEW R  LEFT JOIN REVIEW_IMG RI ON(R.R_NO=RI.R_NO) JOIN ORDER_MENU O ON R.O_NO = O.O_NO 
+      WHERE R.S_NO= #{s_no}
+  		
+  	</select>
+   	
+  	<update id="updateReviewReply" parameterType="map">
+  		UPDATE REVIEW SET R_REPLY = #{r_reply} WHERE R_NO = #{r_no}
+  	</update> 
+  	
+  	<select id="selectReviewReply" parameterType="map" resultType="com.kh.fp.model.vo.Review">
+  		SELECT R_REPLY FROM REVIEW WHERE R_NO = #{r_no}
+  	</select>
+
+	
   	
 </mapper>

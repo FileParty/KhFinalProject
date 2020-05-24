@@ -1,13 +1,12 @@
 @charset "UTF-8";
 
 *{
-       /* border : 1px solid red;    */
+       /* border : 1px solid red;     */
 }
 
 .s-store{
    display: flex;
    flex-direction: row;
-   margin-top: 40px;
 }
 
 .s-store-left{
@@ -23,7 +22,8 @@ aside.s-store-right-side{
    width: 320px;
    height: auto;
    border: 1px solid lightgray;
-   position: relative;
+   position: fixed;
+  
 }
 
 aside.s-store-right-side-move{
@@ -129,7 +129,7 @@ aside.s-store-right-side-move{
 
 .s-store-star{
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
    border: 1px solid lightgray;
@@ -142,7 +142,7 @@ aside.s-store-right-side-move{
 
 .s-store-score{
    display: flex;
-   flex-direction: column;
+   flex-direction:row;
    margin-left: 10px;
 }
 
@@ -158,7 +158,7 @@ aside.s-store-right-side-move{
 
 .s-store-review-count{
    display: flex;
-   justify-content: space-between;
+   justify-content:space-between;
    border: 1px solid lightgray;
    padding: 5px;
 }
@@ -174,7 +174,13 @@ aside.s-store-right-side-move{
 }
 
 .report{
-   float: right;
+   margin-left:615px;
+   font-size:16px;
+}
+
+.report:hover{
+	cursor:pointer;
+	color:red;
 }
 
 .s-store-review td{
@@ -208,7 +214,7 @@ aside.s-store-right-side-move{
 }
 
 #order-content-1{
-    height: 300px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -227,7 +233,6 @@ aside.s-store-right-side-move{
 .s-store-order-button>div{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: 10px;
 }
 
@@ -247,14 +252,13 @@ aside.s-store-right-side-move{
     padding: 15px;
     display: flex;
     justify-content: flex-end;
-    color : green;
-    background-color: yellow;
+    color : red;
     border-top: 1px solid lightgray;
 }
 
 .s-store-order{
    border-top: 1px solid lightgray;
-   padding: 2px;
+   padding: 4px;
    text-align: center;
    cursor: pointer;
    background-color: lightgreen;
@@ -485,4 +489,200 @@ button.menu-modal-header-close{
 	background-color:white;
 	font-size:26px;
 	font-weight: 800;
+}
+
+span.s-store-order-menu-price{
+	font-size:18px;
+	font-weight:600;
+	margin-right:auto;
+	margin-top:5px;
+	margin-left:10px;
+}
+
+img#s-store-order-title-delete-btn{
+	display:none;
+	margin:5px;
+	cursor: pointer;
+}
+
+button#s-store-list-return-btn{
+	font-size:16px;
+	font-weight:600;
+	margin-top:12px;
+	margin-left:26px;
+	border-radius:50%;
+	border:1px solid green;
+	background-color:lightyellow;
+	width:80px;
+	height:60px;
+}
+
+div.s-store-order-count-controller-div>div{
+	display:flex;
+	flex-direction:row;
+}
+
+.order-count-check{
+	font-size:24px;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+button.order-count-btns{
+	background-color:red;
+	color:white;
+	font-weight:800;
+	font-size:1.5em;
+	width:30px;
+	border:0;
+}
+
+.s-store-info-text{
+	font-weight:600;
+	margin-left:5px;
+}
+
+.s-store-star-css-true{
+	color:#FFBF00;
+	font-size:28px;
+	font-weight:800;
+}
+.s-store-star-css-false{
+	color:lightgray;
+	font-size:28px;
+	font-weight:800;
+}
+
+.s-store-star-css-min-true{
+	color:#FFBF00;
+	font-size:16px;
+	font-weight:800;
+}
+.s-store-star-css-min-false{
+	color:lightgray;
+	font-size:16px;
+	font-weight:800;
+}
+
+.s-store-star-type-text{
+	font-size:20px;
+	font-weight:600;
+}
+
+.s-store-review-search-photo{
+	display:flex;
+	flex-direction:row;
+}
+
+.s-store-review-nickname{
+	font-size:22px;
+	font-weight:500;
+	color:black;
+}
+
+.s-store-star-type-text-min{
+	font-size:14px;
+	font-weight:600;
+	margin-left:2px;
+}
+
+.s-store-review-menu-text{
+	font-size:14px;
+	color:#FAAC58;
+	font-weight:500;
+}
+
+.s-store-review-reply{
+	width:650px;
+	height:auto;
+	background-color:#E6E6E6;
+	background-clip: content-box;
+	padding:7px;
+	padding-bottom:10px;
+}
+
+.s-store-review-reply-text{
+	margin:8px;
+	font-size:19px;
+	font-weight:600;
+	color:black;
+}
+
+.s-store-review-reply-content{
+	margin:8px;
+	margin-left:12px;
+	margin-bottom:12px;
+	font-size:15px;
+	color:#424242;
+}
+
+.report-reply{
+   margin-left:595px;
+   font-size:16px;
+}
+
+.report-reply:hover{
+	cursor:pointer;
+	color:red;
+}
+
+p.report-login-modal-header{
+	font-size:18px;
+	margin:5px;
+	font-weight:600;
+}
+
+p.report-login-modal-content{
+	font-size:15px;
+	margin:8px;
+	margin-bottom:15px;
+}
+
+button.report-login-modal-btn{
+	font-size:16px;
+	width:45%;
+	margin-left:auto;
+	margin-right:auto;
+	height:50px;
+	background-color:white;
+	border:2px solid red;
+	color:red;
+}
+
+button.report-login-modal-btn-bg{
+	background-color:red;
+	color:white;
+}
+
+p#review-report-header-text{
+	font-size:18px;
+	font-weight:600;
+	margin-top:5px;
+	margin-left:15px;
+	margin-bottom:5px;
+}
+
+.report-modal-content{
+	padding:12px;
+}
+
+#report-modal-report-type-select{
+	margin-bottom:10px;
+	border:1px solid red;
+	font-size:20px;
+}
+
+#report-modal-report-writer{
+	border:2px solid black;
+	font-size:16px;
+	padding:2px;
+}
+
+.report-modal-report-end{
+	width:85px;
+	height:50px;
+	border:1px solid black;
+	background-color:white;
+	font-weight:800;
+	margin:0px;
 }

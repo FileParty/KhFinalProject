@@ -9,9 +9,9 @@ import com.kh.fp.model.vo.Member;
 
 public interface MypageDao {
 	
-	int getTotalCount(SqlSessionTemplate session, int o_no);
+	int getTotalCount(SqlSessionTemplate session, int m_no);
 	
-	List<Map<String, String>> selectOrder(SqlSessionTemplate session, int o_no, int cPage, int numPerPage);
+	List<Map<String, String>> selectOrder(SqlSessionTemplate session, int m_no, int cPage, int numPerPage);
 	
 	List<Map<String, String>> selectOrderMenu(SqlSessionTemplate session, int o_no);
 	
@@ -32,6 +32,10 @@ public interface MypageDao {
 	Member memberSelect(SqlSessionTemplate session, int m_no);
 	
 	int memberDelete(SqlSessionTemplate session, int m_no);
+	
+	int insertReview(SqlSessionTemplate session, Map<String, String> map);
+	
+	int insertReviewImg(SqlSessionTemplate session, Map<String, String> map);
 	
 
 }

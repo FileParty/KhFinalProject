@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
@@ -17,27 +18,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${path }/resources/css/header.css"/> 
 </head>
 <body>
 	<header class="container-fluid">
-		<div class="row" style="padding:5px;background-color:#CFEC70;">
-			<div class="col-2"></div>
-			<div class="col-2">
-				<a href="${path }"><img class="rounded-circle" style="margin:3px;width:85px;height:85px;"
-					alt="rogo" src="https://cdn.pixabay.com/photo/2016/02/23/00/06/pizza-1216738_960_720.png">
-				</a>
-			</div>
-			<div class="col-3"></div>
-			<c:if test="${loginMember==null}">
-			<div class="col-2" style="padding-top:30px;">
-				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
-					onclick="location.replace('${path}/member/login.do')">로그인 / 회원가입</button>&nbsp;&nbsp;
+		<div class="login">
+		
+			 <c:if test="${loginMember==null}">
+			<div >
+				<span onclick="location.replace('${path}/member/login.do')">로그인</span>
+				<span onclick="location.replace('${path}/member/memberEnroll1.do')">회원가입</span>
+				<span onclick="location.replace('${path}/#')">주문표</span>
 			</div>
 			</c:if>
+			
 			<c:if test="${loginMember!=null}">
-				<button class="btn btn-outline-dark my-3 my-sm-0" type="button" 
-					onclick="location.replace('${path}/member/logout.do')">로그아웃</button>
+			<div>
+				<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
+				<span onclick="location.replace('${path}/#')">마이페이지</span>
+				<span onclick="location.replace('${path}/#')">주문표</span>
+			</div>
 			</c:if>
-			<div class="col-3"></div>
+		
+		</div>
+		<div class="row headerrow">
+			<div class="col-4">
+			</div>
+			<div class="col-4 d-flex" style="align-items: center;justify-content: center;">
+				<img class="rounded-circle" style="margin:5px;width:100px;height:100px;cursor: pointer;"
+					alt="rogo" src="${pageContext.request.contextPath }/resources/img/king.png" onclick="location.replace('${path}')">
+			</div>
+			<div class="col-4"></div>
+
 		</div>
 	</header>
+	
+	

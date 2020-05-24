@@ -159,12 +159,20 @@ function selectCategory(data){
 		var x = $("#xl").val();
 		var y= $("#yl").val();
 		var addr = $("#keyword").val();
-		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y+"&addr"+addr);
+		location.replace("${pageContext.request.contextPath }/menu/menuList.do?menuCategory="+val+"&xl="+x+"&yl="+y+"&addr="+addr);
 	}else{
 		alert("주소를 입력해주세요");
 	}
 	
 }
+
+$(".index-category-img").mouseover(function(){
+	$(this).children().css("color","black");
+})
+
+$(".index-category-img").mouseleave(function(){
+	$(".index-category-title").css("color","white");
+})
 
 
 </script>

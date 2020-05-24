@@ -11,7 +11,7 @@ public interface MypageService {
 	
 	List<Map<String, String>> selectOrder(int m_no, int cPage, int numPerPage);
 	
-	List<Map<String, String>> selectOrderMenu(int o_no);
+	List<Map<String, String>> selectOrderMenu(int m_no);
 	
 	int reviewTotalCount(int m_no);
 	
@@ -30,5 +30,10 @@ public interface MypageService {
 	Member memberSelect(int m_no);
 	
 	int memberDelete(int m_no);
+	
+	int insertReview(Map<String, String> map);
+	
+	int insertReviewImg(Map<String, String> map);
+	
 	
 }

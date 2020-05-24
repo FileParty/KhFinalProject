@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <style>
+    	*{
+    		/* border : 1px solid red; */
+    	}
+    </style>
 	<%@include file="../common/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/order.css"/> 
-    <section style="width:1366px;height:768px;">
+    <section style="width:auto;height:auto;">
  	<div class="container" >
  	
  		<div class="row" >
@@ -11,18 +16,24 @@
  		
             <div class="col-lg-10" id="main">
             
-                    <ul class="ss nav nav-tabs nav-justified">
-                        <li class="nav-item"><a href="${path }/licensee/order" class="list nav-link active">주문 요청</a></li>					
-                		<li class="nav-item"><a href="${path }/licensee/orderEnd" class="list nav-link  ">주문 완료(결제 완료)</a></li>
-                    </ul>
+                    <h1>주문 내역</h1>
                     
                     <div class="col-12 s-order-history">
-	
+						<div style="margin-bottom: 50px;">
+							<select id="storeNo">
+								<c:forEach items="${sno }" var="n"> 
+									<option value="${n.s_No }" ${n.s_No eq check ? "selected" : " " }>${n.s_Name }</option> 
+								</c:forEach>
+							</select>
+						</div>
+						<c:if test="${empty list }">
+                    		<h1>주문내역을 준비중입니다.</h1>
+						</c:if>
+						<c:if test="${not empty list }">
                     	<table>
                     	
                     		<tr>
                     			<th>주문일시</th>
-                    			<th>메뉴명</th>
                     			<th>주문금액</th>
                     			<th>배달주소</th>
                     			<th>전화번호</th>
@@ -30,28 +41,44 @@
 								<th>상세보기</th>
                     		</tr>
                     		
+                    		
                     		<c:forEach items="${list }" var="o">
 	                    		<tr>
-	                    			<td><c:out value="${o.O_DATE }"/></td>
-	                    			<td><c:out value="${o.O_NO }"/></td>
+	                    			<td><fmt:formatDate value="${o.O_DATE }" pattern="yy/MM/dd HH:mm:SS"/></td>
 	                    			<td><c:out value="${o.O_ORIPRICE }"/></td>
 	                    			<td><c:out value="${o.O_ADDR}"/></td>
-	                    			<td><c:out value="${o.O_DATE }"/></td>
-	                    			<c:if test="${o.O_STATUS eq '주문대기' }">
-	                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
-	                    			</c:if>
+	                    			<td><c:out value="${o.O_PHONE }"/></td>
+	                    			<c:choose>
+	                    				<c:when test="${o.O_STATUS eq '주문대기' }">
+			                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '주문취소' }">
+			                    			<td>주문취소</td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '주문완료' }">
+			                    			<td><input type="button" value="배달출발"></td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '배달중' }">
+			                    			<td>배달중</td>
+			                    		</c:when>
+			                    		<c:when test="${o.O_STATUS eq '배달완료' }">
+			                    			<td>배달완료</td>
+			                    		</c:when>
+	                    			</c:choose>
+	                    			
 	                    			<td>
 	                    			<input type="button" data-toggle="modal" data-target="#myModal" onclick="order_detail(${o.O_NO });" value="상세보기">
 	                    			</td>
 	                    		</tr>
                     		</c:forEach>
-                    	</table>                    	
+                    	</table>
+                    	</c:if>               	
                     </div>
-                    
+                    <c:if test="${not empty list }">
                     <div>
                     	${pageBar }
                     </div>
-                    
+                    </c:if> 
                  </div>   
             </div>
             
@@ -124,15 +151,6 @@
    	
    	<script>
    		
-   		function order_detail(no){
-   			$.ajax({
-   				url : "${path}/licensee/getdetailorder",
-   				data : {no:no},
-   				success : function(data){
-   					console.log(data);
-   				}
-   			})
-   		}
    		
    		function order_detail(data){
    			$.ajax({
@@ -143,6 +161,12 @@
    				}
    			})
    		}
+
+   		$("#storeNo").change(function(){
+   			var no=this.value;
+   			location.replace('${path}/licensee/order?no='+no);
+   		})
+
    	
    	</script>
 

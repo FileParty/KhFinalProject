@@ -7,25 +7,36 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 	<div class="container d-flex justify-content-center">
-		<div class="terms-container" style="width:500px;">
+		<div class="terms-container" style="width:600px; border:1px solid black; margin-top:50px;">
 			<div class="d-flex justify-content-center" style="margin:30px;">
    				<img src="${path}/resources/img/요기요.png">
 			</div>
-			<div class="d-flex text-center" style="width:500px; margin-top:30px; margin-bottom:30px;">
+			<div class="d-flex text-center" style="margin:30px;">
 				<hr style="width:160px;">
 				<h4 style="margin-left:10px; margin-right:10px;">이용약관 동의</h4>
 				<hr style="width:160px;">
 			</div>
 			<div class="terms-body d-flex justify-content-center">
-				<div class="text-center">
-					<label><input type="checkbox" name="개인정보" required><strong>배달킹 사용약관</strong><span>에 동의 (필수)</span></label>
-					<label><input type="checkbox" name="개인정보" required><strong>개인정보 수집 및 이용</strong><span>에 동의 (필수)</span></label>
-					<label><input type="checkbox" name="개인정보" required><strong>개인정보 국외 이전</strong><span>에 동의 (필수)</span></label>
-				</div>
+				<form action="${path }/member/businessEnroll2.do" method="post">
+				<table>
+					<tr>
+						<td><label><input type="checkbox" name="개인정보" required><strong>  배달킹 사용약관</strong><span>에 동의 (필수)</span></label></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" name="개인정보" required><strong>  개인정보 수집 및 이용</strong><span>에 동의 (필수)</span></label></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" name="개인정보" required><strong>  개인정보 국외 이전</strong><span>에 동의 (필수)</span></label></td>
+					</tr>
+					<tr>
+						<td><label><input type="checkbox" name="개인정보" required><strong>  정호한테 치킨사주는 것</strong><span>에 동의 (필수)</span></label></td>
+					</tr>
+				</table>
 			</div>
 			<div class="d-flex justify-content-center" style="margin:30px;">
-				<button class="btn btn-outline-dark" onclick="location.replace('${path }/member/businessEnroll2.do')">다음</button>
+				<input type="submit" value="다음" class="btn btn-outline-dark">
 			</div>
+			</form>
 		</div>
 	</div>
 </section>
