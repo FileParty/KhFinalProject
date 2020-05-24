@@ -177,4 +177,13 @@ public class StoreController {
 	}
 	
 	
+	@RequestMapping("/store/orderdetail.do")
+	public Map<String, Object> orderDetail(int no){
+		
+		Map<String, Object> m = service.orderDetail(no);
+		
+		return m;
+	}
+	
+	
 }

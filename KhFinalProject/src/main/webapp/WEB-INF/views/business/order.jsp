@@ -133,6 +133,16 @@
    				}
    			})
    		}
+   		
+   		function order_detail(data){
+   			$.ajax({
+   				url : "${path}/store/orderdetail.do",
+   				data : {no:data},
+   				success : function(data){
+   					console.log(data);
+   				}
+   			})
+   		}
    	
    	</script>
 

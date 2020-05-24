@@ -70,6 +70,12 @@ public class StoreDaoImpl implements StoreDao {
 		return session.delete("store.deleteCategory",no);
 	}
 
+	@Override
+	public Map<String, Object> orderDetail(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("store.orderDetail",no);
+	}
+
 	
 
 	

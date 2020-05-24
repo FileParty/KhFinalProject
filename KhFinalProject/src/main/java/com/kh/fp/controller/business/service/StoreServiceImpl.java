@@ -140,6 +140,12 @@ public class StoreServiceImpl implements StoreService {
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> orderDetail(int no) {
+		// TODO Auto-generated method stub
+		return dao.orderDetail(session,no);
+	}
+
 
 	
 	
