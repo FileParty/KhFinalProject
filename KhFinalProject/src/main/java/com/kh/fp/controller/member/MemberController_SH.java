@@ -28,7 +28,7 @@ public class MemberController_SH {
 	//쿠폰 가져오기
 	@RequestMapping("/pay/paylist.do")
 	public String payList(ModelAndView mv,Model m,HttpSession session) {
-		List<Coupon_SH> list=service.selectCoupon();
+		List<Coupon_SH> couponlist=service.selectCoupon();
 		//쿠폰갯수 가져오기
 		
 		Member member=(Member)session.getAttribute("loginMember");
@@ -44,7 +44,7 @@ public class MemberController_SH {
 		int totalData=service.selectCouponCount(m_no);
 		session.getAttribute("newOrder");
 		
-		m.addAttribute("list",list);
+		m.addAttribute("couponlist",couponlist);
 		m.addAttribute("total",totalData);
 	
 	
@@ -57,15 +57,29 @@ public class MemberController_SH {
 	
 	//결제 db에넣기 
 		@RequestMapping("/pay/payment.do")
-		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session,  String userId,Model md) {
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session,int cn_no) {
 			
-			
+			Member m = (Member )session.getAttribute("loginMember");
 			
 			int result = service.insertOrderInfo(map);			//order_info  insert문
 			System.out.println("첫번쨰"+map);
 			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
 			
 			int resultPoint = service.updateMemberPoint(map);  //m_point update문
+			if(resultPoint > 0) {
+				
+				Member m1=service.selectMember(m.getM_No());
+				System.out.println(m.getM_No());
+				System.out.println(m1);
+			
+				session.setAttribute("loginMember",m1); 
+				
+			  
+			}
+			int couponDelete =service.couponDelete(cn_no); //coupon테이블 delete 
+			
+			
+			
 			
 			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
 			return mv;

@@ -339,7 +339,7 @@
                    
 						
 					
-                          <c:forEach items="${list}" var="c">
+                          <c:forEach items="${couponlist}" var="c">
                          	
                                 <c:if test="${c['m_no']== loginMember['m_No'] }">
 	                              <tr>
@@ -401,6 +401,7 @@
              <!-- ===================================================================================== -->
              
         <div style="display: inline;padding-left: 7px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)</div>
+        <input type="hidden" name="couponNo" id="strNo" />
         <br> 
       </td>
     </tr>
@@ -920,7 +921,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 $(".checkBtn").click(function(){ 
 	 $('.alloff').css("display","inline");
 	var str = ""
-
+	var strNo =""
 	var tdArr = new Array();	// 배열 선언
 	var checkBtn = $(this);
 	
@@ -944,12 +945,12 @@ $(".checkBtn").click(function(){
 	
 	str +=name
 	
-	
+	strNo +=no
 		
 			
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
-	
+	$("#strNo").val(strNo);
 
 	var totaldate=document.getElementById('sum').value;
 	var priceSum=document.getElementById('priceSum').value;

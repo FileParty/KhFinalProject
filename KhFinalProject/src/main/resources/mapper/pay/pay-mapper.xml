@@ -27,7 +27,16 @@
 <update id="updateMemberPoint" parameterType="map">
   	UPDATE MEMBER SET M_POINT = #{remainPoint} WHERE M_NO = #{mNo}
   </update>
+   <!--============================ 세션 업데이트 위해  ============================ -->
+  
+  <select id="selectMember" parameterType="_int" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_NO=#{m_No}
+  </select>
+  
+  
 
+<!--============================ 쓴쿠폰 삭제하기  ============================ -->
+<!-- delete from coupon where cn_no=21; -->
 
 </mapper>
 	

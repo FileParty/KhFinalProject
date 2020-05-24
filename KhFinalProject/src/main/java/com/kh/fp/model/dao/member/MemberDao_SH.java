@@ -23,7 +23,9 @@ public interface MemberDao_SH {
 	int updateMemberPoint(SqlSessionTemplate session, Map<String, String> map);
 
 
+	Member selectMember(SqlSessionTemplate session, int m_no);
 
+	int deleteCoupon(SqlSessionTemplate session,int cn_no);
 
 
 

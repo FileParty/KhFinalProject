@@ -52,6 +52,20 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		return dao.updateMemberPoint(session,map);
 	}
 
+	@Override
+	public Member selectMember(int m_no) {
+		// TODO Auto-generated method stub
+		return dao.selectMember(session,m_no);
+	}
+
+	
+
+	@Override
+	public int couponDelete(int cn_no) {
+		// TODO Auto-generated method stub
+		return dao.deleteCoupon(session,cn_no);
+	}
+
 
 	
 

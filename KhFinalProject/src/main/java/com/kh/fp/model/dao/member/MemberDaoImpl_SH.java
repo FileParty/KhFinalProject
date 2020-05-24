@@ -51,6 +51,18 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 		return session.update("infoOrder.updateMemberPoint",map);
 	}
 
+	@Override
+	public Member selectMember(SqlSessionTemplate session, int m_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("infoOrder.selectMember",m_no);
+	}
+
+	@Override
+	public  int deleteCoupon(SqlSessionTemplate session,int cn_no) {
+		// TODO Auto-generated method stub
+		return session.delete("infoOrder.deleteCoupon", cn_no);
+	}
+
 
 
 
