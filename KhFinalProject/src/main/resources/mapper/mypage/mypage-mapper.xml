@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id="insertReview" parameterType="map">
-		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{reviewCon} , #{taste}, #{amount}, #{delivery}, DEFAULT, #{m_no}, #{s_no}, #{o_no})
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{reviewCon} , #{taste}, #{amount}, #{delivery}, DEFAULT, #{m_no}, #{s_no}, #{o_no}, NULL)
 		
 		<selectKey resultType="_int" keyProperty="no" order="AFTER">
 			SELECT REVIEW_SEQ.CURRVAL FROM DUAL

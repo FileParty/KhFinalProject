@@ -54,7 +54,7 @@
   	
 
   	<select id="storesNo" resultType="menuList">
-  		select s_no,s_name from store where b_no=#{no}
+  		select * from store where b_no=#{no}
   	</select>
 
   	<update id="menuUpdate" parameterType="map">

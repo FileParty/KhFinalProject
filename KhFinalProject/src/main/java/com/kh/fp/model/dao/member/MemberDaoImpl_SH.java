@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fp.model.vo.Coupon_SH;
-
+import com.kh.fp.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,5 +50,8 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 		// TODO Auto-generated method stub
 		return session.update("infoOrder.updateMemberPoint",map);
 	}
+
+
+
 
 }

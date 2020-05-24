@@ -159,7 +159,7 @@ public class LicenseeController {
 		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
-		
+		System.out.println(stores);
 		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
 		mv.addObject("check",no);
