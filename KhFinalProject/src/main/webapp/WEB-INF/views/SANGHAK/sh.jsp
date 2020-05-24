@@ -402,7 +402,7 @@
              
         <div style="display: inline;padding-left: 7px;">(사용가능 쿠폰<p style="display:inline;color: red;">  ${total } 장  </p>)
         
-          <input type="text" name="couponNo" id="strNo" /> 
+          <input type="hidden" name="couponNo" id="strNo" /> 
        </div>
       
         <br> 
