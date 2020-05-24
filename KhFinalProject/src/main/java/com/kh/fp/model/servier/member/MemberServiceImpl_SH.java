@@ -38,6 +38,19 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		return dao.insertOrderInfo(session,map);
 	}
 
+	@Override
+	public int insertOrderMenu(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.insertOrderMenu(session,map);
+	}
+
+	//포인트 업데이트
+	@Override
+	public int updateMemberPoint(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return dao.updateMemberPoint(session,map);
+	}
+
 
 
 //	@Override

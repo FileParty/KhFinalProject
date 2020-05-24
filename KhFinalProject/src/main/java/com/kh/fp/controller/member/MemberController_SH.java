@@ -61,7 +61,11 @@ public class MemberController_SH {
 			
 			
 			
-			int result = service.insertOrderInfo(map);
+			int result = service.insertOrderInfo(map);			//order_info  insert문
+			System.out.println("첫번쨰"+map);
+			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
+			
+			int resultPoint = service.updateMemberPoint(map);
 			
 		
 			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.

@@ -17,6 +17,10 @@ public interface MemberDao_SH {
 
 	int insertOrderInfo(SqlSessionTemplate session, Map<String, String> map);
 
+	int insertOrderMenu(SqlSessionTemplate session, Map<String, String> map);
+
+	int updateMemberPoint(SqlSessionTemplate session, Map<String, String> map);
+
 
 
 //	Object selectMemberPay(SqlSessionTemplate session, int m_no);

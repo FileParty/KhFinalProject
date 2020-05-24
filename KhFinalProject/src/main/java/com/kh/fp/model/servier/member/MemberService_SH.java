@@ -15,6 +15,10 @@ public interface MemberService_SH {
 
 	int insertOrderInfo(Map<String, String> map);
 
+	int insertOrderMenu(Map<String, String> map);
+
+	int updateMemberPoint(Map<String, String> map);
+
 
 
 //	Object selectMemberPay(int m_no);

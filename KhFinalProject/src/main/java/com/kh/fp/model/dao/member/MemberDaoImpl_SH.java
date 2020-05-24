@@ -39,4 +39,16 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 		return session.insert("infoOrder.insertOrderInfo",map);
 	}
 
+	@Override
+	public int insertOrderMenu(SqlSessionTemplate session, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.insert("infoOrder.inserOrderMenu",map);
+	}
+
+	@Override
+	public int updateMemberPoint(SqlSessionTemplate session, Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return session.update("infoOrder.updateMemberPoint",map);
+	}
+
 }
