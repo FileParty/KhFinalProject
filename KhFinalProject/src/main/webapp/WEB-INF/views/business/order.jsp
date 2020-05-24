@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <style>
     	*{
     		/* border : 1px solid red; */
@@ -44,8 +47,8 @@
                     		
                     		<c:forEach items="${list }" var="o">
 	                    		<tr>
-	                    			<td><fmt:formatDate value="${o.O_DATE }" pattern="yy/MM/dd HH:mm:SS"/></td>
-	                    			<td><c:out value="${o.O_ORIPRICE }"/></td>
+	                    			<td><fmt:formatDate value="${o.O_DATE }" pattern="yy/MM/dd HH:mm"/></td>
+	                    			<td><fmt:formatNumber value="${o.O_ORIPRICE }" maxFractionDigits="3"/>원</td>
 	                    			<td><c:out value="${o.O_ADDR}"/></td>
 	                    			<td><c:out value="${o.O_PHONE }"/></td>
 	                    			<c:choose>
@@ -56,7 +59,10 @@
 			                    			<td>주문취소</td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '주문완료' }">
-			                    			<td><input type="button" value="완료"></td>
+			                    			<td>
+			                    			<input type="hidden" value="${o.O_REQUEST }">
+			                    			<input type="button" value="배달출발">
+			                    			</td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '배달중' }">
 			                    			<td>배달중</td>
@@ -103,31 +109,35 @@
 		        		<table>
 		        			
 		        			<tr>
-		        				<td>주문상태</td><td></td>
+		        				<td>주문상태</td><td id="order_status"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>주문일시</td><td></td>
+		        				<td>주문일시</td><td id="order_date"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>주문메뉴</td><td></td>
+		        				<td>주문메뉴</td><td id="order_menu"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>결제금액</td><td></td>
+		        				<td>결제금액</td><td id="order_price"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>배달주소</td><td></td>
+		        				<td>배달주소</td><td id="order_addr"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>전화번호</td><td></td>
+		        				<td>주문자</td><td id="order_member"></td>
 		        			</tr>
 		        			
 		        			<tr>
-		        				<td>요청사항</td><td></td>
+		        				<td>전화번호</td><td id="order_phone"></td>
+		        			</tr>
+		        			
+		        			<tr>
+		        				<td>요청사항</td><td id="order_text"></td>
 		        			</tr>
 
 		        		</table>
@@ -151,20 +161,40 @@
    	
    	<script>
    		
-   		function order_detail(no){
+   		
+   		function order_detail(data){
    			$.ajax({
-   				url : "${path}/licensee/getdetailorder",
-   				data : {no:no},
+   				url : "${path}/store/orderdetail.do",
+   				data : {no:data},
    				success : function(data){
    					console.log(data);
+   					$("#order_status").html(data.o_status);
+   					$("#order_date").html(data.date);
+   					var menu = "";
+   					var length = data.o_menu.length;
+   					 for(var i=0;i<length;i++){
+   						if(i==length-1){
+   							menu += data.o_menu[i].me_name+"-"+data.o_menu[i].sd_array;
+   							break;
+   						}
+   						menu += data.o_menu[i].me_name+"-"+data.o_menu[i].sd_array+"<br>";
+   					} 
+   					
+   					$("#order_menu").html(menu);
+   					$("#order_price").html(data.price+"원");
+   					$("#order_addr").html(data.o_addr);
+   					$("#order_member").html(data.o_name);
+   					$("#order_phone").html(data.o_phone);
+   					$("#order_text").html(data.o_request);
    				}
    			})
    		}
-   		
+
    		$("#storeNo").change(function(){
    			var no=this.value;
    			location.replace('${path}/licensee/order?no='+no);
    		})
+
    	
    	</script>
 

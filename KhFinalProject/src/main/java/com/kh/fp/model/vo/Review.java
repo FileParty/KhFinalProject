@@ -19,4 +19,5 @@ public class Review {
 	private Date R_DATE;
 	private int M_NO;
 	private int S_NO;
+	private String R_REPLY;
 }

@@ -18,6 +18,7 @@ import com.kh.fp.model.vo.Member;
 
 
 
+
 @Controller
 public class MemberController_SH {
 
@@ -54,4 +55,20 @@ public class MemberController_SH {
 		return ("/SANGHAK/sh2");
 	}
 	
+	//결제 db에넣기 
+		@RequestMapping("/pay/payment.do")
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session,  String userId,Model md) {
+			
+			
+			
+			int result = service.insertOrderInfo(map);			//order_info  insert문
+			System.out.println("첫번쨰"+map);
+			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
+			
+			int resultPoint = service.updateMemberPoint(map);  //m_point update문
+			
+			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
+			return mv;
+		}
+			
 }

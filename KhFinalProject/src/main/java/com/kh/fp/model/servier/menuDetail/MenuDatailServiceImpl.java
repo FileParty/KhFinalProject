@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.menuDetail.MenuDatailDao;
+import com.kh.fp.model.vo.Report;
 import com.kh.fp.model.vo.StoreDetailInfo;
 import com.kh.fp.model.vo.StoreDetailReview;
 import com.kh.fp.model.vo.StoreMenu;
@@ -51,6 +52,11 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 		}
 		rList.add(dao.selectStoreDetailReviewCount(session,que));
 		return rList;
+	}
+
+	@Override
+	public int insertReport(Report report) {
+		return dao.insertReport(session,report);
 	}
 	
 	

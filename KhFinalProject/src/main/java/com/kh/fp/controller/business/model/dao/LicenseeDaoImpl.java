@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -125,6 +127,35 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.insert("licensee.menuSideUpdate",ms);
 	}
+
+	@Override
+	public List<ReviewAll> selectReview(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectReview",s_no);
+	}
+
+	@Override
+	public int updateReviewReply(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("licensee.updateReviewReply",map);
+	}
+
+	@Override
+	public Review selectReviewReply(SqlSessionTemplate session,Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.selectReviewReply",map);
+	}
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 	
 	

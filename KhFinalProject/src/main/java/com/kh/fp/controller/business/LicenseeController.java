@@ -28,6 +28,8 @@ import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -64,9 +66,36 @@ public class LicenseeController {
 				mv.setViewName("common/msg");
 				return mv;
 		 }
+		 
+		List<Store> list = service.selectStore(b.getB_No());
+		
+		 if(list.size() == 0) {
+			 mv.addObject("msg","등록 된 매장이 없습니다!");
+			 mv.addObject("loc","/store/mypage");
+			 mv.setViewName("common/msg");
+			 return mv;
+		}else {
+		 mv.addObject("store",list);
+		 mv.setViewName("business/menuEnroll");
+		 return mv;
+		}
+	}
+	
+	@RequestMapping("/licensee/businessStore")
+	public ModelAndView businessStore(ModelAndView mv,HttpSession session) {
+		
+		//셀렉용
+		Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		 
 		List<Store> list = service.selectStore(b.getB_No());
 		mv.addObject("store",list);
-		mv.setViewName("business/menuStatus");
+		mv.setViewName("business/menuEnroll");
 		return mv;
 	}
 	
@@ -80,19 +109,27 @@ public class LicenseeController {
 	}
 	@RequestMapping("/licensee/menuEnroll")
 	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
-		//메뉴등록
+		
 		 Business b = (Business)session.getAttribute("loginMember");
 		 if(b==null) {
 				mv.addObject("msg", "로그인하셈");
 				mv.addObject("loc", "/");
-				mv.setViewName("common/msg");
+				mv.setViewName("/common/msg");
 				return mv;
 		 }
 		 List<Store> store = service.selectStore(b.getB_No());
 		 
+		 if(store.size() == 0) {
+			 mv.addObject("msg","등록 된 매장이 없습니다!");
+			 mv.addObject("loc","/store/mypage");
+			 mv.setViewName("common/msg");
+			 return mv;
+		}else {
 		 mv.addObject("store",store);
 		 mv.setViewName("business/menuEnroll");
-		return mv;
+		 return mv;
+		}
+		
 	}
 	
 	
@@ -122,7 +159,7 @@ public class LicenseeController {
 		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
-		
+		System.out.println(stores);
 		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
 		mv.addObject("check",no);
@@ -137,10 +174,35 @@ public class LicenseeController {
 		//주문완료내역
 		return "business/orderEnd";
 	}
+	
 	@RequestMapping("/licensee/review")
-	public String review() {
-		//리뷰관리
-		return "business/review";
+	public ModelAndView review(ModelAndView mv,HttpSession session) {
+		//리뷰
+		
+		Business b = (Business)session.getAttribute("loginMember");
+		 if(b==null) {
+				mv.addObject("msg", "로그인하셈");
+				mv.addObject("loc", "/");
+				mv.setViewName("common/msg");
+				return mv;
+		 }
+		List<Store> list = service.selectStore(b.getB_No());
+		mv.addObject("store",list);
+		mv.setViewName("business/review");
+		return mv;
+	}
+	
+	@RequestMapping("/licensee/reviewSelect")
+	@ResponseBody
+	public List<ReviewAll> reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
+		//리뷰
+		//셀렉용
+				
+		List<ReviewAll> list = service.selectReview(1);
+		
+		
+		
+		return list;
 	}
 	
 	@RequestMapping("/licensee/getdetailorder")
@@ -162,20 +224,32 @@ public class LicenseeController {
 		String[] mPrice = req.getParameterValues("me_price");		
 		String[] detail = req.getParameterValues("me_text");
 		String[] sdNoEnd = req.getParameterValues("sdNoEnd");
+		String[] sdNoEnds = req.getParameterValues("sdNoEnds");
+				
 		String[] counts = req.getParameterValues("count");
+		String[] counts1 = req.getParameterValues("counts");
 		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
 
 		int menuPrice[] = new int[mPrice.length];
-
 		int mtNoEnd[] = new int[mtNo.length];
-		int sdNo[] = new int[sdNoEnd.length];
-		int count[] = new int[counts.length];
-		
-		
-		
-		for(int i=0;i<sdNoEnd.length;i++) {
-			sdNo[i] = Integer.parseInt(sdNoEnd[i]);
+		int sdNo[] = null;
+		int sdNo2[] = null;
+		if(sdNoEnd != null) {
+			sdNo = new int[sdNoEnd.length];
+			for(int i=0;i<sdNoEnd.length;i++) {
+				sdNo[i] = Integer.parseInt(sdNoEnd[i]);	
+			}
 		}
+		
+		if(sdNoEnds != null) {
+			sdNo2 = new int[sdNoEnds.length];
+			for(int i=0;i<sdNoEnds.length;i++) {
+				sdNo2[i] = Integer.parseInt(sdNoEnds[i]);
+			}
+		}
+		int count[] = new int[counts.length];
+		int count1[] = new int[counts1.length];
+
 		for(int i=0;i<mtNoEnd.length;i++) {
 			mtNoEnd[i] = Integer.parseInt(mtNo[i]);
 		}
@@ -185,6 +259,12 @@ public class LicenseeController {
 		}
 		for(int i=0;i<counts.length;i++) {
 			count[i] = Integer.parseInt(counts[i]);
+			// 0 3
+			// 1 2 
+		}
+		
+		for(int i=0;i<counts1.length;i++) {
+			count1[i] = Integer.parseInt(counts1[i]);
 			// 0 3
 			// 1 2 
 		}
@@ -238,32 +318,61 @@ public class LicenseeController {
 		int result = 0;
 		int is = 0;
 		int test[] ;
+		int sts = count.length + counts.length;
 		MenuSide mss = null;
 		List<MenuSide> list3 = new ArrayList();
 		
 			
-			for(int i=0;i<count.length;i++) {
-				test = new int[count[i]];
+			for(int i=0;i<menuName.length;i++) {
+				
 				
 				if(i==0) {
 
-				for(int j=0;j<count[i];j++) {	
+				for(int j=0;j<count[i];j++) {
+					if(sdNo == null) {
+						break;
+					}else {
 					mss=new MenuSide();
 					mss.setSd_no(sdNo[j]);
 					list3.add(mss);
-
+					}
 				}
-				}else {
+				for(int k=0;k<count1[i];k++) {
+					if(sdNo2 == null) {
+						break;
+					}else {
+					mss=new MenuSide();
+					mss.setSd_no(sdNo2[k]);
+					list3.add(mss);
+					}
+				}
+				
+				}else if(i>=1){
 					list3 = new ArrayList();
 					for(int j=count[i-1];j<count[i-1]+count[i];j++) {	
+						if(sdNo2 == null) {
+							break;
+						}else {
 						mss=new MenuSide();
 						mss.setSd_no(sdNo[j]);
-						list3.add(mss);
-						
+						list3.add(mss);	
+						}
+					}
+					for(int k=count1[i-1];k<count1[i-1]+count1[i];k++) {
+						if(sdNo2 == null) {
+							break;
+						}else {
+						mss=new MenuSide();
+						mss.setSd_no(sdNo[k]);
+						list3.add(mss);		
+						}
 					}
 					
-				}				
+				}
+		
+				System.out.println("리스트인데유"+list3);
 				result= service.insertMenu(list.get(i),list3);
+				
 				
 				
 			}
@@ -374,11 +483,11 @@ public class LicenseeController {
 	}
 	
 	@RequestMapping("/licensee/menuUpdate")
-	public String menuUpdate(HttpServletRequest req) {
+	public String menuUpdate(HttpServletRequest req,Model m) {
 		int s_no = Integer.parseInt(req.getParameter("s_no"));
 		int me_no = Integer.parseInt(req.getParameter("me_no"));
 		int mt_no = Integer.parseInt(req.getParameter("mt_no"));
-		String[] sd = req.getParameterValues("sd_no");
+		String[] sd = req.getParameterValues("sdNo");
 		String me_name = req.getParameter("me_name");
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
@@ -410,7 +519,31 @@ public class LicenseeController {
 		if(result>0) {
 			result = service.menuSideUpdate(list);
 		}
-		return "";
+		String page ="";
+		if(result>0) {
+			page = "common/msg";
+			m.addAttribute("msg","수정 성공!");
+			m.addAttribute("loc","/licensee/menuStatus");
+		}else {
+			page = "common/msg";
+			m.addAttribute("msg","수정 실패!");
+			m.addAttribute("loc","/licensee/menuStatus");
+		}
+		
+		return page;
+	}
+	
+	@RequestMapping("/licensee/reviewReplyEnroll")
+	@ResponseBody
+	public Review reviewReply(int r_no,String r_reply) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("r_no",r_no);
+		map.put("r_reply",r_reply);
+		Review r = service.updateReviewReply(map); 
+
+		return r;
+		
 	}
 	
 	
