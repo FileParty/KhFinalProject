@@ -73,4 +73,12 @@
 		select to_char(o_date,'YYYY/MM') as o_date ,sum(o_oriprice) as price from order_info where s_no=#{no} group by to_char(o_date,'YYYY/MM')
 	</select>
 	
+	<select id="orderDetail" resultType="com.kh.fp.model.vo.OrderInfo">
+		select * from order_info where o_no=#{no}
+	</select>
+	
+	<select id="orderMenu" resultType="com.kh.fp.model.vo.OrderMenu">
+		select me_name,sd_array from order_menu join menu using(me_no) where o_no=#{no}
+	</select>
+	
 </mapper>

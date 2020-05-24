@@ -4,6 +4,7 @@ import java.beans.Encoder;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.controller.business.service.StoreService;
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
@@ -264,6 +266,20 @@ public class StoreController {
 		mv.addObject("salesmonth",service.getSaleMonth(stores.get(0).get("S_NO")));
 		mv.setViewName("business/calculate");	
 		return mv;
+	}
+	
+	
+	@RequestMapping("/store/orderdetail.do")
+	@ResponseBody
+	public OrderInfo orderDetail(int no){
+		
+		OrderInfo m = service.orderDetail(no);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		DecimalFormat dec = new DecimalFormat("#,###");
+		m.setDate(sdf.format(m.getO_date()));
+		m.setPrice(dec.format(m.getO_oriprice()));
+		
+		return m;
 	}
 	
 	
