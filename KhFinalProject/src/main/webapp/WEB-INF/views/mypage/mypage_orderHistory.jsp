@@ -331,9 +331,6 @@ ${sysdate }  --%>
         
 	        function scoreTasteSet(no){
 	        	
-	        	console.log(this);
-	        	console.log(event);
-	        	
 	        	$("#scoreTaste").children("svg").remove();
 	        	
 	        	if(no==0){
@@ -384,9 +381,6 @@ ${sysdate }  --%>
 	        
 			function scoreAmountSet(no){
 	        	
-	        	console.log(this);
-	        	console.log(event);
-	        	
 	        	$("#scoreAmount").children("svg").remove();
 	        	
 	        	if(no==0){
@@ -435,9 +429,6 @@ ${sysdate }  --%>
 	        }
 	        
 			function scoreDeliverySet(no){
-				
-				console.log(this);
-				console.log(event);
 				
 				$("#scoreDelivery").children("svg").remove();
 				
@@ -490,14 +481,13 @@ ${sysdate }  --%>
         
 	        function reviewInsertModal(s_no, m_no, o_no){
 	        	
+	        	$("#scoreTaste").children("svg").remove();
+	        	$("#scoreAmount").children("svg").remove();
+	        	$("#scoreDelivery").children("svg").remove();
+	        	
 	        	$("#s_no").val(s_no);
 	        	$("#m_no").val(m_no);
-	        	$("#o_no").val(o_no);
-	        	
-	        	$("#scoreTaste").html();
-	        	$("#scoreAmount").html();
-	        	$("#scoreDelivery").html();
-	        	
+	        	$("#o_no").val(o_no);	        	
 	        	
 	        	
 	        	for(var i=0; i<5; i++){
