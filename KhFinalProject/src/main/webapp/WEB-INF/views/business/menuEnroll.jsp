@@ -71,14 +71,14 @@
       </style> 
 	<%@ include file="../common/header.jsp" %>
 	
-    <section style="width:1366px;height:auto;margin-bottom:200px;">
+    <section style="width:1366px;height:auto;margin-bottom:250px;">
  	<div class="container">
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-                     <ul class="nav">
-                        <li class="">
-                        	<p style="font-size:30px;color:black;"href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</p>
+                     <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                        	<p style="font-size:30px;color:black;">메뉴 등록</p>
                         </li>
                     </ul>
                     <br>                 

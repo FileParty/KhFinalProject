@@ -49,10 +49,7 @@
             <div class="col-lg-10" id="main">
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
-                        	<a href="${path }/licensee/menuEnroll" class="list nav-link" onclick="storeNo();">메뉴 등록</a>
-                        </li>
-                         <li class="nav-item">
-                        	<a href="${path }/licensee/menuStatus" class="list nav-link active">메뉴 관리</a>
+                        	<p style="font-size:30px;color:black;">메뉴 관리</p>
                         </li>
                                         
                     </ul>

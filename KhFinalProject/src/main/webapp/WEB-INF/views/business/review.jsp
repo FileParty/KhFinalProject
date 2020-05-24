@@ -46,7 +46,11 @@
                     	<div id="reviewList">
                     	
                     	</div>
-                    
+                    <form action="${path }/licensee/test" method="post">
+                    	<input name="one"style="border:none;"type="text" value="콜라1.5">
+                    	<input name="one" style="border:none;type="text" value="콜라1.52222">
+                    	<button type="submit">ㅋㄷㅋㄷㅋ</button>
+                    </form>
                  </div>
                  
             </div>

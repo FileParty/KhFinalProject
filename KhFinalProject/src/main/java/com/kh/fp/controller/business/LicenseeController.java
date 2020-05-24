@@ -76,7 +76,7 @@ public class LicenseeController {
 			 return mv;
 		}else {
 		 mv.addObject("store",list);
-		 mv.setViewName("business/menuEnroll");
+		 mv.setViewName("business/menuStatus");
 		 return mv;
 		}
 	}
@@ -170,10 +170,11 @@ public class LicenseeController {
 	}
 	
 	@RequestMapping("/licensee/orderEnd")
+	
 	public String orderEnd() {
 		//주문완료내역
 		return "business/orderEnd";
-	}
+				}
 	
 	@RequestMapping("/licensee/review")
 	public ModelAndView review(ModelAndView mv,HttpSession session) {
@@ -199,6 +200,7 @@ public class LicenseeController {
 		//셀렉용
 				
 		List<ReviewAll> list = service.selectReview(1);
+		
 		
 		
 		
