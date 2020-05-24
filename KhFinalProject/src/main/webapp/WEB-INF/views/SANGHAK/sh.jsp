@@ -934,7 +934,8 @@ $(".checkBtn").click(function(){
 	var td = tr.children();
 
 	 
-	var no = td.eq(0).text(); 				
+
+	var no = td.eq(0).text(); 	
 	var userid = td.eq(1).text();
 	var name = td.eq(2).text();
 	var email = td.eq(3).text();
@@ -945,6 +946,7 @@ $(".checkBtn").click(function(){
 	console.log("선택한쿠폰의 no:"+strNo+";");
 
 	str +=name;
+
 
 	$("#ex2_Result2").html(str);
 	$("#ex2_Result3").html(str);
