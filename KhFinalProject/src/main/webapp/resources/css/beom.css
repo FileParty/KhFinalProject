@@ -591,3 +591,98 @@ button.order-count-btns{
 	color:#FAAC58;
 	font-weight:500;
 }
+
+.s-store-review-reply{
+	width:650px;
+	height:auto;
+	background-color:#E6E6E6;
+	background-clip: content-box;
+	padding:7px;
+	padding-bottom:10px;
+}
+
+.s-store-review-reply-text{
+	margin:8px;
+	font-size:19px;
+	font-weight:600;
+	color:black;
+}
+
+.s-store-review-reply-content{
+	margin:8px;
+	margin-left:12px;
+	margin-bottom:12px;
+	font-size:15px;
+	color:#424242;
+}
+
+.report-reply{
+   margin-left:595px;
+   font-size:16px;
+}
+
+.report-reply:hover{
+	cursor:pointer;
+	color:red;
+}
+
+p.report-login-modal-header{
+	font-size:18px;
+	margin:5px;
+	font-weight:600;
+}
+
+p.report-login-modal-content{
+	font-size:15px;
+	margin:8px;
+	margin-bottom:15px;
+}
+
+button.report-login-modal-btn{
+	font-size:16px;
+	width:45%;
+	margin-left:auto;
+	margin-right:auto;
+	height:50px;
+	background-color:white;
+	border:2px solid red;
+	color:red;
+}
+
+button.report-login-modal-btn-bg{
+	background-color:red;
+	color:white;
+}
+
+p#review-report-header-text{
+	font-size:18px;
+	font-weight:600;
+	margin-top:5px;
+	margin-left:15px;
+	margin-bottom:5px;
+}
+
+.report-modal-content{
+	padding:12px;
+}
+
+#report-modal-report-type-select{
+	margin-bottom:10px;
+	border:1px solid red;
+	font-size:20px;
+}
+
+#report-modal-report-writer{
+	border:2px solid black;
+	font-size:16px;
+	padding:2px;
+}
+
+.report-modal-report-end{
+	width:85px;
+	height:50px;
+	border:1px solid black;
+	background-color:white;
+	font-weight:800;
+	margin:0px;
+}

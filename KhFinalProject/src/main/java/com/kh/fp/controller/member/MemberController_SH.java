@@ -18,6 +18,7 @@ import com.kh.fp.model.vo.Member;
 
 
 
+
 @Controller
 public class MemberController_SH {
 
@@ -54,4 +55,16 @@ public class MemberController_SH {
 		return ("/SANGHAK/sh2");
 	}
 	
+	//결제 db에넣기 
+		@RequestMapping("/pay/payment.do")
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map) {
+			
+			
+			
+			int result = service.insertOrderInfo(map);
+			
+		
+			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
+			return mv;
+		}
 }

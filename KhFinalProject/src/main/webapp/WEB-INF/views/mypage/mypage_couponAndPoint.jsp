@@ -25,7 +25,7 @@
             <div class="col-md-10 row">
                     
                     <div class="col-md-12">
-                        <h4>현재포인트: ${loginMember.m_point }</h4>
+                        <h4>현재포인트: ${loginMember.m_Point }</h4>
                         <hr>
                     </div>
 

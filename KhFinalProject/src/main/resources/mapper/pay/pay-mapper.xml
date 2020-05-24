@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="infoOrder">
+ <!--ORDER_INFO에 값넣기 -->
+ 
+  <insert id="insertOrderInfo" parameterType="map">
+ 	INSERT INTO ORDER_INFO VALUES(SEQ_ORDER_INFO.NEXTVAL,#{orderName},#{orderPhone},#{receiveName},#{receivePhone},#{ta2},#{addr123},SYSDATE,#{priceSum},#{sum},DEFAULT,#{sNo},#{mNo})
+  </insert>
+
+</mapper>
+	

@@ -264,7 +264,7 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.jpg.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -335,7 +335,7 @@
     <div>
 
 </div>
-<!-- modal -->
+<!-- menu modal -->
 <div id="modalBox" class="modal" tabindex="-1" role="dialog">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -393,8 +393,49 @@
       </div>
    </div>
 </div>
-
-
+<!-- report login modal -->
+<div id="report-login-modal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<p class="report-login-modal-header">배달킹 알림</p>
+			</div>
+			<div class="modal-content">
+				<p class="report-login-modal-content">로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠어요?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="report-login-modal-btn" data-dismiss="modal">
+					아니오
+				</button>
+				<button class="report-login-modal-btn report-login-modal-btn-bg" onclick="goToLoginPage()">
+					예
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- report modal -->
+<div id="report-modal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<p id="review-report-header-text">리뷰 신고하기</p>
+				<button class="menu-modal-header-close" data-dismiss="modal">X</button>
+			</div>
+			<div class="modal-content report-modal-content">
+				<select id="report-modal-report-type-select" name="reportType">
+					<option value="욕설">욕설</option>
+					<option value="광고">광고</option>
+					<option value="선정성">선정성</option>
+					<option value="작성">직접 작성</option>
+				</select>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 
 	function orderListHeightCheck(){
@@ -723,7 +764,7 @@
 	        	}
 	        	let menuCount = $("#menu-modal-menu-count-text").text();
 	        	let newOrders = [new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice)];
-	        	newOrders.push({"finalPrice":finalPrice})
+	        	newOrders.push({"finalPrice":finalPrice,"s_no":${store['s_no']}});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(newOrders)},
@@ -868,7 +909,7 @@
         	let limitPrice = Number($("#order-limit-price").val());
         	let orderFinalPrice = Number($("#order-final-price").val());
         	if(orderFinalPrice>limitPrice){
-	        	orderListArr.push({"finalPrice":$("#order-final-price").val()});
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":${store['s_no']}});
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -934,6 +975,7 @@
         const minCalc = 1000 * 60;
         
         var reviewLength = 0;
+        var reviewCpage = 1;
         
         /* 리뷰 ajax */
         function review(no,cPage){
@@ -943,6 +985,7 @@
         /* 사진있는 리뷰만 출력 */
         function storeReviewSearchPhoto(no){
         	let tar = event.target;
+        	reviewCpage = 1;
         	reviewLength = 0;
         	$(".s-store-review").slideUp(1000,function(){
 	        	$(".s-store-review").find("table").remove();
@@ -998,7 +1041,7 @@
 	        				tr1 += parseInt(rDate/yearCalc)+"년 전";
 	        			}
 	        			tr1 += "</span>";
-	        			tr1 += "<span class='report' onclick='reviewReport('"+data[i]['s_no']+"','"+data[i]['r_no']+"')'>신고</span></td>";
+	        			tr1 += "<span class='report' onclick='reviewReport("+data[i]['r_no']+")'>신고</span>";
 	        			table.append(tr1);
 	        			if(data[i]['r_imgs'].length!=0){
 	        			let tr3 = "<tr><td>";
@@ -1019,8 +1062,17 @@
 	        			let hr= $("<hr>");
 	        			reviewDiv.append(table);
 	        			reviewDiv.append(hr);
+	        			if(data[i]['r_reply']!=null){
+	        				let reply = "<div class='s-store-review-reply'>";
+	        				reply += "<span class='s-store-review-reply-text'>☞&nbsp;사장님&nbsp;☜</span>";
+	        				reply += "<pre class='s-store-review-reply-content'>"+data[i]['r_reply']+"</pre>";
+	        				reply += "</div>";
+	        				reviewDiv.append(reply);
+	        				let hr2 = $("<hr>");
+	        				reviewDiv.append(hr2);
+	        			}
         			}
-        			reviewLength += (data.length-1);
+        			reviewLength += 5;
         			if(data[(data.length-1)]>reviewLength){
         				scrollFalg = true;
         			} else {
@@ -1028,18 +1080,30 @@
         			}
         		}
         	});
+      		reviewCpage++;
         }
         
         var scrollFalg = false;
+        let scrollHCheck = 0;
         
         /* review infinite scroll */
         $(function(){
-       		$(window).scroll(function(){
+       		$(document).scroll(function(){
 	        	if(scrollFalg){
-	        		console.log($(window).scrollTop(),$(document).height(),$(window).height());
-        			if($(window).scrollTop() == $(document).height() - $(window).height()){
-        				console.log("나나나 콧노래가 나오다가 나도 몰래 눈물날것같애 아닌것같애 내가 아닌 것 같아");
-        			}
+	        		if($(window).scrollTop()>=scrollHCheck){
+	        			if($(window).scrollTop() >= $(document).height()-1237){
+	        				if($("#onlyPhoto").is(":checked")){
+		        				scrollFalg = false;
+	        					review("${store['s_no']}",reviewCpage,'photo');
+	        					event.preventDefault();
+	        				} else {
+		        				scrollFalg = false;
+	        					review("${store['s_no']}",reviewCpage,'all');
+	        					event.preventDefault();
+	        				}
+	        				scrollHCheck = $(window).scrollTop()+300;
+	        			}
+	        		}
 	        	}
         	})
         	
@@ -1054,10 +1118,69 @@
         }
         
         /* 리뷰 신고하기 */
-        function reviewReport(no){
+        function reviewReport(r_no){
+        	console.log(r_no);
+        	let check = "${loginMember['m_No']}";
+        	if(check.length!=0){
+        		$("#report-modal").modal("show");
+        		$("#report-modal").find(".modal-footer").append("<button class='report-modal-report-end' onclick='reportEnd("+r_no+")'>신고하기</button>")
+        	} else {
+        		$("#report-login-modal").modal("show");
+        	}
         	
         }
         
+        /* 로그인 페이지로 이동 */
+        function goToLoginPage(){
+        	location.replace("${path}/member/login.do");
+        }
+        
+        $("#report-modal-report-type-select").on("change",function(){
+        	let report = $(this).parent().parent().find("#report-modal-report-type-select").val();
+        	if(report=="작성"){
+        		let reportWriter = "<textarea id='report-modal-report-writer' cols='45' rows='10' style='resize:none'>"
+        		reportWriter += "</textarea>";
+        		$(this).parent().append(reportWriter);
+        	} else {
+        		$(this).parent().parent().find("#report-modal-report-writer").remove();
+        	}
+        })
+        
+        
+        /* 신고작성완료 */
+        function reportEnd(r_no){
+        	let report = $(event.target).parent().parent().find("#report-modal-report-type-select").val();
+        	if(report=="작성"){
+        		let reportWriter = $(event.target).parent().parent().find("#report-modal-report-writer").val();
+        		if($.trim(reportWriter).length==0){
+        			alert("신고내용을 입력해주세요!");
+        			return;
+        		} else {
+        			report = reportWriter;
+        		}
+        	}
+        	
+        	let flag = confirm("신고하시겠습니까?");
+        	if(!flag){
+        		return;
+        	}else {
+        		let reportVar = {'r_no':r_no,'m_send':"${loginMember['m_No']}","re_content":report}
+        		$.ajax({
+        			url:"${path}/menu/reviewReport",
+        			data:{"reportVar":JSON.stringify(reportVar)},
+        			type:"post",
+        			success:function(data){
+        				if(data==1){
+        					alert("신고가 접수되었습니다.\n빠르게 처리하겠습니다.");
+        					$("#report-modal").modal("hide");
+        				} else {
+        					alert("신고 접수에 문제가 발생했습니다.\n다시 시도하시거나 관리자에게 문의해주세요");
+        				}
+        			}
+        		})
+        	}
+        	
+        };
     
     </script>
 </section>

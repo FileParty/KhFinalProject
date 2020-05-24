@@ -28,7 +28,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		log.debug("사용자 접속");
-		
+		log.debug(session+"");
 		//session을 가지고 메세지를 보낸다.
 		
 		session.sendMessage(new TextMessage("배달 접속을 환영합니다."));
