@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.member.MemberDao_SH;
 import com.kh.fp.model.vo.Coupon_SH;
+import com.kh.fp.model.vo.Member;
 import com.kh.fp.model.vo.Member_SH;
 
 
@@ -50,6 +51,9 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		// TODO Auto-generated method stub
 		return dao.updateMemberPoint(session,map);
 	}
+
+
+	
 
 
 
