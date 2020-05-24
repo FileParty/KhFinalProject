@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.Coupon_SH;
+import com.kh.fp.model.vo.Member;
 import com.kh.fp.model.vo.Member_SH;
 
 
@@ -16,6 +17,13 @@ public interface MemberDao_SH {
 	int selectCouponCount(SqlSessionTemplate session,int m_no);
 
 	int insertOrderInfo(SqlSessionTemplate session, Map<String, String> map);
+
+	int insertOrderMenu(SqlSessionTemplate session, Map<String, String> map);
+
+	int updateMemberPoint(SqlSessionTemplate session, Map<String, String> map);
+
+
+
 
 
 
