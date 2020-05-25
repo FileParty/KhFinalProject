@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -185,6 +186,19 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return result;
 
 	}
+
+	@Override
+	public Map menuCount(int s_no) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("count",dao.menuCount(session,s_no));
+		map.put("s_name",dao.selectSname(session,s_no));
+		return map;
+	}
+	
+	
+
+	
 	
 	
 

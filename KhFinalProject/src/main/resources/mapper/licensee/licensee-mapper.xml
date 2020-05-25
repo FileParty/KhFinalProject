@@ -93,7 +93,14 @@
   	<select id="selectReviewReply" parameterType="map" resultType="com.kh.fp.model.vo.Review">
   		SELECT R_REPLY FROM REVIEW WHERE R_NO = #{r_no}
   	</select>
-
+	
+	<select id="menuCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM MENU WHERE S_NO = #{s_no}
+	</select>
+	
+	<select id="selectSname" parameterType="_int" resultType="string">
+		SELECT S_NAME FROM STORE WHERE S_NO = #{s_no}
+	</select>
 	
   	
 </mapper>

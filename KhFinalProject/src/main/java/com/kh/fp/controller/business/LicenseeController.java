@@ -108,6 +108,16 @@ public class LicenseeController {
 		List<Menu> menu = service.selectMenuList(s_no);
 			return menu;
 	}
+	
+	@RequestMapping("/licensee/menuCount")
+	@ResponseBody
+	public Map menuCount(ModelAndView mv,HttpSession session,int s_no) {
+		//메뉴카운트
+		
+		Map menuCount = service.menuCount(s_no);
+			return menuCount;
+	}
+	
 	@RequestMapping("/licensee/menuEnroll")
 	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
 		
