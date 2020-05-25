@@ -82,9 +82,8 @@ public class MemberController_SH {
 			
 			
 			
-
+	       
 			int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
-		
 		
 			
 			int resultPoint = service.updateMemberPoint(map);  //m_point update문

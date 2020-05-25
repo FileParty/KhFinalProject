@@ -41,7 +41,7 @@
 
 
 
- <form  action="${path }/pay/payment.do" method="post" > <!-- id="baguniForm" onsubmit="return checkedNull();" -->
+ <form  action="${path }/pay/payment.do" method="post" id="baguniForm" > <!--  -->
 
 <main>
   <h2 style="text-align: center; ">주문/결제</h2>
@@ -79,11 +79,11 @@
 			        
 <!-- =============================================================================================================================== -->
 			         
-			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>   
+			          <input  type="hidden" name="menuNo" value="${a['no']}"><!--메뉴코드  --> 
 			  
-			           <input  type="text" name="opNames" value="${a['opNames']}"><!--인술이가 다시보내준거  --> 
+			           <input  type="hidden" name="opNames" value="${a['opNames']}"><!--인술이가 다시보내준거  --> 
 			         
-			                <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  --><br>
+			                <input  type="hidden" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  -->
 			           <%--  <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
 			            	<p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
 			            	   <input  type="text" name="sd_array" value=" ${c['unReqOpName']}">
@@ -528,10 +528,10 @@
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
-                        <input type="submit" value="결제하기" >
-<!--                           <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                       <!--  <input type="submit" value="결제하기" > -->
+                         <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button> -->
+                          </button> 
   
 
     </div>
@@ -1063,6 +1063,7 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
+        	
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
             
