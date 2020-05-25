@@ -42,6 +42,7 @@ public class MemberController_SH {
 		
 		int m_no=member.getM_No();
 		int totalData=service.selectCouponCount(m_no);
+		
 		session.getAttribute("newOrder");
 		
 		m.addAttribute("couponlist",couponlist);
@@ -61,11 +62,12 @@ public class MemberController_SH {
 			
 			Member m = (Member )session.getAttribute("loginMember");
 			
+			
 			int result = service.insertOrderInfo(map);			//order_info  insert문
 			System.out.println("첫번쨰"+map);
+			session.getAttribute("couponlist");
 			
-			
-			List<Map> list = (List<Map>) session.getAttribute("orderList"); 
+			List<Map> list = (List<Map>) session.getAttribute("orderList"); // o_no주문코드가져와서 세션에저장.
 			for(int j=0;j<list.size();j++) {
 				list.get(j).put("o_no",map.get("o_no"));
 				System.out.println("메뉴 :"+list.get(j));
@@ -80,11 +82,11 @@ public class MemberController_SH {
 	     	
 			
 			
-			
-			
 	       
-			int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
-		
+			if(!map.get("couponNo").isEmpty()) {
+	       
+				int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
+			}
 			
 			int resultPoint = service.updateMemberPoint(map);  //m_point update문
 			if(resultPoint > 0) {
@@ -108,5 +110,6 @@ public class MemberController_SH {
 			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
 			return mv;
 		}
-			
+		
+	
 }
