@@ -9,6 +9,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -35,6 +36,7 @@ public interface LicenseeService {
 	List<ReviewAll> selectReview(int s_no);
 	Review updateReviewReply(Map<String,Object> map);
 	int menuSideAdd(List<MenuSide> list);
+	List<ReviewImg> selectReviewImg(int s_no);
 	
 	
 }

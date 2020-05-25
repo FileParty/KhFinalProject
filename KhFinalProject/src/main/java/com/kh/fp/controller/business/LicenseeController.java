@@ -30,6 +30,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -199,13 +200,21 @@ public class LicenseeController {
 		//리뷰
 		//셀렉용
 				
-		List<ReviewAll> list = service.selectReview(1);
-		
-		
-		
-		
+		List<ReviewAll> list = service.selectReview(s_no);
+	
 		return list;
 	}
+	@RequestMapping("/licensee/reviewImgSelect")
+	@ResponseBody
+	public List<ReviewImg> reviewImgSelect(ModelAndView mv,HttpSession session,int s_no) {
+		//리뷰
+		//셀렉용
+				
+		List<ReviewImg> list = service.selectReviewImg(s_no);
+	
+		return list;
+	}
+	
 	
 	@RequestMapping("/licensee/getdetailorder")
 	public List<Map<String, Object>> getDetailOrder(int no){

@@ -248,6 +248,7 @@
 			 function categoryPlus() {
 
 						 $("#myModal3").modal('show');
+						 
 						 $(".modal-body").children().find('input[name=storeNo]').remove();
 						 let storeNo = $("<input>").attr({
 							 'type':'hidden',
