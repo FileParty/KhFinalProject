@@ -41,7 +41,7 @@
 
 
 
- <form  action="${path }/pay/payment.do" method="post"  > <!-- id="baguniForm" -->
+ <form  action="${path }/pay/payment.do" method="post" id="baguniForm" > <!--  -->
 
 <main>
   <h2 style="text-align: center; ">주문/결제</h2>
@@ -330,7 +330,7 @@
                 <div class="dialog__inner">
                 
                     <div class="dialog__content">
-                        <h3>쿠폰적용</h3>  <hr>
+                        <h3>쿠폰적용</h3>  <p style="text-align: right;">* 쿠폰은 한 주문당 한개만 사용 가능합니다.</p><hr>
                        	
                           <table id="example-table-2" border="1" style="width:1150px;">
                               <tr>
@@ -357,10 +357,21 @@
 	                                			 <small style="color:red;">만료일자: <fmt:formatDate value="${c['cn_expire'] }" pattern="yyy/MM/dd HH:mm:ss" /></small>
 	                                </td>
 	                                <td id="td1">
-
-								  <input type="button" id="clickevent" class="checkBtn" value="쿠폰적용" /> 
-								  <input type="button" style="display:none;" id="alloffHidden" class="alloff" value="적용취소" />
-	                                	<input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
+	                           <c:choose>
+        						  <c:when test="${c['cn_limitprice'] <= priceSum+250}" >   <!--${c['cn_limitprice'] } =< ${priceSum+2500}  -->
+									  <input type="button" id="clickevent" class="checkBtn" value="쿠폰적용" /> 
+								  </c:when>         
+       							 <c:otherwise>
+       							 	<p>쿠폰이용한도금액보다 작아 사용할수없습니다. </p> 
+								 </c:otherwise>
+   							  </c:choose>
+								 
+								  <c:choose>
+        						 	 <c:when test="${c['cn_limitprice'] <= priceSum+250}" >
+								  		<input type="button" style="display:none;" id="alloffHidden" class="alloff" value="적용취소" />
+	                               	</c:when>  
+	                               </c:choose>
+	                               <input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
 	                                </td>
 	                              </tr>
 	                               	 </c:if>
@@ -520,18 +531,18 @@
       <input type="hidden" id="del" value="2500"/>    
   </tr>
           </table><br><hr>
-                            <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -25px;height: 81px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
+                            <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -25px;height: 116px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
                             <p style="margin-top:10px;color:rgb(95, 95, 95);">주문할 상품의 상품명, 상품가격,배송정보<br>를 확인하였으며, 구매를 동의 하십니까?   
                               <a id="agree1" onclick="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
-                              <div id="agree2" style="display:none;text-align:center;">
+                              <div id="agree2" style="display:inline;text-align:center;">
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
                               </div>
                             </div>
-                        <input type="submit" value="결제하기" > 
-<!--                          <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                        <input type="hidden" value="결제하기" >  
+                     <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button>  -->
+                          </button>   
   
 
     </div>
@@ -1043,6 +1054,7 @@ $("#alloffHidden").click(function(){
 
 	//결제버튼 클릭시 결제 API 실행
 	$(".paymentBtn").on("click", function(){
+		
 	var totalPrice=$("#sum").val();
 	console.log("총가격 : "+totalPrice);
 	alert("결제할 가격은 "+totalPrice+"원 입니다.");
@@ -1440,11 +1452,11 @@ main {
   
 
   <!--=====================약관보기 체크 스크립트=============agree1 === agree2=======agree5======= -->
- 
-  $("#agree1").click(function(){
+ /* 
+  $("#dopay").click(function(){
 	  $('#agree2').css("display","inline");
 	  $('#agree5').css("height","116px");
-  });
+  }); */
   
   <!--=====================모두 동의합니다 체크시 결제하기 버튼 바꾸기=============check123 === dopay============= -->
   
@@ -1455,11 +1467,12 @@ main {
 	        	$('#agree5').css("color","white").css("border","1px solid black");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
 	        	$('#agree2').css("color","black");
+	        	$('.paymentBtn').html("결제 (클릭)");
 	        }else{
 	        	$('#dopay').css("color","rgb(190, 190, 190").css("background-color","rgb(243, 243, 243)");
 	        	$('#agree5').css("color","white").css("border","1px solid lightgray");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid lightgray");
-	        	
+	        	$('.paymentBtn').html("결제하기");
 	        }
 	    });
 	});
