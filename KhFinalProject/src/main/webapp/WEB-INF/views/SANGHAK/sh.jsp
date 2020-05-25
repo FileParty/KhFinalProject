@@ -160,7 +160,7 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text"  id="name_1"  style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
+            	<input type="text" name="ordername123" id="name_1"  style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
 		          <input type="hidden" name="mNo" value="${loginMember['m_No']}"/>
 		          <input type="hidden"  id="name_1" name="orderName" value="${loginMember['m_Name']}">
             </td>
@@ -180,7 +180,7 @@
         <br>
       </div>
      
-      <h2>결제정보</h2>
+      <h2>➊ 결제정보</h2>
     <hr>
  
     <h4>배송지 정보</h4> 
@@ -281,11 +281,16 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" name="receiveName" style="width:300px;height:45px; padding-left: 10;"required><br> </td>
+  <td><input type="text"  id="name_2" name="receiveName" style="width:300px;height:45px; padding-left: 10;"required><br>
+  	<p id="text1" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
+  </td>
+
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2"  name="receivePhone" style="width:300px;height:45px; padding-left: 10;"required><br></td>
+  <td><br><input type="text"  id="phone_2"  name="receivePhone" style="width:300px;height:45px; padding-left: 10;"required><br>
+    	<p id="text2" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
+  </td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
@@ -298,6 +303,7 @@
   <td>
   		<input type="text" id="address" name="address2" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
   		<input type="hidden" name="addr123" id="addr"/>
+  		<p id="text3" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
   </td>
 </tr>
 <tr>
@@ -308,12 +314,15 @@
 </tr>
 
     </table>            
+      <input type="button" value="다음 "id="nextTime" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+ 
+  <h4 style="font-size: 30px;">➋ 할인/배송비</h4>
      <hr>
 
 
-      <h4>할인/배송비</h4>
+     
 
-    <table> 
+    <table id="nextTime1" style="display: none;"> 
     <tr>
     <td style="padding-right:40px;">쿠폰 사용</td>
     
@@ -321,7 +330,7 @@
     
 		<div class="col-lg-12" id="ex2_Result2"></div> 
         <!-- ================================쿠폰적용========================================== -->
-       <button class="button" style="width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
+       <button class="button123" style="width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
         	쿠폰적용
         </button>
 
@@ -458,19 +467,35 @@
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
       </div> -->
       <br>
-      <h2>결제 방법</h2>
-<hr>
-	<div id="btn-container"style="border: 1px solid black;text-align: center;width: 200px;margin: auto; width: 50%;padding: 15px;">
+      <h2>➌ 결제 방법</h2>
+       <input type="button" value="다음 "id="nextTime4" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+        	
+
+<hr><div class="nextTime5" style="display:none;">
+	<div id="btn-container"  style="border: 1px solid black;text-align: center;width: 200px;margin: auto; width: 50%;padding: 15px;">
  	  <button id="btn-button" value="1">신용카드</button>
  	</div>
-
+ 	
+</div>
   </div>
   
 
 
 
   </div>
-
+ <script>
+        $("#nextTime4").click(function(){
+        	 if($("#nextTime4").val()=="접기"){
+        		 $('.nextTime5').css("display","none"); 
+	  	  			$(this).val("다음");
+        	 }else{
+        		 $('.nextTime5').css("display","inline"); 
+	  	  			$(this).val("접기");
+        		 
+        	 }
+	    }); 
+	        
+        </script>
 
   <div style="margin-top:75px;" >
     <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
@@ -537,12 +562,14 @@
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
                               <div id="agree2" style="display:inline;text-align:center;">
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
+                             	 <input id="vlftn" type="text"  style="margin-right: -47px;border:1px solid rgb(243, 243, 243);background-color: rgb(243, 243, 243);width:69px;color:red;" value="(필수체크)" readonly>
                               </div>
                             </div>
                         <input type="hidden" value="결제하기" >  
-                     <button id="dopay" class="paymentBtn" type="button" style="border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
+                     <button  id="dopay" class="paymentBtn" type="button" style="pointer-events: none; border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
-                          </button>   
+                     </button>   
+                    
   
 
     </div>
@@ -932,7 +959,95 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
   </div>
 </div>
 
-
+       	
+<!--===================널값 예외처리========================================== -->        
+        <script>
+        $("#nextTime").click(function(){
+        	 if($("#nextTime").val()=="접기"){
+        		 $('#nextTime1').css("display","none"); 
+	  	  			$(this).val("다음");
+        	 }else{
+        		 var address=document.getElementById('address').value;
+        		 var name_2=document.getElementById('name_2').value;
+        		 var phone_2=document.getElementById('phone_2').value;
+        		 /*==============================베송시요청사항 비어있을때====================================  */
+        		if(address==""&&name_2==""&&phone_2==""){
+        			 $("#address").css("border","0.2px solid red"); 
+				  	 $("#name_2").css("border","0.2px solid red"); 
+				  	 $("#phone_2").css("border","0.2px solid red"); 
+				  	 $("#text3").css("display","inline");
+				  	 $("#text1").css("display","inline");
+				     $("#text2").css("display","inline");
+        		} else if(name_2!=""&&phone_2==""&&address==""){
+       			
+			  	 $("#name_2").css("border","0.2px solid lightgray"); 
+			  	 $("#phone_2").css("border","0.2px solid red"); 
+			  	 $("#address").css("border","0.2px solid red"); 
+		
+			  	 $("#text1").css("display","none");
+			     $("#text2").css("display","inline");
+			  	 $("#text3").css("display","inline");
+    			} else if(name_2!=""&&phone_2!=""&&address==""){
+           			
+   			  	 $("#name_2").css("border","0.2px solid lightgray"); 
+   			  	 $("#phone_2").css("border","0.2px solid lightgray"); 
+   			  	 $("#address").css("border","0.2px solid red"); 
+   		
+   			  	 $("#text1").css("display","none");
+   			     $("#text2").css("display","none");
+   			  	 $("#text3").css("display","inline");
+       			}else if(name_2!=""&&phone_2==""&&address!=""){
+           			
+   			  	 $("#name_2").css("border","0.2px solid lightgray"); 
+   			  	 $("#phone_2").css("border","0.2px solid red"); 
+   			  	 $("#address").css("border","0.2px solid lightgray"); 
+   		
+   			  	 $("#text1").css("display","none");
+   			     $("#text2").css("display","inline");
+   			  	 $("#text3").css("display","none");
+       			}else if(name_2==""&&phone_2!=""&&address==""){
+           			
+      			  	 $("#name_2").css("border","0.2px solid red"); 
+      			  	 $("#phone_2").css("border","0.2px solid lightgray"); 
+      			  	 $("#address").css("border","0.2px solid red"); 
+      		
+      			  	 $("#text1").css("display","inline");
+      			     $("#text2").css("display","none");
+      			  	 $("#text3").css("display","inline");
+          			}else if(name_2==""&&phone_2!=""&&address!=""){
+               			
+         			  	 $("#name_2").css("border","0.2px solid red"); 
+         			  	 $("#phone_2").css("border","0.2px solid lightgray"); 
+         			  	 $("#address").css("border","0.2px solid lightgray"); 
+         		
+         			  	 $("#text1").css("display","inline");
+         			     $("#text2").css("display","none");
+         			  	 $("#text3").css("display","none");
+             			}else if(name_2==""&&phone_2==""&&address!=""){
+                   			
+            			  	 $("#name_2").css("border","0.2px solid red"); 
+            			  	 $("#phone_2").css("border","0.2px solid red"); 
+            			  	 $("#address").css("border","0.2px solid lightgray"); 
+            		
+            			  	 $("#text1").css("display","inline");
+            			     $("#text2").css("display","inline");
+            			  	 $("#text3").css("display","none");
+                			}else if(address!=""&&name_2!=""&&phone_2!=""){
+				         $('#nextTime1').css("display","inline"); 
+					  	 $(this).val("접기");
+			    		 $("#address").css("border","0.2px solid lightgray"); 
+					  	 $("#name_2").css("border","0.2px solid lightgray"); 
+					  	 $("#phone_2").css("border","0.2px solid lightgray"); 
+					  	 $("#text3").css("display","none");
+					  	 $("#text1").css("display","none");
+					     $("#text2").css("display","none");
+					  	  			}
+				  	
+						
+        	 }
+	    }); 
+	        
+        </script>
 <!--=====================쿠폰체크 픽 스크립트=========================================== -->
 <script>  // 선택버튼 (id="pick")을 누르면 왼쪽 옆옆 의 값( cn_price)이 input태그(id="pickresult")에 나오게.
 //버튼 클릭시 Row 값 가져오기
@@ -1325,16 +1440,17 @@ main {
 
   $("#btn-container").click(function(){
 	 if($("#btn-container").val()=="1"){
-	    $('#btn-container').css("border","solid 3px red");
-	    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
+		   $('#btn-container').css("border","solid 1px black");
+		    $('#btn-button').css("color","black").css("font-weight","normal").html("신용카드");
 	    $(this).val("2");
 	  /*   var addMenu=document.getElementById('addMenu').value;
 	 
 	    $("#addMenu2").val(addMenu); */
 	 }else{
 		   $(this).val("1");
-		   $('#btn-container').css("border","solid 1px black");
-		    $('#btn-button').css("color","black").css("font-weight","normal").html("신용카드");
+		   $('#btn-container').css("border","solid 3px red");
+		    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
+		
 	 }
 	 });
   
@@ -1348,17 +1464,17 @@ main {
   function check1(f){
 
     if (f.checked) {
+ 
+      $('#name_2').val($('#name_1').val()).attr("readonly",true).css("background-color","rgb(243, 243, 243)");
 
-      $('#name_2').val($('#name_1').val());
-
-      $('#phone_2').val($('#phone_1').val());
+      $('#phone_2').val($('#phone_1').val()).attr("readonly",true).css("background-color","rgb(243, 243, 243)");
      
 
     } else{
 
-    $('#name_2').val('');
+    $('#name_2').val('').attr("readonly",false).css("background-color","white");
 
-    $('#phone_2').val('');
+    $('#phone_2').val('').attr("readonly",false).css("background-color","white");
 
       }
 
@@ -1467,12 +1583,14 @@ main {
 	        	$('#agree5').css("color","white").css("border","1px solid black");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
 	        	$('#agree2').css("color","black");
-	        	$('.paymentBtn').html("결제 (클릭)");
+	        	$('#vlftn').prop("type", "hidden");
+	        	$('.paymentBtn').html("결제 (클릭)").css("pointer-events","auto");
 	        }else{
 	        	$('#dopay').css("color","rgb(190, 190, 190").css("background-color","rgb(243, 243, 243)");
 	        	$('#agree5').css("color","white").css("border","1px solid lightgray");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid lightgray");
-	        	$('.paymentBtn').html("결제하기");
+	        	$('.paymentBtn').html("결제하기").css("pointer-events","none");;
+	        	$('#vlftn').prop("type", "text");
 	        }
 	    });
 	});
