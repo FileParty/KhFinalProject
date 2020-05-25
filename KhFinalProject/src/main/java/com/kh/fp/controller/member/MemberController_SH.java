@@ -71,11 +71,8 @@ public class MemberController_SH {
 				System.out.println("메뉴 :"+list.get(j));
 	
 			}
-			
-			
-			
-			
-	         for(int i=0;i<list.size();i++) {
+
+	         for(int i=0;i<list.size()-1;i++) {
 	            int ordermenu = service.insertOrderMenu(list.get(i));      //order_menu insert문
 	            System.out.println("orderMenu  :"+list.get(i));
 				
