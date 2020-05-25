@@ -18,12 +18,15 @@ public interface MemberDao_SH {
 
 	int insertOrderInfo(SqlSessionTemplate session, Map<String, String> map);
 
-	int insertOrderMenu(SqlSessionTemplate session, Map<String, String> map);
-
+	
 	int updateMemberPoint(SqlSessionTemplate session, Map<String, String> map);
 
 
+	Member selectMember(SqlSessionTemplate session, int m_no);
 
+	int couponDelete(SqlSessionTemplate session, int couponNo);
+
+	int insertOrderMenu(SqlSessionTemplate session, Map map);
 
 
 

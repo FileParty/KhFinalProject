@@ -45,15 +45,15 @@ ${sysdate }  --%>
                        <div class="col-md-8 order_content" style="border: 1px solid black; height:200px;">
 							<input type="hidden" value="${m['O_NO']}"/>
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
+                           <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
-                           <p>${(o.time-rdate.time)/(60*1000) }</p>
                            <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button></p>
                            <table style="width:100%">
                                <tr>
-                                   <td><img src="${path }/resources/upload/mypage/${m['S_LOGIMG']}"/></td>
+                                   <td><img width="80" height="80" src="${path }/resources/upload/store/${m['S_LOGIMG']}"/></td>
                                    <td style="text-align: right;">
-                                       <p style="text-align: right;"><strong>${m['O_DATE'] }</strong></p>
+                                       <p style="text-align: right;"><strong>${zdate}</strong></p>
                                        <p style="text-align: right;"><strong>${m['O_PAYPRICE'] }원</strong></p>
                                    </td>
                                </tr>
@@ -187,7 +187,7 @@ ${sysdate }  --%>
                         <p style="text-align: center;"><strong></strong></p>
                         <table id="modal-tbl" style="width:100%">
                             <tr>
-                                <td><img/></td>
+                                <td><img width="100px" height="100px"/></td>
                                 <td style="text-align: right;">
                                     <p style="text-align: right;"><strong></strong></p>
                                     <p style="text-align: right;"><strong></strong></p>
@@ -331,9 +331,6 @@ ${sysdate }  --%>
         
 	        function scoreTasteSet(no){
 	        	
-	        	console.log(this);
-	        	console.log(event);
-	        	
 	        	$("#scoreTaste").children("svg").remove();
 	        	
 	        	if(no==0){
@@ -384,9 +381,6 @@ ${sysdate }  --%>
 	        
 			function scoreAmountSet(no){
 	        	
-	        	console.log(this);
-	        	console.log(event);
-	        	
 	        	$("#scoreAmount").children("svg").remove();
 	        	
 	        	if(no==0){
@@ -435,9 +429,6 @@ ${sysdate }  --%>
 	        }
 	        
 			function scoreDeliverySet(no){
-				
-				console.log(this);
-				console.log(event);
 				
 				$("#scoreDelivery").children("svg").remove();
 				
@@ -490,14 +481,13 @@ ${sysdate }  --%>
         
 	        function reviewInsertModal(s_no, m_no, o_no){
 	        	
+	        	$("#scoreTaste").children("svg").remove();
+	        	$("#scoreAmount").children("svg").remove();
+	        	$("#scoreDelivery").children("svg").remove();
+	        	
 	        	$("#s_no").val(s_no);
 	        	$("#m_no").val(m_no);
-	        	$("#o_no").val(o_no);
-	        	
-	        	$("#scoreTaste").html();
-	        	$("#scoreAmount").html();
-	        	$("#scoreDelivery").html();
-	        	
+	        	$("#o_no").val(o_no);	        	
 	        	
 	        	
 	        	for(var i=0; i<5; i++){
@@ -539,6 +529,8 @@ ${sysdate }  --%>
             	
            		
            		$("#modal").find("img").attr("src", src);
+           		$("#modal").find("img").attr("width", "100");
+           		$("#modal").find("img").attr("height", "100");
             	
 				$.ajax({
 			
@@ -554,7 +546,7 @@ ${sysdate }  --%>
 						
 						for(let i=0; i<data.length; i++){
 							option = data[i]['SD_ARRAY'].split(',');
-							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img src='${path}/resources/img/mypage/review/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
 							
 							if(option.length>0){
 								
@@ -562,7 +554,9 @@ ${sysdate }  --%>
 							
 							
 							for(let j=0; j<option.length; j++){
-								$("#menu-tbl").append("<tr><td colspan='2' class='modalOption' style='text-align: left'>");
+								if(j==0)
+									$("#menu-tbl").append("<tr><th colspan='2' style='text-align:center;'>추가옵션");	
+								$("#menu-tbl").append("<tr><td colspan='2' style='text-align:right;' class='modalOption' style='text-align: left'>");
 								$($(".modalOption")[j]).append(option[j]);									
 							}
 							

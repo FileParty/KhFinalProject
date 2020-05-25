@@ -8,6 +8,11 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 <div class="s-store-list-return">
@@ -909,7 +914,8 @@
         	let limitPrice = Number($("#order-limit-price").val());
         	let orderFinalPrice = Number($("#order-final-price").val());
         	if(orderFinalPrice>limitPrice){
-	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":${store['s_no']}});
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":"${store['s_no']}"});
+	        	console.log("ppap");
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
@@ -999,6 +1005,7 @@
         	});
         }
         
+        
         /* review ajax */
         function reviewAjax(no,cPage,type){
         	$.ajax({
@@ -1043,16 +1050,31 @@
 	        			tr1 += "</span>";
 	        			tr1 += "<span class='report' onclick='reviewReport("+data[i]['r_no']+")'>신고</span>";
 	        			table.append(tr1);
-	        			if(data[i]['r_imgs'].length!=0){
-	        			let tr3 = "<tr><td>";
+	        			let sliLen = 0;
+	        			if(data[i]['r_imgs'].length>1){
+		        			sliLen = data[i]['r_imgs'].length;
+		        			
+		        			let imgTr = "<tr><td>";
+		        			imgTr += "<div class='review-slide-td' data-cPage='1' data-max-page='"+sliLen+"'>";
+		        			imgTr += "<div class='review-slide-div'>";
 	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
-	        					tr3 += "<img src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        					imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
 	        				}
-	        			tr3 += "</td></tr>";
-	        			table.append(tr3);
+	        				imgTr += "</div>";
+	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(-1)'>◁</button>";
+	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(1)'>▷</button>";
+	        				imgTr += "<</div></td></tr>";
+		        			table.append(imgTr);
+	        			} else if(data[i]['r_imgs'].length==1){
+	        				let imgTr = "<tr><td>";
+	        				imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][0]+"' width='650px' height='300px'/>";
+	        				imgTr += "</td></tr>"
+	        				table.append(imgTr);
 	        			}
-	        			let tr5 = "<tr><td>";
-	        			tr5 += "<span class='s-store-review-menu-text'>"+data[i]['me_name']+"::"+data[i]['sd_array']+"</span>";
+		        			let tr5 = "<tr><td>";
+		        		for(let k=0;k<data[i]['mdrm'].length;k++){
+		        			tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][k]['me_name']+" 옵션: "+data[i]['mdrm'][k]['sd_array']+"</span><br/>";
+	        			}
 	        			tr5 += "</td></tr>";
 	        			table.append(tr5);
 	        			let tr4 = "<tr><td>";
@@ -1062,6 +1084,7 @@
 	        			let hr= $("<hr>");
 	        			reviewDiv.append(table);
 	        			reviewDiv.append(hr);
+	        			$(".review-slide-div").last().css("width",sliLen*650);
 	        			if(data[i]['r_reply']!=null){
 	        				let reply = "<div class='s-store-review-reply'>";
 	        				reply += "<span class='s-store-review-reply-text'>☞&nbsp;사장님&nbsp;☜</span>";
@@ -1181,6 +1204,40 @@
         	}
         	
         };
+        
+        /* 슬라이드바 */
+        function SlideMove(nPage){
+        	let dataDiv = $(event.target).parent();
+        	let moveDiv = $(dataDiv).find(".review-slide-div");
+        	let cPage = Number($(dataDiv).attr("data-cpage"));
+        	let maxPage = Number($(dataDiv).attr("data-max-page"));
+        	cPage += nPage;
+        	console.log(cPage);
+        	if(cPage!=0&&cPage<=maxPage){
+        		if(nPage>0){
+        			$(moveDiv).animate({
+        				left:"-=650px"
+        			});
+        		} else {
+        			$(moveDiv).animate({
+        				left:"+=650px"
+        			});
+        		}
+        	} else if(cPage==0){
+        		$(moveDiv).animate({
+    				left:"-="+((maxPage-1)*650)+"px"
+    			});
+        		cPage = maxPage;
+        	} else if(cPage>maxPage){
+        		$(moveDiv).animate({
+    				left:"+="+((maxPage-1)*650)+"px"
+    			});
+        		cPage = 1;
+        	}
+        	$(dataDiv).attr("data-cpage",cPage);
+        	console.log($(dataDiv).attr("data-cpage"));
+        }
+        
     
     </script>
 </section>

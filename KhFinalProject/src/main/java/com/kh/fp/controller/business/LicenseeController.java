@@ -30,6 +30,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -76,7 +77,7 @@ public class LicenseeController {
 			 return mv;
 		}else {
 		 mv.addObject("store",list);
-		 mv.setViewName("business/menuEnroll");
+		 mv.setViewName("business/menuStatus");
 		 return mv;
 		}
 	}
@@ -107,6 +108,16 @@ public class LicenseeController {
 		List<Menu> menu = service.selectMenuList(s_no);
 			return menu;
 	}
+	
+	@RequestMapping("/licensee/menuCount")
+	@ResponseBody
+	public Map menuCount(ModelAndView mv,HttpSession session,int s_no) {
+		//메뉴카운트
+		
+		Map menuCount = service.menuCount(s_no);
+			return menuCount;
+	}
+	
 	@RequestMapping("/licensee/menuEnroll")
 	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
 		
@@ -170,10 +181,11 @@ public class LicenseeController {
 	}
 	
 	@RequestMapping("/licensee/orderEnd")
+	
 	public String orderEnd() {
 		//주문완료내역
 		return "business/orderEnd";
-	}
+				}
 	
 	@RequestMapping("/licensee/review")
 	public ModelAndView review(ModelAndView mv,HttpSession session) {
@@ -198,12 +210,21 @@ public class LicenseeController {
 		//리뷰
 		//셀렉용
 				
-		List<ReviewAll> list = service.selectReview(1);
-		
-		
-		
+		List<ReviewAll> list = service.selectReview(s_no);
+	
 		return list;
 	}
+	@RequestMapping("/licensee/reviewImgSelect")
+	@ResponseBody
+	public List<ReviewImg> reviewImgSelect(ModelAndView mv,HttpSession session,int s_no) {
+		//리뷰
+		//셀렉용
+				
+		List<ReviewImg> list = service.selectReviewImg(s_no);
+	
+		return list;
+	}
+	
 	
 	@RequestMapping("/licensee/getdetailorder")
 	public List<Map<String, Object>> getDetailOrder(int no){
@@ -492,7 +513,10 @@ public class LicenseeController {
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
 		int sd_no[] = new int[sd.length];
-		
+		int optionCount = Integer.parseInt(req.getParameter("optionCount"));
+		if(optionCount == 0) {
+			
+		}
 		log.debug("가게번호"+s_no);
 		log.debug("메뉴번호"+me_no);
 		log.debug("카테고리"+mt_no);
@@ -515,9 +539,15 @@ public class LicenseeController {
 			log.debug("추가번호"+sd_no[i]);
 			list.add(ms);
 		}
-		int result = service.menuUpdate(map,me_no);
+		int result = service.menuUpdate(map,me_no,optionCount);
+		if(optionCount == 0 ) {
+			if(result>0) {
+				result = service.menuSideAdd(list);
+			}
+		}else {
 		if(result>0) {
 			result = service.menuSideUpdate(list);
+		}
 		}
 		String page ="";
 		if(result>0) {

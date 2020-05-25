@@ -15,7 +15,7 @@
       
         div#side {
             border: 1px soild black;
-            margin-top:150px;
+            margin-top:100px;
             position: fixed;
             width:200px;
         }
@@ -66,7 +66,7 @@
                       	<li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/storeEnroll">매장 등록</a></li>
                         <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/store/storedetail">매장 정보</a></li>
                         <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/menuEnroll">메뉴 등록</a></li>
-                        <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/menuStatus">매장 관리</a></li>
+                        <li class="list-group"><a class="menuDetail list-group-item list-group-item-action " href="${path }/licensee/menuStatus">메뉴 관리</a></li>
                        	<li class="list-group"><a class="menu list-group-item list-group-item-action " href="${path }/licensee/calculate">매출 도표</a></li>
                        	<li class="list-group"><a class="menu list-group-item list-group-item-action " href="${path }/licensee/order">주문 내역</a></li>
                         <li class="list-group"><a class="menu list-group-item list-group-item-action" href="${path }/licensee/review">리뷰 관리</a></li>
