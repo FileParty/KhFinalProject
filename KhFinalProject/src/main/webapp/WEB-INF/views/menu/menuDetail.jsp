@@ -8,6 +8,11 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 <div class="s-store-list-return">
@@ -1000,6 +1005,7 @@
         	});
         }
         
+        
         /* review ajax */
         function reviewAjax(no,cPage,type){
         	$.ajax({
@@ -1047,13 +1053,15 @@
 	        			if(data[i]['r_imgs'].length!=0){
 	        			let tr3 = "<tr><td>";
 	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
-	        					tr3 += "<img src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        					tr3 += "<img class='mySlides' src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
 	        				}
 	        			tr3 += "</td></tr>";
 	        			table.append(tr3);
 	        			}
 	        			let tr5 = "<tr><td>";
-	        			tr5 += "<span class='s-store-review-menu-text'>"+data[i]['me_name']+"::"+data[i]['sd_array']+"</span>";
+	        			for(let j=0;j<data[i]['mdrm'].length;j++){
+	        				tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][j]['me_name']+" 옵션: "+data[i]['mdrm'][j]['sd_array']+"|</span>&nbsp;";
+	        			}
 	        			tr5 += "</td></tr>";
 	        			table.append(tr5);
 	        			let tr4 = "<tr><td>";
@@ -1182,6 +1190,7 @@
         	}
         	
         };
+        
     
     </script>
 </section>

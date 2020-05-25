@@ -20,11 +20,12 @@ public class StoreDetailReview {
 	private Date r_date;
 	private int m_no;
 	private int s_no;
-	private double r_score;
+	private int o_no;
 	private String m_nickName;
-	private String sd_array;
-	private String me_name;
+	private double r_score;
 	private String r_reply;
 	private List<String> r_imgs;
+	private List<MenuDetailReviewMenu> mdrm;
+	
 
 }
