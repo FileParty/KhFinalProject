@@ -64,12 +64,23 @@ public class MemberController_SH {
 			int result = service.insertOrderInfo(map);			//order_info  insert문
 			System.out.println("첫번쨰"+map);
 			
-			List<Map> list = (List<Map>) session.getAttribute("orderList");
-			System.out.println(list); 
+			
+			List<Map> list = (List<Map>) session.getAttribute("orderList"); 
+			for(int j=0;j<list.size();j++) {
+				list.get(j).put("o_no",map.get("o_no"));
+				System.out.println("메뉴 :"+list.get(j));
+	
+			}
+			
+			
+			
+			
 	         for(int i=0;i<list.size();i++) {
 	            int ordermenu = service.insertOrderMenu(list.get(i));      //order_menu insert문
+	            System.out.println("orderMenu  :"+list.get(i));
+				
 	         } 
-			
+	     	
 			
 			
 			
