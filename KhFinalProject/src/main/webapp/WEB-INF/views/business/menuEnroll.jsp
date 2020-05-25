@@ -71,14 +71,14 @@
       </style> 
 	<%@ include file="../common/header.jsp" %>
 	
-    <section style="width:1366px;height:auto;margin-bottom:200px;">
+    <section style="width:1366px;height:auto;margin-bottom:250px;">
  	<div class="container">
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-                     <ul class="nav">
-                        <li class="">
-                        	<p style="font-size:30px;color:black;"href="${path }/licensee/menuEnroll" class="list nav-link active">메뉴 등록</p>
+                     <ul class="nav nav-tabs nav-justified">
+                        <li class="nav-item">
+                        	<p style="font-size:30px;color:black;">메뉴 등록</p>
                         </li>
                     </ul>
                     <br>                 
@@ -99,6 +99,8 @@
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
                     		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
                     		<div class="container addCategory">	
+                    		<br>
+                    		<br>
                     		</div>
                     		<br>
                     		<br>
@@ -246,6 +248,7 @@
 			 function categoryPlus() {
 
 						 $("#myModal3").modal('show');
+						 
 						 $(".modal-body").children().find('input[name=storeNo]').remove();
 						 let storeNo = $("<input>").attr({
 							 'type':'hidden',
@@ -666,7 +669,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(mCheck[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
@@ -725,7 +728,7 @@
 				 		'name':'categoryEnd',
 				 		'value':$("#selectCategory").val(),
 				 		'readonly':'true'
-				 	})
+				 	}).css('margin-top','30');
 				 	
 				 	
 				 	var mtNoInput = $("<input>").attr({

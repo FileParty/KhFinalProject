@@ -16,9 +16,18 @@ public interface MemberService_SH {
 
 	int insertOrderInfo(Map<String, String> map);
 
-	int insertOrderMenu(Map<String, String> map);
 
 	int updateMemberPoint(Map<String, String> map);
+
+	Member selectMember(int m_no);
+
+
+	int couponDelete(int couponNo);
+
+	int insertOrderMenu(Map map);
+
+	
+
 
 
 

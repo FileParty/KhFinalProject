@@ -46,7 +46,6 @@
                     	<div id="reviewList">
                     	
                     	</div>
-                    
                  </div>
                  
             </div>
@@ -59,8 +58,7 @@
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   						console.log('??',data);
-						var d = new Date();
+   						var d = new Date();
 						var d1 = new Date(data[0].r_date);
 						var dd = d-d1;
 						var day = 24 * 60 * 60 * 1000;
@@ -70,7 +68,7 @@
    						}
    						for(let i=0;i<data.length;i++) {
    							let div = $("<div>").attr('class','row');
-   							let tbl = $("<table>");
+   							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
    							let date = new Date(data[i].r_date);
    							let date1 = d-date;   							
@@ -98,15 +96,15 @@
    							tr1+="&nbsp;<span>"+'양★&nbsp;'+data[i].r_score_amout+"</span>";
    							tr1+="&nbsp;<span>"+'배달★&nbsp;'+data[i].r_score_delivery+"</span>";
    							
-   							let tr2 = "<tr><td>";   							
-  							  							
-   							if(data[i].r_img !=null) {  
-   								tr2+="<img src='${path}/resources/upload/menu/"+data[i].r_img+"' width='450px' height='200px'/>";
+   					 		let tr2 = "<tr><td>";   							
+  							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";			
+   						/* 	if(data[i].r_img !=null) {  
+   								tr2+="<img src='${path}/resources/img/mypage/review/"+data[0].r_img+"' width='450px' height='200px'/>";
    								
    							}else {
    								tr2+="<img alt='첨부 된 사진이없어요!'width='450px' height='200px'/>";
    								
-   							}
+   							}  */
    							
    							let tr3 = "<tr><td>"; 
    							tr3 += "<span>"+data[i].me_name+'/'+data[i].sd_array+"</span></tr></td>";
@@ -120,10 +118,10 @@
    							}
    							let tr6 = $("<input>").attr({
    								'type':'hidden',
-   								'id':'r_no',
+   								'class':'r_no'+i,
    								'value':data[i].r_no
    							});
-   							tbl.append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
+   							tbl.append(tr).append(tr1).append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
    							if(i%2==0) {
    							var divv = $("<div>").attr('class','row');
    							}
@@ -134,7 +132,28 @@
    							let span2 = $("<span>").html(data[i].r_text);
    							
    							$("#reviewList").append(divv);
-   						}
+   							var tbll = $(".tbl").length;
+   							console.log(tbll);
+   						} 
+   						console.log('리뷰',data);
+   						$.ajax({
+   							url:"${path}/licensee/reviewImgSelect",
+   							data:{s_no:$("#storeInfo").val()},
+   							success:function(data) {
+   								console.log('사진',data);
+   								
+   								for(let i=0;i<data.length;i++) {
+   									for(let j=0;j<tbll;j++) {
+   	   									let tdValue = $(".r_no"+j).val();
+   	   									let td = $(".r_no"+j);
+   									if(data[i].r_no == tdValue){
+   										
+   									}
+   									}
+   								}
+   							}
+   						})
+
    					}
    				})
    			})
@@ -192,7 +211,7 @@
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   						console.log('??',data);
+   					/* 	console.log('??',data);
 						var d = new Date();
 						var d1 = new Date(data[0].r_date);
 						var dd = d-d1;
@@ -231,7 +250,7 @@
    							tr1+="&nbsp;<span>"+'양★&nbsp;'+data[i].r_score_amout+"</span>";
    							tr1+="&nbsp;<span>"+'배달★&nbsp;'+data[i].r_score_delivery+"</span>";
    							
-   							let tr2 = "<tr><td>";   							
+   						 	let tr2 = "<tr><td>";   							
   							  							
    							if(data[i].r_img !=null) {  
    								tr2+="<img src='${path}/resources/upload/menu/"+data[i].r_img+"' width='450px' height='200px'/>";
@@ -239,7 +258,7 @@
    							}else {
    								tr2+="<img alt='첨부 된 사진이없어요!'width='450px' height='200px'/>";
    								
-   							}
+   							} 
    							
    							let tr3 = "<tr><td>"; 
    							tr3 += "<span>"+data[i].me_name+'/'+data[i].sd_array+"</span></tr></td>";
@@ -256,7 +275,7 @@
    								'id':'r_no',
    								'value':data[i].r_no
    							});
-   							tbl.append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
+   							tbl .append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
    							if(i%2==0) {
    							var divv = $("<div>").attr('class','row');
    							}
@@ -267,7 +286,7 @@
    							let span2 = $("<span>").html(data[i].r_text);
    							
    							$("#reviewList").append(divv);
-   						}
+   					 	}*/ 
    					}
    				})
    			 })

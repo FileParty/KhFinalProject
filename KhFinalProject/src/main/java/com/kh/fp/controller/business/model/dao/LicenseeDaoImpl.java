@@ -13,6 +13,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -133,6 +134,14 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectList("licensee.selectReview",s_no);
 	}
+	
+	
+
+	@Override
+	public List<ReviewImg> selectReviewImg(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectReviewImg",s_no);
+	}
 
 	@Override
 	public int updateReviewReply(SqlSessionTemplate session, Map<String, Object> map) {
@@ -145,6 +154,14 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("licensee.selectReviewReply",map);
 	}
+
+	@Override
+	public int menuSideAdd(SqlSessionTemplate session, MenuSide ms) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.insertMenuSide",ms);
+	}
+	
+	
 
 	
 	

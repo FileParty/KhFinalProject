@@ -101,9 +101,22 @@ public class MenuDetailController {
 		try {
 			List<Map> m = mapper.readValue(newOrders, List.class);
 			session.removeAttribute("orderList");
+			String ops = "";
+			for(int i=0;i<m.size()-1;i++) {
+				Map ms = m.get(i);
+				if(ms.get("reqOp")!=null) {
+					Map reqOp = (Map)ms.get("reqOp");
+					ops += reqOp.get("reqOpName");
+				}
+				if(ms.get("unReqOp")!=null) {
+					List<Map> unReqOp = (List<Map>)ms.get("unReqOp");
+					for(int j=0;j<unReqOp.size();j++) {
+						ops += ","+((Map)unReqOp.get(j)).get("unReqOpName");
+					}
+				}
+				ms.put("opNames", ops);
+			}
 			session.setAttribute("orderList", m);
-			log.debug(""+session.getAttribute("orderList"));
-			List<Map> sM = (List<Map>)session.getAttribute("orderList");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

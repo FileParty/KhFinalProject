@@ -11,6 +11,7 @@
 		alert('${msg}');
 		${script}
 		location.replace('${pageContext.request.contextPath}'+'${loc}');
+	
 	</script>
 </body>
 </html>

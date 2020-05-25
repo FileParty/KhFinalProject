@@ -13,9 +13,9 @@
   </insert>
 
  <!--============================ORDER_MENU에 값넣기============================ -->
-	<insert id="inserOrderMenu" parameterType="map">
-		INSERT INTO ORDER_MENU VALUES(#{o_no},#{menuNo},#{sd_array})
-	</insert>
+	<insert id="insertOrderMenu" parameterType="map">
+		INSERT INTO ORDER_MENU VALUES(#{o_no},#{no},#{opNames})  
+	</insert> 
 	
 <!-- 	<resultMap type="map" id="inserOrderMenu">			#{sd_array, typeHandler=strArr})
 		<result column="sd_array" property="sd_array" typeHandler="strArr"/>
@@ -27,7 +27,21 @@
 <update id="updateMemberPoint" parameterType="map">
   	UPDATE MEMBER SET M_POINT = #{remainPoint} WHERE M_NO = #{mNo}
   </update>
+   <!--============================ 세션 업데이트 위해  ============================ -->
+  
+  <select id="selectMember" parameterType="_int" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_NO=#{m_No}
+  </select>
+  
+  
 
+<!--============================ 쓴쿠폰 삭제하기  ============================ -->
+<!-- delete from coupon where cn_no=21; -->
 
+	<delete id="deleteCoupon" parameterType="_int">
+		DELETE FROM COUPON WHERE CN_NO = #{couponNo}
+		
+	</delete>
+	
 </mapper>
 	
