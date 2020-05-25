@@ -76,15 +76,18 @@
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
 			        	
-			        	
+			        
 <!-- =============================================================================================================================== -->
-			          
-			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>
-			         <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  -->
-			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
-			            	<%-- <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p> --%>
+			         
+			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>   
+			  
+			           <input  type="text" name="opNames" value="${a['opNames']}"><!--인술이가 다시보내준거  --> 
+			         
+			                <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  --><br>
+			           <%--  <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
+			            	<p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
 			            	   <input  type="text" name="sd_array" value=" ${c['unReqOpName']}">
-			            </c:forEach>  
+			            </c:forEach>   --%>
 			             <!--  <input id="addMenu2" type="text"/> -->
 			          <%--      <input  type="text" name="oNo" value="${a['reqOp']['reqOpNo']}"> <!--사이드코드 --> --%>
 <!-- =============================================================================================================================== -->
@@ -126,7 +129,8 @@
       
       
     </tbody>
-<!--          	this.src = src; // 메뉴이미지이름
+<!--         	this.no = no; // 메뉴코드
+        	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
         	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)

@@ -14,6 +14,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -126,14 +127,15 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.storesNo(session,no);
 	}
 
-	public int menuUpdate(Map<String, Object> map,int me_no) {
+	public int menuUpdate(Map<String, Object> map,int me_no,int optionCount) {
 		int result = 0;
 		
 		result = dao.menuUpdate(session,map);
 		if(result>0) {
+			if(optionCount==1) {
 			result = dao.menuSideDelete(session, me_no);
 			}
-		
+		}
 		return result;
 	}
 
@@ -152,6 +154,14 @@ public class LicenseeServiceImpl implements LicenseeService {
 		// TODO Auto-generated method stub
 		return dao.selectReview(session,s_no);
 	}
+	
+	
+
+	@Override
+	public List<ReviewImg> selectReviewImg(int s_no) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewImg(session,s_no);
+	}
 
 	@Override
 	public Review updateReviewReply(Map<String,Object> map) {
@@ -164,6 +174,19 @@ public class LicenseeServiceImpl implements LicenseeService {
 		}
 		return r;
 	}
+
+	@Override
+	public int menuSideAdd(List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		for(MenuSide ms : list) {
+			result = dao.insertMenuSide(session,ms);
+		}
+		return result;
+
+	}
+	
+	
 
 	
 

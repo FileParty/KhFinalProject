@@ -65,7 +65,23 @@ public class MemberController_SH {
 			System.out.println("첫번쨰"+map);
 			
 			
-			int ordermenu = service.insertOrderMenu(map);		//order_menu insert문
+			List<Map> list = (List<Map>) session.getAttribute("orderList"); 
+			for(int j=0;j<list.size();j++) {
+				list.get(j).put("o_no",map.get("o_no"));
+				System.out.println("메뉴 :"+list.get(j));
+	
+			}
+
+	         for(int i=0;i<list.size()-1;i++) {
+	            int ordermenu = service.insertOrderMenu(list.get(i));      //order_menu insert문
+	            System.out.println("orderMenu  :"+list.get(i));
+				
+	         } 
+	     	
+			
+			
+			
+			
 
 			int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
 		
