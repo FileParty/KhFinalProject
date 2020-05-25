@@ -686,3 +686,40 @@ p#review-report-header-text{
 	font-weight:800;
 	margin:0px;
 }
+
+.review-slide-td{
+	position:relative;
+	overflow:hidden;
+	width:650px;
+	height:300px;
+}
+
+.review-slide-div{
+	position:absolute;
+	overflow:hidden;
+	height:300px;
+	top:0;
+	left:0;
+	font-size:0;
+}
+
+.review-slide-btns{
+	position:absolute;
+	top:125px;
+	width:30px;
+	height:30px;
+	padding:0px;
+	background-color:white;
+	border:0;
+	font-size:24px;
+	color:gray;
+	z-index:1;
+}
+
+.review-slide-btns:nth-of-type(1){
+	left:0px;
+}
+
+.review-slide-btns:nth-of-type(2){
+	right:0px;
+}

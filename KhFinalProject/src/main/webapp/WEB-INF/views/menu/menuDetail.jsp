@@ -1050,20 +1050,33 @@
 	        			tr1 += "</span>";
 	        			tr1 += "<span class='report' onclick='reviewReport("+data[i]['r_no']+")'>신고</span>";
 	        			table.append(tr1);
-	        			if(data[i]['r_imgs'].length!=0){
-	        			let tr3 = "<tr><td>";
+	        			let sliLen = 0;
+	        			if(data[i]['r_imgs'].length>1){
+		        			sliLen = data[i]['r_imgs'].length;
+		        			
+		        			let imgTr = "<tr><td>";
+		        			imgTr += "<div class='review-slide-td' data-cPage='1' data-max-page='"+sliLen+"'>";
+		        			imgTr += "<div class='review-slide-div'>";
 	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
-	        					tr3 += "<img class='mySlides' src='${path}/resources/upload/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        					imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
 	        				}
-	        			tr3 += "</td></tr>";
-	        			table.append(tr3);
+	        				imgTr += "</div>";
+	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(-1)'>◁</button>";
+	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(1)'>▷</button>";
+	        				imgTr += "<</div></td></tr>";
+		        			table.append(imgTr);
+	        			} else if(data[i]['r_imgs'].length==1){
+	        				let imgTr = "<tr><td>";
+	        				imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][0]+"' width='650px' height='300px'/>";
+	        				imgTr += "</td></tr>"
+	        				table.append(imgTr);
 	        			}
-	        			let tr5 = "<tr><td>";
-	        			for(let j=0;j<data[i]['mdrm'].length;j++){
-	        				tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][j]['me_name']+" 옵션: "+data[i]['mdrm'][j]['sd_array']+"|</span>&nbsp;";
+		        			let tr5 = "<tr><td>";
+		        			for(let j=0;j<data[i]['mdrm'].length;j++){
+		        				tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][j]['me_name']+" 옵션: "+data[i]['mdrm'][j]['sd_array']+"|</span>&nbsp;";
+		        			tr5 += "</td></tr>";
+		        			table.append(tr5);
 	        			}
-	        			tr5 += "</td></tr>";
-	        			table.append(tr5);
 	        			let tr4 = "<tr><td>";
 	        			tr4 += "<pre>"+data[i]['r_text']+"</pre>";
 	        			tr4 += "</td></tr>";
@@ -1071,6 +1084,7 @@
 	        			let hr= $("<hr>");
 	        			reviewDiv.append(table);
 	        			reviewDiv.append(hr);
+	        			$(".review-slide-div").last().css("width",sliLen*650);
 	        			if(data[i]['r_reply']!=null){
 	        				let reply = "<div class='s-store-review-reply'>";
 	        				reply += "<span class='s-store-review-reply-text'>☞&nbsp;사장님&nbsp;☜</span>";
@@ -1190,6 +1204,39 @@
         	}
         	
         };
+        
+        /* 페이징바 */
+        function SlideMove(nPage){
+        	let dataDiv = $(event.target).parent();
+        	let moveDiv = $(dataDiv).find(".review-slide-div");
+        	let cPage = Number($(dataDiv).attr("data-cpage"));
+        	let maxPage = Number($(dataDiv).attr("data-max-page"));
+        	cPage += nPage;
+        	console.log(cPage);
+        	if(cPage!=0&&cPage<=maxPage){
+        		if(nPage>0){
+        			$(moveDiv).animate({
+        				left:"-=650px"
+        			});
+        		} else {
+        			$(moveDiv).animate({
+        				left:"+=650px"
+        			});
+        		}
+        	} else if(cPage==0){
+        		$(moveDiv).animate({
+    				left:"-="+((maxPage-1)*650)+"px"
+    			});
+        		cPage = maxPage;
+        	} else if(cPage>maxPage){
+        		$(moveDiv).animate({
+    				left:"+="+((maxPage-1)*650)+"px"
+    			});
+        		cPage = 1;
+        	}
+        	$(dataDiv).attr("data-cpage",cPage);
+        	console.log($(dataDiv).attr("data-cpage"));
+        }
         
     
     </script>
