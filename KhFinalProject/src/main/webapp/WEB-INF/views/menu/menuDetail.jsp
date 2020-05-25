@@ -909,7 +909,8 @@
         	let limitPrice = Number($("#order-limit-price").val());
         	let orderFinalPrice = Number($("#order-final-price").val());
         	if(orderFinalPrice>limitPrice){
-	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":${store['s_no']}});
+	        	orderListArr.push({"finalPrice":$("#order-final-price").val(),"s_no":"${store['s_no']}"});
+	        	console.log("ppap");
 	        	$.ajax({
 	        		url:"${path}/menu/menuOrderEnd",
 	        		data:{"newOrders":JSON.stringify(orderListArr)},

@@ -39,18 +39,35 @@ public class MemberServiceImpl_SH implements MemberService_SH {
 		return dao.insertOrderInfo(session,map);
 	}
 
-	@Override
-	public int insertOrderMenu(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return dao.insertOrderMenu(session,map);
-	}
-
+	
 	//포인트 업데이트
 	@Override
 	public int updateMemberPoint(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return dao.updateMemberPoint(session,map);
 	}
+
+	@Override
+	public Member selectMember(int m_no) {
+		// TODO Auto-generated method stub
+		return dao.selectMember(session,m_no);
+	}
+
+	@Override
+	public int couponDelete(int couponNo) {
+		// TODO Auto-generated method stub
+		return dao.couponDelete(session, couponNo);
+	}
+
+	@Override
+	public int insertOrderMenu(Map map) {
+		// TODO Auto-generated method stub
+		return dao.insertOrderMenu(session,map);
+	}
+
+	
+	
+
 
 
 	
