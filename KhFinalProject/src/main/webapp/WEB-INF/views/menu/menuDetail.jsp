@@ -916,9 +916,8 @@
 	        		data:{"newOrders":JSON.stringify(orderListArr)},
 	        		type:"post",
 	        		success:function(){
-	        			console.log("success");
-	        			/* location.reload();
-	        			location.replace("${path}/pay/paylist.do"); */
+	        			location.reload();
+	        			location.replace("${path}/pay/paylist.do");
 	        		},
 	        		error:function(a,b,c){
 	        			console.log(a);
