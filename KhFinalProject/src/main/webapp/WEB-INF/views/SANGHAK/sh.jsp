@@ -78,7 +78,7 @@
 			        	
 			        	
 <!-- =============================================================================================================================== -->
-			          
+			           <input  type="text" name="opNames" value="${a['opNames']}"><!--메뉴코드  --><br>
 			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>
 			         <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  -->
 			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
@@ -126,7 +126,8 @@
       
       
     </tbody>
-<!--          	this.src = src; // 메뉴이미지이름
+<!--         	this.no = no; // 메뉴코드
+        	this.src = src; // 메뉴이미지이름
         	this.name = name; // 메뉴이름
         	this.reqOp = reqOp; // 메뉴 필수옵션(no,필수옵션명)
         	this.unReqOp = unReqOp; // 메뉴 추가옵션(no,추가옵션명)
