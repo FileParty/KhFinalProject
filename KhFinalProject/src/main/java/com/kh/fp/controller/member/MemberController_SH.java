@@ -65,9 +65,10 @@ public class MemberController_SH {
 			System.out.println("첫번쨰"+map);
 			
 			List<Map> list = (List<Map>) session.getAttribute("orderList");
+			System.out.println(list); 
 	         for(int i=0;i<list.size();i++) {
 	            int ordermenu = service.insertOrderMenu(list.get(i));      //order_menu insert문
-	         }
+	         } 
 			
 			
 			

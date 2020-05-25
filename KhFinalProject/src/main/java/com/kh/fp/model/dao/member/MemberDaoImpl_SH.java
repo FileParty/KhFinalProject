@@ -63,7 +63,7 @@ public class MemberDaoImpl_SH implements MemberDao_SH {
 	public int insertOrderMenu(SqlSessionTemplate session, Map map) {
 		// TODO Auto-generated method stub
 		return session.insert("infoOrder.insertOrderMenu",map);
-	
+	  
 	}
 
 

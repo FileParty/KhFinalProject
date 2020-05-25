@@ -76,15 +76,18 @@
 			        <td width="400px" style="" >
 			        	<b style="font-size: 35px;height:50px;font-family: 'Stylish', sans-serif;">${a['name'] }</b><br><br>
 			        	
-			        	
+			        
 <!-- =============================================================================================================================== -->
-			           <input  type="text" name="opNames" value="${a['opNames']}"><!--메뉴코드  --><br>
-			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>
-			         <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  -->
-			            <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
-			            	<%-- <p style="display:inline;padding:0;">  ${c['unReqOpName']},</p> --%>
+			         
+			          <input  type="text" name="menuNo" value="${a['no']}"><!--메뉴코드  --><br>   이거 no 가 메뉴코드임 
+			  
+			           <input  type="text" name="opNames" value="${a['opNames']}"><!--인술이가 다시보내준거  -->  이거 인술이가보내줬는데 찍히거든???
+			         
+			                <input  type="text" name="" value="${a['reqOp']['reqOpName']}">  <!--필수옵션  --><br>
+			           <%--  <c:forEach items="${a['unReqOp']}" var="c">     <!--추가옵션배열 -->
+			            	<p style="display:inline;padding:0;">  ${c['unReqOpName']},</p>
 			            	   <input  type="text" name="sd_array" value=" ${c['unReqOpName']}">
-			            </c:forEach>  
+			            </c:forEach>   --%>
 			             <!--  <input id="addMenu2" type="text"/> -->
 			          <%--      <input  type="text" name="oNo" value="${a['reqOp']['reqOpNo']}"> <!--사이드코드 --> --%>
 <!-- =============================================================================================================================== -->
