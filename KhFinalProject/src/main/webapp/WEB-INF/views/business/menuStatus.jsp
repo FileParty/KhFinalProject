@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
    <style>
-
+	div{
+		font-family: 'Do Hyeon';
+	}
+	modal-body1{
+		font-family: 'Do Hyeon';
+	}
  	div#main{
       	margin-left:200px; 	
       	margin-top:150px;
@@ -95,7 +100,7 @@
 		font-weight:1000;
 	}
 	div.modal-body2 {
-	overflow-y:scroll;
+	/* overflow-y:scroll; */
 	}
 
       </style>
@@ -127,7 +132,7 @@
                     	<br>
                     	<div id="demo" class="carousel slide" data-ride="carousel">
 					  <div class="carousel-inner menuDiv">
-					   <marquee>ㅎㅇㅎㅇ </marquee>
+					   
 					  </div>
 
 					  <a id="prevA" class="carousel-control-prev" href="#demo" data-slide="prev">

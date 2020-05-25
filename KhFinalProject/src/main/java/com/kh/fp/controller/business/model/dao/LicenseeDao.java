@@ -41,4 +41,6 @@ public interface LicenseeDao {
 	Review selectReviewReply(SqlSessionTemplate session,Map<String,Object> map);
 	int menuSideAdd(SqlSessionTemplate session,MenuSide ms); 
 	List<ReviewImg> selectReviewImg(SqlSessionTemplate session,int s_no);
+	int menuCount(SqlSessionTemplate session,int s_no);
+	String selectSname(SqlSessionTemplate session,int s_no);
 }

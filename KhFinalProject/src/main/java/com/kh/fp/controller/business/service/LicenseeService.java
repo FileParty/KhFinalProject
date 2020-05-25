@@ -37,6 +37,8 @@ public interface LicenseeService {
 	Review updateReviewReply(Map<String,Object> map);
 	int menuSideAdd(List<MenuSide> list);
 	List<ReviewImg> selectReviewImg(int s_no);
+	Map menuCount(int s_no);
+	
 	
 	
 }

@@ -160,6 +160,21 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.insert("licensee.insertMenuSide",ms);
 	}
+
+	@Override
+	public int menuCount(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.menuCount",s_no);
+	}
+
+	@Override
+	public String selectSname(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.selectSname",s_no);
+	}
+	
+	
+	
 	
 	
 
