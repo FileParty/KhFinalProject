@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.Report;
 import com.kh.fp.model.vo.StoreCategory;
 import com.kh.fp.model.vo.StoreDetailInfo;
@@ -32,5 +33,7 @@ public interface MenuDatailDao {
 	int selectStoreDetailReviewCount(SqlSessionTemplate session, Map que);
 
 	int insertReport(SqlSessionTemplate session, Report report);
+
+	List<MenuDetailReviewMenu> selectStoreDetailReviewMenu(SqlSessionTemplate session, int o_no);
 
 }
