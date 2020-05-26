@@ -149,6 +149,7 @@
 					    <span id="next" class="carousel-control-next-icon"></span>
 					  </a>
 					</div>
+					
 					<div id="categoryList">
 					
 					</div>

@@ -1,6 +1,7 @@
 package com.kh.fp.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +21,10 @@ public class ReviewAll {
 	private int m_no;
 	private int s_no;
 	private int o_no;
-	private String sd_array;
 	private int r_score;
-	private String m_email;
-	private String me_name;
-	private String me_img;
-	private String r_img;
+	private List<String> r_img;
+	private List<MenuDetailReviewMenu> order_menu;
 	private String r_reply;
+	private String m_nickname;
+	
 }
