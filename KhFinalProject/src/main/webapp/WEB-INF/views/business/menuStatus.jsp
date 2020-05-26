@@ -5,6 +5,13 @@
 	div{
 		font-family: 'Do Hyeon';
 	}
+	span{
+		font-family: 'Do Hyeon';
+		
+	}
+	label{
+			font-family: 'Do Hyeon';
+	}
 	modal-body1{
 		font-family: 'Do Hyeon';
 	}
