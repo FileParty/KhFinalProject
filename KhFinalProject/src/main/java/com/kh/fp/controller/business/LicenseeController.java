@@ -1,6 +1,6 @@
 package com.kh.fp.controller.business;
 
-import static com.kh.fp.common.PageingFactory.PageBarFactory;
+import static com.kh.fp.common.PageingFactory.PageBarFactoryBeom;
 
 import java.io.File;
 import java.io.IOException;
@@ -170,12 +170,12 @@ public class LicenseeController {
 		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
-		System.out.println(stores);
+
 		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
 		mv.addObject("check",no);
 		mv.addObject("list", list);
-		mv.addObject("pageBar", PageBarFactory( cPage, numPerpage, totalData,"/spring/licensee/order"));
+		mv.addObject("pageBar", PageBarFactoryBeom( cPage, numPerpage, totalData,no,"/spring/licensee/order"));
 		mv.setViewName("business/order");
 		return mv;
 	}

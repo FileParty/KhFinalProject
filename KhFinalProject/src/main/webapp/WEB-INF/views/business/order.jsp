@@ -53,13 +53,14 @@
 	                    			<td><c:out value="${o.O_PHONE }"/></td>
 	                    			<c:choose>
 	                    				<c:when test="${o.O_STATUS eq '주문대기' }">
-			                    			<td><input type="button" value="승인">&nbsp;<input type="button" value="거절"></td>
+			                    			<td><input type="button" value="승인" onclick="orderSelect(1,${o.O_NO });">&nbsp;<input type="button" value="거절" onclick="orderSelect(0,${o.O_NO });"></td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '주문취소' }">
 			                    			<td>주문취소</td>
 			                    		</c:when>
 			                    		<c:when test="${o.O_STATUS eq '주문완료' }">
 			                    			<td>
+			                    			주문완료
 			                    			<input type="hidden" value="${o.O_REQUEST }">
 			                    			<input type="button" value="배달출발">
 			                    			</td>
@@ -194,6 +195,12 @@
    			var no=this.value;
    			location.replace('${path}/licensee/order?no='+no);
    		})
+   		
+   		function orderSelect(data,no){
+   			var sno=$("#storeNo option:selected").val();
+   			var pageno = $("#pageno").val();
+   			location.replace('${path}/order/orderSelect.do?flag='+data+"&no="+no+"&sno="+sno+"&cPage="+pageno);
+   		}
 
    	
    	</script>

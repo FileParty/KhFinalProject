@@ -85,4 +85,11 @@
 		select me_name,sd_array from order_menu join menu using(me_no) where o_no=#{no}
 	</select>
 	
+	<update id="orderSelectOk">
+		update order_info set o_status='주문완료' where o_no=#{no}
+	</update>
+	
+	<update id="orderSelectReject">
+		update order_info set o_status='주문취소' where o_no=#{no}
+	</update>
 </mapper>

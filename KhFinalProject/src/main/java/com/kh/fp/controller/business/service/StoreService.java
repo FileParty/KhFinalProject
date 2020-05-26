@@ -21,5 +21,7 @@ public interface StoreService {
 	List<Sales> getSales(Object no);
 	List<Map<String,Object>> getOrderInfo(Object no);
 	List<Map<String, Object>> getSaleMonth(Object no);
+	int orderSelectOk(int no);
+	int orderSelectReject(int no);
 
 }
