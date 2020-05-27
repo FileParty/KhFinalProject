@@ -9,6 +9,16 @@
 		font-family: 'Do Hyeon';
 		
 	}
+	p{
+		font-family: 'Do Hyeon';
+		font-size: 40px;		
+	}
+	h2{
+		font-family: 'Do Hyeon';
+		display : inline;
+		margin-left:200px;
+		
+	}
 	label{
 			font-family: 'Do Hyeon';
 	}
@@ -47,10 +57,40 @@
 		background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
 		background-color:#fb9e25;
 	}
+	.updateBtn{
+	box-shadow:3px 3px 5px white;
+	background:linear-gradient(to bottom, lightgray 5%, black 100%);
+	background-color:white;
+	border-radius:10px;
+	border:1px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;	
+	padding:6px 24px;
+	text-decoration:none;
+	margin-bottom:10px;
+	}
+	#mUpdate{
+	box-shadow:3px 3px 5px white;
+	background:linear-gradient(to bottom, lightgray 5%, black 100%);
+	background-color:white;
+	border-radius:10px;
+	border:1px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;	
+	padding:6px 24px;
+	text-decoration:none;
+	}
 	div#myModal1{
 		height:auto;
 		
 	}
+
 	#store{
 		background-color:#E1E1E1;
 		color:white;
@@ -66,9 +106,7 @@
 	border:1px solid lightgray;
 	 margin-bottom:20px;
 	}
-	div.carousel-item{
-		
-	}
+
 	span#prev{
 		
 	  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234B4B4B' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
@@ -106,9 +144,11 @@
 		margin-top:5px;
 		font-weight:1000;
 	}
-	div.modal-body2 {
-	/* overflow-y:scroll; */
-	}
+
+
+
+
+	
 
       </style>
       
@@ -122,7 +162,8 @@
             
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
-                        	<p style="font-size:40px;color:#FF5A5A;font-weight:600;text-shadow:3px 3px 5px lightgray;">메뉴 관리</p>
+                        	<p>* 메뉴 관리</p>
+                        	<span>* 상세보기를 원하시면 카테고리안의 메뉴를 클릭해주세요!</span>
                         </li>
                                         
                     </ul>
@@ -170,7 +211,7 @@
 						        	<div id="menuUpdate">
 						        		
 						        	</div>
-						        	<button type="submit" class="btn btn-outline-success">등록합니다요!!!</button>
+						        	<button id="mUpdate" type="submit" class="btn btn-outline-success">등록합니다요!!!</button>
 						        </form>
 						        </div>					        
 						      </div>
@@ -180,8 +221,8 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header1">
-						          <h4 class="modal-title">메뉴 상세</h4>
-						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h2 class="modal-title">메뉴 상세</h2>
+						          <button style="margin-top:10px;margin-right:20px;font-size:30px;"type="button" class="close" data-dismiss="modal">&times;</button>
 						        </div>				         
 						        <div class="modal-body1" align=center>	
 						        
@@ -476,6 +517,7 @@
 					}
    			})
    			$("#menuUpdate").append(copy3).append(copy2).append(div);
+   			$(".menuNames").focus();
    			
    		}
    		
@@ -598,7 +640,7 @@
    						let btn = $("<input>").attr({
    							'type':'button',
    							'value':'수정할래요!!!!',
-   							'class':'btn btn-outline-warning',
+   							'class':'updateBtn',
    							'onclick':'menuUpdate();'
    						})
    					$(".modal-body1").append(div).append($("<br>")).append(btn);

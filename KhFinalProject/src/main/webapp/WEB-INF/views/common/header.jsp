@@ -25,20 +25,40 @@
 		<div class="login">
 		
 			 <c:if test="${loginMember==null}">
-			<div >
-				<span onclick="location.replace('${path}/member/login.do')">로그인</span>
-				<span onclick="location.replace('${path}/member/memberEnroll1.do')">회원가입</span>
-				<span onclick="location.replace('${path}/#')">주문표</span>
-			</div>
+				<div >
+					<span onclick="location.replace('${path}/member/login.do')">로그인</span>
+					<span onclick="location.replace('${path}/member/memberEnroll1.do')">회원가입</span>
+					<span onclick="location.replace('${path}/#')">주문표</span>
+				</div>
 			</c:if>
 			
+			
+			
 			<c:if test="${loginMember!=null}">
-			<div>
-				<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-				<span onclick="location.replace('${path}/#')">마이페이지</span>
-				<span onclick="location.replace('${path}/#')">주문표</span>
-			</div>
+				<c:if test="${flag==null }">
+					<div>
+						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
+						<span onclick="location.replace('${path}/#')">마이페이지</span>
+						<span onclick="location.replace('${path}/#')">주문표</span>
+					</div>
+				</c:if>
+				<c:if test="${flag!=null }">	
+					<div>
+						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
+						<span onclick="location.replace('${path}/#')">사업자 마이페이지</span>
+						<span onclick="location.replace('${path}/#')">주문표</span>
+					</div>
+				</c:if>
+				
 			</c:if>
+				
+			
+			
+			
+			
+			
+			
+			
 		
 		</div>
 		<div class="row headerrow">

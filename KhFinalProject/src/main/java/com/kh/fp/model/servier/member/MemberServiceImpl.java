@@ -71,6 +71,22 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectBusinessId(session,b_email);
 	}
 
+	@Override
+	public Member selectKakao(String kname) {
+		// TODO Auto-generated method stub
+		return dao.selectKakao(session,kname);
+	}
+
+	@Override
+	public Member selectNaverM(String email) {
+		// TODO Auto-generated method stub
+		return dao.selectNaverM(session,email);
+	}
+	
+	
+	
+	
+
 	
 	
 	

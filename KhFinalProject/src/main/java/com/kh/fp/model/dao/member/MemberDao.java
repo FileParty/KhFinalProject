@@ -24,5 +24,9 @@ public interface MemberDao {
 	Member selectMemberId(SqlSessionTemplate session, String m_email);
 	
 	Business selectBusinessId(SqlSessionTemplate session, String b_email);
+	
+	Member selectKakao(SqlSessionTemplate session, String kname);
+	
+	Member selectNaverM(SqlSessionTemplate session,String email);
 
 }

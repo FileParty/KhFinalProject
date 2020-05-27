@@ -9,31 +9,44 @@
 
   <style>
  
-
+	
 	#xBtn {
-		box-shadow:inset 0px 1px 0px 0px #fce2c1;
-		background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
-		background-color:#ffc477;
-		border:3px solid #eeb44f;
+		box-shadow:inset 0px 1px 0px 0px lightgray;
+		background:linear-gradient(to bottom, black 5%, black 100%);
+		background-color:lightgray;
+		border:3px solid lightgray;
 		display:inline-block;
 		cursor:pointer;
-		color:#ffffff;
+		color:lightgray;
 		font-family:Arial;
 		font-size:8px;
-		font-weight:bold;
+		font-weight:800;
 		padding:0px 11px;
 		text-decoration:none;
 		text-shadow:0px 1px 0px #cc9f52;
 	}
 	#xBtn {
-		background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
-		background-color:#fb9e25;
+		background:linear-gradient(to bottom, lightgray 5%, black 100%);
+		background-color:lightgray;
 	}
 	#xBtn {
 		position:relative;
 		top:1px;
 	}
-
+	.deleteBtn{
+		background-color:white;
+		display:inline-block;
+		border:none;
+		cursor:pointer;
+		color:black;
+		font-family:Arial;
+		font-size:13px;
+		font-weight:800;
+		padding:0px 11px;
+		text-decoration:none;
+		margin-top:10px;
+		
+	}
 	 div#main{
       	margin-top:150px;
       	margin-left:200px;
@@ -75,7 +88,22 @@
       font-family: 'Do Hyeon';
       text-align :center;
       }
-      
+      #optionEnroll{
+	    box-shadow:3px 3px 5px white;
+		background:linear-gradient(to bottom, lightgray 5%, black 100%);
+		background-color:white;
+		border-radius:10px;
+		border:1px solid white;
+		font-weight:0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:15px;	
+		padding:6px 24px;
+		text-decoration:none;
+		font-family: 'Do Hyeon';
+      }
       #subBtn{
     box-shadow:3px 3px 5px white;
 	background:linear-gradient(to bottom, lightgray 5%, black 100%);
@@ -219,6 +247,21 @@
 	display:inline-block;
 	cursor:pointer;
 	color:#FFEE85;
+	font-family:Arial;
+	font-size:20px;	
+	padding:6px 24px;
+	text-decoration:none;	
+	font-family: 'Do Hyeon';
+ }
+ #cateBtn {
+ 	box-shadow:3px 3px 5px white;
+	background:linear-gradient(to bottom, lightgray 5%, black 100%);
+	background-color:white;
+	border-radius:10px;
+	border:1px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
 	font-family:Arial;
 	font-size:20px;	
 	padding:6px 24px;
@@ -376,7 +419,7 @@
 						         
 						        <div class="modal-body" align=center>	
 						        <form id="form" action="${path }/licensee/categoryEnroll" method="post" class="categoryForm"> 
-						        	<button type="submit">등록</button>
+						        	<button id="cateBtn" type="submit">등록</button>
 						        </form>
 						        </div>					        
 						      </div>
@@ -395,18 +438,18 @@
 						        <div class="modal-body" align=center>	
 						        	<form id="optionForm" action="${path }/licensee/optionEnroll" method="post" onsubmit="return text();">	         	
 						          	<input style="width:60px;display:inline" type="text" id="plusOption2" name="e_option" class="form-control" placeholder="필수" disabled>
-						          	<button type="button" class="btn btn-outline-success plus"  onclick="option();">옵션 추가</button>						     
+						          	<button type="button" class="btn btn-light plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
 						          	<br>
 						          	<div id="option1-container">
 						          	</div>					          					          	
 						          	<input style="width:60px;display:inline;" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="추가" disabled>        
-						          	<button type="button" class="btn btn-outline-success plus1" onclick="option1();">옵션 추가</button> 					          	
+						          	<button type="button" class="btn btn-light plus1" onclick="option1();">옵션 추가</button> 					          	
 						          	<br>
 						          	<br>
 						          	<div id="option2-container"></div>
 						          	 
-						          	<button type="submit" class="btn btn-outline-danger" >등록</button>		
+						          	<button type="submit" class="btn btn-outline-secondary" >등록</button>		
 						          	</form>		        
 						        </div>					        
 						      </div>
@@ -431,14 +474,14 @@
 						        	</div>
 						        	<div style="margin-top:200px;"class="body-container2"></div>
 						        	<div style=""class="body-container3"></div>
-						        	<button type="button" id="optionEnroll"class="btn btn-outline-danger" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
+						        	<button type="button" id="optionEnroll" data-dismiss="modal" onclick="menu_enroll();">등록</button>			
 						        </div>
 						      </div>
 						    </div>
 						  </div>
 	  	
 		<script>
-		
+	
 		function text() {
 			//옵션 폼
 		/* 	let sd_name = $("input[name=sd_name]").val();
