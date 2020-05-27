@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <style>
 	    /*중복아이디체크관련*/
@@ -15,6 +16,8 @@
 		    #accountEdit{
 		    	color:rgb(34, 190, 241);
 		    }
+		    
+		    
 		    
 		    
 </style>
@@ -39,19 +42,24 @@
                             <tr>
                                 <th>회원아이디</th>
                                 <td>${loginMember.m_Id }</td>
-                                <td></td>
                             </tr>
 
-                            <tr>
+                            <tr id="password" style="display: none;">
                                 <th>비밀번호</th>
-                                <td id="password">*********</td>
+                                <td>
+                                	<input style="margin-left:26px" type='password' id='defaultPassword'>
+                                	<i class="fa fa-eye fa-lg" id="eyes1"></i>
+                                </td>
+                                
                             </tr>
                             <tr id="passwordCheck" style="display: none;">
                                 <th>비밀번호 확인</th>
                                 <td>
-                                    <input type="text" onkeyup="passwordCheck();" id="checkPassword"><br>
+                                    <input style="margin-left:26px" type="password" onkeyup="passwordCheck();" id="checkPassword">
+                                    <i class="fa fa-eye fa-lg" id="eyes2"></i><br>
                                     <div id="pcCon"></div>
                                 </td>
+                                
                             </tr>
                             <tr>
                                 <th>이메일</th>
@@ -68,8 +76,8 @@
 
                             <tr>
                                 <th>가입일</th>
-                                <td>${loginMember.m_Enrolldate }</td>
-                                <td></td>
+                                <fmt:formatDate value="${loginMember.m_Enrolldate }" pattern="yyyy/MM/dd" var="endate"/>
+                                <td>${endate }</td>
                             </tr>
 
                         </table>
@@ -117,7 +125,7 @@
         var psCheck = 0;
 
         function memberUpdate(){
-            $("#password").html("<input type='text' id='defaultPassword'>");
+            $("#password").attr("style", "display:table-row");
             $("#passwordCheck").attr("style", "display:table-row");
             $("#email").html("<input type='text' value='" + $("#email").html() + "'>");
             $("#phone").html("<input type='text' value='" + $("#phone").html() + "'>");
@@ -172,6 +180,27 @@
             }
         }
 
+        
+        $('#eyes1').on('click',function(){
+        	if(($('#defaultPassword')[0]).type=='password'){
+        		$('#defaultPassword').attr("type", "text");
+        	}else{
+        		$('#defaultPassword').attr("type", "password");
+        	}
+        	
+        });
+        
+        $('#eyes2').on('click',function(){
+        	if(($('#checkPassword')[0]).type=='password'){
+        		$('#checkPassword').attr("type", "text");
+        	}else{
+        		$('#checkPassword').attr("type", "password");
+        	}
+        	
+        });
+        
+        
+        
     
 
 

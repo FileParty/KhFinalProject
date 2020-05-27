@@ -53,13 +53,36 @@ ${sysdate }  --%>
 					<div class="col-md-6 row" style="margin-bottom:15px;">
 
                        <div class="col-md-2"></div>
-                       <div class="col-md-8 order_content" style="border: 1px solid black; height:100%;">
+                       <div class="col-md-8 order_content" style="border: 1px solid black; height:170px;">
 							<input type="hidden" value="${m['O_NO']}"/>
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
-                           <p style="text-align: right; width:100%;" class="${(o.time-rdate.time)/(60*1000)<180 && m['O_STATUS']=='배달완료' ?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button></p>
+                           <table style="width:100%;">
+                           <tr>
+                           		<td style="text-align: left" >
+                           			<button class="${(o.time-rdate.time)/(60*1000)<180 && m['O_STATUS']=='배달완료' && m['O_REVIEW_FLAG']=='false' ?'':'d-none'} reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button>	
+                           		</td>
+                         		<c:choose>
+                          			<c:when test="${m['O_STATUS']=='주문취소' }">
+		                          		<td style="text-align:right; color:red;">
+		                           			${m['O_STATUS'] }
+		                               		</td>
+                               		</c:when>
+                               		<c:when test="${m['O_STATUS']=='배달완료' }">
+	                               		<td style="text-align:right; color:blue;">
+	                               			${m['O_STATUS'] }
+	                               		</td>
+                               		</c:when>
+                               		<c:otherwise>
+                               			<td style="text-align:right; color:green;">
+	                               			${m['O_STATUS'] }
+	                               		</td>
+                               		</c:otherwise>
+                              	</c:choose>
+                           </tr>
+                           </table>
                            <table style="width:100%">
                                <tr>
                                    <td><img width="80" height="80" src="${path }/resources/upload/store/${m['S_LOGIMG']}"/></td>
@@ -84,9 +107,11 @@ ${sysdate }  --%>
 
             <div class="col-md-1"></div>
             
-            <div id="page-container" class="col-md-12">
-        		${pageBar }
-	        </div>
+            <c:if test="${fn:length(list)>1 }">
+	            <div id="page-container" class="col-md-12">
+	        		${pageBar }
+		        </div>
+	        </c:if>
 
         </div>
         
@@ -152,7 +177,7 @@ ${sysdate }  --%>
 	                            <tr><td><br></td></tr>
 	                            
 	                            <tr>
-	                            	<td><textarea cols="38" rows="10" id="reviewCon" name="reviewCon" placeholder="솔직한 리뷰 작성해주세요~~"></textarea></td>
+	                            	<td><textarea style="font-weight:300" cols="38" rows="10" id="reviewCon" name="reviewCon" placeholder="          솔직한 리뷰 작성해주세요~"></textarea></td>
 	                            </tr>
 	                        </table>
 	                        
@@ -492,6 +517,8 @@ ${sysdate }  --%>
         
 	        function reviewInsertModal(s_no, m_no, o_no){
 	        	
+	        	
+	        	
 	        	$("#scoreTaste").children("svg").remove();
 	        	$("#scoreAmount").children("svg").remove();
 	        	$("#scoreDelivery").children("svg").remove();
@@ -523,9 +550,7 @@ ${sysdate }  --%>
         
             $(".order_content").on("click",function(){
             	
-            	console.log("실행");
-            	
-            	if(event.target.className=='reviewInsertButton')
+            	if(event.target.className!='')
                     return;
             	
             	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
@@ -565,7 +590,7 @@ ${sysdate }  --%>
 								addOption += option[j]; 
 							}
 							
-							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'>메뉴명: " + data[i]['ME_NAME'] + "<br>옵션: " + addOption + "</td></tr>");
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'><h5 style='margin-top:-20px; margin-bottom:-20px;'> " + data[i]['ME_NAME'] + "</h5><br>" + addOption + "</td></tr>");
 						}
 						
 						/* if(data.length>0){
@@ -657,7 +682,7 @@ ${sysdate }  --%>
           top: 50px;
           width:100%;
           height:100%;
-          z-index:1;
+          z-index:10;
         }
         
         #modal h2 {
@@ -696,7 +721,7 @@ ${sysdate }  --%>
           top: 50px;
           width:100%;
           height:100%;
-          z-index:1;
+          z-index:10;
         }
         
         #modal2 h2 {

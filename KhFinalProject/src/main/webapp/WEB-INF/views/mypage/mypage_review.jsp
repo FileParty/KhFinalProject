@@ -33,13 +33,15 @@
                     
                     	<tr></tr>
 
-                        <tr style="background-color:cornflowerblue;">
-                            <th style="text-align:center">날짜</th>
-                            <th style="text-align:center">상호명</th>
-                            <th style="text-align:center">별점</th>
-                            <th style="text-align:center">리뷰내용</th>
-                            <th style="text-align:center"></th>
-                        </tr>
+						<c:if test="${fn:length(list)!=0 }">
+	                        <tr style="background-color:cornflowerblue;">
+	                            <th style="text-align:center">날짜</th>
+	                            <th style="text-align:center">상호명</th>
+	                            <th style="text-align:center">별점</th>
+	                            <th style="text-align:center">리뷰내용</th>
+	                            <th style="text-align:center">상세보기</th>
+	                        </tr>
+                        </c:if>
                         
                         <c:forEach items="${list }" var="rev">
                         	<tr>
@@ -54,10 +56,11 @@
                         </c:forEach>
 
                     </table>
-                    
-                    <div id="page-container" class="col-md-12">
-			       		${pageBar }
-				    </div>
+                    <c:if test="${fn:length(list)>1 }">
+	                    <div id="page-container" class="col-md-12">
+				       		${pageBar }
+					    </div>
+				    </c:if>
 
                     <style>
                         .table{
@@ -97,7 +100,7 @@
                     </table>
 
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"> 
-                        <div class="carousel-inner" id="reviewImg">
+                        <div class="carousel-inner" id="reviewImg" style='margin-top:10px; margin-bottom:10px;'>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -113,8 +116,8 @@
 
                 </div>
                 <div class="col-md-2"></div>
-
             </div>
+            <div class="modal_layer"></div>
         </div>
        
     </div>
@@ -135,7 +138,7 @@
         		modalStrong[i].innerHTML = $(content[i]).html();
         	}
         	
-        	
+        	$("#reviewImg").html("");
         	
         	$.ajax({
     			
@@ -143,7 +146,6 @@
 			    type: "POST",
 			    data: {"r_no":r_no},
 			    success: function(data){
-					console.log(data);
 					
 					for(let i=0; i<data.length; i++){
 						if(i==0){
@@ -170,7 +172,7 @@
         };
 
         $("#modal").click(function(){
-            if(event.target.className=='carousel-control-next-icon')
+            if(event.target.className!='modal_layer')
                 return;
             $("#modal").attr("style", "display:none");
             $("body").attr("style","overflow-y:scroll");
@@ -187,7 +189,7 @@
       top: 50px;
       width:100%;
       height:100%;
-      z-index:1;
+      z-index:10;
     }
     
     #modal h2 {

@@ -45,6 +45,8 @@ public interface MypageService {
 	
 	int updatePoint(Map<String, String> map);
 	
+	int updateReviewFlag(Map<String, String> map);
+	
 	
 	
 	
