@@ -35,5 +35,17 @@ public interface MypageService {
 	
 	int insertReviewImg(Map<String, String> map);
 	
+	int updateReviewTaste(Map<String, String> map);
+	
+	int updateReviewAmount(Map<String, String> map);
+	
+	int updateReviewDelivery(Map<String, String> map);
+
+	int updateReviewCount(Map<String, String> map);
+	
+	int updatePoint(Map<String, String> map);
+	
+	
+	
 	
 }

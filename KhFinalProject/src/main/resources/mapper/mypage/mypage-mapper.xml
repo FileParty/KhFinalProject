@@ -63,6 +63,26 @@
 		DELETE FROM MEMBER WHERE M_NO = #{m_no}
 	</delete>
 	
+	<update id="updateReviewTaste" parameterType="map">
+		UPDATE STORE SET S_TASTE = (S_TASTE + ${taste}) WHERE S_NO=#{s_no}
+	</update>
+	
+	<update id="updateReviewAmount" parameterType="map">
+		UPDATE STORE SET S_AMOUNT = (S_AMOUNT + ${amount}) WHERE S_NO=#{s_no}
+	</update>
+	
+	<update id="updateReviewDelivery" parameterType="map">
+		UPDATE STORE SET S_DELIVERY = (S_DELIVERY + ${delivery}) WHERE S_NO=#{s_no}
+	</update>
+	
+	<update id="updateReviewCount" parameterType="map">
+		UPDATE STORE SET S_REVIEWCOUNT = (S_REVIEWCOUNT+1) WHERE S_NO=#{s_no}
+	</update>
+	
+	<update id="updatePoint" parameterType="map">
+		UPDATE MEMBER SET M_POINT = (M_POINT + 100) WHERE M_NO=#{m_no}
+	</update>
+	
 </mapper>
 
 

@@ -90,6 +90,35 @@ public class MypageServiceImpl implements MypageService {
 	public int insertReviewImg(Map<String, String> map) {
 		return dao.insertReviewImg(session, map);
 	}
+
+	@Override
+	public int updateReviewTaste(Map<String, String> map) {
+		return dao.updateReviewTaste(session, map);
+	}
+	
+	@Override
+	public int updateReviewAmount(Map<String, String> map) {
+		return dao.updateReviewAmount(session, map);
+	}
+	
+	@Override
+	public int updateReviewDelivery(Map<String, String> map) {
+		return dao.updateReviewDelivery(session, map);
+	}
+	
+	@Override
+	public int updateReviewCount(Map<String, String> map) {
+		return dao.updateReviewCount(session, map);
+	}
+
+	@Override
+	public int updatePoint(Map<String, String> map) {
+		return dao.updatePoint(session, map);
+	}
+	
+	
+	
+	
 	
 	
 	

@@ -169,6 +169,17 @@ public class UserMypage {
 			
 			mv.setViewName("redirect:/mypage/review.do");
 			
+			// store 리뷰 점수 update
+			service.updateReviewTaste(map);
+			service.updateReviewAmount(map);
+			service.updateReviewDelivery(map);
+			
+			// store 리뷰 count update
+			service.updateReviewCount(map);
+			
+			// point 증가
+			service.updatePoint(map);
+			
 		return mv;
 	  
 	  }

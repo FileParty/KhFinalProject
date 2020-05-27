@@ -13,6 +13,10 @@
 		    .table th{
 		    	text-align:left;
 		    }
+		    
+		    
+		    
+		    
 		</style>
 
             <div class="col-md-2">

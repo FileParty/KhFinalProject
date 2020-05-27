@@ -82,6 +82,36 @@ public class MypageDaoImpl implements MypageDao {
 	public int insertReviewImg(SqlSessionTemplate session, Map<String, String> map) {
 		return session.insert("mypage.insertReviewImg", map);
 	}
+
+
+	@Override
+	public int updateReviewTaste(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updateReviewTaste", map);
+	}
+	
+	@Override
+	public int updateReviewAmount(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updateReviewAmount", map);
+	}
+	
+	@Override
+	public int updateReviewDelivery(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updateReviewDelivery", map);
+	}
+	
+	@Override
+	public int updateReviewCount(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updateReviewCount", map);
+	}
+
+	@Override
+	public int updatePoint(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updatePoint", map);
+	}
+	
+	
+	
+	
 	
 	
 	

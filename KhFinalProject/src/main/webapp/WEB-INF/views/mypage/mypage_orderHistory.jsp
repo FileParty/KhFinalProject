@@ -595,7 +595,7 @@ ${sysdate }  --%>
                 $("body").attr("style","overflow-y:scroll");
             });
             
-            function reviewInsert(o_no, m_no){
+           /*  function reviewInsert(o_no, m_no){
             	
 				$.ajax({
 					
@@ -613,7 +613,7 @@ ${sysdate }  --%>
 				    }
 			
 				});
-            }
+            } */
             
             $("#modal2").click(function(){
             	
