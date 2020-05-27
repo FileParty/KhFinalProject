@@ -109,7 +109,7 @@
 				
 			</div>     
 		    
-		    <div class="d-flex ml-5 mr-5 mt-5">
+		    <div class="d-flex ml-5 mr-5 mt-5 phone-container">
 		    
 		    	<div class="list-group d-flex flex-column">
 				  	<div class="mr-5">
@@ -227,6 +227,11 @@
 			if($("#keyword").val() ==''){
 				alert("현재위치를 검색해주세요!!")
 			}else{
+				
+				//loading 화면 보이게 하기
+				$("#loading").removeClass("d-none");
+				//order 화면 없애기
+				$("#order").addClass("d-none");
 				
 				var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");				
 				
@@ -394,7 +399,12 @@
 								$('#del-modal').modal('hide');
 								
 								
-								$("#deliveryman-info").empty();
+								//$("#deliveryman-info").empty();
+								$("#deliveryman-info").find(".index-search-container").addClass("d-none");
+								
+								$("#deliveryman-info").find(".phone-container").removeClass("d-flex");
+								$("#deliveryman-info").find(".phone-container").addClass("d-none");
+								
 								$("#deliveryman-info").append(it);
 								$("#deliveryman-info").find(".delivery-btn").remove();
 								
@@ -410,13 +420,30 @@
 								$("#delevery-container").append(deliveryCompleteBtn);
 								
 								//
+								//배달 완료 눌렀을 때
+								$("#bt-deliveryComplete").click(function(e){
+									
+										console.log("완료 눌렀을 떄 떠야 함");
+										
+										$("#deliveryman-info").find(".index-search-container").removeClass("d-none");
+										
+										$("#deliveryman-info").find(".phone-container").addClass("d-flex");
+										$("#deliveryman-info").find(".phone-container").removeClass("d-none");
+										
+										$(".item").addClass("d-none");
+										$(".item").removeClass("d-flex");
+										
+										//배달완료 버튼 안보이게
+										$(e.target).addClass("d-none");
+										
+										//배달검색 버튼 보이게
+										$("#bt-deliverProxy").removeClass("d-none");
+										
+										websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, "C", phoneMessage)));
+								});
+								
 							});
-							
-							//배달 완료 눌렀을 때
-							$("#bt-deliveryComplete").click(function(){
-									$("#delivery-container")
-							});
-							
+									
 							break;
 					}
 				}

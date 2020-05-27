@@ -61,6 +61,12 @@ public class DeliveryServer extends TextWebSocketHandler{
 					log.debug("배달원이 수락했을 때 찍히나요");
 					sendMessage(msg,session);
 				}
+				
+				//배달원이 배달을 완료했을 때
+				if(msg.getState().equals("C")) {
+					log.debug("배달원이 배달을 완료했을때 찍히나요");
+					sendMessage(msg,session);
+				}
 				break;
 		}
 	}
@@ -111,6 +117,24 @@ public class DeliveryServer extends TextWebSocketHandler{
 							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
 						}
 					}
+					
+					if(msg.getState().equals("C")) {
+						log.debug("배달 완료 했을 때 찍혀야 합니다.");
+						
+						//사업자한테 보내야함
+						if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
+							if(client.getKey().getNo() == msg.getNo()) {
+								log.debug("접속자 no값"+client.getKey().getNo());
+								log.debug("현재 클라이언트 no값" + msg.getNo());
+								log.debug("현재 클라이언트 type" + msg.getType());
+								log.debug("현재 클라이언트 이름" + msg.getName());
+								log.debug("현재 클라이언트 message" + msg.getMsg());
+								
+								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							}
+						}
+					}
+					
 					break;
 				}
 				

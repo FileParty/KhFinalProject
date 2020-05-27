@@ -301,123 +301,133 @@
    							var message = msg.msg;
    							
    							console.log("과연 두근두근");
+   							console.log("상태값");
+   							console.log(state);
    							
-   							$("#loading").addClass("d-none");
-   							$("#accept-delivery").removeClass("d-none");
+   							//배달원이 수락했을 때 처리
+   							if(state=='Y'){
+	   							$("#loading").addClass("d-none");
+	   							$("#accept-delivery").removeClass("d-none");
+	   							
+	   							var containerDiv = $("<div>").addClass("container-"+orderNo);
+	   							
+	   							var deliveryInfo = $("<div>").attr({
+	   								"id" : "delivery-info",
+	   								"class" : "row justify-content-center align-items-center"
+	   							});
+	   							
+	   							var deliveryImg = $("<div>").attr({
+	   								"id" : "delivery-img",
+	   								"class" : "col text-center"
+	   							}).html($("<img>").attr({
+	   								"src" : "${pageContext.request.contextPath}/resources/img/delivery.png"
+	   							}));
+	   							
+	   							var deliveryName = $("<div>").attr({
+	   								"id" : "delivery-name",
+	   								"class" : "col text-center"
+	   							}).html($("<strong>").html(deliveryName+" 배달원"));
+	   							
+	   							var deliveryPhone =$("<div>").attr({
+	   								"id" : "delivery-phone",
+	   								"class" : "col text-center"
+	   							}).html($("<strong>").html(message));
+	   							
+	   							$(deliveryInfo).append(deliveryImg).append(deliveryName).append(deliveryPhone);
+	   							
+	   							var deliveryInfo2 = $("<div>").addClass("delivery-info2 mt-5");
+	   							
+	   							var row = $("<div>").addClass("row justify-content-center align-items-center");
+	   							
+	   							var deliveryAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
+	   							
+	   							var deliveryAddr1 = $("<strong>").html("배달원 주소");
+	   							var deliveryAddr2 = $("<strong>").html(deliveryAddr);
+	   							
+	   							$(deliveryAddrDiv).append(deliveryAddr1).append(deliveryAddr2);
+	   							
+	   							var delImg = $("<div>").addClass("mr-2");
+	   							var delImg1 = $("<img>").attr({
+	   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
+	   								"class" : "img-fluid"
+	   							});
+	   							
+	   							//오토바이 이미지
+	   							delImg.append(delImg1);
+	   							
+	   							var storeAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
+	   							
+	   							var storeAddr1 = $("<strong>").html("가게 주소");
+	   							var storeAddr2 = $("<strong>").html(storeAddress);
+	   							
+	   							$(storeAddrDiv).append(storeAddr1).append(storeAddr2);
+	   							
+	   							var clientAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
+	   							
+	   							var clientAddr1 = $("<strong>").html("고객 주소");
+	   							var clientAddr2 = $("<strong>").html(clientAddr);
+	   							
+	   							clientAddrDiv.append(clientAddr1).append(clientAddr2);
+	   							
+	   							var delImg2 = $("<div>").addClass("mr-2");
+	   							var delImg3 = $("<img>").attr({
+	   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
+	   								"class" : "img-fluid"
+	   							});
+	   							
+	   							//오토바이 이미지
+	   							delImg2.append(delImg3);
+	   							
+	   							row.append(deliveryAddrDiv).append(delImg).append(storeAddrDiv).append(delImg2).append(clientAddrDiv);
+	   							deliveryInfo2.append(row);
+	   							
+	   							var deliveryStart = $("<div>").attr({
+	   								"id" : "delivery-start",
+	   								"class" : "mt-3"
+	   							});
+	   							
+	   							var deliveryStartBtn = $("<button>").addClass("btn btn-info btn-lg btn-block btn-start").html("배달 출발");
+	   							
+	   							$(deliveryStart).append(deliveryStartBtn)
+	   							
+	   							containerDiv.append(deliveryInfo).append(deliveryInfo2).append(deliveryStart);
+	   							
+	   							$("#accept-delivery").append(containerDiv);
+	   							
+	   							//수락눌렀을때
+	   							$("#accept-delivery").children().addClass("d-none");
+	   		   	   				$("#accept-delivery").children(".container-"+orderNo).removeClass("d-none");
+	   							
+	   							//배달출발 눌렀을때
+	   							
+	   							$(".btn-start").click(function(){
+	   								
+	   								console.log(orderNo);
+	   								
+	   								$.ajax({
+	   									url:"${pageContext.request.contextPath}/orderInfo/updateState.do",
+	   									data:{
+	   										orderNo : orderNo
+	   									},
+	   									success: function(data){
+	   										if(data['result']>0){
+	   											console.log("성공");
+	   											console.log($(e.target).val());
+	   											
+	   											$(e.target).val("배달중");
+	   											$(".btn-start").html("배달중");
+	   										}
+	   									}
+	   								});
+	   								
+	   								$('#del-modal').modal('hide');
+	   							});
+   							}
    							
-   							var containerDiv = $("<div>").addClass("container-"+orderNo);
-   							
-   							var deliveryInfo = $("<div>").attr({
-   								"id" : "delivery-info",
-   								"class" : "row justify-content-center align-items-center"
-   							});
-   							
-   							var deliveryImg = $("<div>").attr({
-   								"id" : "delivery-img",
-   								"class" : "col text-center"
-   							}).html($("<img>").attr({
-   								"src" : "${pageContext.request.contextPath}/resources/img/delivery.png"
-   							}));
-   							
-   							var deliveryName = $("<div>").attr({
-   								"id" : "delivery-name",
-   								"class" : "col text-center"
-   							}).html($("<strong>").html(deliveryName+" 배달원"));
-   							
-   							var deliveryPhone =$("<div>").attr({
-   								"id" : "delivery-phone",
-   								"class" : "col text-center"
-   							}).html($("<strong>").html(message));
-   							
-   							$(deliveryInfo).append(deliveryImg).append(deliveryName).append(deliveryPhone);
-   							
-   							var deliveryInfo2 = $("<div>").addClass("delivery-info2 mt-5");
-   							
-   							var row = $("<div>").addClass("row justify-content-center align-items-center");
-   							
-   							var deliveryAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
-   							
-   							var deliveryAddr1 = $("<strong>").html("배달원 주소");
-   							var deliveryAddr2 = $("<strong>").html(deliveryAddr);
-   							
-   							$(deliveryAddrDiv).append(deliveryAddr1).append(deliveryAddr2);
-   							
-   							var delImg = $("<div>").addClass("mr-2");
-   							var delImg1 = $("<img>").attr({
-   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
-   								"class" : "img-fluid"
-   							});
-   							
-   							//오토바이 이미지
-   							delImg.append(delImg1);
-   							
-   							var storeAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
-   							
-   							var storeAddr1 = $("<strong>").html("가게 주소");
-   							var storeAddr2 = $("<strong>").html(storeAddress);
-   							
-   							$(storeAddrDiv).append(storeAddr1).append(storeAddr2);
-   							
-   							var clientAddrDiv = $("<div>").addClass("col shadow border border-dark d-flex flex-column text-center mr-2 p-5");
-   							
-   							var clientAddr1 = $("<strong>").html("고객 주소");
-   							var clientAddr2 = $("<strong>").html(clientAddr);
-   							
-   							clientAddrDiv.append(clientAddr1).append(clientAddr2);
-   							
-   							var delImg2 = $("<div>").addClass("mr-2");
-   							var delImg3 = $("<img>").attr({
-   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
-   								"class" : "img-fluid"
-   							});
-   							
-   							//오토바이 이미지
-   							delImg2.append(delImg3);
-   							
-   							row.append(deliveryAddrDiv).append(delImg).append(storeAddrDiv).append(delImg2).append(clientAddrDiv);
-   							deliveryInfo2.append(row);
-   							
-   							var deliveryStart = $("<div>").attr({
-   								"id" : "delivery-start",
-   								"class" : "mt-3"
-   							});
-   							
-   							var deliveryStartBtn = $("<button>").addClass("btn btn-info btn-lg btn-block btn-start").html("배달 출발");
-   							
-   							$(deliveryStart).append(deliveryStartBtn)
-   							
-   							containerDiv.append(deliveryInfo).append(deliveryInfo2).append(deliveryStart);
-   							
-   							$("#accept-delivery").append(containerDiv);
-   							
-   							//수락눌렀을때
-   							$("#accept-delivery").children().addClass("d-none");
-   		   	   				$("#accept-delivery").children(".container-"+orderNo).removeClass("d-none");
-   							
-   							//배달출발 눌렀을때
-   							
-   							$(".btn-start").click(function(){
+   							//배달원이 배달을 완료했을 때 처리
+   							if(state=='C'){
    								
-   								console.log(orderNo);
-   								
-   								$.ajax({
-   									url:"${pageContext.request.contextPath}/orderInfo/updateState.do",
-   									data:{
-   										orderNo : orderNo
-   									},
-   									success: function(data){
-   										if(data['result']>0){
-   											console.log("성공");
-   											console.log($(e.target).val());
-   											
-   											$(e.target).val("배달중");
-   											$(".btn-start").html("배달중");
-   										}
-   									}
-   								});
-   								
-   								$('#del-modal').modal('hide');
-   							});
+   							}
    							
    							break;
    						}	
