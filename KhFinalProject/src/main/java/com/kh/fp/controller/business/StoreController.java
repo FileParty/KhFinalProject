@@ -282,5 +282,32 @@ public class StoreController {
 		return m;
 	}
 	
+	@RequestMapping("/order/orderSelect.do")
+	public ModelAndView orderSelect(int flag,int sno,int no,int cPage,ModelAndView mv) {
+		
+		int result=0;
+		
+		if(flag==1) { //승인
+			result = service.orderSelectOk(no);
+		}else { //거절
+			result = service.orderSelectReject(no);
+		}
+		
+		
+		if(result==0) {
+			mv.addObject("msg", "로그인해주세요");
+			mv.addObject("loc", "/");
+			mv.setViewName("common/msg");
+			return mv;
+		}
+		
+		
+		mv.setViewName("redirect:/licensee/order?no="+sno+"&cPage="+cPage);
+		return mv;
+		
+	}
+	
+	
+	
 	
 }

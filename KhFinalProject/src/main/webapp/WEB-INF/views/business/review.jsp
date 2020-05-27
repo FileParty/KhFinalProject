@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
    <style>
+   div{
+		font-family: 'Do Hyeon';
+	}
+	span{
+		font-family: 'Do Hyeon';
+		
+	}
       a.list{
       	 font-weight: 700;
       	 color:black;
@@ -53,27 +60,32 @@
    		<script>
    		
    			 $(function() {
+   				$("#reviewList").children().remove();
    				$.ajax({
    					url:"${path}/licensee/reviewSelect",
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   						var d = new Date();
+   						console.log('ㅎㅎ',data);
+   						console.log(data[0].r_img);
+   						console.log(data[0].order_menu[0].me_name);
+   					 	var d = new Date();
 						var d1 = new Date(data[0].r_date);
 						var dd = d-d1;
 						var day = 24 * 60 * 60 * 1000;
-	
+							
    						if(data.length == 0) {
    							alert('등록 된 리뷰가 없습니다!');
    						}
    						for(let i=0;i<data.length;i++) {
+   							console.log(data[i].r_img);
    							let div = $("<div>").attr('class','row');
    							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
    							let date = new Date(data[i].r_date);
    							let date1 = d-date;   							
    							let date2 = parseInt(date1/day);  							
-   							tr+= "<span>"+(data[i].m_email)+"</span>&nbsp;&nbsp;&nbsp;";
+   							tr+= "<span>"+(data[i].m_nickname)+"님 </span>&nbsp;&nbsp;&nbsp;";
    							if(date2 == 0) {
    								tr+="<span>"+'오늘'+"</span>";
    							}else if(date2 == 1) {
@@ -97,17 +109,31 @@
    							tr1+="&nbsp;<span>"+'배달★&nbsp;'+data[i].r_score_delivery+"</span>";
    							
    					 		let tr2 = "<tr><td>";   							
-  							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";			
-   						/* 	if(data[i].r_img !=null) {  
-   								tr2+="<img src='${path}/resources/img/mypage/review/"+data[0].r_img+"' width='450px' height='200px'/>";
+  							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
+  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							 
+  							 for(let k=0;k<data[i].r_img.length;k++) {
+   						 	if(data[i].r_img !=null) {  
+   						 		if(k==0) {   								
+   								tr2+= "<div style='width:450px' class='carousel-item active'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div>";
+   						 		}else {
+   						 		tr2+= "<div style='width:450px' class='carousel-item'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div> ";
+   						 			
+   						 		}
    								
    							}else {
    								tr2+="<img alt='첨부 된 사진이없어요!'width='450px' height='200px'/>";
    								
-   							}  */
-   							
+   							}
+   						 	
+  							 }
+  							 tr2+=" <a class='carousel-control-prev' href='#demo"+i+"' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
+  							 tr2+="<a class='carousel-control-next' href='#demo"+i+"' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
+  								tr2+="</div></div> ";
    							let tr3 = "<tr><td>"; 
-   							tr3 += "<span>"+data[i].me_name+'/'+data[i].sd_array+"</span></tr></td>";
+   							for(let k=0;k<data[i].order_menu.length;k++) {
+   							tr3 += "<span>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></tr></td>";
+   							}
    							let tr4 = "<tr><td>"; 
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
@@ -132,28 +158,7 @@
    							let span2 = $("<span>").html(data[i].r_text);
    							
    							$("#reviewList").append(divv);
-   							var tbll = $(".tbl").length;
-   							console.log(tbll);
    						} 
-   						console.log('리뷰',data);
-   						$.ajax({
-   							url:"${path}/licensee/reviewImgSelect",
-   							data:{s_no:$("#storeInfo").val()},
-   							success:function(data) {
-   								console.log('사진',data);
-   								
-   								for(let i=0;i<data.length;i++) {
-   									for(let j=0;j<tbll;j++) {
-   	   									let tdValue = $(".r_no"+j).val();
-   	   									let td = $(".r_no"+j);
-   									if(data[i].r_no == tdValue){
-   										
-   									}
-   									}
-   								}
-   							}
-   						})
-
    					}
    				})
    			})
@@ -211,23 +216,21 @@
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   					/* 	console.log('??',data);
-						var d = new Date();
-						var d1 = new Date(data[0].r_date);
-						var dd = d-d1;
+   						console.log('ㅎㅎ',data);
 						var day = 24 * 60 * 60 * 1000;
-	
+							
    						if(data.length == 0) {
    							alert('등록 된 리뷰가 없습니다!');
-   						}
+   						}else{
    						for(let i=0;i<data.length;i++) {
+   							console.log(data[i].r_img);
    							let div = $("<div>").attr('class','row');
-   							let tbl = $("<table>");
+   							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
    							let date = new Date(data[i].r_date);
    							let date1 = d-date;   							
    							let date2 = parseInt(date1/day);  							
-   							tr+= "<span>"+(data[i].m_email)+"</span>&nbsp;&nbsp;&nbsp;";
+   							tr+= "<span>"+(data[i].m_nickname)+"님 </span>&nbsp;&nbsp;&nbsp;";
    							if(date2 == 0) {
    								tr+="<span>"+'오늘'+"</span>";
    							}else if(date2 == 1) {
@@ -250,18 +253,32 @@
    							tr1+="&nbsp;<span>"+'양★&nbsp;'+data[i].r_score_amout+"</span>";
    							tr1+="&nbsp;<span>"+'배달★&nbsp;'+data[i].r_score_delivery+"</span>";
    							
-   						 	let tr2 = "<tr><td>";   							
-  							  							
-   							if(data[i].r_img !=null) {  
-   								tr2+="<img src='${path}/resources/upload/menu/"+data[i].r_img+"' width='450px' height='200px'/>";
+   					 		let tr2 = "<tr><td>";   							
+  							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
+  							  	tr2+= "<div id='demo' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							 
+  							 for(let k=0;k<data[i].r_img.length;k++) {
+   						 	if(data[i].r_img !=null) {  
+   						 		if(k==0) {   								
+   								tr2+= "<div style='width:450px'class='carousel-item active'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div>";
+   						 		}else {
+   						 		tr2+= "<div style='width:450px' class='carousel-item'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div> ";
+   						 			
+   						 		}
    								
    							}else {
    								tr2+="<img alt='첨부 된 사진이없어요!'width='450px' height='200px'/>";
    								
-   							} 
-   							
+   							}
+   						 	
+  							 }
+  							 tr2+=" <a class='carousel-control-prev' href='.demo' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
+  							 tr2+="<a class='carousel-control-next' href='.demo' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
+  								tr2+="</div></div> ";
    							let tr3 = "<tr><td>"; 
-   							tr3 += "<span>"+data[i].me_name+'/'+data[i].sd_array+"</span></tr></td>";
+   							for(let k=0;k<data[i].order_menu.length;k++) {
+   							tr3 += "<span>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></tr></td>";
+   							}
    							let tr4 = "<tr><td>"; 
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
@@ -272,10 +289,10 @@
    							}
    							let tr6 = $("<input>").attr({
    								'type':'hidden',
-   								'id':'r_no',
+   								'class':'r_no'+i,
    								'value':data[i].r_no
    							});
-   							tbl .append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
+   							tbl.append(tr).append(tr1).append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
    							if(i%2==0) {
    							var divv = $("<div>").attr('class','row');
    							}
@@ -286,9 +303,11 @@
    							let span2 = $("<span>").html(data[i].r_text);
    							
    							$("#reviewList").append(divv);
-   					 	}*/ 
+   						} 
+   					}
    					}
    				})
+   			
    			 })
    		</script>
    	</section>

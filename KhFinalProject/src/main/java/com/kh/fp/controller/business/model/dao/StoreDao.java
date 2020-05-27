@@ -28,4 +28,6 @@ public interface StoreDao {
 	List<Map<String, Object>> getOrderInfo(SqlSessionTemplate session, Object no);
 	List<Map<String, Object>> getSaleMonth(SqlSessionTemplate session,Object no);
 	List<OrderMenu> orderMenu(SqlSessionTemplate session,int no);
+	int orderSelectOk(SqlSessionTemplate session,int no);
+	int orderSelectReject(SqlSessionTemplate session,int no);
 }

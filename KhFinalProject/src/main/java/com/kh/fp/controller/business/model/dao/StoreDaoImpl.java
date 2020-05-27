@@ -121,6 +121,18 @@ public class StoreDaoImpl implements StoreDao {
 		// TODO Auto-generated method stub
 		return session.selectList("store.orderMenu",no);
 	}
+
+	@Override
+	public int orderSelectOk(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.update("store.orderSelectOk",no);
+	}
+
+	@Override
+	public int orderSelectReject(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.update("store.orderSelectReject",no);
+	}
 	
 	
 	

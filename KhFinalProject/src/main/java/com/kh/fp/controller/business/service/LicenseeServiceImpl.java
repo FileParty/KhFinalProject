@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.fp.controller.business.model.dao.LicenseeDao;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
-import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -152,15 +153,25 @@ public class LicenseeServiceImpl implements LicenseeService {
 	@Override
 	public List<ReviewAll> selectReview(int s_no) {
 		// TODO Auto-generated method stub
-		return dao.selectReview(session,s_no);
+		List<ReviewAll> list = dao.selectReview(session,s_no);
+		
+		return list;
 	}
 	
 	
 
 	@Override
-	public List<ReviewImg> selectReviewImg(int s_no) {
+	public List<String> selectReviewImg(int r_no) {
 		// TODO Auto-generated method stub
-		return dao.selectReviewImg(session,s_no);
+		return dao.selectReviewImg(session,r_no);
+	}
+	
+	
+
+	@Override
+	public List<MenuDetailReviewMenu> selectOrderMenu(int o_no) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderMenu(session,o_no);
 	}
 
 	@Override
@@ -185,6 +196,19 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return result;
 
 	}
+
+	@Override
+	public Map menuCount(int s_no) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("count",dao.menuCount(session,s_no));
+		map.put("s_name",dao.selectSname(session,s_no));
+		return map;
+	}
+	
+	
+
+	
 	
 	
 

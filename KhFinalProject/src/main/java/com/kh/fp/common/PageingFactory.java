@@ -265,4 +265,59 @@ public static String PageBarFactory(int cPage, int numPerPage, int totalData, St
 			
 	}
 
+//범
+
+		public static String PageBarFactoryBeom(int cPage, int numPerPage, int totalData,int no, String url) {
+			
+			
+			int pageCount=(int)Math.ceil((double)totalData/numPerPage);
+			int pageBarSize=5;
+			String pageBar="";
+			int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+			int pageEnd=pageNo+pageBarSize-1;
+		  
+			pageBar+="<ul class='pagination justify-content-center pagination-sm'>";
+			if(pageNo==1) {
+				pageBar+="<li class='page-item disabled'>";
+				pageBar+="<a class='page-link' href='#' tabindex='-1'>이전</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo-1)+",\""+no+"\");'>이전</a>";
+				pageBar+="</li>";
+			}
+		  
+			while(!(pageNo>pageEnd||pageNo>pageCount)) {
+				if(cPage==pageNo) {
+					pageBar+="<li class='page-item active'>";
+					pageBar+="<a class='page-link'>"+pageNo+"</a><input id='pageno' type='hidden' value='"+pageNo+"'/>";
+					pageBar+="</li>";
+				}else {
+					pageBar+="<li class='page-item'>";
+					pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+no+"\");'>"+pageNo+"</a>";
+					pageBar+="</li>";
+				}
+				pageNo++;
+			}
+		  
+			if(pageNo>pageCount) {
+				pageBar+="<li class='page-item disabled'>";
+				pageBar+="<a class='page-link'>다음</a>";
+				pageBar+="</li>";
+			}else {
+				pageBar+="<li class='page-item'>";
+				pageBar+="<a class='page-link' href='javascript:fn_paging("+(pageNo)+",\""+no+"\");'>다음</a>";
+				pageBar+="</li>";
+			}
+			pageBar+="</ul>";
+			pageBar+="<script>";
+			pageBar+="function fn_paging(cPage,no){";
+			pageBar+="location.href='"+url+"?cPage='+cPage+'&no='+no";
+			pageBar+="}";
+			pageBar+="</script>";
+		
+			return pageBar;
+			
+		}
+
 }
