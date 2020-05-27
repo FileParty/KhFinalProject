@@ -12,6 +12,10 @@
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
 		    
+		    #accountEdit{
+		    	color:rgb(34, 190, 241);
+		    }
+		    
 		    
 </style>
 
@@ -30,7 +34,7 @@
 
                     <div class="col-md-8">
 
-                        <table class="table detailTable" id="memberTable">
+                        <table class="table detailTable" id="memberTable" style="margin-top:130px;">
 
                             <tr>
                                 <th>회원아이디</th>
@@ -70,13 +74,14 @@
 
                         </table>
 
-                        <div style="text-align: center;"><button id="memberUpdateBtn" class="btn btn-lightgray" onclick="memberUpdate();">수정하기</button></div>
+                        <div style="text-align: center;"><button style="background-color:lightgray; margin-left:130px;" id="memberUpdateBtn" class="btn btn-lightgray" onclick="memberUpdate();">수정하기</button></div>
 
                     </div>
 
                     <div class="col-md-2"></div>
 
                 </div>
+
 
 
             </div>

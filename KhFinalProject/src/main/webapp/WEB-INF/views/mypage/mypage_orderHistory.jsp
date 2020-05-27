@@ -25,6 +25,17 @@ ${sysdate }  --%>
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-conta  iner span.no{color:red;}
 		    
+		    .table {
+					    border-top-style: none;
+					    border-left-style: none;
+					    border-right-style: none;
+					    border-bottom-style: none;
+					}
+					
+			#order{
+		    	color:rgb(34, 190, 241);
+		    }
+		    
 </style>
 
 
@@ -39,16 +50,16 @@ ${sysdate }  --%>
             <div class="col-md-10 row">
             
 				<c:forEach items="${list }" var="m">
-					<div class="col-md-6 row">
+					<div class="col-md-6 row" style="margin-bottom:15px;">
 
                        <div class="col-md-2"></div>
-                       <div class="col-md-8 order_content" style="border: 1px solid black; height:200px;">
+                       <div class="col-md-8 order_content" style="border: 1px solid black; height:100%;">
 							<input type="hidden" value="${m['O_NO']}"/>
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
-                           <p style="text-align: right; width:100%" class="${(o.time-rdate.time)/(60*1000)<180?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button></p>
+                           <p style="text-align: right; width:100%;" class="${(o.time-rdate.time)/(60*1000)<180 && m['O_STATUS']=='배달완료' ?'':'d-none'}"><button class="reviewInsertButton" onclick="reviewInsertModal('${m['S_NO']}', '${m['M_NO'] }', '${m['O_NO'] }');">리뷰쓰기</button></p>
                            <table style="width:100%">
                                <tr>
                                    <td><img width="80" height="80" src="${path }/resources/upload/store/${m['S_LOGIMG']}"/></td>
@@ -517,7 +528,7 @@ ${sysdate }  --%>
             	if(event.target.className=='reviewInsertButton')
                     return;
             	
-            	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴</th></tr>");
+            	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
             	
             	
             	var o_no = ($(this).find("input"))[0].value;
@@ -542,26 +553,38 @@ ${sysdate }  --%>
 						
 						var option = new Array();
 						
+						var addOption="";
 						
 						
 						for(let i=0; i<data.length; i++){
 							option = data[i]['SD_ARRAY'].split(',');
-							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'>" + data[i]['ME_NAME'] + "</td></tr>");
-							
-							if(option.length>0){
-								
-							}
-							
 							
 							for(let j=0; j<option.length; j++){
-								if(j==0)
-									$("#menu-tbl").append("<tr><th colspan='2' style='text-align:center;'>추가옵션");	
-								$("#menu-tbl").append("<tr><td colspan='2' style='text-align:right;' class='modalOption' style='text-align: left'>");
-								$($(".modalOption")[j]).append(option[j]);									
+								if(j>0)
+									addOption += " / ";
+								addOption += option[j]; 
+							}
+							
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'>메뉴명: " + data[i]['ME_NAME'] + "<br>옵션: " + addOption + "</td></tr>");
+						}
+						
+						/* if(data.length>0){
+							$("#menu-tbl").append("<tr><th colspan='2' style='text-align:center;'>추가옵션");
+							$("#menu-tbl").append("<tr><td colspan='2' style='text-align:right;' class='modalOption' style='text-align: left'>");
+						}
+						
+						for(let i=0; i<data.length; i++){
+							option = data[i]['SD_ARRAY'].split(',');
+							
+							for(let j=0; j<option.length; j++){
+								
+								$($(".modalOption")[0]).append(option[j] + " / ");
+								
+							
 							}
 							
 						}
-						
+						 */
 						
 						
 						

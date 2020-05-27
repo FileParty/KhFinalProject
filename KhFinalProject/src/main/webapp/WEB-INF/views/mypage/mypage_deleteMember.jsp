@@ -11,6 +11,10 @@
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
+		    
+		    #deleteMember{
+		    	color:rgb(34, 190, 241);
+		    }
 </style>
 
 <section>
@@ -37,7 +41,7 @@
 							  삭제를 원하시는 리뷰는 탈퇴 전 반드시 삭제요청하시기 바랍니다.<br>
 							  (탈퇴 후에는 리뷰 임의 삭제 요청을 받지 않습니다.)
 						</p>
-                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%);" onclick="memberDelete(${loginMember.m_No});">회원탈퇴</button>
+                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%); background-color: lightgray;" onclick="memberDelete(${loginMember.m_No});">회원탈퇴</button>
                     </div>
 
                     <div class="col-md-2"></div>
