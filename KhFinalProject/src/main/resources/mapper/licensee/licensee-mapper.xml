@@ -70,22 +70,22 @@
   	</insert>
   	
   	<select id="selectReview" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewAll">
-  		    SELECT R.*, O.SD_ARRAY AS SD_ARRAY,
-         
-            TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
-         
-         (SELECT M_EMAIL FROM MEMBER WHERE M_NO=R.M_NO) AS M_EMAIL,
-         (SELECT ME_NAME FROM MENU WHERE ME_NO = O.ME_NO) AS ME_NAME
-         
-      FROM REVIEW R  LEFT JOIN ORDER_MENU O ON R.O_NO = O.O_NO 
-      WHERE R.S_NO= #{s_no}
+  		
+  		    SELECT R.*,
+			TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
+			(SELECT M_NICKNAME FROM MEMBER WHERE M_NO=R.M_NO) AS M_NICKNAME
+		FROM REVIEW R
+		WHERE R.S_NO=#{s_no}
   		
   	</select>
   	
-  	<select id="selectReviewImg" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewImg">
-  		SELECT R_NO,R_IMG FROM REVIEW JOIN REVIEW_IMG USING(R_NO) WHERE S_NO = #{s_no}
+  	<select id="selectReviewImg" parameterType="_int" resultType="string">
+  		SELECT R_IMG FROM REVIEW_IMG WHERE R_NO = #{r_no}
   	</select>
    	
+   	<select id="selectOrderMenu"  parameterType="_int" resultType="com.kh.fp.model.vo.MenuDetailReviewMenu">
+   		SELECT O.SD_ARRAY,(SELECT ME_NAME FROM MENU WHERE ME_NO=O.ME_NO) AS ME_NAME FROM ORDER_MENU O WHERE O_NO= #{o_no}
+   	</select>
   	<update id="updateReviewReply" parameterType="map">
   		UPDATE REVIEW SET R_REPLY = #{r_reply} WHERE R_NO = #{r_no}
   	</update> 

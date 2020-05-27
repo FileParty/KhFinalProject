@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
-import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -138,9 +138,9 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	
 
 	@Override
-	public List<ReviewImg> selectReviewImg(SqlSessionTemplate session, int s_no) {
+	public List<String> selectReviewImg(SqlSessionTemplate session, int r_no) {
 		// TODO Auto-generated method stub
-		return session.selectList("licensee.selectReviewImg",s_no);
+		return session.selectList("licensee.selectReviewImg",r_no);
 	}
 
 	@Override
@@ -172,6 +172,14 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("licensee.selectSname",s_no);
 	}
+
+	@Override
+	public List<MenuDetailReviewMenu> selectOrderMenu(SqlSessionTemplate session, int o_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectOrderMenu",o_no);
+	}
+	
+	
 	
 	
 	

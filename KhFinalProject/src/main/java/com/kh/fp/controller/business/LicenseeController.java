@@ -206,25 +206,20 @@ public class LicenseeController {
 	
 	@RequestMapping("/licensee/reviewSelect")
 	@ResponseBody
-	public List<ReviewAll> reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
+	public List<ReviewAll>  reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
 		//리뷰
 		//셀렉용
 				
 		List<ReviewAll> list = service.selectReview(s_no);
+		
+		for(int i=0;i<list.size();i++) {
+			list.get(i).setR_img(service.selectReviewImg(list.get(i).getR_no()));
+			list.get(i).setOrder_menu(service.selectOrderMenu(list.get(i).getO_no()));
+			
+		}
 	
 		return list;
 	}
-	@RequestMapping("/licensee/reviewImgSelect")
-	@ResponseBody
-	public List<ReviewImg> reviewImgSelect(ModelAndView mv,HttpSession session,int s_no) {
-		//리뷰
-		//셀렉용
-				
-		List<ReviewImg> list = service.selectReviewImg(s_no);
-	
-		return list;
-	}
-	
 	
 	@RequestMapping("/licensee/getdetailorder")
 	public List<Map<String, Object>> getDetailOrder(int no){
