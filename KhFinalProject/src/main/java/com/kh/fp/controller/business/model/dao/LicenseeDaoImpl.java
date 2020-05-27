@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -104,6 +107,11 @@ public class LicenseeDaoImpl implements LicenseeDao {
 	}
 
 	@Override
+	public List<Store> storesNo(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.storesNo",no);
+	}
+
 	public int menuUpdate(SqlSessionTemplate session, Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return session.insert("licensee.menuUpdate",map);
@@ -120,6 +128,74 @@ public class LicenseeDaoImpl implements LicenseeDao {
 		// TODO Auto-generated method stub
 		return session.insert("licensee.menuSideUpdate",ms);
 	}
+
+	@Override
+	public List<ReviewAll> selectReview(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectReview",s_no);
+	}
+	
+	
+
+	@Override
+	public List<String> selectReviewImg(SqlSessionTemplate session, int r_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectReviewImg",r_no);
+	}
+
+	@Override
+	public int updateReviewReply(SqlSessionTemplate session, Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update("licensee.updateReviewReply",map);
+	}
+
+	@Override
+	public Review selectReviewReply(SqlSessionTemplate session,Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.selectReviewReply",map);
+	}
+
+	@Override
+	public int menuSideAdd(SqlSessionTemplate session, MenuSide ms) {
+		// TODO Auto-generated method stub
+		return session.insert("licensee.insertMenuSide",ms);
+	}
+
+	@Override
+	public int menuCount(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.menuCount",s_no);
+	}
+
+	@Override
+	public String selectSname(SqlSessionTemplate session, int s_no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("licensee.selectSname",s_no);
+	}
+
+	@Override
+	public List<MenuDetailReviewMenu> selectOrderMenu(SqlSessionTemplate session, int o_no) {
+		// TODO Auto-generated method stub
+		return session.selectList("licensee.selectOrderMenu",o_no);
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 	
 	

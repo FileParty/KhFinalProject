@@ -3,7 +3,7 @@
 <mapper namespace="licensee">
 
 	<select id="getOrderInfo" parameterType="_int" resultType="map">
-		select * from order_info where s_no=#{no}
+		select * from order_info where s_no=#{no} order by o_date desc
 	</select>
   	
   	<select id="getOrderInfoAll" parameterType="_int" resultType="_int">
@@ -52,6 +52,11 @@
   		SELECT * FROM SIDE JOIN MENU_SIDE USING(SD_NO) WHERE S_NO = #{s_no} AND ME_NO = #{me_no}
   	</select>
   	
+
+  	<select id="storesNo" resultType="menuList">
+  		select * from store where b_no=#{no}
+  	</select>
+
   	<update id="menuUpdate" parameterType="map">
   		UPDATE MENU SET ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
   	</update>
@@ -63,5 +68,39 @@
   	<insert id="menuSideUpdate" parameterType="com.kh.fp.model.vo.MenuSide">
   		INSERT INTO MENU_SIDE VALUES (#{me_no},#{sd_no})
   	</insert>
+  	
+  	<select id="selectReview" parameterType="_int" resultType="com.kh.fp.model.vo.ReviewAll">
+  		
+  		    SELECT R.*,
+			TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
+			(SELECT M_NICKNAME FROM MEMBER WHERE M_NO=R.M_NO) AS M_NICKNAME
+		FROM REVIEW R
+		WHERE R.S_NO=#{s_no}
+  		
+  	</select>
+  	
+  	<select id="selectReviewImg" parameterType="_int" resultType="string">
+  		SELECT R_IMG FROM REVIEW_IMG WHERE R_NO = #{r_no}
+  	</select>
+   	
+   	<select id="selectOrderMenu"  parameterType="_int" resultType="com.kh.fp.model.vo.MenuDetailReviewMenu">
+   		SELECT O.SD_ARRAY,(SELECT ME_NAME FROM MENU WHERE ME_NO=O.ME_NO) AS ME_NAME FROM ORDER_MENU O WHERE O_NO= #{o_no}
+   	</select>
+  	<update id="updateReviewReply" parameterType="map">
+  		UPDATE REVIEW SET R_REPLY = #{r_reply} WHERE R_NO = #{r_no}
+  	</update> 
+  	
+  	<select id="selectReviewReply" parameterType="map" resultType="com.kh.fp.model.vo.Review">
+  		SELECT R_REPLY FROM REVIEW WHERE R_NO = #{r_no}
+  	</select>
+	
+	<select id="menuCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM MENU WHERE S_NO = #{s_no}
+	</select>
+	
+	<select id="selectSname" parameterType="_int" resultType="string">
+		SELECT S_NAME FROM STORE WHERE S_NO = #{s_no}
+	</select>
+	
   	
 </mapper>

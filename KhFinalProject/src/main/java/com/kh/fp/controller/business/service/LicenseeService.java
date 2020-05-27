@@ -6,7 +6,10 @@ import java.util.Map;
 
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -27,7 +30,16 @@ public interface LicenseeService {
 	List<Store> selectStoreList(int b_no);
 	List<Menu> selectMenuList(int s_no);
 	List<SideAll> selectMenuSide(Map<String,Object> map);
-	int menuUpdate(Map<String,Object> map,int me_no);
+	List<Store> storesNo(int no);
+	int menuUpdate(Map<String,Object> map,int me_no,int optionCount);
 	int menuSideUpdate(List<MenuSide> list);
+	List<ReviewAll> selectReview(int s_no);
+	Review updateReviewReply(Map<String,Object> map);
+	int menuSideAdd(List<MenuSide> list);
+	List<String> selectReviewImg(int s_no);
+	List<MenuDetailReviewMenu> selectOrderMenu(int o_no);
+	Map menuCount(int s_no);
+	
+	
 	
 }

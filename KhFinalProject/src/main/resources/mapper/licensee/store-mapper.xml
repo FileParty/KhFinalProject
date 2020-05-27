@@ -62,11 +62,34 @@
 	</select>
 	
 	<select id="getSales" resultType="sales">
-		select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no} and o_date like '%${orderdate}%' group by o_date order by o_date
+		select  * from
+			 (select  a.*,rownum as rnum from( select to_date(to_char(o_date,'YY/MM/DD')) as orderdate , sum(o_oriprice) as price
+			 from order_info
+			 where s_no=#{no} group by to_date(to_char(o_date,'YY/MM/DD')) order by orderdate desc)a)where  rnum between 1
+		 and 31 order by orderdate
 	</select>
-	
+	<!-- select O_DATE as orderdate ,sum(o_oriprice) as price  from order_info where s_no=#{no} and o_date like '%${orderdate}%' group by o_date order by o_date  -->
 	<select id="getOrderInfo" resultType="map">
-		select * from(select ROWNUM as rnum , a.* from (select * from order_info where s_no=#{no} order by o_date ) a) where rnum between 1 and 5
+		select * from(select ROWNUM as rnum , a.* from (select * from order_info where s_no=#{no} order by o_date desc) a) where rnum between 1 and 5
 	</select>
 	
+	<select id="getSaleMonth" resultType="map">
+		select to_char(o_date,'YYYY/MM') as o_date ,sum(o_oriprice) as price from order_info where s_no=#{no} group by to_char(o_date,'YYYY/MM')
+	</select>
+	
+	<select id="orderDetail" resultType="com.kh.fp.model.vo.OrderInfo">
+		select * from order_info where o_no=#{no}
+	</select>
+	
+	<select id="orderMenu" resultType="com.kh.fp.model.vo.OrderMenu">
+		select me_name,sd_array from order_menu join menu using(me_no) where o_no=#{no}
+	</select>
+	
+	<update id="orderSelectOk">
+		update order_info set o_status='주문완료' where o_no=#{no}
+	</update>
+	
+	<update id="orderSelectReject">
+		update order_info set o_status='주문취소' where o_no=#{no}
+	</update>
 </mapper>

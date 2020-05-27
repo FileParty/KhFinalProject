@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.fp.model.vo.OrderInfo;
+import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
@@ -19,8 +21,13 @@ public interface StoreDao {
 	Map<String, Object> getStoresUpdate(SqlSessionTemplate session, int no);
 	int storeUpdate(SqlSessionTemplate session,StoreEnroll s);
 	int deleteCategory(SqlSessionTemplate session,int no);
+	OrderInfo orderDetail(SqlSessionTemplate session,int no);
 	int insertBestCategory(SqlSessionTemplate session,int no);
 	List<Map<String, Object>> getStoresInfo(SqlSessionTemplate session,int no);
 	List<Sales> getSales(SqlSessionTemplate session, Object no);
 	List<Map<String, Object>> getOrderInfo(SqlSessionTemplate session, Object no);
+	List<Map<String, Object>> getSaleMonth(SqlSessionTemplate session,Object no);
+	List<OrderMenu> orderMenu(SqlSessionTemplate session,int no);
+	int orderSelectOk(SqlSessionTemplate session,int no);
+	int orderSelectReject(SqlSessionTemplate session,int no);
 }

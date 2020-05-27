@@ -34,7 +34,7 @@
 
                             <tr>
                                 <th>회원아이디</th>
-                                <td>${loginMember.m_id }</td>
+                                <td>${loginMember.m_Id }</td>
                                 <td></td>
                             </tr>
 
@@ -51,20 +51,20 @@
                             </tr>
                             <tr>
                                 <th>이메일</th>
-                                <td id="email">${loginMember.m_email }</td>
+                                <td id="email">${loginMember.m_Email }</td>
                             </tr>
                             <tr>
                                 <th>휴대전화번호</th>
-                                <td id="phone">${loginMember.m_phone }</td>
+                                <td id="phone">${loginMember.m_Phone }</td>
                             </tr>
                             <tr>
                                 <th>닉네임</th>
-                                <td id="nickname">${loginMember.m_nickname }</td>
+                                <td id="nickname">${loginMember.m_Nickname }</td>
                             </tr>
 
                             <tr>
                                 <th>가입일</th>
-                                <td>${loginMember.m_enrolldate }</td>
+                                <td>${loginMember.m_Enrolldate }</td>
                                 <td></td>
                             </tr>
 
@@ -135,7 +135,7 @@
 	    			
 				    url: "${path}/mypage/memberUpdate.do",
 				    type: "POST",
-				    data: {"m_no":${loginMember.m_no}, "m_pw":input_con[0].value, "m_email":input_con[2].value, "m_phone":input_con[3].value, "m_nickname":input_con[4].value},
+				    data: {"m_no":${loginMember.m_No}, "m_pw":input_con[0].value, "m_email":input_con[2].value, "m_phone":input_con[3].value, "m_nickname":input_con[4].value},
 				    success: function(data){
 						
 				    	alert("수정성공");

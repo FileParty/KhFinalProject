@@ -1,9 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
    <style>
-
+	div{
+		font-family: 'Do Hyeon';
+	}
+	span{
+		font-family: 'Do Hyeon';
+		
+	}
+	p{
+		font-family: 'Do Hyeon';
+		font-size: 40px;		
+	}
+	h2{
+		font-family: 'Do Hyeon';
+		display : inline;
+		margin-left:200px;
+		
+	}
+	label{
+			font-family: 'Do Hyeon';
+	}
+	modal-body1{
+		font-family: 'Do Hyeon';
+	}
  	div#main{
       	margin-left:200px; 	
       	margin-top:150px;
@@ -13,9 +34,10 @@
       	margin-left:30px;
       	margin-top:50px;
       }
-      div.menuDiv div {
-      width:100%;
+      div.menuDiv  {
+      margin-bottom:20px;
       }
+
   .xBtn {
 		box-shadow:inset 0px 1px 0px 0px #fce2c1;
 		background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
@@ -35,27 +57,117 @@
 		background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
 		background-color:#fb9e25;
 	}
+	.updateBtn{
+	box-shadow:3px 3px 5px white;
+	background:linear-gradient(to bottom, lightgray 5%, black 100%);
+	background-color:white;
+	border-radius:10px;
+	border:1px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;	
+	padding:6px 24px;
+	text-decoration:none;
+	margin-bottom:10px;
+	}
+	#mUpdate{
+	box-shadow:3px 3px 5px white;
+	background:linear-gradient(to bottom, lightgray 5%, black 100%);
+	background-color:white;
+	border-radius:10px;
+	border:1px solid white;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;	
+	padding:6px 24px;
+	text-decoration:none;
+	}
 	div#myModal1{
 		height:auto;
+		
 	}
 
- 
+	#store{
+		background-color:#E1E1E1;
+		color:white;
+		font-weight:700;
+	}
+	div#demo{
+		background:linear-gradient( #FFFFFF 5%);		 
+		 width:800px;
+		 margin-left:60px;
+	}
+	div.menuList{
+	background-color:white;
+	border:1px solid lightgray;
+	 margin-bottom:20px;
+	}
+
+	span#prev{
+		
+	  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234B4B4B' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+	}
+	span#next{
+		margin-left:6px;
+		background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%234B4B4B' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") ;
+	}
+	a#prevA{
+	width:30px;
+	height:30px;
+	margin-top:150px;
+	border:1px solid lightgray;
+	}
+	a#nextA{
+	width:30px;
+	height:30px;
+	margin-top:150px;
+	border:1px solid lightgray;
+	}
+	input.menuName{
+		border:none;
+		margin-top:5px;
+		font-weight:1000;
+	}
+	
+	input.sss{
+		border:none;
+		margin-top:5px;
+		margin-left:20px;
+		font-weight:1000;
+	}
+	input.menuPrice{
+		border:none;
+		margin-top:5px;
+		font-weight:1000;
+	}
+
+
+
+
+	
+
       </style>
+      
+      
 	<%@include file="../common/header.jsp" %>
     <section style="width:1366px;height:auto;margin-bottom:400px;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
+            
                       <ul class="nav nav-tabs nav-justified">
                          <li class="nav-item">
-                        	<a href="${path }/licensee/menuEnroll" class="list nav-link" onclick="storeNo();">메뉴 등록</a>
-                        </li>
-                         <li class="nav-item">
-                        	<a href="${path }/licensee/menuStatus" class="list nav-link active">메뉴 관리</a>
+                        	<p>* 메뉴 관리</p>
+                        	<span>* 상세보기를 원하시면 카테고리안의 메뉴를 클릭해주세요!</span>
                         </li>
                                         
                     </ul>
+                    
                   
                     <br>
                     <br>
@@ -71,13 +183,14 @@
 					   
 					  </div>
 
-					  <a style="background-color:gray;width:30px;"class="carousel-control-prev" href="#demo" data-slide="prev">
-					    <span style="color:black;"class="carousel-control-prev-icon"></span>
+					  <a id="prevA" class="carousel-control-prev" href="#demo" data-slide="prev">
+					    <span id="prev" class="carousel-control-prev-icon"></span>
 					  </a>
-					  <a style="background-color:gray;width:30px;"class="carousel-control-next" href="#demo" data-slide="next">
-					    <span class="carousel-control-next-icon"></span>
+					  <a id="nextA" class="carousel-control-next" href="#demo" data-slide="next">
+					    <span id="next" class="carousel-control-next-icon"></span>
 					  </a>
 					</div>
+					
 					<div id="categoryList">
 					
 					</div>
@@ -88,19 +201,17 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header">
-						          <h4 class="modal-title">메뉴 수정</h4>
-						          
+						          <h4 class="modal-title">메뉴 수정</h4>						          
 						          <button type="button" class="close" data-dismiss="modal">&times;</button>
 						        </div>
 						         
 						        <div class="modal-body2" align=center>	
-						        <br>
-						        <br>
+						        
 						        <form id="form" action="${path }/licensee/menuUpdate" method="post" class="categoryForm"> 
 						        	<div id="menuUpdate">
 						        		
 						        	</div>
-						        	<button type="submit" class="btn btn-outline-success">등록합니다요!!!</button>
+						        	<button id="mUpdate" type="submit" class="btn btn-outline-success">등록합니다요!!!</button>
 						        </form>
 						        </div>					        
 						      </div>
@@ -110,8 +221,8 @@
 						    <div class="modal-dialog">
 						      <div class="modal-content">
 						        <div class="modal-header1">
-						          <h4 class="modal-title">메뉴 상세</h4>
-						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h2 class="modal-title">메뉴 상세</h2>
+						          <button style="margin-top:10px;margin-right:20px;font-size:30px;"type="button" class="close" data-dismiss="modal">&times;</button>
 						        </div>				         
 						        <div class="modal-body1" align=center>	
 						        
@@ -165,10 +276,10 @@
 						var menuDiv = $("<div>").attr({
 							'class':'carousel-item active',	
 							 								
-						}).css({
-							'border':'1px solid red',
-				      		'width':'900',
-	
+						}).css({							
+				      		'width':'700',					      		
+				      		'margin-left':'20px',
+				      		'margin-bottom':'20px'
 						})
 						
 						for(let i=0;i<data.length;i++) {
@@ -178,18 +289,30 @@
 							let div = $("<div>").attr({
 								'class':'col menuList',								
 								}).css({
-									'width':'100',
-									'border':'1px solid orange',
-									',margin-left':'50px',
+									'width':'150',
+									'height':'250',
+									'margin-left':'20px',
+									'padding':'0'
+							});
+						
+								
+								let menuImg = $("<img>").attr({									
+									'class':'menuImg'
+								}).css({
+									'width':'100%',
+									'height':'130',								
 									
-									});
-							let menuImg = $("<img>").attr({
-								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
-								'class':'menuImg'
-							}).css({
-								'width':'240',
-								'height':'100'
-							})
+									})
+									if(data[i].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[i].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+							
 							
 							let hidden = $("<input>").attr({
 								'type':'hidden',
@@ -203,24 +326,27 @@
 							})
 							
 
-							let menuText = $("<span>").html(data[i].me_text);
-							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
-							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
-							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
+							
+							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name).css('font-weight','800');   								
+							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원').css('color','orange');
+							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(hidden).append(hidden2);   							
 							
 							
-							if(i<3) { 
+							if(i<4) { 
 							rowDiv.append(div);
 							menuDiv.append(rowDiv);
+							console.log(menuDiv.find($(".menuList")).length);
 							}else {
-								if(i%3==0) {
+								if(i%4==0) {
 									var rowDiv2 = $("<div>").attr('class','row row1');
 									var menuDiv2 = $("<div>").attr({
-										'class':'carousel-item',	
+										'class':'carousel-item ',	
 										 								
 									}).css({
-										'border':'1px solid red',
-							      		'width':'900',
+										
+										'width':'700',								      		
+							      		'margin-left':'20px',
+							      		'margin-bottom':'20px'
 							      		
 							      		
 									})
@@ -229,6 +355,7 @@
 								menuDiv2.append(rowDiv2);
 							}
 							$(".menuDiv").append(menuDiv).append(menuDiv2);
+						 
 							
 						}
 						
@@ -237,24 +364,36 @@
 					
 							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6');
-								let divTest2 = $("<div>").attr('class','col-lg-6');
+						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+								let divTest2 = $("<div>").attr('class','col-lg-5');
 									
 								let rowDev = $("<div>").attr({
 									'class':'row',
 									'onclick':'test();'
 									});
-									
-								let menuImg = $("<img>").attr({
-									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+			
+										let menuImg = $("<img>").attr({									
 									'class':'menuImg'
 									}).css({
-									'width':'100%',
-									'height':'100'
+									'width':'50%',
+									'height':'100',
+									'margin-top':'10',
+									'margin-left':'200'	
+									
 									})
+									if(data[j].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+										
 								let menuText = $("<input>").attr({
 										'type':'text',
-										'class':'menuName form-control',
+										'class':'menuText form-control',
 										'value':data[j].me_text,
 										'readonly':'true'
 									}).css({'background-color':'white','width':'300px;'}).after($("<br>")); 
@@ -263,10 +402,12 @@
 									'class':'menuName form-control',
 									'value':data[j].me_name,
 									'readonly':'true'
-									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
+									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 	
+								
 										let menuPrice = $("<input>").attr({
 											'type':'number',
-											'class':'menuName form-control',
+											'step':'1000',
+											'class':'menuPrice form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
 									}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
@@ -310,27 +451,73 @@
    		
    		function category() {
 
-   			$(event.target).next().next().slideToggle(500);
+   			$(event.target).next().next().slideToggle(1000);
    		}
    		function menuUpdate() {
    			$("#myModal2").modal('show');
-   			$("#myModal1").modal('hide'); 
+   			$("#myModal1").modal('hide');  			
    			$("#menuUpdate").children().remove();
    			console.log($(event.target).prev().prev());
    			let div = $("<div>")
-   			let prev =$(event.target).prev();
-   			let prev1 =$(event.target).prev().prev();
-   			let prev2 =$(event.target).prev().prev().prev();
-   			let copy = prev.clone();
-   			let copy1 = prev1.clone();
-   			let copy2 = prev2.clone();
-   		
-		
-   			copy.find('input').removeAttr('disabled').removeAttr('checked');
-   			copy1.find('input').removeAttr('readonly');
-   			copy1.find('textarea').removeAttr('readonly');
    			
-   			$("#menuUpdate").append(copy2).append(copy1).append(copy);
+   			
+   			let prev2 =$(event.target).prev().prev().prev();
+   			let prev3 =$(event.target).prev().prev().prev().prev();
+   			
+   			
+   			let copy2 = prev2.clone();
+   			let copy3 = prev3.clone();
+		
+   		 	let hide = $("<input>").attr({
+   		 		'type':'hidden',
+   		 		'name':'optionCount',
+   		 		'value':$("#optionCount").val()
+   		 	})
+   			
+   			
+   			copy2.find('input').removeAttr('readonly').css({'border':'1px solid lightgray','text-align':'center','margin-left':'30px'});
+   			copy2.find('textarea').removeAttr('readonly'); 
+   			$.ajax({
+   				url:"${path}/licensee/selectOption",
+					data:{s_no:$("#store").val()},
+					success:function(data) {
+						console.log('데이터아ㅛ',data);
+						let span = $("<span>").html("필수!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20'});
+	   					let span1 = $("<span>").html("추가!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20','margin-top':'20'});
+	   					if(data.length == 0) {
+	   					span.html('필수옵션이 없습니다ㅠㅠ');
+	   					span1.html('추가옵션이 없습니다ㅠㅠ');
+	   					}
+	   					div.append(span).append(span1).append(hide);
+						for(let i=data.length-1;i>=0;i--) {
+	   						let input = $("<input>").attr({
+	   							'type':'checkbox',
+	   							'value':data[i].sd_no,	
+	   							'name':'sdNo',
+	   							'id':'chck'+i,	
+	   						}).css({
+	   							
+	   							'display':'inline',
+	   							'margin-right':'100px;'
+	   						})
+	   						let label = $("<label>").attr({
+	   							'for':'chck'+i,
+	   						}).css({
+	   							'width':'auto',
+	   							'display':'inline',   							
+	   						}).html(data[i].sd_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].sd_price+'원');
+	   					
+	   					
+	   						if(data[i].sd_division=='Y'){
+	   							span.after($("<br>")).after(label).after(input);
+	   						}else {
+	   							span1.after($("<br>")).after(label).after(input);
+	   						}	   						
+	   					}
+					}
+   			})
+   			$("#menuUpdate").append(copy3).append(copy2).append(div);
+   			$(".menuNames").focus();
    			
    		}
    		
@@ -353,29 +540,30 @@
 				'height':'300'
 				})
 			 let menuText = $("<textarea>").attr({					
-					'class':'menuName form-control',
+					'class':'menuTexts form-control',
 					'cols':'30',
 					'rows':'2',
 					'name':'me_text',
 					
 					'readonly':'true'
-				}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;'}).after($("<br>"));
+				}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
 			
 			let menuName = $("<input>").attr({
 				'type':'text',
-				'class':'menuName form-control',
+				'class':'menuNames form-control',
 				'value':$(event.target).parent().find('div:eq(0)').find('input:eq(0)').val(),
 				'name':'me_name',
 				'readonly':'true'
-				}).css({'background-color':'white','width':'auto'}).after($("<br>")); 							
+				}).css({'background-color':'white','width':'auto','margin-left':'80','border':'none','font-weight':'700','font-size':'20px'}).after($("<br>")); 							
 					
 			let menuPrice = $("<input>").attr({
 						'type':'number',
-						'class':'menuName form-control',
+						'class':'menuPrices form-control',
+						'step':'1000',
 						'value':$(event.target).parent().find('div:eq(0)').find('input:eq(1)').val(),
 						'name':'me_price',
 						'readonly':'true'
-				}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
+				}).css({'background-color':'white','width':'auto','color':'red','margin-left':'100','border':'none'}).after($("<br>")); 
 			
 			let me_no = $("<input>").attr({
 				'type':'hidden',
@@ -395,22 +583,35 @@
 				'value':$("#store").val()
 			}) 
    			 div1.append(menuImg);
-			
+
 			 div2.append($("<br>")).append(menuName).append(menuPrice).append($("<br>")).append(menuText).append(me_no).append(mt_no).append(s_no).append($("<br>"));
 			$(".modal-body1").append(div1).append(div2);
    			
-			
+			console.log('메뉴번호',$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val());
 			$.ajax({
    				url:'${path}/licensee/selectMenuSide',
    				data:{me_no:$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val(),s_no:$("#store").val()},
    				success:function(data) {
    					console.log("메뉴옵션 성공!",data);
    					let div = $("<div>");
-   					let span = $("<span>").html("필수!!!!!!!!!").css('display','block');
-   					let span1 = $("<span>").html("추가!!!!!!!!!").css('display','block');
-
-   					div.append(span).append(span1);
-   					for(let i=0;i<data.length;i++) {
+   					let span = $("<span>").html("필수!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20'});
+   					let span1 = $("<span>").html("추가!!!!!!!!!").css({'font-weight':'800','display':'block','margin-bottom':'20','margin-top':'20'});
+   					if(data.length == 0) {
+   					span.html('필수옵션이 없습니다ㅠㅠ');
+   					span1.html('추가옵션이 없습니다ㅠㅠ');
+   					}
+   					
+						let hide = $("<input>").attr({
+							'type':'hidden',
+							'id':'optionCount'
+						})
+						if(data.length == 0) {
+							hide.attr('value','0');
+						}else {
+							hide.attr('value','1');
+						}
+   					div.append(span).append(span1).append(hide);
+   					for(let i=data.length-1;i>=0;i--) {
    						let input = $("<input>").attr({
    							'type':'checkbox',
    							'value':data[i].sd_no,
@@ -420,44 +621,38 @@
    						}).css({
    							
    							'display':'inline',
-   							'margin-right':'50px;'
+   							'margin-right':'100px;'
    						})
    						let label = $("<label>").attr({
    							'for':'chck'+i,
    						}).css({
    							'width':'auto',
-   							'display':'inline'
-   						}).html(data[i].sd_name+data[i].sd_price+'원');
+   							'display':'inline',   							
+   						}).html(data[i].sd_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].sd_price+'원');
    						
-   						let sd_no = $("<input>").attr({
-   							'type':'hidden',
-   							'name':'sd_no',
-   							'value':data[i].sd_no
-   						})
+   					
    						if(data[i].sd_division=='Y'){
-   							span.after($("<br>")).after(sd_no).after(label).after(input);
+   							span.after($("<br>")).after(label).after(input);
    						}else {
-   							span1.after($("<br>")).after(sd_no).after(label).after(input);
+   							span1.after($("<br>")).after(label).after(input);
    						}
    					}
    						let btn = $("<input>").attr({
    							'type':'button',
    							'value':'수정할래요!!!!',
-   							'class':'btn btn-outline-warning',
+   							'class':'updateBtn',
    							'onclick':'menuUpdate();'
    						})
-   					$(".modal-body1").append(div).append(btn);
+   					$(".modal-body1").append(div).append($("<br>")).append(btn);
    				}
    			})
 			
    		}
-   		
-   	
-   			$("#store").change(function () {
+   
+   			$("#store").on('change',function () {
    				
    				$("#categoryList").children().remove();
-   				
-   				
+
    				$.ajax({
 					url:"${path}/licensee/selectCategory",
 					data:{s_no:$("#store").val()},
@@ -485,124 +680,154 @@
 						}
 					}
 				}) 
-   			
-   				$.ajax({
-   					url:"${path}/licensee/selectOption",
-   					data:{s_no:$("#store").val()},
-   					success:function(data) {
-   						console.log("옵션성공",data);
-   				
-   						}
-   						
-   					
-   				})
-   				
-   				$.ajax({
-   					url:"${path}/licensee/menuSelect",
-   					data:{s_no:$("#store").val()},
-   					success:function(data) {
-   						console.log('메뉴성공',data);
-   						let remove = $(".row1").children().remove();
-   						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
-   						let rowDiv = $("<div>").attr('class','row row1')
-   						
-   						var menuDiv = $("<div>").attr({
-								'class':'carousel-item active',	
-								 								
-							}).css({
-								'border':'1px solid red',
-					      		'width':'900',	
+				
+   			$.ajax({
+   				url:"${path}/licensee/menuSelect",
+					data:{s_no:$("#store").val()},
+					success:function(data) {
+						$(".menuDiv").children().remove();
+						console.log('메뉴성공',data);						
+						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
+						let rowDiv = $("<div>").attr('class','row row1')
+						
+						var menuDivv = $("<div>").attr({
+							'class':'carousel-item active',	
+							 								
+						}).css({							
+				      		'width':'700',					      		
+				      		'margin-left':'20px',
+				      		'margin-bottom':'20px'
+						})
+						
+						for(let i=0;i<data.length;i++) {
+							$(".menuView"+i).hide();
+							console.log('i입니다',i%3);
+							let divTest = $("<div>");
+							let div = $("<div>").attr({
+								'class':'col menuList',								
+								}).css({
+									'width':'150',
+									'height':'250',
+									'margin-left':'20px',
+									'padding':'0'
+							});
+						
+								
+								let menuImg = $("<img>").attr({									
+									'class':'menuImg'
+								}).css({
+									'width':'100%',
+									'height':'130',								
+									
+									})
+									if(data[i].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[i].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+							
+							
+							let hidden = $("<input>").attr({
+								'type':'hidden',
+								'value':data[i].me_no,
+								'class':'me_no'
 							})
-   						for(let i=0;i<data.length;i++) {
-   							$(".menuView"+i).hide();
- 							let div = $("<div>").attr({
- 								'class':'col menuList'
- 								}).css({
- 									'width':'100',
- 									'border':'1px solid orange',
- 									',margin-left':'50px',
- 									
- 									});
-   							let menuImg = $("<img>").attr({
-   								'src':'${path}/resources/upload/business/'+data[i].me_logImg,
-   								'class':'menuImg'
-   							}).css({
-   								'width':'240',
-   								'height':'100'
-   							})
-   							
-   							let hidden = $("<input>").attr({
-   								'type':'hidden',
-   								'value':data[i].me_no,
-   								'class':'me_no'
-   							})
-   							let hidden2 = $("<input>").attr({
-   								'type':'hidden',
-   								'value':data[i].mt_no,
-   								'class':'mt_no'
-   							})   							
-   							let menuText = $("<span>").html(data[i].me_text);
-   							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name);   								
-   							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원');
-   							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(menuText).append(hidden).append(hidden2);   							
-   							
-   							if(i<3) { 
-   							rowDiv.append(div);
-   							menuDiv.append(rowDiv);
-   							}else {
-   								if(i%3==0) {
-   									var rowDiv2 = $("<div>").attr('class','row row1');
-   									var menuDiv2 = $("<div>").attr({
-   										'class':'carousel-item',	
-   										 								
-   									}).css({
-   										'border':'1px solid red',
-   							      		'width':'900',
-   							      		
-   							      		
-   									})
-   								}
-   								rowDiv2.append(div);
-   								menuDiv2.append(rowDiv2);
-   							}
-   							$(".menuDiv").append(menuDiv).append(menuDiv2);
-	 	
-   						}
-   						
-							for(let i=0;i<data.length;i++) {
+							let hidden2 = $("<input>").attr({
+								'type':'hidden',
+								'value':data[i].mt_no,
+								'class':'mt_no'
+							})
+							
+
+							
+							let menuName = $("<span>").attr('class','menuName').html(data[i].me_name).css('font-weight','800');   								
+							let menuPrice = $("<span>").attr('class','menuPrice').html(data[i].me_price+'원').css('color','orange');
+							div.append(menuImg).append($("<br>")).append($("<br>")).append(menuName).append($("<br>")).append(menuPrice).append($("<br>")).append(hidden).append(hidden2);   							
+							
+							
+							if(i<4) { 
+							rowDiv.append(div);
+							menuDivv.append(rowDiv);
+							
+							}else {
+								if(i%4==0) {
+									var rowDiv3 = $("<div>").attr('class','row row1');
+									var menuDiv3 = $("<div>").attr({
+										'class':'carousel-item ',	
+										 								
+									}).css({
+										
+										'width':'700',								      		
+							      		'margin-left':'20px',
+							      		'margin-bottom':'20px'
+							      		
+							      		
+									})
+								}
+								rowDiv3.append(div);
+								menuDiv3.append(rowDiv3);
+							}
+							$(".menuDiv").append(menuDivv).append(menuDiv3);
+						 
+							
+						}
+						
+						for(let i=0;i<data.length;i++) {
+						
+					
+							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6');
-								let divTest2 = $("<div>").attr('class','col-lg-6');
+						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+								let divTest2 = $("<div>").attr('class','col-lg-5');
+									
 								let rowDev = $("<div>").attr({
 									'class':'row',
 									'onclick':'test();'
 									});
-								let menuImg = $("<img>").attr({
-									'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+			
+										let menuImg = $("<img>").attr({									
 									'class':'menuImg'
-								}).css({
-									'width':'100%',
-									'height':'100'
-								})
-									let menuText = $("<input>").attr({
+									}).css({
+									'width':'50%',
+									'height':'100',
+									'margin-top':'10',
+									'margin-left':'200'	
+									
+									})
+									if(data[j].me_logImg !='null') {
+										menuImg.attr({
+											'src':'${path}/resources/upload/business/'+data[j].me_logImg,
+										})
+									}else{
+										menuImg.attr({
+											'src':'${path}/resources/upload/menu/noImg.png',
+										})
+									}
+										
+								let menuText = $("<input>").attr({
 										'type':'text',
-										'class':'menuName form-control',
+										'class':'menuText form-control',
 										'value':data[j].me_text,
 										'readonly':'true'
-									}).css({'background-color':'white','width':'300px;'}); 
+									}).css({'background-color':'white','width':'300px;'}).after($("<br>")); 
 								let menuName = $("<input>").attr({
 									'type':'text',
 									'class':'menuName form-control',
 									'value':data[j].me_name,
 									'readonly':'true'
-									}).css({'background-color':'white','width':'auto'}); 							
+									}).css({'background-color':'white','width':'auto'}).after($("<br>")); 	
+								
 										let menuPrice = $("<input>").attr({
 											'type':'number',
-											'class':'menuName form-control',
+											'step':'1000',
+											'class':'menuPrice form-control',
 											'value':data[j].me_price,
 											'readonly':'true'
-									}).css({'background-color':'white','width':'auto','color':'red'}); 
-								
+									}).css({'background-color':'white','width':'auto','color':'red'}).after($("<br>")); 
 								
 								let me_no = $("<input>").attr({
 									'type':'hidden',
@@ -622,22 +847,24 @@
 									'value':$("#store").val()
 								})
 								
-								divTest.append(menuName).append(menuPrice).append(menuText).append(me_no).append(mt_no).append(s_no)
+								divTest.append(menuName).append(menuPrice).append(menuText).append(me_no).append(mt_no).append(s_no);
 								divTest2.append(menuImg);
 								rowDev.append(divTest).append(divTest2);
+								rowDev.next($("<br>"));
 							 if($(".mt_no"+i).val() == data[j].mt_no) {								
 								 $(".menuView"+i).append(rowDev);							
 							}else{
 								continue;
 							}
 							 
-							
-   					
-   					}
-		}
-		}
-   				})
+							} 
+							 
+						}
+						
+					
+					}
    			})
+   			}) 
    			
    			
    			

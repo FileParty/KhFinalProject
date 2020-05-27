@@ -25,6 +25,9 @@
 		<typeAlias type="com.kh.fp.model.vo.Sales" alias="sales"/>
 		
 		<typeAlias type="com.kh.fp.model.vo.StoreDetailReview" alias="storeDetailReview"/>
+		<typeAlias type="com.kh.fp.model.vo.Report" alias="report"/>
+		<typeAlias type="com.kh.fp.model.vo.MenuDetailReviewMenu" alias="storeDetailReviewMenu"/>
+		
 	</typeAliases>
 </configuration>
 

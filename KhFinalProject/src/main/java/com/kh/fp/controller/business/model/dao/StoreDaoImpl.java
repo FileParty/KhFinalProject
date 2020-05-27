@@ -1,8 +1,5 @@
 package com.kh.fp.controller.business.model.dao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.fp.model.vo.OrderInfo;
+import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
 import com.kh.fp.model.vo.StoreEnroll;
 
@@ -74,7 +73,8 @@ public class StoreDaoImpl implements StoreDao {
 		return session.delete("store.deleteCategory",no);
 	}
 
-	@Override
+	
+
 	public int insertBestCategory(SqlSessionTemplate session, int no) {
 		// TODO Auto-generated method stub
 		return session.insert("store.insertBestCategory",no);
@@ -89,12 +89,12 @@ public class StoreDaoImpl implements StoreDao {
 	@Override
 	public List<Sales> getSales(SqlSessionTemplate session, Object no) {
 		// TODO Auto-generated method stub
-		SimpleDateFormat format = new SimpleDateFormat("yy/MM");
-		Date time = new Date();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("orderdate", format.format(time) );
-		return session.selectList("store.getSales",map);
+		/*
+		 * SimpleDateFormat format = new SimpleDateFormat("yy/MM"); Date time = new
+		 * Date(); Map<String, Object> map = new HashMap<String, Object>();
+		 * map.put("no", no); map.put("orderdate", format.format(time) );
+		 */
+		return session.selectList("store.getSales",no);
 	}
 
 	@Override
@@ -103,10 +103,36 @@ public class StoreDaoImpl implements StoreDao {
 		return  session.selectList("store.getOrderInfo",no);
 	}
 
-	
-	
-	
+	@Override
+	public List<Map<String, Object>> getSaleMonth(SqlSessionTemplate session, Object no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.getSaleMonth",no);
+	}
 
+	
+	@Override
+	public OrderInfo orderDetail(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("store.orderDetail",no);
+	}
+
+	@Override
+	public List<OrderMenu> orderMenu(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("store.orderMenu",no);
+	}
+
+	@Override
+	public int orderSelectOk(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.update("store.orderSelectOk",no);
+	}
+
+	@Override
+	public int orderSelectReject(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.update("store.orderSelectReject",no);
+	}
 	
 	
 	

@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,20 +50,23 @@ public class UserMypage {
 	}
 	
 	@RequestMapping("/mypage/orderHistory.do")
-	public String orderHistory(@RequestParam Map map, HttpSession session, Model m) {
+	public String orderHistory(@RequestParam Map map, HttpSession session, Model m, HttpServletRequest req) {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		
-		int cPage=1;
+		int cPage;
 		
 		try {
-			cPage = (int)map.get("cPage");
+			cPage = Integer.parseInt(req.getParameter("cPage"));
 		}catch(Exception e) {
+			cPage = 1;
 		}
 		int numPerPage = 5;
+		
 		int totalData = service.getTotalCount(loginMember.getM_No());
-		String url = "/mypage/orderHistory.do";
+		String url = "/spring/mypage/orderHistory.do";
+		
 		
 		List<Map<String, String>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
 		
@@ -98,86 +103,96 @@ public class UserMypage {
 	}
 	
 	
-//	  @RequestMapping("/mypage/insertReview.do")
+	  @RequestMapping("/mypage/insertReview.do")
 //	  @ResponseBody
-//	  public boolean insertReview(@RequestParam Map<String, String> map, ModelAndView mv, MultipartFile[] upload, HttpSession session) {
-//		  
-//			// 파일 저장 경로 가져오기
-//			String path = session.getServletContext().getRealPath("/resources/img/mypage/review");
-//			
-//			List<Map<String, String>> files = new ArrayList<Map<String, String>>();
-//			
-//			File f = new File(path);
-//			
-//			// 폴더가 없을경우 생성
-//			if(!f.exists())
-//				f.mkdirs();
-//			
-//			// 파일저장 로직 구현
-//			// fileRename 구성하기
-//			for(MultipartFile mf : upload) {
-//				if(!mf.isEmpty()) {
-//					// 파일명 생성하기
-//					String ori = mf.getOriginalFilename();
-//					String ext = ori.substring(ori.lastIndexOf("."));
-//					// 파일이름 리네임
-//					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-//					int rnd = (int)(Math.random()*1000);
-//					String rename = sdf.format(System.currentTimeMillis()) + "_" + rnd + ext;
-//					
-//					// rename된 이름으로 파일 저장하기
-//					
-//					try {
-//						// 실제 파일을 저장하는 메소드
-//						mf.transferTo(new File(path+"/"+rename));
-//					}catch(IOException e) {
-//						e.printStackTrace();
-//					}
-//					
-//					Map<String, String> m = new HashMap<String, String>();
-//					m.put("r_img",rename);
-//					files.add(m);
-//					
-//				}
-//			}
-//			
-//			// board b객체, files list를 service에 전달
-//			
-//			int result = 0;
-//			try {
-//				result = service.insertReview(map);
-//				result = service.insertReviewImg(files);
-//			}catch (RuntimeException e) {
-//				for(Map mm : files) {
-//					File delF = new File(path+"/"+a.getRenamedFilename());
-//					if(delF.exists()) {
-//						delF.delete();
-//					}
-//				}
-//			}		
-//			
-//			mv.setViewName("redirect:/board/boardList.do");
-//			
-//		/* return mv; */ // 경로
-//	  
-//	  }
+	  public ModelAndView insertReview(@RequestParam Map<String, String> map, ModelAndView mv, MultipartFile[] upload, HttpSession session, Model mo, HttpServletRequest req) {
+		  
+			// 파일 저장 경로 가져오기
+			String path = session.getServletContext().getRealPath("/resources/img/mypage/review");
+			
+			List<Map<String, String>> files = new ArrayList<Map<String, String>>();
+			
+			File f = new File(path);
+			
+			// 폴더가 없을경우 생성
+			if(!f.exists())
+				f.mkdirs();
+			
+			// 파일저장 로직 구현
+			// fileRename 구성하기
+			for(MultipartFile mf : upload) {
+				if(!mf.isEmpty()) {
+					// 파일명 생성하기
+					String ori = mf.getOriginalFilename();
+					String ext = ori.substring(ori.lastIndexOf("."));
+					// 파일이름 리네임
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+					int rnd = (int)(Math.random()*1000);
+					String rename = sdf.format(System.currentTimeMillis()) + "_" + rnd + ext;
+					
+					// rename된 이름으로 파일 저장하기
+					
+					try {
+						// 실제 파일을 저장하는 메소드
+						mf.transferTo(new File(path+"/"+rename));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					
+					Map<String, String> m = new HashMap<String, String>();
+					m.put("r_img",rename);
+					files.add(m);
+					
+				}
+			}
+			
+			// board b객체, files list를 service에 전달
+			
+			int rNo = 0;
+			int result = 0;
+			try {
+				rNo = service.insertReview(map);
+				
+				for(Map mm : files) {
+					mm.put("r_no", map.get("no"));
+					result = service.insertReviewImg(mm);
+				}
+				
+			}catch (RuntimeException e) {
+				for(Map mm : files) {
+					File delF = new File(path+"/"+mm.get("r_img"));
+					if(delF.exists()) {
+						delF.delete();
+					}
+				}
+			}		
+			
+			mv.setViewName("redirect:/mypage/review.do");
+			
+		return mv;
+	  
+	  }
+	
+
 	 
 	
 	@RequestMapping("/mypage/review.do")
-	public String review(HttpSession session, @RequestParam Map map, Model m) {
+	public String review(HttpSession session, @RequestParam Map map, Model m, HttpServletRequest req) {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		
-		int cPage=1;
+		int cPage;
 		
 		try {
-			cPage = (int)map.get("cPage");
+			cPage = Integer.parseInt(req.getParameter("cPage"));
 		}catch(Exception e) {
+			cPage = 1;
 		}
 		int numPerPage = 5;
 		int totalData = service.reviewTotalCount(loginMember.getM_No());
-		String url = "/mypage/review.do";
+		String url = "/spring/mypage/review.do";
+		
+		System.out.println("cPage: " + cPage);
 		
 		List<Map<String, String>> list = service.selectReview(loginMember.getM_No(), cPage, numPerPage);
 		

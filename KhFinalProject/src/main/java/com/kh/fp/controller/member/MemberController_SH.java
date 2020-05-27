@@ -18,6 +18,7 @@ import com.kh.fp.model.vo.Member;
 
 
 
+
 @Controller
 public class MemberController_SH {
 
@@ -27,7 +28,7 @@ public class MemberController_SH {
 	//쿠폰 가져오기
 	@RequestMapping("/pay/paylist.do")
 	public String payList(ModelAndView mv,Model m,HttpSession session) {
-		List<Coupon_SH> list=service.selectCoupon();
+		List<Coupon_SH> couponlist=service.selectCoupon();
 		//쿠폰갯수 가져오기
 		
 		Member member=(Member)session.getAttribute("loginMember");
@@ -41,9 +42,10 @@ public class MemberController_SH {
 		
 		int m_no=member.getM_No();
 		int totalData=service.selectCouponCount(m_no);
+		
 		session.getAttribute("newOrder");
 		
-		m.addAttribute("list",list);
+		m.addAttribute("couponlist",couponlist);
 		m.addAttribute("total",totalData);
 	
 	
@@ -53,5 +55,61 @@ public class MemberController_SH {
 	public String payList2() {
 		return ("/SANGHAK/sh2");
 	}
+	
+	//결제 db에넣기 
+		@RequestMapping("/pay/payment.do")
+		public ModelAndView insertOrderInfo(ModelAndView mv,@RequestParam Map<String,String> map,HttpSession session) {
+			
+			Member m = (Member )session.getAttribute("loginMember");
+			
+			
+			int result = service.insertOrderInfo(map);			//order_info  insert문
+			System.out.println("첫번쨰"+map);
+			session.getAttribute("couponlist");
+			
+			List<Map> list = (List<Map>) session.getAttribute("orderList"); // o_no주문코드가져와서 세션에저장.
+			for(int j=0;j<list.size();j++) {
+				list.get(j).put("o_no",map.get("o_no"));
+				System.out.println("메뉴 :"+list.get(j));
+	
+			}
+
+	         for(int i=0;i<list.size()-1;i++) {
+	            int ordermenu = service.insertOrderMenu(list.get(i));      //order_menu insert문
+	            System.out.println("orderMenu  :"+list.get(i));
+				
+	         } 
+	     	
+			
+			
+	       
+			if(!map.get("couponNo").isEmpty()) {
+	       
+				int couponDelete =service.couponDelete(Integer.parseInt(map.get("couponNo"))); //coupon테이블 delete 
+			}
+			
+			int resultPoint = service.updateMemberPoint(map);  //m_point update문
+			if(resultPoint > 0) {
+				
+				Member m1=service.selectMember(m.getM_No());
+				System.out.println(m.getM_No());
+				System.out.println(m1);
+			
+				session.setAttribute("loginMember",m1); 
+				
+			  
+			}
+		
+			
+			
+			
+		
+			
+			
+			
+			mv.setViewName("redirect:/mypage/mypage.do");  //redirect로 보내면 맵핑값적어줘야함.
+			return mv;
+		}
+		
 	
 }

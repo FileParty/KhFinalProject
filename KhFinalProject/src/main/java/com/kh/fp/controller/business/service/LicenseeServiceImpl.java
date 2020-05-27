@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.fp.controller.business.model.dao.LicenseeDao;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
+import com.kh.fp.model.vo.Review;
+import com.kh.fp.model.vo.ReviewAll;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -79,11 +83,13 @@ public class LicenseeServiceImpl implements LicenseeService {
 		
 			if(result>0) {
 				 meNo = dao.selectMenu(session);
-				 
+				
 				for(MenuSide ms : list) {		
 					ms.setMe_no(meNo);
+					System.out.println("서비스에요"+ms.getSd_no());
 				result = dao.insertMenuSide(session,ms);
 				}
+			
 			}
 
 		return result;
@@ -117,14 +123,20 @@ public class LicenseeServiceImpl implements LicenseeService {
 	}
 
 	@Override
-	public int menuUpdate(Map<String, Object> map,int me_no) {
+	public List<Store> storesNo(int no) {
+		// TODO Auto-generated method stub
+		return dao.storesNo(session,no);
+	}
+
+	public int menuUpdate(Map<String, Object> map,int me_no,int optionCount) {
 		int result = 0;
 		
 		result = dao.menuUpdate(session,map);
 		if(result>0) {
+			if(optionCount==1) {
 			result = dao.menuSideDelete(session, me_no);
 			}
-		
+		}
 		return result;
 	}
 
@@ -137,10 +149,83 @@ public class LicenseeServiceImpl implements LicenseeService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<ReviewAll> selectReview(int s_no) {
+		// TODO Auto-generated method stub
+		List<ReviewAll> list = dao.selectReview(session,s_no);
+		
+		return list;
+	}
+	
+	
+
+	@Override
+	public List<String> selectReviewImg(int r_no) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewImg(session,r_no);
+	}
+	
+	
+
+	@Override
+	public List<MenuDetailReviewMenu> selectOrderMenu(int o_no) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderMenu(session,o_no);
+	}
+
+	@Override
+	public Review updateReviewReply(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		Review r = new Review();
+		result = dao.updateReviewReply(session, map);
+		if(result>0) {
+			r = dao.selectReviewReply(session,map);
+		}
+		return r;
+	}
+
+	@Override
+	public int menuSideAdd(List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		for(MenuSide ms : list) {
+			result = dao.insertMenuSide(session,ms);
+		}
+		return result;
+
+	}
+
+	@Override
+	public Map menuCount(int s_no) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("count",dao.menuCount(session,s_no));
+		map.put("s_name",dao.selectSname(session,s_no));
+		return map;
+	}
+	
+	
+
+	
+	
+	
+
+	
+
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
