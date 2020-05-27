@@ -53,6 +53,8 @@
   			align-items: center;
   		}
   		
+  		
+  		
 		
     </style>
 	

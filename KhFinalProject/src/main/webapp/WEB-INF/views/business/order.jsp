@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-    <style>
-    	*{
-    		/* border : 1px solid red; */
-    	}
-    </style>
 	<%@include file="../common/header.jsp" %>
 	<link rel="stylesheet" type="text/css" href="${path }/resources/css/order.css"/> 
     <section style="width:auto;height:auto;">
@@ -20,9 +15,12 @@
             <div class="col-lg-10" id="main">
             
                     <h1>주문 내역</h1>
-                    
+                    <pre>* 최근순으로 주문내역이 나타납니다.<br>* 상세보기를 통하여 자세한 내용을 확인 할 수 있습니다.
+                    </pre>
+               
                     <div class="col-12 s-order-history">
-						<div style="margin-bottom: 50px;">
+						<div id="select_box" style="margin-bottom: 50px;">
+							<label for="storeNo">${sno[0].s_Name }</label>
 							<select id="storeNo">
 								<c:forEach items="${sno }" var="n"> 
 									<option value="${n.s_No }" ${n.s_No eq check ? "selected" : " " }>${n.s_Name }</option> 
@@ -30,7 +28,7 @@
 							</select>
 						</div>
 						<c:if test="${empty list }">
-                    		<h1>주문내역을 준비중입니다.</h1>
+                    		<img alt="주문내역준비중" src="${path }/resources/img/index/ready.jpg" width="1000px" height="500px">
 						</c:if>
 						<c:if test="${not empty list }">
                     	<table>
@@ -197,10 +195,28 @@
    		})
    		
    		function orderSelect(data,no){
-   			var sno=$("#storeNo option:selected").val();
-   			var pageno = $("#pageno").val();
-   			location.replace('${path}/order/orderSelect.do?flag='+data+"&no="+no+"&sno="+sno+"&cPage="+pageno);
+   			var result;
+   			if(data==1){
+   				 result = confirm('주문수락 하시겠습니까?');
+   			}else{
+   				 result = confirm('주문 취소 하시겠습니까?');
+   			}
+   			
+   			if(result){
+	   			var sno=$("#storeNo option:selected").val();
+	   			var pageno = $("#pageno").val();
+	   			location.replace('${path}/order/orderSelect.do?flag='+data+"&no="+no+"&sno="+sno+"&cPage="+pageno);
+   			}else{
+   				return false;
+   			}
    		}
+   		
+   		var select = $("select#storeNo");
+
+  	  select.change(function() {
+  	    var select_name = $(this).children("option:selected").text();
+  	    $(this).siblings("label").text(select_name);
+  	  });
 
    	
    	</script>

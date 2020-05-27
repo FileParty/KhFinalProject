@@ -3,7 +3,7 @@
 <mapper namespace="licensee">
 
 	<select id="getOrderInfo" parameterType="_int" resultType="map">
-		select * from order_info where s_no=#{no}
+		select * from order_info where s_no=#{no} order by o_date desc
 	</select>
   	
   	<select id="getOrderInfoAll" parameterType="_int" resultType="_int">
