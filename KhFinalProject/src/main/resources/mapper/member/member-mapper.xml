@@ -40,6 +40,14 @@
   <update id="updateBusinessPw" parameterType="business">
   	UPDATE BUSINESS SET B_PW = #{b_Pw} WHERE B_ID = #{b_Id}
   </update>
+  <!-- 카카오 로그인 -->
+  <select id="selectKakao" parameterType="string" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_Id = #{kname}
+  </select>
+  <!-- 네이버 로그인 -->
+  <select id="selectNaverM" parameterType="string" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_Id = #{email}
+  </select>
   
   
 
