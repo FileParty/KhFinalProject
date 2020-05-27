@@ -50,7 +50,7 @@
 															<div class="rec-item">
 																<input type="hidden" value="${r.get('storeNo') }"/>
 																<div class="rec_store">
-							 										<img src="${pageContext.request.contextPath }/resources/img/${r.get('storeImg')}" class="img-thumbnail shadow-lg" style="height:60px; width:60px;"/>	
+							 										<img src="${pageContext.request.contextPath }/resources/upload/store/${r.get('storeImg')}" class="img-thumbnail shadow-lg" style="height:60px; width:60px;"/>	
 								 								</div>
 								 								<div class="invisible justify-content-center rec-cancel">
 								 									<img src="${pageContext.request.contextPath }/resources/img/cancel.png"/>

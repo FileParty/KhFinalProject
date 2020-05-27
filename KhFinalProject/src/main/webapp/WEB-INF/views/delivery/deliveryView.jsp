@@ -412,6 +412,11 @@
 								//
 							});
 							
+							//배달 완료 눌렀을 때
+							$("#bt-deliveryComplete").click(function(){
+									$("#delivery-container")
+							});
+							
 							break;
 					}
 				}
