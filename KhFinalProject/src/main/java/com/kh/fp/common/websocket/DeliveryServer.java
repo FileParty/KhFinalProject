@@ -1,9 +1,10 @@
 package com.kh.fp.common.websocket;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
@@ -19,6 +20,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 
 	private Map<SocketMessage, WebSocketSession> clients = new HashMap();
 	
+	
 	//json객체 -> 자바객체, 자바객체 -> json 객체로 변환해주는 jackson 제공 객체
 	@Autowired
 	ObjectMapper mapper;
@@ -31,61 +33,41 @@ public class DeliveryServer extends TextWebSocketHandler{
 		log.debug(session+"");
 		//session을 가지고 메세지를 보낸다.
 		
-		session.sendMessage(new TextMessage("배달 접속을 환영합니다."));
+		//session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"서버","","","","","","환영합니다."))));
 	}
 
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		int storeNo = 0;
-		String s_X = "";
-		String s_Y = "";
-		
 		log.debug(message.getPayload());
+	
+		SocketMessage msg = getMessage(message.getPayload());
 		
-		//현재 클라이언트 정보
-		SocketMessage currentClient = getMessage(message.getPayload());
-		
-		log.debug("변환 후 " + currentClient);
-		
-		addClient(currentClient, session);
-		
-		switch(currentClient.getType()) {
-		case "business":
-			Set<Map.Entry<SocketMessage,WebSocketSession>> entry = clients.entrySet();
-			Iterator<Map.Entry<SocketMessage, WebSocketSession>> it = entry.iterator();
-			
-			while(it.hasNext()) {
-				Map.Entry<SocketMessage, WebSocketSession> en = (Map.Entry)it.next();
-				
-				System.out.println("key 값:" + en.getKey());
-				System.out.println("value값 : " + en.getValue());
-				
-				SocketMessage so = (SocketMessage)en.getKey();
-				if(so.getType().equals("delivery") && so.getState().equals("W")) {
-					String deleveryXl = so.getXl();	//배달원 위도
-					String deleveryYl = so.getYl(); //배달원 경도
-					
-					//거리 계산
-					double dis =distance(Double.parseDouble(currentClient.getYl()), Double.parseDouble(currentClient.getYl()), Double.parseDouble(deleveryYl), Double.parseDouble(deleveryXl), "kilometer");
-					//2km 이내에 배달원에게
-					int count = 0;
-					if(dis<2.0) {
-						//2km 이내에 배달원에게 사업자 정보 보내기
-						en.getValue().sendMessage(new TextMessage(getJsonMessage(currentClient)));
-						
-						//현재 접속자에게 배달원 정보 보내기
-						//여기서 배달원 정보까지 보낼 필요는 없고 카운트만 세주면 되지 않을까?
-						session.sendMessage(new TextMessage(getJsonMessage(en.getKey())));
-					}
+		switch(msg.getType()) {
+			case "business":
+				if(msg.getState().equals("W")) {
+					addClient(msg,session);
+					sendMessage(msg,session);
 				}
-			}
-			
-			break;
-			
-		case "delivery":
-			break;
+				break;
+				
+			case "delivery":
+				if(msg.getState().equals("W")) {
+					addClient(msg,session);
+				}
+				
+				if(msg.getState().equals("Y")) {
+					log.debug("배달원이 수락했을 때 찍히나요");
+					sendMessage(msg,session);
+				}
+				
+				//배달원이 배달을 완료했을 때
+				if(msg.getState().equals("C")) {
+					log.debug("배달원이 배달을 완료했을때 찍히나요");
+					sendMessage(msg,session);
+				}
+				break;
 		}
 	}
 
@@ -94,6 +76,84 @@ public class DeliveryServer extends TextWebSocketHandler{
 	private void addClient(SocketMessage sm, WebSocketSession session) {
 		this.clients.put(sm, session);
 		log.info("접속자 : " + clients);
+	}
+	
+	private void sendMessage(SocketMessage msg, WebSocketSession session) {
+		//클라이언트가 보낸 데이터 보내기
+		
+		Set<Map.Entry<SocketMessage, WebSocketSession>> entry = clients.entrySet();
+		
+		for(Map.Entry<SocketMessage, WebSocketSession> client : entry) {
+			
+				log.debug("key값:" + client.getKey());
+				log.debug("value값:" + client.getValue());
+				
+			try {	
+				//사업자가 로그인했을 때
+				int count =0;
+				
+				switch(msg.getType()) {
+				case "business":
+					if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("W")) {	//서버에 접속한 유저중 배달원에 해당하는 경우
+						client.getKey().setState("W2");
+						
+						client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						
+						session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","",++count+" 명의 배달원을 찾았습니다."))));
+					}
+					break;
+					
+				case "delivery":
+					//배달원이 로그인했을 때
+					if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
+						if(client.getKey().getNo() == msg.getNo()) {
+							log.debug("접속자 no값"+client.getKey().getNo());
+							log.debug("현재 클라이언트 no값" + msg.getNo());
+							log.debug("현재 클라이언트 type" + msg.getType());
+							log.debug("현재 클라이언트 이름" + msg.getName());
+							log.debug("현재 클라이언트 message" + msg.getMsg());
+							
+					
+							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						}
+					}
+					
+					if(msg.getState().equals("C")) {
+						log.debug("배달 완료 했을 때 찍혀야 합니다.");
+						
+						//사업자한테 보내야함
+						if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
+							if(client.getKey().getNo() == msg.getNo()) {
+								log.debug("접속자 no값"+client.getKey().getNo());
+								log.debug("현재 클라이언트 no값" + msg.getNo());
+								log.debug("현재 클라이언트 type" + msg.getType());
+								log.debug("현재 클라이언트 이름" + msg.getName());
+								log.debug("현재 클라이언트 message" + msg.getMsg());
+								
+								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							}
+						}
+					}
+					
+					break;
+				}
+				
+				
+				/*
+				 * if(client.getKey().getType().equals("delivery") &&
+				 * client.getKey().getState().equals("Y")) { session.sendMessage(new
+				 * TextMessage(getJsonMessage(msg))); }
+				 */
+				
+				
+				/*
+				 * if(client.getKey().getType().equals("business") &&
+				 * client.getKey().getState().equals("W")) { if(client.getKey().get) }
+				 */
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//자바스크립트에서 보낸 메시지 변환
@@ -150,3 +210,4 @@ public class DeliveryServer extends TextWebSocketHandler{
     }
 
 }
+
