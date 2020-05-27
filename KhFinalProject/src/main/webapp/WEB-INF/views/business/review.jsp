@@ -8,7 +8,14 @@
 	}
 	span{
 		font-family: 'Do Hyeon';
+	}
+	span.font{
+		font-size:40px;
 		
+	}
+	span.font1{
+		font-size:20px;
+		color:red;
 	}
       a.list{
       	 font-weight: 700;
@@ -17,7 +24,7 @@
  div#main{
       	margin-left:200px;
       	margin-top:150px;
-      	border:1px solid black;
+      	
       	
       }
       div.review {
@@ -42,14 +49,20 @@
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
                     <ul class="ss nav nav-tabs nav-justified">
-                        <li class="nav-item"><a href="#" class="list nav-link active">일반 리뷰</a></li>					
+                     <li class="nav-item">
+                        <span class="font">* 리뷰 보기</span>	<br>
+                        <span class="font1">* 리뷰1개당 댓글은 한번만 가능합니다. </span>	
+                      </li>				
                     </ul>
-                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:400px;width:auto;display:block;">
+                    <br>
+                    <br>
+                    		<select id="storeInfo" name="storeNo" class="form-control" style="margin-left:370px;width:auto;display:block;">
                     		<c:forEach items="${store}" var="s">
                     			<option for="storeInfo" value="${s.s_No }"><c:out value="${s.s_Name }" /></option>
                     		</c:forEach> 
                     		</select>
-                    	
+                    	<br>
+                    	<br>
                     	<div id="reviewList">
                     	
                     	</div>
@@ -138,7 +151,7 @@
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
    							if(data[i].r_reply == null) {
-   							tr5+="<input style='margin-left:100px' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
+   							tr5+="<input style='margin-left:100px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
    								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
    							}
@@ -171,14 +184,14 @@
    				 });
    				 let enroll = $("<input>").attr({
    					 'type':'button',
-   					 'value':'등록!',
+   					 'value':'등록',
    					 'onclick':'reviewEnroll();',
    					 'id':'enroll'
    				 }).css('margin-left','330');
    				 
    				 let cancle = $("<input>").attr({
    					 'type':'button',
-   					 'value':'취소!',
+   					 'value':'취소',
    					 'onclick':'cancle();',
    						'id':'cancle'
    				 }).css('margin-left','10');
@@ -188,7 +201,12 @@
    				
    				
    			 }
-   			 
+   			 function cancle() {
+   				$(".reviewReply").show();
+   				$("#text").hide();
+   				$("#enroll").hide();
+				$("#cancle").hide();
+   			 }
    			 function reviewEnroll() {
    				console.log($(event.target).prev().val());
    				var td = $(event.target).parent();
@@ -199,7 +217,7 @@
    						 r_reply:$(event.target).prev().val()
    						 },
    					 success:function(data) {
-   						 console.log('성공이요요요',data);
+   						 
    					 	 $("#text").hide();
    						$("#enroll").hide();
    						$("#cancle").hide();
@@ -211,19 +229,21 @@
    			 }
    			 
    			 $("#storeInfo").change(function(){
+   				$("#reviewList").children().remove();
    				$.ajax({
    					url:"${path}/licensee/reviewSelect",
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   						console.log('ㅎㅎ',data);
+   						console.log('ㅎㅎgggg',data);
+   					 	var d = new Date();
 						var day = 24 * 60 * 60 * 1000;
 							
    						if(data.length == 0) {
    							alert('등록 된 리뷰가 없습니다!');
-   						}else{
+   						}
    						for(let i=0;i<data.length;i++) {
-   							console.log(data[i].r_img);
+   							
    							let div = $("<div>").attr('class','row');
    							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
@@ -255,12 +275,12 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
    						 		if(k==0) {   								
-   								tr2+= "<div style='width:450px'class='carousel-item active'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div>";
+   								tr2+= "<div style='width:450px' class='carousel-item active'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div>";
    						 		}else {
    						 		tr2+= "<div style='width:450px' class='carousel-item'><img src='${path}/resources/img/mypage/review/"+data[i].r_img[k]+"' width='450px' height='200px'/></div> ";
    						 			
@@ -272,8 +292,8 @@
    							}
    						 	
   							 }
-  							 tr2+=" <a class='carousel-control-prev' href='.demo' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
-  							 tr2+="<a class='carousel-control-next' href='.demo' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
+  							 tr2+=" <a class='carousel-control-prev' href='#demo"+i+"' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
+  							 tr2+="<a class='carousel-control-next' href='#demo"+i+"' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
   								tr2+="</div></div> ";
    							let tr3 = "<tr><td>"; 
    							for(let k=0;k<data[i].order_menu.length;k++) {
@@ -283,7 +303,7 @@
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
    							if(data[i].r_reply == null) {
-   							tr5+="<input style='margin-left:100px' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
+   							tr5+="<input style='margin-left:100px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
    								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
    							}
@@ -304,7 +324,6 @@
    							
    							$("#reviewList").append(divv);
    						} 
-   					}
    					}
    				})
    			
