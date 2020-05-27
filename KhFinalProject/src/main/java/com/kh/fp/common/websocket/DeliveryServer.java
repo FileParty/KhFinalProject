@@ -85,13 +85,35 @@ public class DeliveryServer extends TextWebSocketHandler{
 			try {	
 				//사업자가 로그인했을 때
 				int count =0;
-				if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("W")) {	//서버에 접속한 유저중 배달원에 해당하는 경우
-					client.getKey().setState("W2");
+				
+				switch(msg.getType()) {
+				case "business":
+					if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("W")) {	//서버에 접속한 유저중 배달원에 해당하는 경우
+						client.getKey().setState("W2");
+						
+						client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						
+						session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","",++count+" 명의 배달원을 찾았습니다."))));
+					}
+					break;
 					
-					client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+				case "delivery":
+					//배달원이 로그인했을 때
+					if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
+						if(client.getKey().getNo() == msg.getNo()) {
+							log.debug("접속자 no값"+client.getKey().getNo());
+							log.debug("현재 클라이언트 no값" + msg.getNo());
+							log.debug("현재 클라이언트 type" + msg.getType());
+							log.debug("현재 클라이언트 이름" + msg.getName());
+							log.debug("현재 클라이언트 message" + msg.getMsg());
+							
 					
-					session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","",++count+" 명의 배달원을 찾았습니다."))));
+							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						}
+					}
+					break;
 				}
+				
 				
 				/*
 				 * if(client.getKey().getType().equals("delivery") &&
@@ -99,15 +121,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 				 * TextMessage(getJsonMessage(msg))); }
 				 */
 				
-				//배달원이 로그인했을 때
-				if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
-					if(client.getKey().getNo() == msg.getNo()) {
-						log.debug("접속자 no값"+client.getKey().getNo());
-						log.debug("현재 클라이언트 no값" + msg.getNo());
-						
-						client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
-					}
-				}
+				
 				/*
 				 * if(client.getKey().getType().equals("business") &&
 				 * client.getKey().getState().equals("W")) { if(client.getKey().get) }

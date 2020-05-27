@@ -201,7 +201,10 @@
 		//고객 주소
 		var clientAddr = "";
 		//배달원의 메세지
-		var phoneMessage = ${loginMember.m_Phone };
+		var phoneMessage = "${loginMember.m_Phone }";
+		
+		console.log("전화번호");
+		console.log(phoneMessage);
 		
 		//modal(card item) 크기
 		var width = 436;
