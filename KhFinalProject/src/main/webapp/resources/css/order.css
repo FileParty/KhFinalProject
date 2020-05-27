@@ -14,7 +14,7 @@
       	margin-left:250px;
       	margin-top:150px;
   		width:1000px;
-      	height:600px;
+      	height:auto;
       	padding : 0;
       }
       
@@ -69,3 +69,35 @@
 		        text-align: left;
 		        vertical-align: middle;
 		}
+		
+		div#select_box {
+		  position: relative;
+		  width: 200px;
+		  height: 32px;
+		  background: url(http://cfile1.uf.tistory.com/image/27423E43565F8EF627B215) 0 center no-repeat;
+		  /* 화살표 이미지 */
+		}
+		
+		div#select_box label {
+		  position: absolute;
+		  font-size: 14px;
+		  color: #fff;
+		  top: 7px;
+		  left: 12px;
+		  letter-spacing: 1px;
+		}
+		
+		div#select_box select#storeNo {
+		  width: 100%;
+		  height: 32px;
+		  min-height: 32px;
+		  line-height: 32px;
+		  padding: 0 10px;
+		  opacity: 0;
+		  filter: alpha(opacity=0);
+		  }
+		  
+		  pre{
+		  	color: blue;
+			font-size: 12px;
+		  }

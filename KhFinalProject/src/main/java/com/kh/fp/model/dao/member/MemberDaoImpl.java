@@ -64,6 +64,22 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.selectBusinessId", b_email);
 	}
 
+	@Override
+	public Member selectKakao(SqlSessionTemplate session, String kname) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectKakao",kname);
+	}
+
+	@Override
+	public Member selectNaverM(SqlSessionTemplate session, String email) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectNaverM",email);
+	}
+	
+	
+	
+	
+
 	
 	
 	

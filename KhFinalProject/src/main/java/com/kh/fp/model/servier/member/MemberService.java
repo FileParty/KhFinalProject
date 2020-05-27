@@ -23,6 +23,12 @@ public interface MemberService {
 	
 	Business selectBusinessId(String b_email);
 	
+	Member selectKakao(String kname);
+	
+	Member selectNaverM(String email);
+	
+	
+	
 	
 
 	

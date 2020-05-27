@@ -71,7 +71,16 @@
 		  filter: alpha(opacity=0);
 		  }
 		  
+		  #ready{
+		  	width: 1000px;
+		  	height: 500px;
+		  }
 		  
+		  p{
+		  	color: blue;
+			font-size: 12px;
+		  	padding-top: 10px;
+		  }
 
       </style>
 	<%@include file="../common/header.jsp" %>
@@ -80,7 +89,8 @@
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
             <div class="col-lg-10" id="main">
-            
+            		<h1>월별 매출</h1>
+            		<br>
 	            	<div>
 	            		<div id="select_box">
  						<label for="saleselect">${stores[0].S_NAME }</label>
@@ -90,6 +100,8 @@
 			 					</c:forEach>
 			 			</select>
 		 			</div>
+		 				<p>* 최근 31일 매출 그래프입니다.(매출이 없는 일은 계산하지 않습니다)</p>
+		 			
 		 			</div>
 		 			
 		 			<div class="graph">
@@ -197,7 +209,7 @@
 				$(".graph>div").remove();
 				if(data.length==0){
 					$("#salesMonth>div").remove();
-					var h2 = $("<div>").html("<h2 style='margin-bottom:100px;'>준비중입니다!</h2>");
+					var h2 = $("<div>").html("<img id='ready' src='${path}/resources/img/index/ready.jpg'>");
 					$(".graph").append(h2);
 					
 				}else{

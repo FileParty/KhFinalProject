@@ -177,6 +177,20 @@ public class StoreServiceImpl implements StoreService {
 		o.setO_menu(list);
 		return o;
 	}
+
+	@Override
+	public int orderSelectOk(int no) {
+		// TODO Auto-generated method stub
+		return dao.orderSelectOk(session,no);
+	}
+
+	@Override
+	public int orderSelectReject(int no) {
+		// TODO Auto-generated method stub
+		return dao.orderSelectReject(session,no);
+	}
+	
+	
 	
 	
 	

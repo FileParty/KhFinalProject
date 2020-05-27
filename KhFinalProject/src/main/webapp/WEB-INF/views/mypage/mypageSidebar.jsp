@@ -13,6 +13,12 @@
 		    .table th{
 		    	text-align:left;
 		    }
+		    
+		    *{
+		    	font-weight: 700;
+		    }
+		    
+		    
 		</style>
 
             <div class="col-md-2">
@@ -25,7 +31,7 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/mypage.do"  style="color:rgb(34, 190, 241);" >공지사항</a>
+                            <a id="notice" href="${path}/mypage/mypage.do" >공지사항</a>
                         </td>
                     </tr>
 
@@ -36,7 +42,7 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/orderHistory.do">주문내역</a><br>
+                            <a id="order" href="${path}/mypage/orderHistory.do">주문내역</a><br>
                         </td>
                     </tr>  
                     
@@ -46,7 +52,7 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/review.do">내가 쓴 리뷰
+                            <a id="review" href="${path}/mypage/review.do">내가 쓴 리뷰
                         </td>
                     </tr>   
 
@@ -56,7 +62,7 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/watchList.do">찜목록</a><br>
+                            <a id="wishlist" href="${path}/mypage/watchList.do">찜목록</a><br>
                         </td>
                     </tr>   
 
@@ -66,7 +72,7 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/couponAndPoint.do">쿠폰 & 포인트</a>
+                            <a id="point" href="${path}/mypage/couponAndPoint.do">쿠폰 & 포인트</a>
                         </td>
                     </tr>   
 
@@ -76,9 +82,9 @@
 
                     <tr>
                         <td>
-                            <a href="${path}/mypage/accountEdit.do">회원정보수정</a><br>
-                            <a href="${path}/mypage/cardManagement.do">카드등록 및 삭제</a><br>
-                            <a href="${path}/mypage/deleteMember.do">회원탈퇴</a>
+                            <a id="accountEdit" href="${path}/mypage/accountEdit.do">회원정보수정</a><br>
+                            <a id="card" href="${path}/mypage/cardManagement.do">카드등록 및 삭제</a><br>
+                            <a id="deleteMember" href="${path}/mypage/deleteMember.do">회원탈퇴</a>
                         </td>
                     </tr> 
 

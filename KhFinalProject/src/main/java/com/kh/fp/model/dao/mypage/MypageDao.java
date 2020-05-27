@@ -3,6 +3,7 @@ package com.kh.fp.model.dao.mypage;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.Member;
@@ -37,5 +38,14 @@ public interface MypageDao {
 	
 	int insertReviewImg(SqlSessionTemplate session, Map<String, String> map);
 	
+	int updateReviewTaste(SqlSessionTemplate session, Map<String, String> map);
+	
+	int updateReviewAmount(SqlSessionTemplate session, Map<String, String> map);
+	
+	int updateReviewDelivery(SqlSessionTemplate session, Map<String, String> map);
 
+	int updateReviewCount(SqlSessionTemplate session, Map<String, String> map);
+	
+	int updatePoint(SqlSessionTemplate session, Map<String, String> map);
+	
 }

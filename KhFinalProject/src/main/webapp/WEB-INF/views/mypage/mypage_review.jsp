@@ -5,12 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <style>
 	    /*중복아이디체크관련*/
 		    div#idMsg-container{position:relative; padding:0px;}
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
+		    
+		    #review{
+		    	color:rgb(34, 190, 241);
+		    }
 </style>
 
 <section>
@@ -24,9 +29,11 @@
 
             <div class="col-md-10 row">
 
-                    <table class="table content">
+                    <table class="table content table-striped">
+                    
+                    	<tr></tr>
 
-                        <tr>
+                        <tr style="background-color:cornflowerblue;">
                             <th style="text-align:center">날짜</th>
                             <th style="text-align:center">상호명</th>
                             <th style="text-align:center">별점</th>
@@ -36,7 +43,8 @@
                         
                         <c:forEach items="${list }" var="rev">
                         	<tr>
-	                            <td>${rev['R_DATE'] }</td>
+                        		<fmt:formatDate value="${rev['R_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
+	                            <td>${zdate }</td>
 	                            <td>${rev['S_NAME'] }</td>
 	                            <td>${rev['R_SCORE_TASTE'] } ${rev['R_SCORE_AMOUNT'] } ${rev['R_SCORE_DELIVERY'] } </td>
 	                            <td>${rev['R_TEXT'] } </td>

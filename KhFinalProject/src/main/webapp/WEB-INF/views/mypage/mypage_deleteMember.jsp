@@ -11,6 +11,10 @@
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
+		    
+		    #deleteMember{
+		    	color:rgb(34, 190, 241);
+		    }
 </style>
 
 <section>
@@ -27,8 +31,17 @@
                     <div class="col-md-2"></div>
 
                     <div class="col-md-8">
-                        <p>설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 설명설명설명설명설명설 </p>
-                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%);" onclick="memberDelete(${loginMember.m_no});">회원탈퇴</button>
+                        <p style="text-align:center; margin-top:150px">
+							 탈퇴 후 회원정보가 모두 삭제됩니다.<br>
+							  메일주소, 핸드폰 번호/기타 연락처 등 회원정보가 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.<br>
+							
+							<br>
+							
+							 탈퇴 후에도 작성된 리뷰는 그대로 남아 있습니다.<br>
+							  삭제를 원하시는 리뷰는 탈퇴 전 반드시 삭제요청하시기 바랍니다.<br>
+							  (탈퇴 후에는 리뷰 임의 삭제 요청을 받지 않습니다.)
+						</p>
+                        <button class="btn btn-lightgray" style="margin-left: 50%; transform: translateX(-50%); background-color: lightgray;" onclick="memberDelete(${loginMember.m_No});">회원탈퇴</button>
                     </div>
 
                     <div class="col-md-2"></div>

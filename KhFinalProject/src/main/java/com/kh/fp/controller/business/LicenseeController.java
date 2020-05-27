@@ -1,6 +1,6 @@
 package com.kh.fp.controller.business;
 
-import static com.kh.fp.common.PageingFactory.PageBarFactory;
+import static com.kh.fp.common.PageingFactory.PageBarFactoryBeom;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,7 @@ import com.kh.fp.model.vo.MenuCategory;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
+import com.kh.fp.model.vo.ReviewImg;
 import com.kh.fp.model.vo.Side;
 import com.kh.fp.model.vo.SideAll;
 import com.kh.fp.model.vo.Store;
@@ -76,7 +77,7 @@ public class LicenseeController {
 			 return mv;
 		}else {
 		 mv.addObject("store",list);
-		 mv.setViewName("business/menuEnroll");
+		 mv.setViewName("business/menuStatus");
 		 return mv;
 		}
 	}
@@ -107,6 +108,16 @@ public class LicenseeController {
 		List<Menu> menu = service.selectMenuList(s_no);
 			return menu;
 	}
+	
+	@RequestMapping("/licensee/menuCount")
+	@ResponseBody
+	public Map menuCount(ModelAndView mv,HttpSession session,int s_no) {
+		//메뉴카운트
+		
+		Map menuCount = service.menuCount(s_no);
+			return menuCount;
+	}
+	
 	@RequestMapping("/licensee/menuEnroll")
 	public ModelAndView menuEnroll(HttpSession session,ModelAndView mv ) {
 		
@@ -159,21 +170,22 @@ public class LicenseeController {
 		}
 		List<Map<String, Object>> list = service.getOrderInfo(no,cPage,numPerpage);
 		int totalData=service.getOrderInfoAll(no);
-		System.out.println(stores);
+
 		mv.addObject("sno",stores);
 		mv.addObject("total",totalData);
 		mv.addObject("check",no);
 		mv.addObject("list", list);
-		mv.addObject("pageBar", PageBarFactory( cPage, numPerpage, totalData,"/spring/licensee/order"));
+		mv.addObject("pageBar", PageBarFactoryBeom( cPage, numPerpage, totalData,no,"/spring/licensee/order"));
 		mv.setViewName("business/order");
 		return mv;
 	}
 	
 	@RequestMapping("/licensee/orderEnd")
+	
 	public String orderEnd() {
 		//주문완료내역
 		return "business/orderEnd";
-	}
+				}
 	
 	@RequestMapping("/licensee/review")
 	public ModelAndView review(ModelAndView mv,HttpSession session) {
@@ -194,14 +206,18 @@ public class LicenseeController {
 	
 	@RequestMapping("/licensee/reviewSelect")
 	@ResponseBody
-	public List<ReviewAll> reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
+	public List<ReviewAll>  reviewSelect(ModelAndView mv,HttpSession session,int s_no) {
 		//리뷰
 		//셀렉용
 				
-		List<ReviewAll> list = service.selectReview(1);
+		List<ReviewAll> list = service.selectReview(s_no);
 		
-		
-		
+		for(int i=0;i<list.size();i++) {
+			list.get(i).setR_img(service.selectReviewImg(list.get(i).getR_no()));
+			list.get(i).setOrder_menu(service.selectOrderMenu(list.get(i).getO_no()));
+			
+		}
+	
 		return list;
 	}
 	
@@ -492,7 +508,10 @@ public class LicenseeController {
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
 		int sd_no[] = new int[sd.length];
-		
+		int optionCount = Integer.parseInt(req.getParameter("optionCount"));
+		if(optionCount == 0) {
+			
+		}
 		log.debug("가게번호"+s_no);
 		log.debug("메뉴번호"+me_no);
 		log.debug("카테고리"+mt_no);
@@ -515,9 +534,15 @@ public class LicenseeController {
 			log.debug("추가번호"+sd_no[i]);
 			list.add(ms);
 		}
-		int result = service.menuUpdate(map,me_no);
+		int result = service.menuUpdate(map,me_no,optionCount);
+		if(optionCount == 0 ) {
+			if(result>0) {
+				result = service.menuSideAdd(list);
+			}
+		}else {
 		if(result>0) {
 			result = service.menuSideUpdate(list);
+		}
 		}
 		String page ="";
 		if(result>0) {

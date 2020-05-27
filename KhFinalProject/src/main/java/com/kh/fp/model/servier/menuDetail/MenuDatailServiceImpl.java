@@ -49,6 +49,7 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 		List rList = dao.selectStoreDetailReview(session,que,cPage);
 		for(StoreDetailReview sdr : (List<StoreDetailReview>)rList) {
 			sdr.setR_imgs(dao.selectStroeDetailReviewImg(session,sdr.getR_no()));
+			sdr.setMdrm(dao.selectStoreDetailReviewMenu(session,sdr.getO_no()));
 		}
 		rList.add(dao.selectStoreDetailReviewCount(session,que));
 		return rList;

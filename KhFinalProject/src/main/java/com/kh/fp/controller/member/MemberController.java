@@ -29,13 +29,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.kh.fp.common.KakaoApi;
 import com.kh.fp.common.NaverLoginBO;
 import com.kh.fp.model.servier.member.MemberService;
 import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember" })
+@SessionAttributes({ "loginMember" , "flag"})
 public class MemberController {
 	
 	@Autowired
@@ -43,6 +44,7 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
 	
 	@Autowired
 	JavaMailSender mailSender;
@@ -178,18 +180,13 @@ public class MemberController {
 		}
 	}
 	
-	/*
-	 * //로그인 페이지 화면 전환
-	 * 
-	 * @RequestMapping("/member/login.do") public String login() { return
-	 * "member/login"; }
-	 */
-	
 	//일반 아이디 로그인
 	@RequestMapping("/member/memberLogin.do")
 	public String memberLogin(String userId,String userPw,Model md,HttpSession session) {
 		
 		Member m =service.selectMember(userId);
+		
+		
 		
 		if(m.getM_Level()==2) {
 			
@@ -198,6 +195,7 @@ public class MemberController {
 				//로그인성공
 				md.addAttribute("msg","로그인성공");
 				md.addAttribute("loginMember",m);
+				
 				md.addAttribute("loc","/delivery/deliveryView.do");
 			}else {
 				//로그인실패
@@ -213,6 +211,7 @@ public class MemberController {
 				//로그인성공
 				md.addAttribute("msg","로그인성공");
 				md.addAttribute("loginMember",m);
+				
 			}else {
 				//로그인실패
 				md.addAttribute("msg","로그인실패");
@@ -236,11 +235,18 @@ public class MemberController {
 		
 		Business b =service.selectBusiness(userId);
 		
+		
+		String flag="1";
+		
+
+		
 		//로그인여부 확인하기
 		if(b!=null&&encoder.matches(userPw, b.getB_Pw())) {
 			//로그인성공
 			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",b);
+			md.addAttribute("flag",flag);
+			
 		}else {
 			//로그인실패
 			md.addAttribute("msg","로그인실패");
@@ -258,6 +264,12 @@ public class MemberController {
 		if(!status.isComplete()) {
 			status.setComplete();
 		}
+		
+
+		
+	
+	
+	
 		
 		
 		return "redirect:/";
@@ -980,18 +992,37 @@ public class MemberController {
 	JSONObject response_obj = (JSONObject)jsonObj.get("response");
 	//response의 nickname값 파싱
 	String nickname = (String)response_obj.get("nickname");
+	String email = (String)response_obj.get("email");
 	System.out.println("컨트롤로 닉네임"+nickname);
+	System.out.println("컨트롤로 이메일"+email);
 	//4.파싱 닉네임 세션으로 저장
-	session.setAttribute("loginMember",nickname); //세션 생성
+
 	
-	model.addAttribute("result", apiResult);
 	
-	return "member/naverSuccess";
+	Member m = service.selectNaverM(email);
+	
+	if(m!=null) {
+		session.setAttribute("loginMember",m);
+		model.addAttribute("result", apiResult);
+		return "member/naverSuccess";
+	}else {
+		session.setAttribute("nickname",nickname); //세션 생성
+		session.setAttribute("email",email);
+		session.setAttribute("name",nickname);
+		model.addAttribute("result", apiResult);
+		return "member/naverEnroll";
 	}
 	
+	
+	
+	
+	}
+	
+	//카카오 로그인
 	@RequestMapping(value = "/member/kakaoLogin", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST }) 
 	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception { 
 		System.out.println("카카오로그인 메소드 들어옴");
+		
 		ModelAndView mav = new ModelAndView(); // 결과값을 node에 담아줌 
 		JsonNode node = KakaoController.getAccessToken(code); // accessToken에 사용자의 로그인한 모든 정보가 들어있음 
 		JsonNode accessToken = node.get("access_token"); // 사용자의 정보 
@@ -1012,12 +1043,32 @@ public class MemberController {
 		kage = kakao_account.path("age_range").asText(); 
 		
 		session.setAttribute("kemail", kemail); 
-		session.setAttribute("loginMember", kname); 
+		session.setAttribute("kname", kname); 
 		session.setAttribute("kimage", kimage); 
 		session.setAttribute("kgender", kgender); 
 		session.setAttribute("kbirthday", kbirthday); 
 		session.setAttribute("kage", kage); 
-		mav.setViewName("redirect:/"); 
+		
+		System.out.println("카카오 로그인 메소드 이메일 : "+kemail);
+		System.out.println("카카오 로그인 메소드 이메일 : "+kname);
+		System.out.println("카카오 로그인 메소드 이메일 : "+kimage);
+		System.out.println("카카오 로그인 메소드 이메일 : "+kgender);
+		System.out.println("카카오 로그인 메소드 이메일 : "+kbirthday);
+		System.out.println("카카오 로그인 메소드 이메일 : "+kage);
+		
+		
+		Member m = service.selectKakao(kname);
+		
+		if(m!=null) {
+			session.setAttribute("loginMember", m);
+			mav.setViewName("redirect:/");
+		}else {
+			session.setAttribute("kname", kname); 
+			mav.setViewName("member/kakaoEnroll");
+		}
+		
+		
+		
 		
 		
 		
@@ -1026,4 +1077,55 @@ public class MemberController {
 		
 		
 		}// end kakaoLogin()
+	
+	//카카오 추가 회원가입
+	@RequestMapping("member/kakaoEnroll.do")
+	public String kakaoEnroll(Member m,Model md) {
+		
+		m.setM_Pw(encoder.encode(m.getM_Pw()));
+		
+		int result=service.insertMember(m);
+		
+		String page="";
+		
+		if(result==0) {
+			page="common/msg";
+			md.addAttribute("msg","회원가입 실패");
+			md.addAttribute("loc","/");
+		}else {
+			page="common/msg";
+			md.addAttribute("msg","회원가입 성공");
+			md.addAttribute("loc","/");
+			
+		}
+		
+		return page;
+	}
+	
+	//네이버 추가 회원가입
+	@RequestMapping("member/naverEnroll.do")
+	public String naverEnroll(Member m,Model md) {
+		
+		m.setM_Pw(encoder.encode(m.getM_Pw()));
+		
+		int result=service.insertMember(m);
+		
+		String page="";
+		
+		if(result==0) {
+			page="common/msg";
+			md.addAttribute("msg","회원가입 실패");
+			md.addAttribute("loc","/");
+		}else {
+			page="common/msg";
+			md.addAttribute("msg","회원가입 성공");
+			md.addAttribute("loc","/");
+			
+		}
+		
+		return page;
+	}
+	
+	
+	
 }

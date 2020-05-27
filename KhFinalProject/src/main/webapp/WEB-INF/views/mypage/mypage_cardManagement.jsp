@@ -11,6 +11,10 @@
 		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		    div#idMsg-container span.ok{color:green;}
 		    div#idMsg-container span.no{color:red;}
+		    
+		    #card{
+		    	color:rgb(34, 190, 241);
+		    }
 </style>
 
 <section>

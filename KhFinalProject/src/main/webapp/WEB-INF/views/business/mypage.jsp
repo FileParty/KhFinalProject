@@ -60,7 +60,11 @@ div#main {
       	flex-direction : column;
        	justify-content: center;
        	align-items: center;
-
+		width: 900px; height: 500px;
+      }
+      
+      #ordertable{
+      	width: 900px; height: 500px;
       }
       
       .orderselect{
@@ -285,8 +289,9 @@ div#main {
 	  				if(data.length==0){
 	  					console.log($("#ordertable").parent());
 	  					
-	  					var table = $("<h2 id='ordertable'>").html("자료가 없습니다");
-	  					$("#orderselect").parent().parent().append(table);
+	  					
+	  					var img = $("<img id='ordertable' src='${path}/resources/img/index/ready.jpg'> ");
+	  					$("#orderselect").parent().parent().append(img);
 	  					
 	  				}else{
 	  					var table = $("<table id='ordertable'>");
@@ -329,8 +334,8 @@ div#main {
 	  				$(".graph").remove();
 	  				if(data.length==0){
 	  				
-	  					var h2 = $("<h2 class='graph' style='margin-bottom:100px;'>").html("준비중입니다!");
-	  					$($(".first-storepage")[1]).append(h2);
+	  					var img = $("<img class='graph' src='${path}/resources/img/index/ready.jpg'> ");
+	  					$($(".first-storepage")[1]).append(img);
 	  					
 	  				}else{
 	  					var div = $("<div class='graph'>").html("<div id='columnchart_material' style='width: 900px; height: 500px;'></div>");

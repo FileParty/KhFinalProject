@@ -13,9 +13,9 @@
   </insert>
 
  <!--============================ORDER_MENU에 값넣기============================ -->
-	<insert id="inserOrderMenu" parameterType="map">
-		INSERT INTO ORDER_MENU VALUES(#{o_no},#{menuNo},#{sd_array})
-	</insert>
+	<insert id="insertOrderMenu" parameterType="map">
+		INSERT INTO ORDER_MENU VALUES(#{o_no},#{no},#{opNames})  
+	</insert> 
 	
 <!-- 	<resultMap type="map" id="inserOrderMenu">			#{sd_array, typeHandler=strArr})
 		<result column="sd_array" property="sd_array" typeHandler="strArr"/>

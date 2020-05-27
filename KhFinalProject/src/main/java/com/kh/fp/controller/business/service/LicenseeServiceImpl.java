@@ -1,5 +1,6 @@
 package com.kh.fp.controller.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.fp.controller.business.model.dao.LicenseeDao;
 import com.kh.fp.model.vo.Menu;
 import com.kh.fp.model.vo.MenuCategory;
+import com.kh.fp.model.vo.MenuDetailReviewMenu;
 import com.kh.fp.model.vo.MenuSide;
 import com.kh.fp.model.vo.Review;
 import com.kh.fp.model.vo.ReviewAll;
@@ -126,14 +128,15 @@ public class LicenseeServiceImpl implements LicenseeService {
 		return dao.storesNo(session,no);
 	}
 
-	public int menuUpdate(Map<String, Object> map,int me_no) {
+	public int menuUpdate(Map<String, Object> map,int me_no,int optionCount) {
 		int result = 0;
 		
 		result = dao.menuUpdate(session,map);
 		if(result>0) {
+			if(optionCount==1) {
 			result = dao.menuSideDelete(session, me_no);
 			}
-		
+		}
 		return result;
 	}
 
@@ -150,7 +153,25 @@ public class LicenseeServiceImpl implements LicenseeService {
 	@Override
 	public List<ReviewAll> selectReview(int s_no) {
 		// TODO Auto-generated method stub
-		return dao.selectReview(session,s_no);
+		List<ReviewAll> list = dao.selectReview(session,s_no);
+		
+		return list;
+	}
+	
+	
+
+	@Override
+	public List<String> selectReviewImg(int r_no) {
+		// TODO Auto-generated method stub
+		return dao.selectReviewImg(session,r_no);
+	}
+	
+	
+
+	@Override
+	public List<MenuDetailReviewMenu> selectOrderMenu(int o_no) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderMenu(session,o_no);
 	}
 
 	@Override
@@ -164,6 +185,32 @@ public class LicenseeServiceImpl implements LicenseeService {
 		}
 		return r;
 	}
+
+	@Override
+	public int menuSideAdd(List<MenuSide> list) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		for(MenuSide ms : list) {
+			result = dao.insertMenuSide(session,ms);
+		}
+		return result;
+
+	}
+
+	@Override
+	public Map menuCount(int s_no) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("count",dao.menuCount(session,s_no));
+		map.put("s_name",dao.selectSname(session,s_no));
+		return map;
+	}
+	
+	
+
+	
+	
+	
 
 	
 

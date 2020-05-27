@@ -62,7 +62,7 @@ public class UserMypage {
 		}catch(Exception e) {
 			cPage = 1;
 		}
-		int numPerPage = 5;
+		int numPerPage = 6;
 		
 		int totalData = service.getTotalCount(loginMember.getM_No());
 		String url = "/spring/mypage/orderHistory.do";
@@ -169,6 +169,17 @@ public class UserMypage {
 			
 			mv.setViewName("redirect:/mypage/review.do");
 			
+			// store 리뷰 점수 update
+			service.updateReviewTaste(map);
+			service.updateReviewAmount(map);
+			service.updateReviewDelivery(map);
+			
+			// store 리뷰 count update
+			service.updateReviewCount(map);
+			
+			// point 증가
+			service.updatePoint(map);
+			
 		return mv;
 	  
 	  }
@@ -188,7 +199,7 @@ public class UserMypage {
 		}catch(Exception e) {
 			cPage = 1;
 		}
-		int numPerPage = 5;
+		int numPerPage = 10;
 		int totalData = service.reviewTotalCount(loginMember.getM_No());
 		String url = "/spring/mypage/review.do";
 		
