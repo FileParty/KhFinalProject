@@ -28,6 +28,8 @@
 		<typeAlias type="com.kh.fp.model.vo.Report" alias="report"/>
 		<typeAlias type="com.kh.fp.model.vo.MenuDetailReviewMenu" alias="storeDetailReviewMenu"/>
 		
+		<typeAlias type="com.kh.fp.model.vo.AdminApplyStore" alias="applyStore"/>
+		<typeAlias type="com.kh.fp.model.vo.AdminApplyStoreInfo" alias="applyStoreInfo"/>
 	</typeAliases>
 </configuration>
 

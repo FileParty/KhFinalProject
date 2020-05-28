@@ -22,6 +22,7 @@
 		<a href="${path }/menu/menuDetailView">참새올드 하약물빵</a>
 		<a href="${path }/common/juso">주소</a>
 		<a href="${path }/mypage/mypage.do">마이페이지</a>
+		<a href="${path }/admin/adminMain.do">관리자페이지</a>
 
 	</div>
 	
