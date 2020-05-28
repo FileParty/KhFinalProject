@@ -36,4 +36,10 @@ public interface MenuDatailDao {
 
 	List<MenuDetailReviewMenu> selectStoreDetailReviewMenu(SqlSessionTemplate session, int o_no);
 
+	int selectBookMarkCheck(SqlSessionTemplate session, Map bmCheck);
+
+	int insertBookMarking(SqlSessionTemplate session, Map<String, Integer> bm);
+
+	int deleteBookMarking(SqlSessionTemplate session, Map<String, Integer> bm);
+
 }
