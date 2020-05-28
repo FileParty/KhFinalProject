@@ -19,4 +19,8 @@ public interface MenuDatailService {
 
 	int insertReport(Report report);
 
+	int selectBookMarkCheck(Map bmCheck);
+
+	int selectBookMarking(Map<String, Integer> bm);
+
 }

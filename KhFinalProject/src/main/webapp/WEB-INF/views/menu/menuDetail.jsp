@@ -1,7 +1,5 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.fp.model.vo.Member, com.kh.fp.model.vo.Business, java.util.Map, java.util.HashMap"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -12,80 +10,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <section>
 <div class="s-store-list-return">
 	<button onclick="returnList()" class="snip1535">돌아가기</button>
-	<style>
-	@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
-.snip1535 {
-  background-color: #070707;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'BenchNine', Arial, sans-serif;
-  font-size: 1em;
-  font-size: 22px;
-  line-height: 1em;
-  margin: 15px 40px;
-  outline: none;
-  padding: 12px 40px 10px;
-  position: relative;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.snip1535:before,
-.snip1535:after {
-  border-color: transparent;
-  -webkit-transition: all 0.25s;
-  transition: all 0.25s;
-  border-style: solid;
-  border-width: 0;
-  content: "";
-  height: 24px;
-  position: absolute;
-  width: 24px;
-}
-.snip1535:before {
-  border-color: #c47135;
-  border-right-width: 2px;
-  border-top-width: 2px;
-  right: -5px;
-  top: -5px;
-}
-.snip1535:after {
-  border-bottom-width: 2px;
-  border-color: #c47135;
-  border-left-width: 2px;
-  bottom: -5px;
-  left: -5px;
-}
-.snip1535:hover,
-.snip1535.hover {
-  background-color: #c47135;
-}
-.snip1535:hover:before,
-.snip1535.hover:before,
-.snip1535:hover:after,
-.snip1535.hover:after {
-  height: 100%;
-  width: 100%;
-}
-	</style>
-	<script>
-	$(".hover").mouseleave(
-			  function() {
-			    $(this).removeClass("hover");
-			  }
-			);
-	</script>
 </div>
 <div class="s-store container">
             <div class="s-store-left">
                 <div class="s-store-title">
-                    <span style="font-size:20px;font-weight:600;">${store['s_name']}</span>
+                    <span style="font-size:23px;font-weight:600;">${store['s_name']}</span>
+                    <input type="hidden" id="s-store-bookMark" value=""/>
+                    <span id="s-store-book-mark-btn"></span>
                 </div>
                 <div class="s-store-info"> 
 
@@ -97,8 +32,10 @@
                        
                         <ul>
                             <li><span class="s-store-star-css-true">★</span><span class="s-store-info-text">${store['s_star']}</span></li>
-                            <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
-                            <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${store['s_limitprice']}"/></span></li>
+                            <li>운영시간<span class="s-store-info-text"><fmt:formatDate value="${store['s_startTime'] }" 
+                            	pattern="HH:00" /> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></span></li>
+                            <li>최소주문 금액 <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" 
+                            	value="${store['s_limitprice']}"/></span></li>
                             <li>결제 <span class="s-store-info-text">${store['s_payopt']}</span></li>
                             <li>배달시간 <span class="s-store-info-text">${store['s_time']}분</span></li>
                         </ul>
@@ -114,7 +51,7 @@
                           <a class="nav-link active" data-toggle="pill" href="#menu">메뉴</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review('${store['s_no']}',1,'0')">리뷰</a>
+                          <a class="nav-link" data-toggle="pill" href="#review" onclick="review(${store['s_no']},1)">리뷰</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#info">정보</a>
@@ -133,7 +70,8 @@
                                           <div class="s-store-menu-content" onclick="storeMenuSelectModal('${bm['me_no']}')">
                                               <img src="${path }/resources/upload/business/${bm['me_logimg']}" width="100px" height="100px">
                                               <h6 style="margin-top: 5px;">${bm['me_name']}</h6>
-                                              <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" value="${bm['me_price']}"/></span>
+                                              <span class="s-store-info-text"><fmt:formatNumber pattern="###,###,###원" 
+                                              	value="${bm['me_price']}"/></span>
                                           </div>
                                        </c:if>
                                     </c:forEach>
@@ -215,7 +153,8 @@
 							<br/>
                             <div class="s-store-review-count">
                                 <div>
-                                    <span class="s-store-star-type-text">리뷰 <strong>${store['s_reviewCount'] }</strong>개</span>
+                                    <span id="s-store-review-count-text" class="s-store-star-type-text">리뷰 
+                                    	<strong>${store['s_reviewCount'] }</strong>개</span>
                                 </div>
                                 <div class="s-store-review-search-photo">
                                 	<span class="s-store-star-type-text">사진 리뷰만 : &nbsp;</span>
@@ -233,16 +172,19 @@
                         
                         <div id="info" class="container tab-pane fade"><br>
                             <div>
-                                <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">&nbsp;<h5>사장님 알림</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">
+                                	&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
                                 <pre>${store['s_text'] }</pre>
                                 <br>
-                                <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" height="30px;">&nbsp;<h5>업체정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" 
+                                	height="30px;">&nbsp;<h5>업체정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
                                         <td>영업시간</td>
-                                        <td><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ <fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></td>
+                                        <td><fmt:formatDate value="${store['s_startTime'] }" pattern="HH:00" /></span> ~ 
+                                        	<fmt:formatDate value="${store['s_endTime']}" pattern="HH:00"/></td>
                                     </tr>
                                     <tr>
                                         <td>전화번호</td>
@@ -253,7 +195,8 @@
                                         <td>${store['s_addr'] }</td>
                                     </tr>
                                 </table>
-                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/card.png" width="30px;" height="30px;">&nbsp;<h5>결제정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/card.png" width="30px;" 
+                                	height="30px;">&nbsp;<h5>결제정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -269,7 +212,8 @@
                                     </tr>
                                 </table>
                             
-                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.png" width="30px;" height="30px;">&nbsp;<h5>사업자정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/sidebar/shop.png" width="30px;" 
+                                	height="30px;">&nbsp;<h5>사업자정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -282,7 +226,8 @@
                                     </tr>
                                 </table>
                                 
-                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/carrots.png" width="30px;" height="30px;">&nbsp;<h5>원산지정보</h5></div>
+                                <div class="s-store-detail"><img src="${path}/resources/img/menuDetail/carrots.png" width="30px;" 
+                                	height="30px;">&nbsp;<h5>원산지정보</h5></div>
                                 <hr>
                                 <table class="s-store-detail-content">
                                     <tr>
@@ -441,7 +386,13 @@
 		</div>
 	</div>
 </div>
+</section>
 <script>
+	$(".hover").mouseleave(
+		function() {
+			$(this).removeClass("hover");
+		}
+	);
 
 	function orderListHeightCheck(){
 				
@@ -879,6 +830,8 @@
         		$(tar).find(".s-store-order-count").val(count);
         		$(tar).find(".order-count-check").text(count);
         		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+        		let listIndex = $(tar).attr("data-index");
+        		orderListArr[listIndex]['count'] -= 1;
         	}
         	orderAllFinalPriceCacr();
         }
@@ -894,6 +847,8 @@
     		$(tar).find(".s-store-order-count").val(count);
     		$(tar).find(".order-count-check").text(count);
     		$(tar).find(".s-store-order-menu-price").text(numberFormatting(price));
+        	let listIndex = $(tar).attr("data-index");
+    		orderListArr[listIndex]['count'] += 1;
     		orderAllFinalPriceCacr();
         }
         
@@ -996,6 +951,7 @@
         	$(".s-store-review").slideUp(1000,function(){
 	        	$(".s-store-review").find("table").remove();
 	        	$(".s-store-review").find("hr").remove();
+	        	$(".s-store-review-reply").remove();
 	        	if(tar.checked){
 	        		reviewAjax(no,1,"photo");
 	        	} else {
@@ -1012,7 +968,6 @@
         		url:"${path}/menu/storeReview",
         		data:{"no":no,"cPage":cPage,"type":type},
         		success:function(data){
-        			console.log(data);
         			let reviewDiv = $(".s-store-review");
         			for(let i=0;i<(data.length-1);i++){
 	        			let table = $("<table>");
@@ -1058,7 +1013,8 @@
 		        			imgTr += "<div class='review-slide-td' data-cPage='1' data-max-page='"+sliLen+"'>";
 		        			imgTr += "<div class='review-slide-div'>";
 	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
-	        					imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
+	        					imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"
+	        						+data[i]['r_imgs'][j]+"' width='650px' height='300px'/>";
 	        				}
 	        				imgTr += "</div>";
 	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(-1)'>◁</button>";
@@ -1067,13 +1023,15 @@
 		        			table.append(imgTr);
 	        			} else if(data[i]['r_imgs'].length==1){
 	        				let imgTr = "<tr><td>";
-	        				imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"+data[i]['r_imgs'][0]+"' width='650px' height='300px'/>";
+	        				imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"
+	        					+data[i]['r_imgs'][0]+"' width='650px' height='300px'/>";
 	        				imgTr += "</td></tr>"
 	        				table.append(imgTr);
 	        			}
 		        			let tr5 = "<tr><td>";
 		        		for(let k=0;k<data[i]['mdrm'].length;k++){
-		        			tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][k]['me_name']+" 옵션: "+data[i]['mdrm'][k]['sd_array']+"</span><br/>";
+		        			tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][k]['me_name']+" 옵션: "
+		        				+data[i]['mdrm'][k]['sd_array']+"</span><br/>";
 	        			}
 	        			tr5 += "</td></tr>";
 	        			table.append(tr5);
@@ -1081,7 +1039,7 @@
 	        			tr4 += "<pre>"+data[i]['r_text']+"</pre>";
 	        			tr4 += "</td></tr>";
 	        			table.append(tr4);
-	        			let hr= $("<hr>");
+	        			let hr= $("<hr>").css("margin","5px");
 	        			reviewDiv.append(table);
 	        			reviewDiv.append(hr);
 	        			$(".review-slide-div").last().css("width",sliLen*650);
@@ -1095,6 +1053,7 @@
 	        				reviewDiv.append(hr2);
 	        			}
         			}
+        			$("#s-store-review-count-text").html('리뷰 <strong>'+data[(data.length-1)]+'</strong>개');
         			reviewLength += 5;
         			if(data[(data.length-1)]>reviewLength){
         				scrollFalg = true;
@@ -1142,15 +1101,24 @@
         
         /* 리뷰 신고하기 */
         function reviewReport(r_no){
-        	console.log(r_no);
-        	let check = "${loginMember['m_No']}";
-        	if(check.length!=0){
-        		$("#report-modal").modal("show");
-        		$("#report-modal").find(".modal-footer").append("<button class='report-modal-report-end' onclick='reportEnd("+r_no+")'>신고하기</button>")
+        	if("${loginType['type']}"=='m'){
+	        	let check = "${loginType['no']}";
+		        if(check.length!=0){
+		        	$("#report-modal").modal("show");
+		        	$("#report-modal-report-type-select").val('욕설');
+		        	$("#report-modal").find("#report-modal-report-writer").remove();
+		        	
+		        	if($("#report-modal").find(".report-modal-report-end").length==0){
+		        		$("#report-modal").find(".modal-footer")
+		        			.append("<button class='report-modal-report-end' onclick='reportEn("+r_no+")'>신고하기</button>");
+		        	} else {
+		        		$("#report-login-modal").modal("show");
+		        	}
+	        	
+	        	}
         	} else {
-        		$("#report-login-modal").modal("show");
+        		alert("일반 회원만 사용할 수 있습니다.");
         	}
-        	
         }
         
         /* 로그인 페이지로 이동 */
@@ -1159,19 +1127,19 @@
         }
         
         $("#report-modal-report-type-select").on("change",function(){
-        	let report = $(this).parent().parent().find("#report-modal-report-type-select").val();
+        	let report = $(event.target).parent().parent().find("#report-modal-report-type-select").val();
         	if(report=="작성"){
         		let reportWriter = "<textarea id='report-modal-report-writer' cols='45' rows='10' style='resize:none'>"
         		reportWriter += "</textarea>";
-        		$(this).parent().append(reportWriter);
+        		$(event.target).parent().append(reportWriter);
         	} else {
-        		$(this).parent().parent().find("#report-modal-report-writer").remove();
+        		$(event.target).parent().parent().find("#report-modal-report-writer").remove();
         	}
         })
         
         
         /* 신고작성완료 */
-        function reportEnd(r_no){
+         function reportEnd(r_no){
         	let report = $(event.target).parent().parent().find("#report-modal-report-type-select").val();
         	if(report=="작성"){
         		let reportWriter = $(event.target).parent().parent().find("#report-modal-report-writer").val();
@@ -1187,7 +1155,7 @@
         	if(!flag){
         		return;
         	}else {
-        		let reportVar = {'r_no':r_no,'m_send':"${loginMember['m_No']}","re_content":report}
+        		let reportVar = {'r_no':r_no,'m_send':"${loginType['no']}","re_content":report}
         		$.ajax({
         			url:"${path}/menu/reviewReport",
         			data:{"reportVar":JSON.stringify(reportVar)},
@@ -1206,7 +1174,7 @@
         };
         
         /* 슬라이드바 */
-        function SlideMove(nPage){
+         function SlideMove(nPage){
         	let dataDiv = $(event.target).parent();
         	let moveDiv = $(dataDiv).find(".review-slide-div");
         	let cPage = Number($(dataDiv).attr("data-cpage"));
@@ -1236,10 +1204,67 @@
         	}
         	$(dataDiv).attr("data-cpage",cPage);
         	console.log($(dataDiv).attr("data-cpage"));
-        }
+        } 
         
-    
-    </script>
-</section>
+        
+        /* 찜하기 버튼 */
+         $("#s-store-book-mark-btn").click(function(){
+        	 if("${loginType['type']}"=="m"){
+        		let check = "${loginType['no']}";
+        		if(check.length!=0){
+		        	let bm = Number($("#s-store-bookMark").val());
+		        	console.log(bm);
+		        	$.ajax({
+		        		url:"${path}/menu/storeBookMark",
+		        		data:{"m_no":check,"s_no":"${store['s_no']}","check":bm},
+		        		success:function(data){
+		        			console.log("성공"+data);
+		        			if(data==100){
+		        				$("#s-store-book-mark-btn").html("♥");
+		        				$("#s-store-bookMark").val('1');
+		        			}else{
+		        				$("#s-store-book-mark-btn").html("♡");
+		        				$("#s-store-bookMark").val('0');
+		        			}
+		        		}
+		        	});
+		        	
+        		} else {
+        			$("#report-login-modal").modal("show");
+        		}
+        	 } else {
+        		 alert("일반 회원만 사용할 수 있습니다.");
+        	 }
+        });
+        
+
+        
+        
+	/* 페이지 리로드 */
+	$(function(){
+		let no = "${loginType['no']}";
+		if(no.length>0){
+		 	$.ajax({
+				url:"${path}/menu/bookMarkCheck",
+				data:{"m_no":no,"s_no":"${store['s_no']}"},
+				success:function(data){
+					if(data==0){
+						$("#s-store-bookMark").val("0");
+						$("#s-store-book-mark-btn").html("♡");
+					} else {
+						$("#s-store-bookMark").val("1");
+						$("#s-store-book-mark-btn").html("♥");
+					}
+				}
+			})
+		}
+		/* 뒤로가기 버튼 막기 */
+		history.pushState(null, null, location.href);
+		window.onpopstate = function(event){
+			returnList();
+		}
+	})
+        
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

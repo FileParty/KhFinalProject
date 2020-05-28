@@ -75,6 +75,21 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 	public List<MenuDetailReviewMenu> selectStoreDetailReviewMenu(SqlSessionTemplate session, int o_no) {
 		return session.selectList("storeMenuDetail.selectStoreDetailReviewMenu",o_no);
 	}
+
+	@Override
+	public int selectBookMarkCheck(SqlSessionTemplate session, Map bmCheck) {
+		return session.selectOne("storeMenuDetail.selectBookMarkCheck",bmCheck);
+	}
+
+	@Override
+	public int insertBookMarking(SqlSessionTemplate session, Map<String, Integer> bm) {
+		return session.insert("storeMenuDetail.insertBookMark",bm);
+	}
+
+	@Override
+	public int deleteBookMarking(SqlSessionTemplate session, Map<String, Integer> bm) {
+		return session.delete("storeMenuDetail.deleteBookMark",bm);
+	}
 	
 	
 
