@@ -145,33 +145,11 @@
 		margin-top:5px;
 		font-weight:1000;
 	}
-	div#myModal1 {
-	overflow-y:scroll;
-	
+	div.modal-content{
+	overflow-y:scroll;	
 	width:600px;
 	height:900px;
-	margin-left:500px;
 	}
-
-	div#myModal2 {
-	overflow-y:scroll;
-	width:600px;
-	height:900px;
-	margin-left:500px;
-	}
-	
-/* 	div.fuck {
-	display:flex;
-	align-items: flex-start;
-	} */
-/* div.fuck {
-	display:flex;
-	align-items: flex-end;
-	} */
-
-
-
-	
 
       </style>
       

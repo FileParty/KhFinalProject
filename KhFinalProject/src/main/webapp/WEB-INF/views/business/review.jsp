@@ -173,7 +173,7 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-interval='true' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-interval='500' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
@@ -325,7 +325,7 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo"+i+"' class='carousel slide' data-interval='true' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='carousel slide' data-interval='500' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
@@ -353,7 +353,7 @@
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
    							if(data[i].r_reply == null) {
-   							tr5+="<input style='margin-left:100px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
+   							tr5+="<input style='margin-left:400px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
    								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
    							}
