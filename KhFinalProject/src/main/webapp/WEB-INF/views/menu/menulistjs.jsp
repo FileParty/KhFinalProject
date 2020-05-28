@@ -71,7 +71,7 @@
 								changePage();
 								console.log(currentPage);
 							}
-							if(currentPage==0){
+							if($(".rec-item").length==0){
 								$(".rec-slider").addClass("d-none");
 								$(".rec-none").removeClass('d-none');
 							}
@@ -218,7 +218,7 @@
 							var info = v;	
 							console.log(info);
 							//로고 이미지
-							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
+							$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/upload/store/"+info['s_LogImg']);
 							
 							//상호명
 							$(".name-"+i).html(info['s_Name']);
@@ -338,7 +338,7 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/upload/store/"+info['s_LogImg']);
 						
 						//상호명
 						$(".name-"+i).html(info['s_Name']);
@@ -462,7 +462,7 @@
 						var info = v;	
 						console.log(info);
 						//로고 이미지
-						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/img/"+info['s_LogImg']);
+						$(".log-img-"+i).attr("src", "${pageContext.request.contextPath}/resources/upload/store/"+info['s_LogImg']);
 						
 						//상호명
 						$(".name-"+i).html(info['s_Name']);

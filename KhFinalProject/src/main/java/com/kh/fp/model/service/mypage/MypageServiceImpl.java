@@ -115,6 +115,12 @@ public class MypageServiceImpl implements MypageService {
 	public int updatePoint(Map<String, String> map) {
 		return dao.updatePoint(session, map);
 	}
+
+	@Override
+	public int updateReviewFlag(Map<String, String> map) {
+		return dao.updateReviewFlag(session, map);
+	}
+	
 	
 	
 	

@@ -59,9 +59,9 @@
 	 	SELECT * FROM MEMBER WHERE M_NO = #{m_no}
 	 </select>
 	 
-	<delete id="memberDelete" parameterType="_int">
-		DELETE FROM MEMBER WHERE M_NO = #{m_no}
-	</delete>
+	<update id="memberDelete" parameterType="_int">
+		UPDATE MEMBER SET M_STATUS='Y' WHERE M_NO = #{m_no}
+	</update>
 	
 	<update id="updateReviewTaste" parameterType="map">
 		UPDATE STORE SET S_TASTE = (S_TASTE + ${taste}) WHERE S_NO=#{s_no}
@@ -81,6 +81,10 @@
 	
 	<update id="updatePoint" parameterType="map">
 		UPDATE MEMBER SET M_POINT = (M_POINT + 100) WHERE M_NO=#{m_no}
+	</update>
+	
+	<update id="updateReviewFlag" parameterType="map">
+		UPDATE ORDER_INFO SET O_REVIEW_FLAG = 'true' WHERE O_NO =#{o_no}
 	</update>
 	
 </mapper>

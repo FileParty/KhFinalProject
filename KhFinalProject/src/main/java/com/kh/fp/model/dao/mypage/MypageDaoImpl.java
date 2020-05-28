@@ -70,7 +70,7 @@ public class MypageDaoImpl implements MypageDao {
 
 	@Override
 	public int memberDelete(SqlSessionTemplate session, int m_no) {
-		return session.delete("mypage.memberDelete", m_no);
+		return session.update("mypage.memberDelete", m_no);
 	}
 
 	@Override
@@ -107,6 +107,11 @@ public class MypageDaoImpl implements MypageDao {
 	@Override
 	public int updatePoint(SqlSessionTemplate session, Map<String, String> map) {
 		return session.update("mypage.updatePoint", map);
+	}
+
+	@Override
+	public int updateReviewFlag(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("mypage.updateReviewFlag", map);
 	}
 	
 	

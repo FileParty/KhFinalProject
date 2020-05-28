@@ -180,6 +180,9 @@ public class UserMypage {
 			// point 증가
 			service.updatePoint(map);
 			
+			// order_info review_flag update
+			service.updateReviewFlag(map);
+			
 		return mv;
 	  
 	  }

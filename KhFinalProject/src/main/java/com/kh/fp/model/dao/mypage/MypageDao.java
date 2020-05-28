@@ -48,4 +48,6 @@ public interface MypageDao {
 	
 	int updatePoint(SqlSessionTemplate session, Map<String, String> map);
 	
+	int updateReviewFlag(SqlSessionTemplate session, Map<String, String> map);
+	
 }
