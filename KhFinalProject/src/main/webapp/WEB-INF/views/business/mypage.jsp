@@ -14,9 +14,9 @@
 		 	  /*  border : 1px solid red;   */  
 		}
 
-div#main {
-            margin-left:250px;
-	      	margin-top:150px;
+	div#main {
+            
+	      	margin-top:130px;
 	  		width:1000px;
 	      	height : auto;
 	      	padding : 0;

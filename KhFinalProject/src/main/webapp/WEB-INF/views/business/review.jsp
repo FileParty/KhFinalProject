@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
     
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
    <style>
    div{
 		font-family: 'Do Hyeon';
@@ -21,11 +25,9 @@
       	 font-weight: 700;
       	 color:black;
       }
- div#main{
-      	margin-left:200px;
-      	margin-top:150px;
-      	
-      	
+ 	div#main{
+      	margin-top:130px;
+
       }
       div.review {
       	border:1px solid black;
@@ -38,12 +40,60 @@
       	margin-left:30px;
       	margin-top:50px;
       }
+      .reviewReply{
+      	box-shadow:inset 0px 1px 31px -2px #ffffff;
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	background-color:#ededed;
+	border-radius:30px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+      }
+      #enroll{
+    box-shadow:inset 0px 1px 31px -2px black;
+	/* background:linear-gradient(to bottom, black 5%, black 100%); */
+	background-color:black;
+	border-radius:30px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+	
+      }
+      #cancle{
+    box-shadow:inset 0px 1px 31px -2px red;
+	background:linear-gradient(to bottom, red 5%, red	 100%);
+	background-color:red;
+	border-radius:30px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 10px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+      }
   
 
  
       </style>
 	<%@ include file="../common/header.jsp" %>
-    <section style="width:1366px;margin-bottom:400px;">
+    <section style="width:auto;margin-bottom:400px;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
@@ -81,7 +131,7 @@
    					success:function(data) {
    						console.log('ㅎㅎ',data);
    						console.log(data[0].r_img);
-   						console.log(data[0].order_menu[0].me_name);
+   						
    					 	var d = new Date();
 						var d1 = new Date(data[0].r_date);
 						var dd = d-d1;
@@ -98,7 +148,7 @@
    							let date = new Date(data[i].r_date);
    							let date1 = d-date;   							
    							let date2 = parseInt(date1/day);  							
-   							tr+= "<span>"+(data[i].m_nickname)+"님 </span>&nbsp;&nbsp;&nbsp;";
+   							tr+= "<span>*"+(data[i].m_nickname)+"*님 </span>&nbsp;&nbsp;&nbsp;";
    							if(date2 == 0) {
    								tr+="<span>"+'오늘'+"</span>";
    							}else if(date2 == 1) {
@@ -123,7 +173,7 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-interval='true' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
@@ -151,7 +201,7 @@
    							tr4+="<span>"+data[i].r_text+"</span>";
    							let tr5 = "<tr><td>";
    							if(data[i].r_reply == null) {
-   							tr5+="<input style='margin-left:100px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
+   							tr5+="<input style='margin-left:400px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
    								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
    							}
@@ -181,7 +231,7 @@
    					 'rows':'3',
    					 'class':'form-control',
    					 'id':'text'
-   				 });
+   				 }).css('border','2px solid orange');
    				 let enroll = $("<input>").attr({
    					 'type':'button',
    					 'value':'등록',
@@ -203,9 +253,9 @@
    			 }
    			 function cancle() {
    				$(".reviewReply").show();
-   				$("#text").hide();
-   				$("#enroll").hide();
-				$("#cancle").hide();
+   				$("#text").remove();
+   				$("#enroll").remove();
+				$("#cancle").remove();
    			 }
    			 function reviewEnroll() {
    				console.log($(event.target).prev().val());
@@ -250,7 +300,7 @@
    							let date = new Date(data[i].r_date);
    							let date1 = d-date;   							
    							let date2 = parseInt(date1/day);  							
-   							tr+= "<span>"+(data[i].m_nickname)+"님 </span>&nbsp;&nbsp;&nbsp;";
+   							tr+= "<span>*"+(data[i].m_nickname)+"*님 </span>&nbsp;&nbsp;&nbsp;";
    							if(date2 == 0) {
    								tr+="<span>"+'오늘'+"</span>";
    							}else if(date2 == 1) {
@@ -275,7 +325,7 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='carousel slide' data-interval='true' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
