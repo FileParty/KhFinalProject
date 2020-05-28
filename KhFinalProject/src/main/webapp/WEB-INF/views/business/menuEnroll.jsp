@@ -48,8 +48,7 @@
 		
 	}
 	 div#main{
-      	margin-top:150px;
-      	margin-left:200px;
+      	margin-top:130px;
       }
       div.col-12{
       	width:900px;
@@ -352,7 +351,7 @@
       </style> 
 	<%@ include file="../common/header.jsp" %>
 	
-    <section id="section" style="width:1366px;height:auto;margin-bottom:250px;">
+    <section id="section" style="width:auto;height:auto;margin-bottom:250px;">
  	<div class="container">
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
@@ -364,7 +363,7 @@
                         </li>
                     </ul>
                     <br>                 
-
+		
                     	<div class="col-12">
                     	<br>
                     		
@@ -392,7 +391,7 @@
                     	   <button type="button" id="subBtn1" class="btn btn-outline-warning btnC1" onclick="optionPlus();">옵션 추가</button>
                     	   <button type="button" id="subBtn2" class="btn btn-outline-primary" onclick="menuEnroll();">메뉴 등록</button>
                     		<button style="display:none;"type="button" class="hidBtn" onclick="hidBtn();"></button>
-                    		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data">
+                    		<form action="${path }/licensee/menuEnrollEnd" method="post" id="menu-container" enctype="multipart/form-data" onsubmit="return menuEnrollEnd();">
                     		<div class="container addCategory">	
                     		<br>
                     		<br>
@@ -481,7 +480,16 @@
 						  </div>
 	  	
 		<script>
-	
+		
+		function menuEnrollEnd() {
+			if($("#menu-container").children().find('div').length==0) {
+				alert('1개 이상의 메뉴를 넣어야 등록이 가능합니다!');
+				return false;
+			}else {
+				
+				return true;
+			}
+		}
 		function text() {
 			//옵션 폼
 		/* 	let sd_name = $("input[name=sd_name]").val();
@@ -1006,7 +1014,7 @@
 				var div = $("<div>").attr('class','col-lg-5 bodyOne');
 				var div1 = $("<div>").attr('class','col-lg-4 bodyTwo'+num);
 				var div2 = $("<div>").attr('class','col-lg-3 bodyThree');
-				var div3 = $("<div>").attr('class','row categoryPlus'+num);
+				var div3 = $("<div>").attr('class','row categoryPlus'+num).append($("<input>").attr({'type':'button','value':'x','onclick':'canX();'}));
 				
 				
 					var img = $("<img>").attr({
