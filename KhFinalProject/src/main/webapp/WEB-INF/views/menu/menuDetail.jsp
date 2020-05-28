@@ -1030,7 +1030,7 @@
 	        			}
 		        			let tr5 = "<tr><td>";
 		        		for(let k=0;k<data[i]['mdrm'].length;k++){
-		        			tr5 += "<span class='s-store-review-menu-text'>메뉴 : "+data[i]['mdrm'][k]['me_name']+" 옵션: "
+		        			tr5 += "<span class='s-store-review-menu-text'>메뉴- "+data[i]['mdrm'][k]['me_name']+" 옵션- "
 		        				+data[i]['mdrm'][k]['sd_array']+"</span><br/>";
 	        			}
 	        			tr5 += "</td></tr>";
