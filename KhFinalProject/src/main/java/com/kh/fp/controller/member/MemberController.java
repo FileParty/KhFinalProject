@@ -85,6 +85,8 @@ public class MemberController {
 		
 		int result1=0;
 		
+		int result2=0;
+		
 		
 		
 		if(m.getM_Level()==2) {
@@ -92,6 +94,8 @@ public class MemberController {
 			Member mb = service.selectDelivery(m);
 			
 			result1=service.insertDelivery(mb);
+			
+			
 			
 			if(result==0) {
 				page="common/msg";
@@ -104,6 +108,8 @@ public class MemberController {
 			}
 			
 		}else {
+			
+			
 			
 			if(result==0) {
 				page="common/msg";
@@ -208,50 +214,46 @@ public class MemberController {
 		
 		Member m =service.selectMember(userId);
 		
-		if(m==null) {
+		try {
+			
+			if(m.getM_Level()==2) {
+				
+				//로그인여부 확인하기
+				if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
+					//로그인성공
+					md.addAttribute("msg","로그인성공");
+					md.addAttribute("loginMember",m);
+					md.addAttribute("loc","/delivery/deliveryView.do");
+				}else {
+					//로그인실패
+					md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+					md.addAttribute("loc","/member/login.do");
+				}
+				
+			}else {
+				
+				//로그인여부 확인하기
+				if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
+					//로그인성공
+					md.addAttribute("msg","로그인성공");
+					md.addAttribute("loginMember",m);
+					md.addAttribute("loc","/");
+				}else {
+					//로그인실패
+					md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+					md.addAttribute("loc","/member/login.do");
+				}
+						
+			}
+			
+		}catch(Exception e) {
 			md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
 			md.addAttribute("loc","/member/login.do");
 		}
 		
 		
 		
-		if(m.getM_Level()==2) {
-			
-			
-			
-			//로그인여부 확인하기
-			if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
-				//로그인성공
-				md.addAttribute("msg","로그인성공");
-				md.addAttribute("loginMember",m);
-				md.addAttribute("loc","/delivery/deliveryView.do");
-			}else {
-				//로그인실패
-				md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
-				md.addAttribute("loc","/member/login.do");
-			}
-			
-			
-		}else {
-			
-			//로그인여부 확인하기
-			if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
-				//로그인성공
-				md.addAttribute("msg","로그인성공");
-				md.addAttribute("loginMember",m);
-				md.addAttribute("loc","/");
-				
-			}else {
-				//로그인실패
-				md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
-				md.addAttribute("loc","/member/login.do");
-			}
-					
-		}
-		
-	
 		return "common/msg";
-
 	}
 	
 	@RequestMapping("/delivery/deliveryView.do")
@@ -268,21 +270,30 @@ public class MemberController {
 		
 		String flag="1";
 		
-
-		
-		//로그인여부 확인하기
-		if(b!=null&&encoder.matches(userPw, b.getB_Pw())) {
-			//로그인성공
-			md.addAttribute("msg","로그인성공");
-			md.addAttribute("loginMember",b);
-			md.addAttribute("flag",flag);
-			md.addAttribute("loc","/");
+		try {
 			
-		}else {
-			//로그인실패
-			md.addAttribute("msg","로그인실패");
+			//로그인여부 확인하기
+			if(b!=null&&encoder.matches(userPw, b.getB_Pw())) {
+				//로그인성공
+				md.addAttribute("msg","로그인성공");
+				md.addAttribute("loginMember",b);
+				md.addAttribute("flag",flag);
+				md.addAttribute("loc","/");
+				
+			}else {
+				//로그인실패
+				md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+				md.addAttribute("loc","/member/login.do");
+			}
+			
+		}catch(Exception e) {
+			md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
 			md.addAttribute("loc","/member/login.do");
 		}
+		
+
+		
+		
 				
 		
 		return "common/msg";

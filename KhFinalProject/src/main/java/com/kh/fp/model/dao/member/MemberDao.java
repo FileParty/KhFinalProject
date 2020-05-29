@@ -32,5 +32,7 @@ public interface MemberDao {
 	int insertDelivery(SqlSessionTemplate session,Member mb);
 	
 	Member selectDelivery(SqlSessionTemplate session,Member m);
+	
+
 
 }

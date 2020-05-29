@@ -10,7 +10,7 @@
 	
 		width:500px; 
 		border:5px solid red; 
-		border-radius:5%; 
+		
 		margin:100px;	
 			
 	}
@@ -89,16 +89,18 @@ function testAPI() {
 
 <section>
 	<div class="container d-flex justify-content-center">
-		<div class="login-container"  style="margin-top:50px;">
+		<div class="login-container">
 			<div class="login-form">
 				<div class="login-category d-flex">
 					<div class="text-center member-login" style="width:250px; 	border-bottom:5px solid red; border-right:5px solid red;">일반인</div>
 					<div class="text-center business-login" style="width:250px;  border-bottom:5px solid red;">사업자</div>
 				</div>
-				<div class="member-login-container d-flex justify-content-center flex-wrap text-center">
+				<div class="member-login-container">
+				<div class="d-flex justify-content-center flex-wrap text-center">
 					<form action="${path}/member/memberLogin.do" method="post">
-						<div class="login-title">
-							<img src="${path}/resources/img/요기요.png">
+						<div class="login-title" style="margin-top:30px;">
+							<img class="rounded-circle" style="margin:5px;width:100px;height:100px;cursor: pointer;"
+							alt="rogo" src="${pageContext.request.contextPath }/resources/img/king.png">
 						</div>
 						<table>
 							<tr>
@@ -152,10 +154,13 @@ function testAPI() {
 						<span>배달킹이 처음이신가요? <a href="${path }/member/memberEnroll1.do">회원가입</a>을 해보세요!</span>
 					</div>
 				</div>
-				<div class="business-login-container d-flex justify-content-center flex-wrap text-center" style="display: none!important;">
+				</div>
+				<div class="business-login-container " style="display: none!important;">
+				<div class="d-flex justify-content-center flex-wrap text-center">
 					<form action="${path}/member/businessLogin.do" method="post">
-						<div class="login-title">
-							<img src="${pageContext.request.contextPath}/resources/img/요기요.png">
+						<div class="login-title" style="margin-top:30px;">
+							<img class="rounded-circle" style="margin:5px;width:100px;height:100px;cursor: pointer;"
+					alt="rogo" src="${pageContext.request.contextPath }/resources/img/king.png">
 						</div>
 						<table>
 							<tr>
@@ -179,6 +184,7 @@ function testAPI() {
 					<div class="" style="margin:30px;">
 						<span>배달킹이 처음이신가요? <a href="${path}/member/businessEnroll1.do">회원가입</a>을 해보세요!</span>
 					</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -187,7 +193,9 @@ function testAPI() {
 		//사업자 로그인 div를 숨기고 일반인 로그인 div를 보여주는 기능
 		$(".member-login").click(()=>{	
 			$(".member-login-container").attr("style","display:block !important");
-			$(".business-login-container").attr("style","display:none !important"); 
+			$(".member-login").attr("style","background-color:red; width:250px; border-bottom:5px solid red; border-right:5px solid red;");
+			$(".business-login-container").attr("style","display:none !important");
+			$(".business-login").attr("style","background-color:white; width:250px; border-bottom:5px solid red;");
 			
 		});
 		
@@ -195,8 +203,9 @@ function testAPI() {
 		//일반인 로그인 div를 숨기고 사업자 로그인 div를 보여주는 기능	
 		$(".business-login").click(()=>{
 			$(".member-login-container").attr("style","display:none !important");
+			$(".business-login").attr("style","background-color:red; width:250px; border-bottom:5px solid red; ");
 			$(".business-login-container").attr("style","display:block !important");
-			
+			$(".member-login").attr("style","background-color:white; width:250px; border-bottom:5px solid red; border-right:5px solid red;");
 		});
 		//아이디 저장
 		$(document).ready(function(){

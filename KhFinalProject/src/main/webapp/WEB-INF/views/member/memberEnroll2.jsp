@@ -18,7 +18,8 @@
 	<div class="container d-flex justify-content-center">
 		<div class="email-container" style="width:600px; border:1px solid black; margin-top:50px;">
 			<div class="d-flex justify-content-center" style="margin:30px;">
-   				<img src="${path}/resources/img/요기요.png">
+   				<img class="rounded-circle" style="margin:5px;width:100px;height:100px;cursor: pointer;"
+					alt="rogo" src="${pageContext.request.contextPath }/resources/img/king.png">
 			</div>
 		 	<div class="d-flex text-center" style="margin:30px;">
 				<hr style="width:170px;">

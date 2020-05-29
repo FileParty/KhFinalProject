@@ -31,6 +31,8 @@ public interface MemberService {
 	
 	Member selectDelivery(Member m);
 	
+
+	
 	
 	
 	
