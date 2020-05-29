@@ -3,6 +3,7 @@ package com.kh.fp.model.dao.member;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 public interface MemberDao {
@@ -32,5 +33,9 @@ public interface MemberDao {
 	int insertDelivery(SqlSessionTemplate session,Member mb);
 	
 	Member selectDelivery(SqlSessionTemplate session,Member m);
+	
+	Delivery selectDeliveryI(SqlSessionTemplate session,Member m);
+	
+
 
 }

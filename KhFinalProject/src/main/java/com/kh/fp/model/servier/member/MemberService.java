@@ -1,6 +1,7 @@
 package com.kh.fp.model.servier.member;
 
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 public interface MemberService {
@@ -30,6 +31,10 @@ public interface MemberService {
 	int insertDelivery(Member mb);
 	
 	Member selectDelivery(Member m);
+	
+	Delivery selectDeliveryI(Member m);
+	
+
 	
 	
 	

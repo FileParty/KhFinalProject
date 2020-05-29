@@ -3,7 +3,7 @@
 <mapper namespace="member">
    <!-- 일반 아이디 회원가입 -->
   <insert id="insertMember" parameterType="member">
-  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,0,#{m_Level},#{m_Phone},#{m_Name},#{m_Email})
+  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,1000,#{m_Level},#{m_Phone},#{m_Name},#{m_Email})
   </insert>
   <!-- 사업자 아이디 회원가입 -->
   <insert id="insertBusiness" parameterType="business">
@@ -55,6 +55,10 @@
   <insert id="insertDelivery" parameterType="member">
   	INSERT INTO DELIVERY VALUES(#{m_No},'N',NULL,NULL)
   </insert>
+  <!-- 배달원 로그인 시 딜리버리 테이블 정보 가져오기 -->
+  <select id="selectDeliveryI" parameterType="member" resultType="delivery">
+  	SELECT * FROM DELIVERY WHERE M_NO = #{m_No}
+  </select>  
   
   
   

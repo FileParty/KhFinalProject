@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.fp.model.dao.member.MemberDao;
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 @Service
@@ -94,6 +95,17 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.selectDelivery(session,m);
 	}
+
+	@Override
+	public Delivery selectDeliveryI(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectDeliveryI(session,m);
+	}
+	
+	
+
+	
+	
 	
 	
 	
