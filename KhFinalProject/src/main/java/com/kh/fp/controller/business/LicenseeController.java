@@ -175,7 +175,7 @@ public class LicenseeController {
 		mv.addObject("total",totalData);
 		mv.addObject("check",no);
 		mv.addObject("list", list);
-		mv.addObject("pageBar", PageBarFactoryBeom( cPage, numPerpage, totalData,no,"/spring/licensee/order"));
+		mv.addObject("pageBar", PageBarFactoryBeom( cPage, numPerpage, totalData,no,"/20PM_deliveryKing_final/licensee/order"));
 		mv.setViewName("business/order");
 		return mv;
 	}
