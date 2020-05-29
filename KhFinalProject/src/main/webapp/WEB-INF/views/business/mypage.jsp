@@ -162,7 +162,7 @@
 	 				<div id="columnchart_material" style="width: 900px; height: 500px;"></div>
 	 				</c:if>
 	 				<c:if test="${empty sales}">
-	 					<h1>준비중</h1>
+	 					<img src='${path}/resources/img/index/ready.jpg' width="900px" height="500px">
 	 				</c:if>	
 	 			</div>
  			</div>
@@ -208,7 +208,7 @@
 		                </table>
                 	</c:if>
                    	<c:if test="${empty orderinfo }">
-                   		<h1>주문정보가 없습니다.</h1>
+                   		<img id='ordertable' src='${path}/resources/img/index/ready.jpg'>
                    	</c:if>
  			
  			
