@@ -14,7 +14,7 @@
   </select> -->
   <!-- 일반 아이디 로그인 -->
   <select id="selectMember" parameterType="string" resultType="member">
-  	SELECT * FROM MEMBER WHERE M_ID = #{userId}
+  	SELECT * FROM MEMBER WHERE M_ID = #{userId} AND M_STATUS = 'N'
   </select>
   <!-- 일반 아이디 닉네임 중복 체크 -->
   <select id="selectMemberName" parameterType="string" resultType="member">
@@ -22,7 +22,7 @@
   </select>
   <!-- 사업자 아이디 로그인 -->
   <select id="selectBusiness" parameterType="string" resultType="business">
-  	SELECT * FROM BUSINESS WHERE B_ID=#{userId}
+  	SELECT * FROM BUSINESS WHERE B_ID=#{userId} AND B_STATUS = 'N'
   </select>
   <!-- 일반인 아이디 찾기 -->
   <select id="selectMemberId" parameterType="string" resultType="member">
@@ -48,6 +48,15 @@
   <select id="selectNaverM" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_Id = #{email}
   </select>
+  <select id="selectDelivery" parameterType="member" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_LEVEL = 2 AND M_STATUS = 'N' AND M_ID = #{m_Id}
+  </select>  
+  <!-- 배달원 회원 가입 시 딜리버리 테이블에 추가하기 -->
+  <insert id="insertDelivery" parameterType="member">
+  	INSERT INTO DELIVERY VALUES(#{m_No},'N',NULL,NULL)
+  </insert>
+  
+  
   
   
 

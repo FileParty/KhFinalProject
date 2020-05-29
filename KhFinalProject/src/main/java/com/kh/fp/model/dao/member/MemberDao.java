@@ -28,5 +28,9 @@ public interface MemberDao {
 	Member selectKakao(SqlSessionTemplate session, String kname);
 	
 	Member selectNaverM(SqlSessionTemplate session,String email);
+	
+	int insertDelivery(SqlSessionTemplate session,Member mb);
+	
+	Member selectDelivery(SqlSessionTemplate session,Member m);
 
 }

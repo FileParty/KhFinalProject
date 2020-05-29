@@ -83,15 +83,37 @@ public class MemberController {
 		
 		String page="";
 		
-		if(result==0) {
-			page="common/msg";
-			md.addAttribute("msg","회원가입 실패");
-			md.addAttribute("loc","/member/memberEnroll.do");
-		}else {
-			page="common/msg";
-			md.addAttribute("msg","회원가입 성공");
-			md.addAttribute("loc","/");
+		int result1=0;
+		
+		
+		
+		if(m.getM_Level()==2) {
 			
+			Member mb = service.selectDelivery(m);
+			
+			result1=service.insertDelivery(mb);
+			
+			if(result==0) {
+				page="common/msg";
+				md.addAttribute("msg","회원가입 실패");
+				md.addAttribute("loc","/member/memberEnroll.do");
+			}else {
+				page="common/msg";
+				md.addAttribute("msg","회원가입 성공");
+				md.addAttribute("loc","/");	
+			}
+			
+		}else {
+			
+			if(result==0) {
+				page="common/msg";
+				md.addAttribute("msg","회원가입 실패");
+				md.addAttribute("loc","/member/memberEnroll.do");
+			}else {
+				page="common/msg";
+				md.addAttribute("msg","회원가입 성공");
+				md.addAttribute("loc","/");	
+			}
 		}
 		
 		return page;
@@ -186,21 +208,27 @@ public class MemberController {
 		
 		Member m =service.selectMember(userId);
 		
+		if(m==null) {
+			md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+			md.addAttribute("loc","/member/login.do");
+		}
+		
 		
 		
 		if(m.getM_Level()==2) {
+			
+			
 			
 			//로그인여부 확인하기
 			if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
 				//로그인성공
 				md.addAttribute("msg","로그인성공");
 				md.addAttribute("loginMember",m);
-				
 				md.addAttribute("loc","/delivery/deliveryView.do");
 			}else {
 				//로그인실패
-				md.addAttribute("msg","로그인실패");
-				md.addAttribute("loc","/");
+				md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+				md.addAttribute("loc","/member/login.do");
 			}
 			
 			
@@ -211,12 +239,14 @@ public class MemberController {
 				//로그인성공
 				md.addAttribute("msg","로그인성공");
 				md.addAttribute("loginMember",m);
+				md.addAttribute("loc","/");
 				
 			}else {
 				//로그인실패
-				md.addAttribute("msg","로그인실패");
+				md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+				md.addAttribute("loc","/member/login.do");
 			}
-			md.addAttribute("loc","/");		
+					
 		}
 		
 	
@@ -246,12 +276,14 @@ public class MemberController {
 			md.addAttribute("msg","로그인성공");
 			md.addAttribute("loginMember",b);
 			md.addAttribute("flag",flag);
+			md.addAttribute("loc","/");
 			
 		}else {
 			//로그인실패
 			md.addAttribute("msg","로그인실패");
+			md.addAttribute("loc","/member/login.do");
 		}
-		md.addAttribute("loc","/");		
+				
 		
 		return "common/msg";
 

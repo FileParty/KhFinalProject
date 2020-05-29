@@ -27,6 +27,10 @@ public interface MemberService {
 	
 	Member selectNaverM(String email);
 	
+	int insertDelivery(Member mb);
+	
+	Member selectDelivery(Member m);
+	
 	
 	
 	

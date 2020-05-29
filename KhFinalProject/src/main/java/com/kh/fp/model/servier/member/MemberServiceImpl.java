@@ -82,6 +82,24 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.selectNaverM(session,email);
 	}
+
+	@Override
+	public int insertDelivery(Member mb) {
+		// TODO Auto-generated method stub
+		return dao.insertDelivery(session,mb);
+	}
+
+	@Override
+	public Member selectDelivery(Member m) {
+		// TODO Auto-generated method stub
+		return dao.selectDelivery(session,m);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
