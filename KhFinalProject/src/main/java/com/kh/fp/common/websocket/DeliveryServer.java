@@ -50,6 +50,13 @@ public class DeliveryServer extends TextWebSocketHandler{
 					addClient(msg,session);
 					sendMessage(msg,session);
 				}
+				
+				//배달원에게 음식을 주고 배달출발을 했을 때
+				if(msg.getState().equals("S"))
+					//배달원의 상태값을 배달중으로 바꾸기 위해
+					//배달원에게 메시지 전송
+					//고객에게 배달이 시작했다고 메시지 전송
+					sendMessage(msg,session);
 				break;
 				
 			case "delivery":
@@ -58,7 +65,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 				}
 				
 				if(msg.getState().equals("Y")) {
-					log.debug("배달원이 수락했을 때 찍히나요");
+					log.debug("배달원이 수락했을 때 찍히나요");		
 					sendMessage(msg,session);
 				}
 				
@@ -95,12 +102,55 @@ public class DeliveryServer extends TextWebSocketHandler{
 				switch(msg.getType()) {
 				case "business":
 					if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("W")) {	//서버에 접속한 유저중 배달원에 해당하는 경우
-						client.getKey().setState("W2");
+						String businessXl = msg.getXl();
+						String businessYl = msg.getYl();
+						String deliveryXl = client.getKey().getXl();
+						String deliveryYl = client.getKey().getYl();
 						
-						client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						log.debug(businessXl);
+						log.debug(businessYl);
+						log.debug(deliveryXl);
+						log.debug(deliveryYl);
 						
-						session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","",++count+" 명의 배달원을 찾았습니다."))));
+						double dis = distance(Double.parseDouble(businessYl), Double.parseDouble(businessXl), Double.parseDouble(deliveryYl), Double.parseDouble(deliveryXl), "kilometer");
+						
+						log.debug("거리 " + dis);
+						
+						if(3>dis) {
+							client.getKey().setState("W2");
+							
+							//배달원에게 사업자의 정보 전송(사업자 W 일때)
+							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							
+							session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","",++count+" 명의 배달원을 찾았습니다."))));
+						}
 					}
+					
+					//사업자가 출발 눌렀을 때
+					if(msg.getState().equals("S")) {
+						//해당하는 사업자의 상태값을 S로 변경해야 한다.
+						if(session.getId().equals(client.getValue().getId())) {
+							client.getKey().setState("S");
+							log.debug("사업자 상태 : " + client.getKey().getState());
+						}
+						
+						//배달자한테 사업자의 메시지를 전송해야 함
+						//수락을 눌렀다는 사실을 배달자한테 알려줌
+						if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("Y")) {
+							//배달원한테 사업자의 메시지 전송(사업자 S 일때)
+							//배달원의 상태값을 변경해줌 S 로
+							if(msg.getNo() == client.getKey().getNo()) {
+								//해당하는 배달원의 상태값만 변경해줘야되
+								client.getKey().setState("S");	
+								//해당하는 배달원한테만 메세지 전송
+								log.debug("사업자가 출발버튼 눌렀을 때 배달원에게 보내는 메시지"+msg.getState());
+								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							}
+						}
+						
+					}
+					
+					
 					break;
 					
 				case "delivery":
@@ -118,11 +168,41 @@ public class DeliveryServer extends TextWebSocketHandler{
 						}
 					}
 					
+					if(msg.getState().equals("Y")) {
+						//배달자가 수락 눌렀을 때 no 값을 변경해야 한다.
+						if(session.getId().equals(client.getValue().getId())) {
+							client.getKey().setNo(msg.getNo());;
+							log.debug("배달자의 no: " + client.getKey().getNo());
+						}
+						
+						//배달자가 수락 눌렀을 때 상태값 Y로 변경해야 한다.
+						if(session.getId().equals(client.getValue().getId())) {
+							client.getKey().setState("Y");
+							log.debug("배달자의 상태 : " + client.getKey().getState());
+						}
+						
+						//사업자의 상태도 Y로 바꿔줘야 한다.
+						if(client.getKey().getType().equals("business") && client.getKey().getNo()==msg.getNo()){
+							client.getKey().setState("Y");
+							log.debug("사업자의 정보 : " + client.getKey());
+						}
+					}
+					
+					if(msg.getState().equals("S")) {
+						if(session == client.getValue()) {
+							log.debug("클라이언트의 상태 변경 전");
+							log.debug(""+client.getKey().getState());
+							
+							client.getKey().setState("S");
+						}
+					}
+					
 					if(msg.getState().equals("C")) {
 						log.debug("배달 완료 했을 때 찍혀야 합니다.");
 						
 						//사업자한테 보내야함
-						if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
+						//배달 출발 누른 사업자한테만 보내야함.
+						if(client.getKey().getType().equals("business") && client.getKey().getState().equals("S")) {
 							if(client.getKey().getNo() == msg.getNo()) {
 								log.debug("접속자 no값"+client.getKey().getNo());
 								log.debug("현재 클라이언트 no값" + msg.getNo());

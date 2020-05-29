@@ -4,4 +4,8 @@
   <update id="updateState" parameterType="_int">
   	update order_info set o_status='배달중' where o_no=#{orderNo}
   </update>
+  
+  <update id="updateStateComplete" parameterType="_int">
+  	update order_info set o_status='배달완료' where o_no=#{orderNo}
+  </update>
 </mapper>
