@@ -11,7 +11,7 @@ function getroadAddr(){
 
 
 	$.ajax({
-		 url :"http://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  //인터넷망
+		 url :"https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do"  //인터넷망
 		,type:"post"
 		,data:$("#form").serialize()
 		,dataType:"jsonp"
