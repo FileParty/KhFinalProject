@@ -59,7 +59,6 @@
   
   
   
-  
 
   
   <select id="selectCoupon" resultType="CouponSH">

@@ -262,8 +262,8 @@
    					$(".del-count").html("0 명의 배달원을 찾았습니다.");
    					
    				//웹소켓 객체 생성
-   	   	   			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-   	   	   			//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+   	   	   			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+   	   	   			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
    	   	   	
    	   	   			//웹소켓 onopen 함수
    	   	   			websocket.onopen = function(data){
@@ -360,6 +360,7 @@
 	   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
 	   								"class" : "img-fluid"
 	   							});
+	   							$(delImg1).addClass("delivery-img1-"+orderNo);
 	   							
 	   							//오토바이 이미지
 	   							delImg.append(delImg1);
@@ -383,6 +384,7 @@
 	   								"src" : "${pageContext.request.contextPath}/resources/img/del.png",
 	   								"class" : "img-fluid"
 	   							});
+	   							$(delImg3).addClass("delivery-img2-"+orderNo);
 	   							
 	   							//오토바이 이미지
 	   							delImg2.append(delImg3);
@@ -408,8 +410,12 @@
 	   		   	   				$("#accept-delivery").children(".container-"+orderNo).removeClass("d-none");
 	   							$(e.target).val("배달현황");
 	   		   	   				
-	   							//배달출발 눌렀을때
+	   							//애니메이션 추가
+	   							var imgEnimation = setInterval(function(){
+	   								$(".delivery-img1-"+orderNo).fadeToggle(1000);
+	   							},1000);   							
 	   							
+	   							//배달출발 눌렀을때   							
 	   							$(".btn-start").click(function(){
 	   								
 	   								console.log(orderNo);
@@ -435,6 +441,14 @@
 	   											console.log(deliveryTime);
 	   											
 	   											websocket.send(JSON.stringify(new SocketMessage(type, orderNo, storeName, storeAddress, storeXl, storeYl, clientAddress, "S", "배달이 출발했습니다. 약 " + deliveryTime + " 소요 예정")));
+	   											
+	   											//애니메이션 추가
+	   											$(".delivery-img1-"+orderNo).fadeIn(1000);
+	   											clearInterval(imgEnimation);
+ 											
+	   				   							var imgEnimation2 = setInterval(function(){
+	   				   								$(".delivery-img2-"+orderNo).fadeToggle(1000);
+	   				   							},1000);
 	   										}
 	   									}
 	   								});
@@ -460,6 +474,23 @@
    											console.log(e.target);
    											$(e.target).remove();
    			   								$(target).html("배달완료");
+   			   								
+   			   								//툴팁
+   			   								$(target).attr({
+   			   									"data-toggle" : "tooltip",
+   			   									"data-placement" : "top",
+   			   									"title" : deliveryName+" 배달원이 배달을 완료했습니다.\n전화번호 : "+message
+   			   								});
+   			   								
+   			   								$(target).tooltip('show');
+
+											var toggleHide = function(){
+												$(target).tooltip('hide');
+											}
+											
+											//3초뒤에 없애기
+											setTimeout(toggleHide, 3000);
+   			   								
    										}
    									}
    								});

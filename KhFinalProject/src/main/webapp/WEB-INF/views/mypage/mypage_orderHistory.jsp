@@ -55,6 +55,7 @@ ${sysdate }  --%>
                        <div class="col-md-2"></div>
                        <div class="col-md-8 order_content" style="border: 1px solid black; height:170px;">
 							<input type="hidden" value="${m['O_NO']}"/>
+							
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
@@ -66,17 +67,17 @@ ${sysdate }  --%>
                            		</td>
                          		<c:choose>
                           			<c:when test="${m['O_STATUS']=='주문취소' }">
-		                          		<td style="text-align:right; color:red;">
+		                          		<td id="o_state_${m['O_NO']}" style="text-align:right; color:red;">
 		                           			${m['O_STATUS'] }
-		                               		</td>
+		                               	</td>
                                		</c:when>
                                		<c:when test="${m['O_STATUS']=='배달완료' }">
-	                               		<td style="text-align:right; color:blue;">
+	                               		<td id="o_state_${m['O_NO']}" style="text-align:right; color:blue;">
 	                               			${m['O_STATUS'] }
 	                               		</td>
                                		</c:when>
                                		<c:otherwise>
-                               			<td style="text-align:right; color:green;">
+                               			<td id="o_state_${m['O_NO']}" style="text-align:right; color:green;" class="state-${orderNo}">
 	                               			${m['O_STATUS'] }
 	                               		</td>
                                		</c:otherwise>
@@ -133,6 +134,7 @@ ${sysdate }  --%>
                         <br>
                         <table class="table" id="menu-tbl">
                         </table>
+                        
                     </div>
                     <div class="col-md-2"></div>
             	</div>
@@ -548,13 +550,14 @@ ${sysdate }  --%>
 	        
     
         
-            $(".order_content").on("click",function(){
+            $(".order_content").on("click",function(e){
             	
             	if(event.target.className!='')
                     return;
             	
             	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
             	
+            	console.log(e.target.className);
             	
             	var o_no = ($(this).find("input"))[0].value;
             	
@@ -574,6 +577,14 @@ ${sysdate }  --%>
 				    type: "POST",
 				    data: {"o_no":o_no},
 				    success: function(data){
+				    	
+				    	if(($($("#o_state_" + o_no)[0]).html().trim())=="주문완료"){
+				    		//주문 완료일때 서버에 접속해야 함
+				    		
+				    		
+				    	}
+				    		
+				    	
 						/* console.log(data[0]['1_1']); */
 						
 						var option = new Array();
@@ -624,6 +635,10 @@ ${sysdate }  --%>
 		            	
 		                $("#modal").attr("style", "display:flex");
 		                $("body").attr("style","overflow-y:hidden");
+		                
+		                //by 승연
+		                console.log("모찍히냐");
+		                console.log();
 				    },
 			
 				    error: function (request, status, error){
