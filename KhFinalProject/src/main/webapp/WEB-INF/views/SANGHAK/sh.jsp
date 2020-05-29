@@ -322,7 +322,7 @@
 
      
 
-    <table id="nextTime1" style="display: inline;"> 
+    <table id="nextTime1" style="display: none;"> 
     <tr>
     <td style="padding-right:40px;">쿠폰 사용</td>
     
@@ -1539,6 +1539,30 @@ main {
 	
 	$("#sum").val(totaldate2-coupon); 
 	$("#allpay2").val(basicpoint1); 
+
+    $(document).ready(function(){
+
+    	$(".abc").click(function(){
+    		
+    	})
+    	 $(".abc").keyup(function(){
+
+    		 if($("#allpay3").val()<=${loginMember['m_Point']}){
+			let a=$(".abc").val();
+    	   $(".def").text(a);
+    		 }else{
+    			  alert("최대로 사용할 수 있는 point를 초과하였습니다.");
+    			  $("#allpay3").val('');
+    			  $(".def").text($(".abc").val());
+    			  
+    			  
+    			
+    		 }
+
+    	 });
+
+    	 });
+
       }
 
     }
@@ -1607,7 +1631,7 @@ main {
   }else{
 	  alert("최대로 사용할 수 있는 point를 초과하였습니다.");
 	  $("#allpay3").val('');
-	  $(".def").val('0');
+	  $(".def").text($(".abc").val());
 	
   }
  
