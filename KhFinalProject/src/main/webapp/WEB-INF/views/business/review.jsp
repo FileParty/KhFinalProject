@@ -88,6 +88,14 @@
 	text-decoration:none;
 	text-shadow:0px 0px 0px #ffffff;
       }
+      #storeInfo{
+      background-color:lightgray;
+      box-shadow :3px 3px 5px #333333;
+      color:white;
+      text-shadow:3px 3px 5px #333333;
+      font-family: 'Do Hyeon';
+      text-align :center;
+      }
   
 
  
@@ -129,19 +137,16 @@
    					data:{s_no:$("#storeInfo").val()},
    					
    					success:function(data) {
-   						console.log('ㅎㅎ',data);
-   						console.log(data[0].r_img);
-   						
    					 	var d = new Date();
-						var d1 = new Date(data[0].r_date);
-						var dd = d-d1;
 						var day = 24 * 60 * 60 * 1000;
 							
    						if(data.length == 0) {
    							alert('등록 된 리뷰가 없습니다!');
    						}
    						for(let i=0;i<data.length;i++) {
-   							console.log(data[i].r_img);
+   							console.log('리뷰',data);
+   							console.log('리뷰',data[i].order_menu[0].me_name);
+   							console.log('리뷰',data[i].order_menu[1].me_name);
    							let div = $("<div>").attr('class','row');
    							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
@@ -162,9 +167,9 @@
    							
    							for(let j=0;j<5;j++) {
    								if(data[i].r_score <= j){
-   									tr1+="<span style='color:red'>"+'☆'+"</span>";
+   									tr1+="<span style='color:orange'>"+'☆'+"</span>";
    								}else{
-   									tr1+="<span style='color:red'>"+'★'+"</span>";
+   									tr1+="<span style='color:orange'>"+'★'+"</span>";
    								}
    							}
    							tr1+="&nbsp;<span>"+'맛★&nbsp;'+data[i].r_score_taste+"</span>";
@@ -193,9 +198,13 @@
   							 tr2+=" <a class='carousel-control-prev' href='#demo"+i+"' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
   							 tr2+="<a class='carousel-control-next' href='#demo"+i+"' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
   								tr2+="</div></div> ";
-   							let tr3 = "<tr><td>"; 
+  								tbl.append(tr).append(tr1).append(tr2);
    							for(let k=0;k<data[i].order_menu.length;k++) {
-   							tr3 += "<span>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></tr></td>";
+   							var tr3 = "<tr><td>"; 
+   							tr3 += "<span style='color:#F6DB90;'>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></td></tr>";
+   							console.log(data[i].order_menu[k]);
+   							console.log(data[i].order_menu.length);
+   							tbl.append(tr3);
    							}
    							let tr4 = "<tr><td>"; 
    							tr4+="<span>"+data[i].r_text+"</span>";
@@ -203,14 +212,15 @@
    							if(data[i].r_reply == null) {
    							tr5+="<input style='margin-left:400px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
-   								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
+   								tr5+="<div style='background-color:#FFFFFF;'><span style='color:#FF5A5A'>&nbsp;-->&nbsp;&nbsp;사장님</span><br><span style='margin-left:20px;'>"+data[i].r_reply+"</span></div></td></tr>";
+   								
    							}
    							let tr6 = $("<input>").attr({
    								'type':'hidden',
    								'class':'r_no'+i,
    								'value':data[i].r_no
    							});
-   							tbl.append(tr).append(tr1).append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
+   							tbl.append(tr4).append(tr5).append(tr6).after($("<br>"));
    							if(i%2==0) {
    							var divv = $("<div>").attr('class','row');
    							}
@@ -280,20 +290,21 @@
    			 
    			 $("#storeInfo").change(function(){
    				$("#reviewList").children().remove();
+   				$("#reviewList").children().remove();
    				$.ajax({
    					url:"${path}/licensee/reviewSelect",
    					data:{s_no:$("#storeInfo").val()},
    					
-   					success:function(data) {
-   						console.log('ㅎㅎgggg',data);
+   					success:function(data) {   						
    					 	var d = new Date();
+						
 						var day = 24 * 60 * 60 * 1000;
 							
    						if(data.length == 0) {
    							alert('등록 된 리뷰가 없습니다!');
    						}
    						for(let i=0;i<data.length;i++) {
-   							
+   							console.log('리뷰',data);
    							let div = $("<div>").attr('class','row');
    							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
@@ -314,9 +325,9 @@
    							
    							for(let j=0;j<5;j++) {
    								if(data[i].r_score <= j){
-   									tr1+="<span style='color:red'>"+'☆'+"</span>";
+   									tr1+="<span style='color:orange'>"+'☆'+"</span>";
    								}else{
-   									tr1+="<span style='color:red'>"+'★'+"</span>";
+   									tr1+="<span style='color:orange'>"+'★'+"</span>";
    								}
    							}
    							tr1+="&nbsp;<span>"+'맛★&nbsp;'+data[i].r_score_taste+"</span>";
@@ -325,7 +336,7 @@
    							
    					 		let tr2 = "<tr><td>";   							
   							  	tr2+= "<input type='hidden' value='"+data[i].r_no+"' class='gdgd' />";
-  							  	tr2+= "<div id='demo"+i+"' class='carousel slide' data-interval='500' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
+  							  	tr2+= "<div id='demo"+i+"' class='demo carousel slide' data-interval='500' data-ride='carousel'><div style='width:450px' class='carousel-inner'>";	
   							 
   							 for(let k=0;k<data[i].r_img.length;k++) {
    						 	if(data[i].r_img !=null) {  
@@ -345,9 +356,13 @@
   							 tr2+=" <a class='carousel-control-prev' href='#demo"+i+"' data-slide='prev'><span class='carousel-control-prev-icon'></span> </a>";
   							 tr2+="<a class='carousel-control-next' href='#demo"+i+"' data-slide='next'><span class='carousel-control-next-icon'></span> </a>";    	   						 
   								tr2+="</div></div> ";
-   							let tr3 = "<tr><td>"; 
+  								tbl.append(tr).append(tr1).append(tr2);
    							for(let k=0;k<data[i].order_menu.length;k++) {
-   							tr3 += "<span>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></tr></td>";
+   							var tr3 = "<tr><td>"; 
+   							tr3 += "<span style='color:#F6DB90;'>"+data[i].order_menu[k].me_name+'/'+data[i].order_menu[k].sd_array+"</span></td></tr>";
+   							console.log(data[i].order_menu[k]);
+   							console.log(data[i].order_menu.length);
+   							tbl.append(tr3);
    							}
    							let tr4 = "<tr><td>"; 
    							tr4+="<span>"+data[i].r_text+"</span>";
@@ -355,14 +370,15 @@
    							if(data[i].r_reply == null) {
    							tr5+="<input style='margin-left:400px' class='reviewReply' type='button' value='답글' onclick='reviewReply();'/></td></tr>";
    							}else {
-   								tr5+="<span style='font-weight:700'>사장님 댓글  -></span> <span>"+data[i].r_reply+"</span></td></tr>";
+   								tr5+="<div style='background-color:#FFFFFF;'><span style='color:#FF5A5A'>&nbsp;-->&nbsp;&nbsp;사장님</span><br><span style='margin-left:20px;'>"+data[i].r_reply+"</span></div></td></tr>";
+   								
    							}
    							let tr6 = $("<input>").attr({
    								'type':'hidden',
    								'class':'r_no'+i,
    								'value':data[i].r_no
    							});
-   							tbl.append(tr).append(tr1).append(tr2).append(tr3).append(tr4).append(tr5).append(tr6).after($("<br>"));
+   							tbl.append(tr4).append(tr5).append(tr6).after($("<br>"));
    							if(i%2==0) {
    							var divv = $("<div>").attr('class','row');
    							}
@@ -376,7 +392,6 @@
    						} 
    					}
    				})
-   			
    			 })
    		</script>
    	</section>
