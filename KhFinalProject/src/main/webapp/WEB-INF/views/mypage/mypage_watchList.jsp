@@ -49,7 +49,7 @@
 	                                
 	                                
 	                            </table>
-	                            <img style="margin-left: 50%; transform: translateX(-50%);" src="${path }/resources/img/mypage/review/${sto['S_LOGIMG'] }" width="140px" height="95px"/>
+	                            <img style="margin-left: 50%; transform: translateX(-50%);" src="${path }/resources/upload/store/${sto['S_LOGIMG'] }" width="140px" height="95px"/>
 	                            <p style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap;">${sto['S_TEXT'] }</p>
 	
 	                        </div>

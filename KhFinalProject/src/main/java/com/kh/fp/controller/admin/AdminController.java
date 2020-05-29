@@ -1,6 +1,9 @@
 package com.kh.fp.controller.admin;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +44,21 @@ public class AdminController {
 	@ResponseBody
 	public AdminApplyStoreInfo applyStoreInfo(@RequestParam int s_no) {
 		return service.selectApplyStoreInfo(s_no);
+	}
+	
+	@RequestMapping("/admin/updateStoreStatus.do")
+	public ModelAndView updateStoreStatus(@RequestParam Map<String, String> map, ModelAndView mv, HttpServletRequest req) {
+		
+		
+		for(int i=0; i<req.getParameterValues("s_no").length; i++) {
+			
+			
+			System.out.println("데이터: " + req.getParameterValues("s_no")[i]);
+		}
+		
+		mv.setViewName("redirect:/admin/applyStoreList");
+		
+		return mv;
 	}
 
 }
