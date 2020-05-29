@@ -546,12 +546,12 @@ public class MemberController {
 	
 	// 일반인 아이디 찾기 mailSending 코드
     @RequestMapping( value = "/member/findMemberId.do" , method=RequestMethod.POST )
-    public ModelAndView findMemberId(HttpServletRequest request, String m_email, HttpServletResponse response_email) throws IOException {
+    public ModelAndView findMemberId(HttpServletRequest request, String m_Email, HttpServletResponse response_email) throws IOException {
     	
-    	Member m =service.selectMemberId(m_email);
+    	Member m =service.selectMemberId(m_Email);
         
         String setfrom = "hyeon9782@gamil.com";
-        String tomail = request.getParameter("m_email"); // 받는 사람 이메일
+        String tomail = request.getParameter("m_Email"); // 받는 사람 이메일
         String title = "대한민국 No.1 배달킹! 아이디 찾기 인증 이메일 입니다!"; // 제목
         String content =
         
@@ -584,7 +584,7 @@ public class MemberController {
         
         ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
         mv.setViewName("/member/findIdPwM");     //뷰의이름
-        mv.addObject("m_email", m_email);
+        mv.addObject("m_Email", m_Email);
         
         System.out.println("mv : "+mv);
 
