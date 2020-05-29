@@ -41,6 +41,7 @@
 									<input id="store-addr" type="hidden" value="${s.s_Addr }"/>
 									<input id="store-xl" type="hidden" value="${s.s_X }"/>
 									<input id="store-yl" type="hidden" value="${s.s_Y }"/>
+									<input id="store-time" type="hidden" value="${s.s_Time }"/>
 								</c:if>
 					 </c:forEach>
                      <!-- 수정 jsy -->
@@ -247,6 +248,13 @@
    				orderNo = $(e.target).siblings("input").eq(0).val();	//주문 번호
    				clientAddress = $(e.target).siblings("input").eq(1).val();	//배달 주소
    				
+   				if($(e.target).val()=="배달현황"){
+   					$("#loading").addClass("d-none");
+   					$("#accept-delivery").removeClass("d-none");
+   					$("#accept-delivery").children().addClass("d-none");
+   	   				$("#accept-delivery").children(".container-"+orderNo).removeClass("d-none");
+   				}
+   				
    				if($(e.target).val()=="배달요청"){
    					
    					$("#loading").removeClass("d-none");
@@ -254,8 +262,9 @@
    					$(".del-count").html("0 명의 배달원을 찾았습니다.");
    					
    				//웹소켓 객체 생성
-   	   	   			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
-   	   	   		
+   	   	   			const websocket = new WebSocket("wss://localhost:9090${pageContext.request.contextPath}/delivery");
+   	   	   			//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+   	   	   	
    	   	   			//웹소켓 onopen 함수
    	   	   			websocket.onopen = function(data){
    	   					console.log(data);
@@ -397,7 +406,8 @@
 	   							//수락눌렀을때
 	   							$("#accept-delivery").children().addClass("d-none");
 	   		   	   				$("#accept-delivery").children(".container-"+orderNo).removeClass("d-none");
-	   							
+	   							$(e.target).val("배달현황");
+	   		   	   				
 	   							//배달출발 눌렀을때
 	   							
 	   							$(".btn-start").click(function(){
@@ -416,6 +426,15 @@
 	   											
 	   											$(e.target).val("배달중");
 	   											$(".btn-start").html("배달중");
+	   											
+	   											//서버에게 배달출발을 한다고 알려주고 서버는 배달원에게 배달출발 상태라고 알려줘야함
+	   											
+	   											//배달 시간
+	   											var deliveryTime = $("#store-time").val();
+	   											console.log("배달 시간");
+	   											console.log(deliveryTime);
+	   											
+	   											websocket.send(JSON.stringify(new SocketMessage(type, orderNo, storeName, storeAddress, storeXl, storeYl, clientAddress, "S", "배달이 출발했습니다. 약 " + deliveryTime + " 소요 예정")));
 	   										}
 	   									}
 	   								});
@@ -426,7 +445,27 @@
    							
    							//배달원이 배달을 완료했을 때 처리
    							if(state=='C'){
+   								console.log($(e.target));
+   								var target = $(e.target).parent();
    								
+   								
+   								$.ajax({
+   									url:"${pageContext.request.contextPath}/orderInfo/updateStateComplete.do",
+   									data:{
+   										orderNo : orderNo
+   									},
+   									success: function(data){
+   										if(data['result']>0){
+   											console.log("타겟이 몬가요");
+   											console.log(e.target);
+   											$(e.target).remove();
+   			   								$(target).html("배달완료");
+   										}
+   									}
+   								});
+   								
+   								//$(e.target).remove();
+   								//$(target).html("배달완료");
    							}
    							
    							break;

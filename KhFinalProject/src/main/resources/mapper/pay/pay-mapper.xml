@@ -4,7 +4,7 @@
  <!--============================ORDER_INFO에 값넣기============================ -->
  
   <insert id="insertOrderInfo" parameterType="map">
- 	INSERT INTO ORDER_INFO VALUES(SEQ_ORDER_INFO.NEXTVAL,#{orderName},#{orderPhone},#{receiveName},#{receivePhone},#{ta2},#{addr123},SYSDATE,#{priceSum},#{sum},DEFAULT,#{sNo},#{mNo})
+ 	INSERT INTO ORDER_INFO VALUES(SEQ_ORDER_INFO.NEXTVAL,#{orderName},#{orderPhone},#{receiveName},#{receivePhone},#{ta2},#{addr123},SYSDATE,#{priceSum},#{sum},DEFAULT,#{sNo},#{mNo},DEFAULT)
   		
   	  <selectKey order="AFTER" keyProperty="o_no" resultType="_int">
          SELECT SEQ_ORDER_INFO.CURRVAL FROM DUAL

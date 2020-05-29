@@ -6,4 +6,5 @@ public interface OrderInfoDao {
 
 	public int updateOrderState(SqlSessionTemplate session, int orderNo);
 	
+	public int updateOrderStateComplete(SqlSessionTemplate session, int orderNo);
 }
