@@ -184,7 +184,7 @@
 		} */
 	</style>
 	<script>
-	
+	let checkState;
 	$(function(){
 		//type
 		var type = "delivery";
@@ -202,6 +202,9 @@
 		var clientAddr = "";
 		//배달원의 메세지
 		var phoneMessage = "${loginMember.m_Phone }";
+		
+		//배달원 상태
+		var deliveryState
 		
 		console.log("전화번호");
 		console.log(phoneMessage);
@@ -248,7 +251,8 @@
 					//고객 주소
 					clientAddr = "";
 					
-					websocket.send(JSON.stringify(new SocketMessage("delivery", deliveryNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, "W", "")));
+					deliveryState = "W";
+					websocket.send(JSON.stringify(new SocketMessage("delivery", deliveryNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, "")));
 				}
 				
 				//server에서 데이터 보냈을 때 실행하는 메소드
@@ -272,177 +276,199 @@
 							var clientAddr = msg.clientAddr;
 							var state = msg.state;
 							var message = msg.msg;
+							checkState=msg.state;
+							console.log("사업자 상태값");
+							console.log(state);	//S
 							
-							//loading 화면 없애주기
-							$("#loading").addClass("d-none");
-							//order 화면 보이게 하기
-							$("#order").removeClass("d-none");
-							
-							
-							var card = $("<div>").attr({
-								"class" : "card text-white bg-info mb-3"	
-							});
-							
-							var cardHeader = $("<div>").addClass("card-header justify-content-between d-flex");
-							
-							var header1 = $("<div>").html($("<span>").html(storeName));
-							var header2 = $("<div>").html($("<span>").html("배달비 : 2500원"));
-							
-							$(cardHeader).append(header1).append(header2);
-							
-							//객체생성해서 새로운 div 만들어주기
-							var cardBody = $("<div>").addClass("card-body");
-							
-							var slider = $("<div>").addClass("slider1");
-							
-							var orderContainer = $("<div>").addClass("order-container");
-							
-							var item = $("<div>").attr({
-								"class" : "item1 text-center"
-							});
-							
-							var row = $("<div>").addClass("row justify-content-between align-items-center alert-info p-3");
-							
-							var storeInfo = $("<div>").addClass("store-info col border border-dark p-0 mr-3");
-							
-							var storeNameDiv = $("<div>").addClass("store-name d-flex flex-column");
-							var storeName1 = $("<span>").addClass("h4").html("가게 명");										
-							var storeName2 = $("<span>").addClass("h5").html(storeName);
-							
-							$(storeNameDiv).append(storeName1).append(storeName2);
-							
-							var storeAddrDiv = $("<div>").addClass("store-addr d-flex flex-column");
-							var storeAddr1 = $("<span>").addClass("h4").html("가게 주소");
-							var storeAddr2 = $("<span>").addClass("h5").html(storeAddr);
-							
-							$(storeAddrDiv).append(storeAddr1).append(storeAddr2);
-							
-							storeInfo = $(storeInfo).append(storeNameDiv).append(storeAddrDiv);
-							
-							var clientInfo = $("<div>").addClass("client-info col border border-dark ml-3 p-0");
-							
-							var clientAddrDiv = $("<div>").addClass("client-addr d-flex flex-column");
-							var clientAddr1 = $("<span>").addClass("h4").html("배달 주소");
-							var clientAddr2 = $("<span>").addClass("h5").html(clientAddr);
-							
-							$(clientAddrDiv).append(clientAddr1).append(clientAddr2);
-							
-							clientInfo = $(clientInfo).append(clientAddrDiv);
-							
-							var btn = $("<div>").addClass("delivery-btn d-flex flex-row justify-content-center mt-3 mb-0");
-							
-							var btnAccept = $("<button>").attr({
-								"class" : "btn btn-primary mr-3 btn-acept",
-								"type" : "button"
-							}).html("수락");
-							
-							var btnReject = $("<button>").attr({
-								"class" : "btn btn-primary btn-reg",
-								"id" : "btn-reg",
-								"type" : "button"
-							}).html("거절");
-							
-							btn = $(btn).append(btnAccept).append(btnReject);
-							
-							row = $(row).append(storeInfo).append(clientInfo);
-							
-							item = $(item).append(row).append(btn);
-							
-							orderContainer = $(orderContainer).append(item);
-							
-							slider = $(slider).append(orderContainer);
-							
-							cardBody = $(cardBody).append(slider);
-							
-							$(card).append(cardHeader).append(cardBody);
-							
-							var it =$("<div>").addClass("item d-flex flex-row");
-							$(it).append(card);
-							$("#container-item").append(it);	
-							
-							count = $(".container>.item").length;
-							console.log("count", count);
-							//modal style 적용
-							$(".slider").css({
-								"position" : "relative",
-								"overflow" : "hidden",
-								"width" : width,
-								"height" : height
-							}).find(".container").css({
-								"position" : "absolute",
-							
-								"overflow" : "hidden"
-							}).find(".item").css({
-								"width" : width,
-								"height" : height
-							});
-							
-							//거절 눌렀을 때
-							$(".btn-reg").click(function(e){
-								
-								console.log(currentPage);
-								console.log(count);
-								
-								$(e.target).parents(".item").remove();
-								
-							});
-							
-							//수락 눌렀을 때
-							$(".btn-acept").click(function(e){
-								console.log(orderNo);
-								console.log(deliveryName);
-								console.log(deliveryAddr);
-								console.log(xl);
-								console.log(yl);
-								console.log(clientAddr);
-								websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, "Y", phoneMessage)));
-								$('#del-modal').modal('hide');
+							switch(msg.state){
+							//사업자의 상태가 요청상태 일때
+							case "W":
+								//loading 화면 없애주기
+								$("#loading").addClass("d-none");
+								//order 화면 보이게 하기
+								$("#order").removeClass("d-none");
 								
 								
-								//$("#deliveryman-info").empty();
-								$("#deliveryman-info").find(".index-search-container").addClass("d-none");
-								
-								$("#deliveryman-info").find(".phone-container").removeClass("d-flex");
-								$("#deliveryman-info").find(".phone-container").addClass("d-none");
-								
-								$("#deliveryman-info").append(it);
-								$("#deliveryman-info").find(".delivery-btn").remove();
-								
-								
-								//버튼 안보이게
-								$("#bt-deliverProxy").addClass("d-none");
-								var deliveryCompleteBtn = $("<button>").attr({
-									"id" : "bt-deliveryComplete",
-									"class" : "btn btn-info btn-lg btn-block",
-									"type" : "button"
-								}).html("배달 완료");
-								
-								$("#delevery-container").append(deliveryCompleteBtn);
-								
-								//
-								//배달 완료 눌렀을 때
-								$("#bt-deliveryComplete").click(function(e){
-									
-										console.log("완료 눌렀을 떄 떠야 함");
-										
-										$("#deliveryman-info").find(".index-search-container").removeClass("d-none");
-										
-										$("#deliveryman-info").find(".phone-container").addClass("d-flex");
-										$("#deliveryman-info").find(".phone-container").removeClass("d-none");
-										
-										$(".item").addClass("d-none");
-										$(".item").removeClass("d-flex");
-										
-										//배달완료 버튼 안보이게
-										$(e.target).addClass("d-none");
-										
-										//배달검색 버튼 보이게
-										$("#bt-deliverProxy").removeClass("d-none");
-										
-										websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, "C", phoneMessage)));
+								var card = $("<div>").attr({
+									"class" : "card text-white bg-info mb-3"	
 								});
 								
-							});
+								var cardHeader = $("<div>").addClass("card-header justify-content-between d-flex");
+								
+								var header1 = $("<div>").html($("<span>").html(storeName));
+								var header2 = $("<div>").html($("<span>").html("배달비 : 2500원"));
+								
+								$(cardHeader).append(header1).append(header2);
+								
+								//객체생성해서 새로운 div 만들어주기
+								var cardBody = $("<div>").addClass("card-body");
+								
+								var slider = $("<div>").addClass("slider1");
+								
+								var orderContainer = $("<div>").addClass("order-container");
+								
+								var item = $("<div>").attr({
+									"class" : "item1 text-center"
+								});
+								
+								var row = $("<div>").addClass("row justify-content-between align-items-center alert-info p-3");
+								
+								var storeInfo = $("<div>").addClass("store-info col border border-dark p-0 mr-3");
+								
+								var storeNameDiv = $("<div>").addClass("store-name d-flex flex-column");
+								var storeName1 = $("<span>").addClass("h4").html("가게 명");										
+								var storeName2 = $("<span>").addClass("h5").html(storeName);
+								
+								$(storeNameDiv).append(storeName1).append(storeName2);
+								
+								var storeAddrDiv = $("<div>").addClass("store-addr d-flex flex-column");
+								var storeAddr1 = $("<span>").addClass("h4").html("가게 주소");
+								var storeAddr2 = $("<span>").addClass("h5").html(storeAddr);
+								
+								$(storeAddrDiv).append(storeAddr1).append(storeAddr2);
+								
+								storeInfo = $(storeInfo).append(storeNameDiv).append(storeAddrDiv);
+								
+								var clientInfo = $("<div>").addClass("client-info col border border-dark ml-3 p-0");
+								
+								var clientAddrDiv = $("<div>").addClass("client-addr d-flex flex-column");
+								var clientAddr1 = $("<span>").addClass("h4").html("배달 주소");
+								var clientAddr2 = $("<span>").addClass("h5").html(clientAddr);
+								
+								$(clientAddrDiv).append(clientAddr1).append(clientAddr2);
+								
+								clientInfo = $(clientInfo).append(clientAddrDiv);
+								
+								var btn = $("<div>").addClass("delivery-btn d-flex flex-row justify-content-center mt-3 mb-0");
+								
+								var btnAccept = $("<button>").attr({
+									"class" : "btn btn-primary mr-3 btn-acept",
+									"type" : "button"
+								}).html("수락");
+								
+								var btnReject = $("<button>").attr({
+									"class" : "btn btn-primary btn-reg",
+									"id" : "btn-reg",
+									"type" : "button"
+								}).html("거절");
+								
+								btn = $(btn).append(btnAccept).append(btnReject);
+								
+								row = $(row).append(storeInfo).append(clientInfo);
+								
+								item = $(item).append(row).append(btn);
+								
+								orderContainer = $(orderContainer).append(item);
+								
+								slider = $(slider).append(orderContainer);
+								
+								cardBody = $(cardBody).append(slider);
+								
+								$(card).append(cardHeader).append(cardBody);
+								
+								var it =$("<div>").addClass("item d-flex flex-row");
+								$(it).append(card);
+								$("#container-item").append(it);	
+								
+								count = $(".container>.item").length;
+								console.log("count", count);
+								//modal style 적용
+								$(".slider").css({
+									"position" : "relative",
+									"overflow" : "hidden",
+									"width" : width,
+									"height" : height
+								}).find(".container").css({
+									"position" : "absolute",
+								
+									"overflow" : "hidden"
+								}).find(".item").css({
+									"width" : width,
+									"height" : height
+								});
+								
+								//거절 눌렀을 때
+								$(".btn-reg").click(function(e){
+									
+									console.log(currentPage);
+									console.log(count);
+									
+									$(e.target).parents(".item").remove();
+									
+								});
+								
+								//수락 눌렀을 때
+								$(".btn-acept").click(function(e){
+									deliveryState = "Y";
+									websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, phoneMessage)));
+									$('#del-modal').modal('hide');
+									
+									
+									//$("#deliveryman-info").empty();
+									$("#deliveryman-info").find(".index-search-container").addClass("d-none");
+									
+									$("#deliveryman-info").find(".phone-container").removeClass("d-flex");
+									$("#deliveryman-info").find(".phone-container").addClass("d-none");
+									
+									$("#deliveryman-info").append(it);
+									$("#deliveryman-info").find(".delivery-btn").remove();
+									
+									
+									//버튼 안보이게
+									$("#bt-deliverProxy").addClass("d-none");
+									var deliveryCompleteBtn = $("<button>").attr({
+										"id" : "bt-deliveryComplete",
+										"class" : "btn btn-info btn-lg btn-block",
+										"type" : "button"
+									}).html("배달 완료");
+									
+									$("#delevery-container").append(deliveryCompleteBtn);
+									
+									//
+									
+									//배달 완료 눌렀을 때
+									$("#bt-deliveryComplete").click(function(e){
+										console.log("business의 상태값");
+										console.log(checkState);	//W
+										
+										switch(checkState){
+										case "S":
+											console.log("완료 눌렀을 떄 떠야 함");
+											
+											$("#deliveryman-info").find(".index-search-container").removeClass("d-none");
+											
+											$("#deliveryman-info").find(".phone-container").addClass("d-flex");
+											$("#deliveryman-info").find(".phone-container").removeClass("d-none");
+											
+											$(".item").addClass("d-none");
+											$(".item").removeClass("d-flex");
+											
+											//배달완료 버튼 안보이게
+											$(e.target).addClass("d-none");
+											
+											//배달검색 버튼 보이게
+											$("#bt-deliverProxy").removeClass("d-none");
+											
+											deliveryState = "C";
+											websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, phoneMessage)));
+											break;
+										
+										default:
+											alert("먼저 가게에서 음식을 수령해주세요.");
+											break;
+										}
+											
+									});
+									
+								});
+								
+								break;
+								
+							//사업자의 상태가 출발상태 일때
+							case "S":
+								break;
+							}
+							
 									
 							break;
 					}

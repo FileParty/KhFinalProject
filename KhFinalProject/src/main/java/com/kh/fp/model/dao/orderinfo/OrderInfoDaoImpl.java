@@ -12,5 +12,11 @@ public class OrderInfoDaoImpl implements OrderInfoDao{
 		return session.update("orderInfo.updateState", orderNo);
 	}
 
+	@Override
+	public int updateOrderStateComplete(SqlSessionTemplate session, int orderNo) {
+		// TODO Auto-generated method stub
+		return session.update("orderInfo.updateStateComplete", orderNo);
+	}
+
 	
 }

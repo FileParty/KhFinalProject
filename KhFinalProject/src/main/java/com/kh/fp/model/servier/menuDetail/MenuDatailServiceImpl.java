@@ -59,6 +59,28 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 	public int insertReport(Report report) {
 		return dao.insertReport(session,report);
 	}
+
+	@Override
+	public int selectBookMarkCheck(Map bmCheck) {
+		return dao.selectBookMarkCheck(session,bmCheck);
+	}
+
+	@Override
+	public int selectBookMarking(Map<String, Integer> bm) {
+		int result = 0;
+		if((int)bm.get("check")==0) {
+			result = dao.insertBookMarking(session,bm);
+			if(result>0) {
+				result = 100;
+			}
+		} else {
+			result = dao.deleteBookMarking(session,bm);
+			if(result>0) {
+				result = -100;
+			}
+		}
+		return result;
+	}
 	
 	
 
