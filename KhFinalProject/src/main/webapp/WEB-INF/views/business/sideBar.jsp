@@ -15,9 +15,9 @@
       
         div#side {
             border: 1px soild black;
-            margin-top:100px;
-            position: fixed;
-            width:200px;
+            margin-top:130px;           
+            width:150px;
+            
         }
       
         a.menu{

@@ -30,7 +30,6 @@
 	      } 
       
 	 div#main{
-      	margin-left:300px;
       	margin-top:150px;
       	height:auto;
       	width:500px;
@@ -84,7 +83,7 @@
 
       </style>
 	<%@include file="../common/header.jsp" %>
-    <section style="width:1366px;height:auto;">
+    <section style="width:auto;height:auto;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>

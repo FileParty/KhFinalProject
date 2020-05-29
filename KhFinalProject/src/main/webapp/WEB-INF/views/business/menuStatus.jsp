@@ -11,7 +11,7 @@
 	}
 	p{
 		font-family: 'Do Hyeon';
-		font-size: 40px;		
+				
 	}
 	h2{
 		font-family: 'Do Hyeon';
@@ -26,8 +26,9 @@
 		font-family: 'Do Hyeon';
 	}
  	div#main{
-      	margin-left:200px; 	
-      	margin-top:150px;
+      	 	
+      	margin-top:130px;
+      	
       }
  
       div.row1 {
@@ -144,17 +145,17 @@
 		margin-top:5px;
 		font-weight:1000;
 	}
-
-
-
-
-	
+	div.modal-content{
+	overflow-y:scroll;	
+	width:600px;
+	height:900px;
+	}
 
       </style>
       
       
 	<%@include file="../common/header.jsp" %>
-    <section style="width:1366px;height:auto;margin-bottom:400px;">
+    <section id="section" style="width:auto;height:auto;margin-bottom:250px;">
  	<div class="container" >
  		<div class="row">
  		<%@ include file="sideBar.jsp" %>
@@ -232,7 +233,7 @@
 						  </div>
 						  
    		<script>
-
+			
    		$(function() {
    			
    		 	$.ajax({
@@ -364,7 +365,7 @@
 					
 							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+						 		let divTest = $("<div>").attr('class','col-lg-6 menuCategory').css('margin-left','20');
 								let divTest2 = $("<div>").attr('class','col-lg-5');
 									
 								let rowDev = $("<div>").attr({
@@ -457,12 +458,14 @@
    			$("#myModal2").modal('show');
    			$("#myModal1").modal('hide');  			
    			$("#menuUpdate").children().remove();
-   			console.log($(event.target).prev().prev());
+   			console.log('메뉴업뎃버튼',$(event.target));
    			let div = $("<div>")
    			
    			
    			let prev2 =$(event.target).prev().prev().prev();
    			let prev3 =$(event.target).prev().prev().prev().prev();
+   			console.log('이전div2',prev2);
+   			console.log('이전div3',prev3);
    			
    			
    			let copy2 = prev2.clone();
@@ -522,7 +525,7 @@
    		}
    		
    		function test() {
- 
+ 			console.log('타겟?',$(event.target).parent().parent().find('div:eq(0)').find('input:eq(1)').val());
    			 $("#myModal1").modal('show'); 
    			 $(".modal-body1").children().remove();
     			
@@ -531,66 +534,184 @@
    			 let rowDev = $("<div>").attr({
 				'class':'row',				
 				});
-				
-			let menuImg = $("<img>").attr({
-				'src':$(event.target).parent().find('div:eq(1)').find('img').attr('src'),
+				if($(event.target).parent().prop('class')=='col-lg-5') {
+					var menuImg = $("<img>").attr({
+				'src':$(event.target).parent().find('img').attr('src'),
 				'class':'menuImg'
 				}).css({
 				'width':'100%',
 				'height':'300'
 				})
-			 let menuText = $("<textarea>").attr({					
+				
+				var menuText = $("<textarea>").attr({					
 					'class':'menuTexts form-control',
 					'cols':'30',
 					'rows':'2',
 					'name':'me_text',
 					
 					'readonly':'true'
-				}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
+				}).html($(event.target).parent().parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
 			
-			let menuName = $("<input>").attr({
+			var menuName = $("<input>").attr({
 				'type':'text',
 				'class':'menuNames form-control',
-				'value':$(event.target).parent().find('div:eq(0)').find('input:eq(0)').val(),
+				'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(0)').val(),
 				'name':'me_name',
 				'readonly':'true'
 				}).css({'background-color':'white','width':'auto','margin-left':'80','border':'none','font-weight':'700','font-size':'20px'}).after($("<br>")); 							
 					
-			let menuPrice = $("<input>").attr({
+			var menuPrice = $("<input>").attr({
 						'type':'number',
 						'class':'menuPrices form-control',
 						'step':'1000',
-						'value':$(event.target).parent().find('div:eq(0)').find('input:eq(1)').val(),
+						'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(1)').val(),
 						'name':'me_price',
 						'readonly':'true'
 				}).css({'background-color':'white','width':'auto','color':'red','margin-left':'100','border':'none'}).after($("<br>")); 
 			
-			let me_no = $("<input>").attr({
+			var me_no = $("<input>").attr({
 				'type':'hidden',
 				'name':'me_no',
-				'value':$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val()
+				'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(3)').val()
 			})
 			
-			let mt_no = $("<input>").attr({
+			var mt_no = $("<input>").attr({
 				'type':'hidden',
 				'name':'mt_no',
-				'value':$(event.target).parent().find('div:eq(0)').find('input:eq(4)').val()
+				'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(4)').val()
 			})
 			
-			let s_no = $("<input>").attr({
+			var s_no = $("<input>").attr({
 				'type':'hidden',
 				'name':'s_no',
 				'value':$("#store").val()
 			}) 
+				
+				}else if($(event.target).parent().prop('class')=='col-lg-6 menuCategory') {
+					var menuImg = $("<img>").attr({
+						'src':$(event.target).parent().parent().find('div:eq(1)').find('img').attr('src'),
+						'class':'menuImg'
+						}).css({
+						'width':'100%',
+						'height':'300'
+						})
+						
+						var menuText = $("<textarea>").attr({					
+								'class':'menuTexts form-control',
+								'cols':'30',
+								'rows':'2',
+								'name':'me_text',
+								
+								'readonly':'true'
+							}).html($(event.target).parent().parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
+						
+						var menuName = $("<input>").attr({
+							'type':'text',
+							'class':'menuNames form-control',
+							'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(0)').val(),
+							'name':'me_name',
+							'readonly':'true'
+							}).css({'background-color':'white','width':'auto','margin-left':'80','border':'none','font-weight':'700','font-size':'20px'}).after($("<br>")); 							
+								
+						var menuPrice = $("<input>").attr({
+									'type':'number',
+									'class':'menuPrices form-control',
+									'step':'1000',
+									'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(1)').val(),
+									'name':'me_price',
+									'readonly':'true'
+							}).css({'background-color':'white','width':'auto','color':'red','margin-left':'100','border':'none'}).after($("<br>")); 
+						
+						var me_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'me_no',
+							'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(3)').val()
+						})
+						
+						var mt_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'mt_no',
+							'value':$(event.target).parent().parent().find('div:eq(0)').find('input:eq(4)').val()
+						})
+						
+						var s_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'s_no',
+							'value':$("#store").val()
+						}) 
+					
+						
+						
+				}else {
+						var menuImg = $("<img>").attr({
+						'src':$(event.target).parent().find('div:eq(1)').find('img').attr('src'),
+						'class':'menuImg'
+						}).css({
+						'width':'100%',
+						'height':'300'
+						})
+						
+						 var menuText = $("<textarea>").attr({					
+								'class':'menuTexts form-control',
+								'cols':'30',
+								'rows':'2',
+								'name':'me_text',
+								
+								'readonly':'true'
+							}).html($(event.target).parent().find('div:eq(0)').find('input:eq(2)').val()).css({'background-color':'white','width':'200;','text-align':'center'}).after($("<br>"));
+						
+						var menuName = $("<input>").attr({
+							'type':'text',
+							'class':'menuNames form-control',
+							'value':$(event.target).parent().find('div:eq(0)').find('input:eq(0)').val(),
+							'name':'me_name',
+							'readonly':'true'
+							}).css({'background-color':'white','width':'auto','margin-left':'80','border':'none','font-weight':'700','font-size':'20px'}).after($("<br>")); 							
+								
+						var menuPrice = $("<input>").attr({
+									'type':'number',
+									'class':'menuPrices form-control',
+									'step':'1000',
+									'value':$(event.target).parent().find('div:eq(0)').find('input:eq(1)').val(),
+									'name':'me_price',
+									'readonly':'true'
+							}).css({'background-color':'white','width':'auto','color':'red','margin-left':'100','border':'none'}).after($("<br>")); 
+						
+						var me_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'me_no',
+							'value':$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val()
+						})
+						
+						var mt_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'mt_no',
+							'value':$(event.target).parent().find('div:eq(0)').find('input:eq(4)').val()
+						})
+						
+						var s_no = $("<input>").attr({
+							'type':'hidden',
+							'name':'s_no',
+							'value':$("#store").val()
+						}) 
+					
+				}
+			
    			 div1.append(menuImg);
 
 			 div2.append($("<br>")).append(menuName).append(menuPrice).append($("<br>")).append(menuText).append(me_no).append(mt_no).append(s_no).append($("<br>"));
 			$(".modal-body1").append(div1).append(div2);
-   			
-			console.log('메뉴번호',$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val());
+   	
+			var num = 0;
+			 switch($(event.target).parent().prop('class')){
+			case 'col-lg-6 menuCategory' : num = $(event.target).parent().find('input:eq(3)').val();break;
+			case 'col-lg-5' : num = $(event.target).parent().parent().find('div:eq(0)').find('input:eq(3)').val();break;
+			case 'row' : num = $(event.target).parent().find('div:eq(0)').find('input:eq(3)').val();break;
+				} 
+			 console.log('넘넘',num);
 			$.ajax({
    				url:'${path}/licensee/selectMenuSide',
-   				data:{me_no:$(event.target).parent().find('div:eq(0)').find('input:eq(3)').val(),s_no:$("#store").val()},
+   				data:{me_no:num,s_no:$("#store").val()},
    				success:function(data) {
    					console.log("메뉴옵션 성공!",data);
    					let div = $("<div>");
@@ -612,37 +733,44 @@
 						}
    					div.append(span).append(span1).append(hide);
    					for(let i=data.length-1;i>=0;i--) {
+   						let roww = $("<div>").attr('class','row');
+   						
+   						
    						let input = $("<input>").attr({
    							'type':'checkbox',
    							'value':data[i].sd_no,
    							'checked':'true',
-   							'disabled':'true',  							
+   							'disabled':'true',    							
    							'id':'chck'+i,	
    						}).css({
    							
    							'display':'inline',
-   							'margin-right':'100px;'
+   							'margin-left':'0',
+   							'width':'auto'
    						})
    						let label = $("<label>").attr({
    							'for':'chck'+i,
    						}).css({
    							'width':'auto',
-   							'display':'inline',   							
-   						}).html(data[i].sd_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i].sd_price+'원');
-   						
-   					
+   													
+   						}).html(data[i].sd_name+data[i].sd_price+'원');
+
    						if(data[i].sd_division=='Y'){
    							span.after($("<br>")).after(label).after(input);
+   							
    						}else {
    							span1.after($("<br>")).after(label).after(input);
+   							
    						}
+   						
+   						
    					}
    						let btn = $("<input>").attr({
    							'type':'button',
    							'value':'수정할래요!!!!',
    							'class':'updateBtn',
    							'onclick':'menuUpdate();'
-   						})
+   						});
    					$(".modal-body1").append(div).append($("<br>")).append(btn);
    				}
    			})
@@ -685,12 +813,13 @@
    				url:"${path}/licensee/menuSelect",
 					data:{s_no:$("#store").val()},
 					success:function(data) {
-						$(".menuDiv").children().remove();
-						console.log('메뉴성공',data);						
+						
+						console.log('메뉴성공',data);
+						let remove = $(".row1").children().remove();
 						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
 						let rowDiv = $("<div>").attr('class','row row1')
 						
-						var menuDivv = $("<div>").attr({
+						var menuDiv = $("<div>").attr({
 							'class':'carousel-item active',	
 							 								
 						}).css({							
@@ -751,12 +880,12 @@
 							
 							if(i<4) { 
 							rowDiv.append(div);
-							menuDivv.append(rowDiv);
-							
+							menuDiv.append(rowDiv);
+							console.log(menuDiv.find($(".menuList")).length);
 							}else {
 								if(i%4==0) {
-									var rowDiv3 = $("<div>").attr('class','row row1');
-									var menuDiv3 = $("<div>").attr({
+									var rowDiv2 = $("<div>").attr('class','row row1');
+									var menuDiv2 = $("<div>").attr({
 										'class':'carousel-item ',	
 										 								
 									}).css({
@@ -768,10 +897,10 @@
 							      		
 									})
 								}
-								rowDiv3.append(div);
-								menuDiv3.append(rowDiv3);
+								rowDiv2.append(div);
+								menuDiv2.append(rowDiv2);
 							}
-							$(".menuDiv").append(menuDivv).append(menuDiv3);
+							$(".menuDiv").append(menuDiv).append(menuDiv2);
 						 
 							
 						}
@@ -781,7 +910,7 @@
 					
 							
 						 	for(let j=0;j<data.length;j++) {
-						 		let divTest = $("<div>").attr('class','col-lg-6').css('margin-left','20');
+						 		let divTest = $("<div>").attr('class','col-lg-6 menuCategory').css('margin-left','20');
 								let divTest2 = $("<div>").attr('class','col-lg-5');
 									
 								let rowDev = $("<div>").attr({

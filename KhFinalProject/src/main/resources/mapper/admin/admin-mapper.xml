@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+	<select id="selectApplyStoreList" resultType="applyStore">
+		SELECT * FROM STORE WHERE S_ENROLLSTATUS='N'
+	</select>
+	<select id="selectApplyStoreCategory" resultType="string" parameterType="_int">
+		SELECT CT_NAME FROM CATEGORY WHERE CT_NO IN(SELECT CT_NO FROM STORE_CATEGORY WHERE S_NO=#{s_No})
+	</select>
+	<select id="selectApplyStoreInfo" resultType="applyStoreInfo" parameterType="_int">
+		SELECT * FROM STORE JOIN BUSINESS USING(B_NO) WHERE S_NO=#{s_no}
+	</select>
+</mapper>

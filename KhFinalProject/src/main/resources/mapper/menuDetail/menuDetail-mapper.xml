@@ -54,4 +54,13 @@
 		</selectKey>
 		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no})
 	</insert>
+	<select id="selectBookMarkCheck" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM PREFER WHERE M_NO=#{m_no} AND S_NO=#{s_no}
+	</select>
+	<insert id="insertBookMark" parameterType="map">
+		INSERT INTO PREFER VALUES(#{m_no},#{s_no})
+	</insert>
+	<delete id="deleteBookMark" parameterType="map">
+		DELETE PREFER WHERE M_NO=#{m_no} AND S_NO=#{s_no}
+	</delete>
 </mapper>

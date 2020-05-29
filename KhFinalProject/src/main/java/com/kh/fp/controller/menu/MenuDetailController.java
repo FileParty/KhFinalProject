@@ -19,6 +19,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.fp.model.servier.menuDetail.MenuDatailService;
+import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Member;
 import com.kh.fp.model.vo.Report;
 import com.kh.fp.model.vo.StoreDetailInfo;
 import com.kh.fp.model.vo.StoreMenu;
@@ -78,6 +80,21 @@ public class MenuDetailController {
 			store.add(storeSession);
 		}
 		session.setAttribute("recentList", store);
+		if(session.getAttribute("loginMember")!=null){
+			Member m = null;
+			Business b = null;
+			Map loginType = new HashMap();
+			try{
+				m = (Member)session.getAttribute("loginMember");
+				loginType.put("type", "m");
+				loginType.put("no", m.getM_No());
+			} catch(Exception e){
+				b = (Business)session.getAttribute("loginMember");
+				loginType.put("type", "b");
+				loginType.put("no", b.getB_No());
+			}
+			mv.addObject("loginType", loginType);
+		}
 		mv.setViewName("/menu/menuDetail");
 		return mv;
 	}
@@ -143,6 +160,28 @@ public class MenuDetailController {
 		Report report = mapper.readValue(reportVar, Report.class);
 		int result = service.insertReport(report);
 		log.debug("신고"+report);
+		return result;
+	}
+	
+	// 북마크
+	@RequestMapping("/menu/bookMarkCheck")
+	@ResponseBody
+	public int storeBookMarkCheck(@RequestParam int m_no, @RequestParam int s_no) {
+		Map<String,Integer> bmCheck = new HashMap<String,Integer>();
+		bmCheck.put("m_no",m_no);
+		bmCheck.put("s_no", s_no);
+		int result = service.selectBookMarkCheck(bmCheck);
+		return result;
+	}
+	
+	@RequestMapping("/menu/storeBookMark")
+	@ResponseBody
+	public int storeBookMarking(@RequestParam int m_no, @RequestParam int s_no, @RequestParam int check) {
+		Map<String,Integer> bm = new HashMap<String,Integer>();
+		bm.put("m_no",m_no);
+		bm.put("s_no", s_no);
+		bm.put("check",check);
+		int result = service.selectBookMarking(bm);
 		return result;
 	}
 	
