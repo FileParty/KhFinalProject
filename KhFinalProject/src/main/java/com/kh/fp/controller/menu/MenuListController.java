@@ -99,9 +99,12 @@ public class MenuListController {
 		m.addAttribute("search", search);
 		m.addAttribute("cPage", cPage);
 		
-		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category, search, sortType));
-			
+		//로컬에서 실행
+		//m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/spring/menu/menuList.do", category, search, sortType));
 		
+		//배포 후 실행
+		m.addAttribute("pageBar", PageingFactory.PageBarFactory(cPage, numperPage, totalData, "/20PM_deliveryKing_final/menu/menuList.do", category, search, sortType));
+
 		return "menu/menulist";
 	}
 	
@@ -163,7 +166,10 @@ public class MenuListController {
 		map.put("cPage", cPage);
 		map.put("list", storeList);
 		
-		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category, search, sortType));
+		//로컬에서 실행
+		//map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/spring/menu/menuFilter.do", category, search, sortType));
+		//배포 후 실행
+		map.put("pageBar", PageingFactory.PageBarFactoryAjax(cPage, numperPage, totalData, "/20PM_deliveryKing_final/menu/menuFilter.do", category, search, sortType));
 		
 		return map;
 	}

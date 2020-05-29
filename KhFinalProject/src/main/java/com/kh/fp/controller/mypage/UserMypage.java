@@ -65,7 +65,7 @@ public class UserMypage {
 		int numPerPage = 6;
 		
 		int totalData = service.getTotalCount(loginMember.getM_No());
-		String url = "/spring/mypage/orderHistory.do";
+		String url = "/20PM_deliveryKing_final/mypage/orderHistory.do";
 		
 		
 		List<Map<String, String>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
@@ -204,7 +204,7 @@ public class UserMypage {
 		}
 		int numPerPage = 10;
 		int totalData = service.reviewTotalCount(loginMember.getM_No());
-		String url = "/spring/mypage/review.do";
+		String url = "/20PM_deliveryKing_final/mypage/review.do";
 		
 		System.out.println("cPage: " + cPage);
 		

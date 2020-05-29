@@ -40,14 +40,14 @@
 				<c:if test="${flag==null }">
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-						<span onclick="location.replace('${path}/#')">마이페이지</span>
+						<span onclick="location.replace('${path }/mypage/mypage.do')">마이페이지</span>
 						<span onclick="location.replace('${path}/#')">주문표</span>
 					</div>
 				</c:if>
 				<c:if test="${flag!=null }">	
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-						<span onclick="location.replace('${path}/#')">사업자 마이페이지</span>
+						<span onclick="location.replace('${path }/store/mypage')">사업자 마이페이지</span>
 						<span onclick="location.replace('${path}/#')">주문표</span>
 					</div>
 				</c:if>
