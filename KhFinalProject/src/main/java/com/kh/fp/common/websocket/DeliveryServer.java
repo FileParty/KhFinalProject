@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -289,5 +290,16 @@ public class DeliveryServer extends TextWebSocketHandler{
         return (rad * 180 / Math.PI);
     }
 
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		// TODO Auto-generated method stub
+		log.debug("세션이 끊어졌습니다.");
+		log.debug("세션 값"+session);
+		log.debug("접속자: " + clients);
+	}
+
+    
+    
 }
 

@@ -262,8 +262,8 @@
    					$(".del-count").html("0 명의 배달원을 찾았습니다.");
    					
    				//웹소켓 객체 생성
-   	   	   			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-   	   	   			//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+   	   	   			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+   	   	   			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
    	   	   	
    	   	   			//웹소켓 onopen 함수
    	   	   			websocket.onopen = function(data){
