@@ -13,4 +13,8 @@ public class Delivery {
 	private String d_Status;
 	private String d_X;
 	private String d_Y;
+	private int o_No;
+	private String store_Name;
+	private String store_Address;
+	private String client_Address;
 }
