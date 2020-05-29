@@ -21,12 +21,20 @@ public class OrderInfoController {
 	@ResponseBody
 	public Map updateOrderState(@RequestParam(defaultValue="1") int orderNo) {
 		int result = service.updateOrderState(orderNo);
-		
-		System.out.println("====orderNo값====");
-		System.out.println(orderNo);
-		
+				
 		Map map = new HashMap();
 		map.put("result", result);
+		
+		return map;
+	}
+	
+	@RequestMapping("/orderInfo/updateStateComplete.do")
+	@ResponseBody
+	public Map updateOrderStateComplete(@RequestParam(defaultValue="1") int orderNo) {
+		int result = service.updateOrderStateComplete(orderNo);
+		
+		Map map = new HashMap();
+		map.put("result", result);;
 		
 		return map;
 	}

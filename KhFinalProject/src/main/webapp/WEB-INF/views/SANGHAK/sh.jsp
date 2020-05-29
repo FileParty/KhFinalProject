@@ -1511,8 +1511,11 @@ main {
 		$("#allpay4").val(basicpoint1); 
 		$("#sum").val(totaldate2-basicpoint1-coupon); 
 		$("#allpay2").val('0'); 
-		
-      
+	/* 	
+		$("#allpay3").val(totaldate); 
+		$("#allpay2").val(basicpoint-totaldate); 
+		$("#sum").val('0');
+		$("#allpay4").val(totaldate);  */
       
       
     } else{

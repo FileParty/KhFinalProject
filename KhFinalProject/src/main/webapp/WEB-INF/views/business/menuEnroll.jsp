@@ -417,8 +417,11 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						        <form id="form" action="${path }/licensee/categoryEnroll" method="post" class="categoryForm"> 
+						       
+						        <form id="form" action="${path }/licensee/categoryEnroll" method="post" class="categoryForm" onsubmit="return categoryEnroll();"> 
+						        
 						        	<button id="cateBtn" type="submit">등록</button>
+						        	<br>
 						        </form>
 						        </div>					        
 						      </div>
@@ -435,7 +438,7 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						        	<form id="optionForm" action="${path }/licensee/optionEnroll" method="post" onsubmit="return text();">	         	
+						        	<form id="optionForm" action="${path }/licensee/optionEnroll" method="post" onsubmit="return optionForm();">	         	
 						          	<input style="width:60px;display:inline" type="text" id="plusOption2" name="e_option" class="form-control" placeholder="필수" disabled>
 						          	<button type="button" class="btn btn-light plus"  onclick="option();">옵션 추가</button>						     
 						          	<br>
@@ -448,7 +451,7 @@
 						          	<br>
 						          	<div id="option2-container"></div>
 						          	 
-						          	<button type="submit" class="btn btn-outline-secondary" >등록</button>		
+						          	<button type="submit" class="btn btn-outline-secondary">등록</button>		
 						          	</form>		        
 						        </div>					        
 						      </div>
@@ -478,9 +481,27 @@
 						      </div>
 						    </div>
 						  </div>
-	  	
+	  		
 		<script>
-		
+		function optionForm() {
+			if($("input[name=sd_name]").val().trim()==""||$("input[name=sd_name]").length==0){
+				return false;
+			}else {
+				return true;
+			}
+			
+		}
+		function categoryEnroll() {
+
+			if($(".categoryPP").val().trim()=="" || $(".categoryPP").length==0){
+				alert('카테고리를 1개이상 입력해야 등록이 가능합니다!');
+				return false;
+			}
+			else{
+				
+				return true;
+			}
+		}
 		function menuEnrollEnd() {
 			if($("#menu-container").children().find('div').length==0) {
 				alert('1개 이상의 메뉴를 넣어야 등록이 가능합니다!');
@@ -721,7 +742,25 @@
 			 
 			
 			function add() {
-				$(".categoryForm").append($("<input>").attr({'type':'text','class':'form-control','name':'category','placeholder':'카테고리를 입력해주세요.'}));
+				let categoryPP = $("<input>").attr({'type':'text','class':'categoryPP ','name':'category','placeholder':'카테고리를 입력해주세요.'}).css('width','350');
+				let close = $("<input>").attr({
+					'type':'button',
+					'value':'x',
+					'onclick':'closeX();'
+				}).css({
+					'margin-left':'30',
+					'border':'none',
+					'background-color':'white',
+					'font-weight':'700'
+					});
+				let div = $("<div>").attr('class','categoryDiv');
+				div.append(categoryPP).append(close).append($("<br>"));
+				$("#form").append(div);
+			}
+			function closeX() {
+				$(event.target).parent().remove();
+				console.log($(".categoryDiv").length);
+	
 			}
 	
 			
@@ -857,10 +896,8 @@
 				$("#option1-container").append(tbl);			
 			}
 			
-			function deleteX() {
-				console.log(event.target.parentNode.parentNode);
-				let deleteX = event.target.parentNode.parentNode;
-				deleteX.remove();
+			function deleteX() {				
+				$(event.target).parent().parent().remove();
 				
 			}
 			
@@ -958,26 +995,7 @@
 						
 					}
 				}
-			
-				
-				/* if($("input[name=radio]:checked").length==0){
-					alert('필수옵션 선택해주세요!');
-					$("input[name=radio]:checked").focus();
-					$("#optionEnroll").removeAttr('data-dismiss');
-					return;
-				}else {
-				$("#optionEnroll").attr('data-dismiss','modal');
-				} */
-				
-				/*  if(checkCount == 0) {
-					 alert('추가옵션은 1개 이상 선택해주세요!');
-					 $("#optionEnroll").removeAttr('data-dismiss');
-					 return;
-				 }else {
-						$("#optionEnroll").attr('data-dismiss','modal');
-					} */
-				
-				
+
 				var cloneFile = $("#modalFile").clone();
 				cloneFile.removeAttr('id');
 				cloneFile.attr({
@@ -1044,8 +1062,7 @@
 				div.append(inputN);
 				div.append(inputP);
 				div.append(textD);
-			 	/* div1.append(sdNoHid).append(strong).append(inputR).append(labelR).append(spans).append("<br>");  */
-			
+
 				if($("input[name=radio]:checked").length !=0) {
 				 var strong = $("<strong>");
 				 var pTag = $("<p>").html("필수");
@@ -1153,11 +1170,7 @@
 					 'name':'storeNum',
 					 'value':$("#storeInfo").val()
 					 });
-				 	
-				 	
-				 	
-				 	
-		 
+
 				var divv = $("<div>")
 				divv.append(hiddenInput);
 				div2.append(img);
