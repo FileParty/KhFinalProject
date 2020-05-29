@@ -10,4 +10,5 @@
 	<select id="selectApplyStoreInfo" resultType="applyStoreInfo" parameterType="_int">
 		SELECT * FROM STORE JOIN BUSINESS USING(B_NO) WHERE S_NO=#{s_no}
 	</select>
+	
 </mapper>

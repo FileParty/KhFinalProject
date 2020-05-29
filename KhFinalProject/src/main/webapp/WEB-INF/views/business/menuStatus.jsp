@@ -93,9 +93,12 @@
 	}
 
 	#store{
-		background-color:#E1E1E1;
-		color:white;
-		font-weight:700;
+	      background-color:lightgray;
+      box-shadow :3px 3px 5px #333333;
+      color:white;
+      text-shadow:3px 3px 5px #333333;
+      font-family: 'Do Hyeon';
+      text-align :center;
 	}
 	div#demo{
 		background:linear-gradient( #FFFFFF 5%);		 
@@ -241,6 +244,10 @@
 					data:{s_no:$("#store").val()},
 					success:function(data) {
 						console.log("카테고리성공",data);	
+						if(data.length == 1) {							
+							alert('등록 된 리뷰가 없습니다!');
+							return;
+						}
 						for(let i=0;i<data.length;i++) {
 							let cateSpan = $("<input>").attr({								
 								'class':'form-control sss',
@@ -268,7 +275,12 @@
    				url:"${path}/licensee/menuSelect",
 					data:{s_no:$("#store").val()},
 					success:function(data) {
-						
+						if(data.length==0) {
+							$("#demo").children().remove();
+							$("#prev").hide();
+							$("#next").hide();
+							return;
+						}else {
 						console.log('메뉴성공',data);
 						let remove = $(".row1").children().remove();
 						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
@@ -445,7 +457,7 @@
 							 
 						}
 						
-					
+						}
 					}
    			})
    		})
@@ -813,7 +825,10 @@
    				url:"${path}/licensee/menuSelect",
 					data:{s_no:$("#store").val()},
 					success:function(data) {
-						
+						if(data.length == 1) {							
+							alert('등록 된 메뉴가  없습니다!');
+							return;
+						}
 						console.log('메뉴성공',data);
 						let remove = $(".row1").children().remove();
 						let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});

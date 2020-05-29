@@ -417,9 +417,9 @@
 						        </div>
 						         
 						        <div class="modal-body" align=center>	
-						       
+						      
 						        <form id="form" action="${path }/licensee/categoryEnroll" method="post" class="categoryForm" onsubmit="return categoryEnroll();"> 
-						        
+						        	<div id="category-content"></div>
 						        	<button id="cateBtn" type="submit">등록</button>
 						        	<br>
 						        </form>
@@ -444,13 +444,14 @@
 						          	<br>
 						          	<br>
 						          	<div id="option1-container">
-						          	</div>					          					          	
-						          	<input style="width:60px;display:inline;" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="추가" disabled>        
+						          	</div>		
+						          	<br>			          					          	
+						          	<input style="width:60px;display:inline;" type="text" id="plusOption2" name="e_option2" class="form-control" placeholder="추가" disabled>        						      
 						          	<button type="button" class="btn btn-light plus1" onclick="option1();">옵션 추가</button> 					          	
 						          	<br>
 						          	<br>
 						          	<div id="option2-container"></div>
-						          	 
+						          	 <br>
 						          	<button type="submit" class="btn btn-outline-secondary">등록</button>		
 						          	</form>		        
 						        </div>					        
@@ -483,22 +484,47 @@
 						  </div>
 	  		
 		<script>
+		
 		function optionForm() {
-			if($("input[name=sd_name]").val().trim()==""||$("input[name=sd_name]").length==0){
+			let count = 0;
+			if($("#optionForm").children().find('input[name=sd_name]').length == 0){	
+				count++;
+			}
+			for(let i=0;i<$("#option1-container").find('div').length;i++) {
+				let valid = $("#option1-container").find('div:eq('+i+')').find('input[name=sd_name]:eq(0)');
+				let valid1 = $("#option1-container").find('div:eq('+i+')').find('input[name=sd_price]:eq(0)');
+				if(valid.val().trim()=="" || valid.val().length==0) {
+					count++;
+				}else if(valid1.val().trim()=="" || valid1.val().length==0) {
+					count++;
+				}
+			}
+			
+			
+			if(count>0) {
+				alert('옵션명을 적어주세요!');
 				return false;
-			}else {
+			}
+			else {
 				return true;
 			}
 			
 		}
-		function categoryEnroll() {
-
-			if($(".categoryPP").val().trim()=="" || $(".categoryPP").length==0){
-				alert('카테고리를 1개이상 입력해야 등록이 가능합니다!');
-				return false;
+		function categoryEnroll() {	
+			let count = 0;
+			if($("#form").children().find('input[name=category]').length == 0){
+				count++;
 			}
-			else{
-				
+			for(let i=0;i<$("#category-content").find('div').length;i++) {
+				let valid = $("#category-content").find('div:eq('+i+')').find('input[name=category]:eq(0)');
+			if(valid.val().trim()=="" || valid.val().length==0) { 
+				count++;				
+			}
+			}
+			if(count>0) {
+				alert('카테고리명을 적어주세요!');
+				return false;
+			}else {
 				return true;
 			}
 		}
@@ -674,7 +700,7 @@
 				$(".fileName").html('<strong>'+'메뉴 이미지를 첨부해주세요.'+'</strong>');
 			}
 			 function categoryPlus() {
-
+							$("#category-content").children().remove();
 						 $("#myModal3").modal('show');
 						 
 						 $(".modal-body").children().find('input[name=storeNo]').remove();
@@ -696,6 +722,9 @@
 								 'name':'storeNum',
 								 'value':$("#storeInfo").val()
 							 });
+							 let btn = $("<input>").attr({
+								 'type':'button',
+							 })
 							 $("#option2-container").append(storeNo);
 						 }
 
@@ -755,7 +784,8 @@
 					});
 				let div = $("<div>").attr('class','categoryDiv');
 				div.append(categoryPP).append(close).append($("<br>"));
-				$("#form").append(div);
+				$("#category-content").append(div);
+				
 			}
 			function closeX() {
 				$(event.target).parent().remove();
@@ -857,25 +887,26 @@
 				'class':'table table-hover'
 			})
 			
-			
+			function deleteX() {
+				
+				$(event.target).parent().remove();
+				
+			}
 			function option() {
-				var tr = $("<tr>");
-				var tr1 = $("<tr>");
-				var td = $("<td>");
-				var td1 = $("<td>");
-				var td2 = $("<td>");
+
+				let div = $("<div>");
 				var text = $("<input>").attr({
 					'type':'text',
 					'name':'sd_name',
 					'class':'sd_name form-control',
-					'placeholder':'옵션 입력 해주세요'
-				})
+					'placeholder':'필수 선택 옵션을 입력 해주세요'
+				}).css({'width':'250','display':'inline'});
 				var number = $("<input>").attr({
 					'type':'number',
 					'name':'sd_price',
 					'class':'sd_price form-control',
 					'placeholder':'가격 입력 해주세요'
-				});	
+				}).css({'width':'150','display':'inline','margin-left':'10'});
 				var hidden = $("<input>").attr({
 					'name':'sd_division',
 					'type':'hidden',
@@ -888,48 +919,26 @@
 					'onclick':'deleteX();'
 					
 				})
-				td.append(text);
-				td1.append(number).append(hidden);
-				td2.append(deleteBtn);
-				tr.append(td).append(td1).append(td2);
-				tbl.append(tr);
-				$("#option1-container").append(tbl);			
+				div.append(text).append(number).append(hidden).append(deleteBtn);
+				$("#option1-container").append(div);			
 			}
-			
-			function deleteX() {				
-				$(event.target).parent().parent().remove();
-				
-			}
-			
-			var tbl2 = $("<table>").attr('id','option2');
-			var tr2 = $("<tr>");
-			var th2 = $("<th>").html('옵션');
-			var th3 = $("<th>").html('가격');
-			tr2.append(th2).append(th3);
-			tbl2.append(tr2);
-			tbl2.attr({
-				'class':'table table-hover'
-			})
-			
+		
 			function option1() {
-				var tr = $("<tr>");
-				var tr1 = $("<tr>");
-				var td = $("<td>");
-				var td1 = $("<td>");
-				var td2 = $("<td>");
+
+				let div = $("<div>");
 				var texts = $("<input>").attr({
 					'type':'text',
 					'name':'sd_name',
 					'class':'form-control',
-					'placeholder':'옵션 입력 해주세요'
+					'placeholder':'추가 선택 옵션을  입력 해주세요'
 					
-				})
+				}).css({'width':'250','display':'inline'});
 				var numbers = $("<input>").attr({
 					'type':'number',
 					'name':'sd_price',
 					'class':'form-control',
 					'placeholder':'가격 입력 해주세요'
-				})
+				}).css({'width':'150','display':'inline','margin-left':'10'});
 				var hidden = $("<input>").attr({
 					'name':'sd_division',
 					'type':'hidden',
@@ -943,12 +952,8 @@
 					'onclick':'deleteX();'
 					
 				})
-				td.append(texts);
-				td1.append(numbers).append(hidden);
-				td2.append(deleteBtn);
-				tr.append(td).append(td1).append(td2);
-				tbl2.append(tr);
-				$("#option2-container").append(tbl2);					
+				div.append(texts).append(numbers).append(hidden).append(deleteBtn);
+				$("#option2-container").append(div);					
 			}
 		
 			

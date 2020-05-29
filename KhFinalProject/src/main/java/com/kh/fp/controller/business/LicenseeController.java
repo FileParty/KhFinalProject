@@ -507,7 +507,10 @@ public class LicenseeController {
 		String me_name = req.getParameter("me_name");
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
-		int sd_no[] = new int[sd.length];
+		int sd_no[] = null;
+		if(sd!=null) {
+		sd_no = new int[sd.length];
+		}
 		int optionCount = Integer.parseInt(req.getParameter("optionCount"));
 		if(optionCount == 0) {
 			
@@ -526,6 +529,9 @@ public class LicenseeController {
 		map.put("me_text",me_text);
 		map.put("s_no",s_no);
 		List<MenuSide> list = new ArrayList<MenuSide>();
+		
+			
+		if(sd_no.length !=0 ) {
 		for(int i=0;i<sd_no.length;i++) {
 			MenuSide ms = new MenuSide();
 			sd_no[i]=Integer.parseInt(sd[i]);
@@ -533,6 +539,7 @@ public class LicenseeController {
 			 ms.setMe_no(me_no);
 			log.debug("추가번호"+sd_no[i]);
 			list.add(ms);
+		}
 		}
 		int result = service.menuUpdate(map,me_no,optionCount);
 		if(optionCount == 0 ) {
