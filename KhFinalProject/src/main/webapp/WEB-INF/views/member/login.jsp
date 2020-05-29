@@ -32,7 +32,7 @@ function statusChangeCallback(response) {
 	} else { 
 		// 페이스북에 로그인이 되어있지 않다. 따라서, 앱에 로그인이 되어있는지 여부가 불확실하다.
 		document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.'; 
-	} 
+	}  
 }
 
 //이 함수는 누군가가 로그인 버튼에 대한 처리가 끝났을 때 호출된다. 
