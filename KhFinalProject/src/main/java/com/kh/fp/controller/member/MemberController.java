@@ -29,14 +29,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.kh.fp.common.KakaoApi;
 import com.kh.fp.common.NaverLoginBO;
 import com.kh.fp.model.servier.member.MemberService;
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember" , "flag"})
+@SessionAttributes({ "loginMember" , "flag" , "del"})
 public class MemberController {
 	
 	@Autowired
@@ -214,6 +214,8 @@ public class MemberController {
 		
 		Member m =service.selectMember(userId);
 		
+		Delivery d = service.selectDeliveryI(m);
+		
 		try {
 			
 			if(m.getM_Level()==2) {
@@ -223,6 +225,7 @@ public class MemberController {
 					//로그인성공
 					md.addAttribute("msg","로그인성공");
 					md.addAttribute("loginMember",m);
+					md.addAttribute("del",d);
 					md.addAttribute("loc","/delivery/deliveryView.do");
 				}else {
 					//로그인실패

@@ -55,6 +55,10 @@
   <insert id="insertDelivery" parameterType="member">
   	INSERT INTO DELIVERY VALUES(#{m_No},'N',NULL,NULL)
   </insert>
+  <!-- 배달원 로그인 시 딜리버리 테이블 정보 가져오기 -->
+  <select id="selectDeliveryI" parameterType="member" resultType="delivery">
+  	SELECT * FROM DELIVERY WHERE M_NO = #{m_no}
+  </select>  
   
   
   

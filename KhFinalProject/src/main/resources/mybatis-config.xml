@@ -30,6 +30,8 @@
 		
 		<typeAlias type="com.kh.fp.model.vo.AdminApplyStore" alias="applyStore"/>
 		<typeAlias type="com.kh.fp.model.vo.AdminApplyStoreInfo" alias="applyStoreInfo"/>
+		
+		<typeAlias type="com.kh.fp.model.vo.Delivery" alias="delivery"/>
 	</typeAliases>
 </configuration>
 
