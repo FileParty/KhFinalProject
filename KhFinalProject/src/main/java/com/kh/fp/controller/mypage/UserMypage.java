@@ -204,7 +204,7 @@ public class UserMypage {
 		}
 		int numPerPage = 10;
 		int totalData = service.reviewTotalCount(loginMember.getM_No());
-		String url = "/spring/mypage/review.do";
+		String url = "/mypage/review.do";
 		
 		System.out.println("cPage: " + cPage);
 		
