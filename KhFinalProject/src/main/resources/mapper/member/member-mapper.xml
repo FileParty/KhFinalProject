@@ -53,7 +53,7 @@
   </select>  
   <!-- 배달원 회원 가입 시 딜리버리 테이블에 추가하기 -->
   <insert id="insertDelivery" parameterType="member">
-  	INSERT INTO DELIVERY VALUES(#{m_No},'N',NULL,NULL)
+  	INSERT INTO DELIVERY VALUES(#{m_No},'N',NULL,NULL,NULL,NULL,NULL,NULL)
   </insert>
   <!-- 배달원 로그인 시 딜리버리 테이블 정보 가져오기 -->
   <select id="selectDeliveryI" parameterType="member" resultType="delivery">
