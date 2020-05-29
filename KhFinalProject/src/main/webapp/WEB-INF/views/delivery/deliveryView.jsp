@@ -236,7 +236,7 @@
 				//order 화면 없애기
 				$("#order").addClass("d-none");
 				
-				var websocket = new WebSocket("wss://localhost:9090${pageContext.request.contextPath}/delivery");				
+				var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
 				//var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 				
 				//서버가 실행되었을때				
