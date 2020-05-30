@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c4555610509aaa6cfd5fae61f00a23f&libraries=services"></script>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <%-- <c:set var="now" value="<%=new Date()%>" />
@@ -76,10 +77,17 @@ ${sysdate }  --%>
 	                               			${m['O_STATUS'] }
 	                               		</td>
                                		</c:when>
+                               		<c:when test="${m['O_STATUS']=='주문완료' }">
+	                               		<td id="o_state_${m['O_NO']}" style="text-align:right; color:green;" class="state-${orderNo}">
+	                               			주문접수
+	                               		</td>
+	                               		<input type="hidden" value="${m['O_NO'] }" class="order-state"/>
+                               		</c:when>
                                		<c:otherwise>
                                			<td id="o_state_${m['O_NO']}" style="text-align:right; color:green;" class="state-${orderNo}">
 	                               			${m['O_STATUS'] }
 	                               		</td>
+	                               		<input type="hidden" value="${m['O_NO'] }" class="order-state"/>
                                		</c:otherwise>
                               	</c:choose>
                            </tr>
@@ -120,7 +128,7 @@ ${sysdate }  --%>
             <div class="modal_content">
                 <div class="row">
                     <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 info-container">
                         <p style="text-align: center;"><strong></strong></p>
                         <table id="modal-tbl" style="width:100%">
                             <tr>
@@ -135,7 +143,7 @@ ${sysdate }  --%>
                         <table class="table" id="menu-tbl">
                         </table>
                         
-                        
+                        <div id="map" style="width:100%;height:350px;"></div>
                         
                     </div>
                     <div class="col-md-2"></div>
@@ -693,6 +701,188 @@ ${sysdate }  --%>
     
         </script>
     
+    
+    <!-- by 승연 -->
+	
+	<script>
+		$(function(){
+			
+			//현재 페이지의 모든 td 값 가져옴
+			//주문대기 배달중 .. 
+			
+			//숫자 count 주문대기 접수 or 배달중 인애들 만 
+			
+			
+			var orderState = $(".order-state");
+			
+			//주문접수 or 배달중인 상태의 orderNo 값
+			var orderNo="";
+			
+			$.each(orderState, function(i,v){
+				if(i==0) orderNo += $(v).val();
+				else orderNo += ","+$(v).val();
+			});
+			
+			console.log(orderNo);
+			
+			var type = "client";
+			//고객번호
+			var clientNo = ${loginMember.m_No};
+			//고객이름
+			var clientName = "${loginMember.m_Name}";
+			//고객 주소
+			var clientAddress;
+			//고객 x좌표
+			var clientXl;
+			//고객 y좌표
+			var clientYl;
+			//가게 주소
+			var storeAddress;
+			//가게 
+			var clientState = "W";
+			//메시지
+			var clientMessage = orderNo;
+			
+			function SocketMessage(type, no, name, addr, xl, yl, clientAddr, state, msg){
+   				this.type = type;	//배달자인지, 사업자 인지
+   				this.no = no;	//orderno, deliveryno, clientno
+   				this.name = name;	//가게명, 이름
+   				this.addr = addr;	//가게주소, 배달원 주소
+   				this.xl = xl;	//위도
+   				this.yl = yl;	//경도
+   				this.clientAddr = clientAddr;	//고객 주소
+   				this.state = state;	//대기, 수락, 거절(W, Y, N)
+   				this.msg = msg;	//메시지
+   			}
+			
+			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  	   		const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+		
+			websocket.onopen = function(data){
+				websocket.send(JSON.stringify(new SocketMessage(type, clientNo, clientName, clientAddress, clientXl, clientYl, storeAddress, clientState, clientMessage)));
+			}  
+		
+			websocket.onmessage = function(data){
+				const msg = JSON.parse(data.data);
+				
+				console.log("왜안와");
+				console.log(msg);
+				console.log(msg.type);
+				
+				
+				switch(msg.type){
+				case "business":
+					var businessMsg = msg.msg;
+					var orderNoFromBusiness = msg.no;
+					var storeNameFromBusiness = msg.name;
+					var storeAddressFromBusiness = msg.addr;
+					var storeXlFromBusiness = msg.xl;
+					var storeYlFromBusiness = msg.yl;
+					var clientAddressFromBusiness = msg.clientAddr;
+				
+					console.log("메시지가 왓나요");
+					console.log(businessMsg);
+					console.log()
+					
+					var order = $(".order-state");
+					
+					$.each(order, function(i,v){
+						if(i==0) orderNo += $(v).val();
+						else orderNo += ","+$(v).val();
+						
+						if($(v).val() == orderNoFromBusiness){
+						
+						
+							$(v).siblings("td").eq(1).html("배달중");
+							
+							if(orderNoFromBusiness == $(v).val()){
+								$(v).siblings("td").eq(1).attr({
+									"data-toggle" : "tooltip",
+	  								"data-placement" : "top",
+	  								"title" : businessMsg
+								})
+							
+								$(v).siblings("td").eq(1).tooltip("show");
+								
+								var toggleHide = function(){
+									$(v).siblings("td").eq(1).tooltip('hide');
+								}
+								
+								//3초뒤에 없애기
+								setTimeout(toggleHide, 3000);
+							}
+						
+						}				
+					});
+					
+				$("#map").empty();	
+				
+				
+				
+				var mapDiv = $("<div>").attr({
+					"id":"map-"+orderNoFromBusiness,
+					"style":"width:100%;height:350px"
+				})
+				
+				$(".info-container").append(mapDiv);
+				
+				var mapContainer = document.getElementById('map-'+orderNoFromBusiness), // 지도를 표시할 div 		
+			    mapOption = {
+			        center: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    }; 
+				
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				
+				//주소 검색후 나온 좌표 값
+				var coords;
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(clientAddressFromBusiness, function(result, status) {
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				        console.log(result[0].y, result[0].x);
+				    } 			  	     
+				});    
+				
+				console.log(coords);
+				
+				var positions = [
+					{
+						title: '우리집',
+						latlng: coords
+					},
+					{
+						title: storeNameFromBusiness,
+						latlng: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness)
+					}
+				];
+				
+				for(var i=0; i<positions.length; i++){
+					var marker = new kakao.maps.Marker({
+						map: map,
+						position: positions[i].latlng,
+						title: positions[i].title,
+					});
+					
+					var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+positions[i].title+'</div>'
+			        });
+			        infowindow.open(map, marker);
+				}
+				
+					break;
+				}
+			}
+		})  
+	</script>
+
+<!-- by 승연 -->
     <style>
         #modal {
           position:fixed;
