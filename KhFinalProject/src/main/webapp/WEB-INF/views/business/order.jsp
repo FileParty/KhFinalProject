@@ -226,6 +226,14 @@
       </section>
       
      <script>
+   //웹소켓 객체 생성
+  			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+     
+  			websocket.onopen = function(data){
+  				
+  			}
+  			
    		$(function(){
    			var type= "business";
 			var orderNo;	//주문 번호
@@ -261,25 +269,25 @@
    					$("#accept-delivery").addClass("d-none");
    					$(".del-count").html("0 명의 배달원을 찾았습니다.");
    					
-   				//웹소켓 객체 생성
-   	   	   			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-   	   	   			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+   				
    	   	   	
    	   	   			//웹소켓 onopen 함수
-   	   	   			websocket.onopen = function(data){
+   	   	   			/* websocket.onopen = function(data){
    	   					console.log(data);
    	   					console.log("찍힘?"+orderNo);
    	   					console.log(clientAddress);
-   	   					var repeat = setInterval(function()
-   	   						    {
-   	   								websocket.send(JSON.stringify(new SocketMessage(type, orderNo, storeName, storeAddress, storeXl, storeYl, clientAddress, "W", "")));
-   	   						    	if(stopFlag){
-   	   						    		console.log("setInterval 종료");
-   	   						    		clearInterval(repeat);
-   	   						    	}
-   	   						    },10000);			
-   	   				}
+   	   							
+   	   				} */
    	   	   			
+   	   				var repeat = setInterval(function()
+  						    {
+  								websocket.send(JSON.stringify(new SocketMessage(type, orderNo, storeName, storeAddress, storeXl, storeYl, clientAddress, "W", "")));
+  						    	if(stopFlag){
+  						    		console.log("setInterval 종료");
+  						    		clearInterval(repeat);
+  						    	}
+  						    },10000);	
+   	   				
    	   	   			websocket.onmessage = function(data){
    	   	   				const msg = JSON.parse(data.data);
    	   	   				

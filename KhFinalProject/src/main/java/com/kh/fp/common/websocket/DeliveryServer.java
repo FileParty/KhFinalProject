@@ -76,6 +76,14 @@ public class DeliveryServer extends TextWebSocketHandler{
 					sendMessage(msg,session);
 				}
 				break;
+			
+			case "client":
+				if(msg.getState().equals("W")) {
+					addClient(msg,session);
+				}
+				
+				
+				break;
 		}
 	}
 
@@ -149,6 +157,19 @@ public class DeliveryServer extends TextWebSocketHandler{
 							}
 						}
 						
+						//사업자가 배달출발 눌렀을 때 고객한테 배달이 출발했다고 알려줘야 한다.
+						if(client.getKey().getType().equals("client")) {
+							String[] orderNo = client.getKey().getMsg().split(",");
+							log.debug("번호 모냐");
+							
+							for(int i=0; i<orderNo.length; i++) {
+								int no = Integer.parseInt(orderNo[i]);
+								log.debug(no+"");
+								if(no == msg.getNo()) {			
+									client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));						
+								}
+							}
+						}
 					}
 					
 					
@@ -186,7 +207,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 						if(client.getKey().getType().equals("business") && client.getKey().getNo()==msg.getNo()){
 							client.getKey().setState("Y");
 							log.debug("사업자의 정보 : " + client.getKey());
-						}
+						}					
 					}
 					
 					if(msg.getState().equals("S")) {
