@@ -33,7 +33,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping("/admin/applyStoreList")
+	@RequestMapping("/admin/applyStoreList.do")
 	public ModelAndView applyStoreList(ModelAndView mv, HttpServletRequest req) {
 		List<AdminApplyStore> sList = service.selectApplyStoreList();
 		mv.addObject("sList",sList);
@@ -77,9 +77,54 @@ public class AdminController {
 		else
 			mv.addObject("msg", "실패");
 		
-		mv.setViewName("redirect:/admin/applyStoreList");
+		mv.setViewName("redirect:/admin/applyStoreList.do");
 		
 		return mv;
 	}
+	
+	@RequestMapping("/admin/storeList.do")
+	public ModelAndView storeList(ModelAndView mv, HttpServletRequest req) {
+		List<AdminApplyStore> sList = service.selectStore();
+		mv.addObject("sList",sList);
+		mv.setViewName("/admin/storeList");
+		
+		if(req.getParameter("msg")==null) {
+			mv.addObject("msg", "없음");
+		}else if(req.getParameter("msg").equals("성공"))
+			mv.addObject("msg", "성공");
+		else if(req.getParameter("msg").equals("실패"))
+			mv.addObject("msg", "실패");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/admin/deleteStoreStatus.do")
+	public ModelAndView deleteStoreStatus(ModelAndView mv, HttpServletRequest req) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		int flag = 0;
+		
+		for(int i=0; i<req.getParameterValues("s_no").length; i++) {
+			
+			int result = service.deleteStoreStatus(Integer.parseInt(req.getParameterValues("s_no")[i]));
+			
+			if(result<=0) {
+				flag++;
+			}
+			
+		}
+		
+		if(flag<=0)
+			mv.addObject("msg", "성공");
+		else
+			mv.addObject("msg", "실패");
+		
+		mv.setViewName("redirect:/admin/storeList.do");
+		
+		return mv;
+	}
+	
+	
 
 }

@@ -15,5 +15,9 @@ public interface AdminDao {
 	AdminApplyStoreInfo selectApplyStoreInfo(SqlSessionTemplate session, int s_no);
 	
 	int updateStoreStatus(SqlSessionTemplate session, int s_no);
+	
+	List<AdminApplyStore> selectStore(SqlSessionTemplate session);
+	
+	int deleteStoreStatus(SqlSessionTemplate session, int s_no);
 
 }

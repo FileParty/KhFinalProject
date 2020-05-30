@@ -30,6 +30,20 @@ public class AdminDaoImpl implements AdminDao {
 	public int updateStoreStatus(SqlSessionTemplate session, int s_no) {
 		return session.update("admin.updateStoreStatus", s_no);
 	}
+
+	@Override
+	public List<AdminApplyStore> selectStore(SqlSessionTemplate session) {
+		return session.selectList("admin.selectStore");
+	}
+
+	@Override
+	public int deleteStoreStatus(SqlSessionTemplate session, int s_no) {
+		return session.update("admin.deleteStoreStatus", s_no);
+	}
+	
+	
+	
+	
 	
 	
 

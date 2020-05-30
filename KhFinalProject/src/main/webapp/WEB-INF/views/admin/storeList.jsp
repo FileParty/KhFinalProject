@@ -55,7 +55,7 @@
 					
 						<tr>
 							<td colspan="7">
-								<h2>가게 신청목록</h2>
+								<h2>등록된 가게현황</h2>
 							</td>
 						</tr>
 						
@@ -74,7 +74,7 @@
 							<th>카테고리</th>
 							<th></th>
 						</tr>
-						<form action="${path}/admin/updateStoreStatus.do" method="post" onsubmit="return confirm();">
+						<form action="${path}/admin/deleteStoreStatus.do" method="post" onsubmit="return confirm();">
 							<c:forEach items="${sList }" var="s">
 								<tr class="apply-store-data">
 									<td><input type="checkbox" name="s_no" value="${s['s_No'] }"></td>
@@ -95,7 +95,7 @@
 							
 							<tr>
 								<td colspan="7">
-									<input type="submit" value="승인"/>
+									<input type="submit" value="등록해제"/>
 								</td>
 							</tr>
 						</form>
@@ -247,6 +247,7 @@
     						else
     							$("#s_category").append(data.s_category[i]);
     					}
+    					
     					$("#s_coupon").html(data.s_coupon);
     					$("#s_limitprice").html(data.s_limitprice);
     					$("#s_payopt").html(data.s_payopt);

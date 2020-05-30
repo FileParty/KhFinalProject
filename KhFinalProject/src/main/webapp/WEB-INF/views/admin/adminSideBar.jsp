@@ -35,7 +35,13 @@
 
                     <tr>
                         <td>
-                            <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/applyStoreList">가게 신청목록</a>
+                            <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/applyStoreList.do">가게<br>신청목록</a>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/storeList.do">등록된<br>가게현황</a>
                         </td>
                     </tr>
                     

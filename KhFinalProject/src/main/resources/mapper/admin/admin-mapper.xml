@@ -15,4 +15,11 @@
 		UPDATE STORE SET S_ENROLLSTATUS = 'Y' WHERE S_NO=#{s_no}
 	</update>
 	
+	<select id="selectStore" resultType="applyStore">
+		SELECT * FROM STORE WHERE S_ENROLLSTATUS='Y'
+	</select>
+	
+	<update id="deleteStoreStatus" parameterType="_int">
+		UPDATE STORE SET S_ENROLLSTATUS = 'N' WHERE S_NO=#{s_no}
+	</update>
 </mapper>
