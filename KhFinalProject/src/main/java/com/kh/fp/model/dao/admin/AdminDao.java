@@ -13,5 +13,7 @@ public interface AdminDao {
 	List<String> selectApplyStoreCategory(SqlSessionTemplate session, int s_No);
 
 	AdminApplyStoreInfo selectApplyStoreInfo(SqlSessionTemplate session, int s_no);
+	
+	int updateStoreStatus(SqlSessionTemplate session, int s_no);
 
 }

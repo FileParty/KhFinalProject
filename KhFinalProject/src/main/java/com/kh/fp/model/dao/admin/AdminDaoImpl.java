@@ -26,4 +26,11 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectApplyStoreInfo",s_no);
 	}
 
+	@Override
+	public int updateStoreStatus(SqlSessionTemplate session, int s_no) {
+		return session.update("admin.updateStoreStatus", s_no);
+	}
+	
+	
+
 }

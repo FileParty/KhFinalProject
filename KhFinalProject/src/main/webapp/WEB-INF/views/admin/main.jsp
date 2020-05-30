@@ -61,5 +61,6 @@
 		$("#stat-sales-btn").css("background-color","white");
 		$("#stat-apply-btn").css("background-color","#A9F5A9");
 	}
+	
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -1,5 +1,6 @@
 package com.kh.fp.controller.admin;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +34,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/applyStoreList")
-	public ModelAndView applyStoreList(ModelAndView mv) {
+	public ModelAndView applyStoreList(ModelAndView mv, HttpServletRequest req) {
 		List<AdminApplyStore> sList = service.selectApplyStoreList();
 		mv.addObject("sList",sList);
 		mv.setViewName("/admin/applyStoreList");
+		
+		if(req.getParameter("msg")==null) {
+			mv.addObject("msg", "없음");
+		}else if(req.getParameter("msg").equals("성공"))
+			mv.addObject("msg", "성공");
+		else if(req.getParameter("msg").equals("실패"))
+			mv.addObject("msg", "실패");
+		
 		return mv;
 	}
 	
@@ -47,14 +56,26 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/updateStoreStatus.do")
-	public ModelAndView updateStoreStatus(@RequestParam Map<String, String> map, ModelAndView mv, HttpServletRequest req) {
+	public ModelAndView updateStoreStatus(ModelAndView mv, HttpServletRequest req) {
 		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		int flag = 0;
 		
 		for(int i=0; i<req.getParameterValues("s_no").length; i++) {
 			
+			int result = service.updateStoreStatus(Integer.parseInt(req.getParameterValues("s_no")[i]));
 			
-			System.out.println("데이터: " + req.getParameterValues("s_no")[i]);
+			if(result<=0) {
+				flag++;
+			}
+			
 		}
+		
+		if(flag<=0)
+			mv.addObject("msg", "성공");
+		else
+			mv.addObject("msg", "실패");
 		
 		mv.setViewName("redirect:/admin/applyStoreList");
 		

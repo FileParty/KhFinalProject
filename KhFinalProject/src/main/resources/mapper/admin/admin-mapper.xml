@@ -11,4 +11,8 @@
 		SELECT * FROM STORE JOIN BUSINESS USING(B_NO) WHERE S_NO=#{s_no}
 	</select>
 	
+	<update id="updateStoreStatus" parameterType="_int">
+		UPDATE STORE SET S_ENROLLSTATUS = 'Y' WHERE S_NO=#{s_no}
+	</update>
+	
 </mapper>

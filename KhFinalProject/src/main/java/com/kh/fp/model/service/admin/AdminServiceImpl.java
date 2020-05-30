@@ -37,4 +37,11 @@ public class AdminServiceImpl implements AdminService {
 		return aasi;
 	}
 
+	@Override
+	public int updateStoreStatus(int s_no) {
+		return dao.updateStoreStatus(session, s_no);
+	}
+	
+	
+
 }

@@ -288,6 +288,11 @@
     			return flag;
     		}
     		
+    		$(function(){
+    			if("${msg}"!="없음")
+    				alert("${msg}");
+    		});
+    		
     	
     	</script>
     	

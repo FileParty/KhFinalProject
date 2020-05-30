@@ -10,5 +10,7 @@ public interface AdminService {
 	List<AdminApplyStore> selectApplyStoreList();
 
 	AdminApplyStoreInfo selectApplyStoreInfo(int s_no);
+	
+	int updateStoreStatus(int s_no);
 
 }
