@@ -35,6 +35,10 @@
 
   </style>
 	<section class="w-100 h-100 row align-items-center">
+		
+		<c:set value="${del.d_Status}" var="deliveryStatus"/>
+		<c:set value="${del.m_No}" var="deliveryNo"/>
+		
 		<div class="container" id="delevery-container">
 			<div class="row justify-content-center">
 				<div class="col-sm-12">
@@ -66,11 +70,10 @@
 				</div>
 			</div>
 			
-		
-		  
 		  
 		  <div id="deliveryman-info" class="alert alert-dismissible alert-info pb-4 pt-4">
 		  
+		  <c:if test="${deliveryStatus eq 'N'}">
 		    <div class="index-search-container ml-5">
 				<div class="">
 					<strong class="h2">
@@ -120,19 +123,65 @@
 		    	
 			    	<div class="mt-3">
 			    		<span class="h3 alert-link">
-			    			${loginMember.m_Phone }
-			    		</span>
+			    			${loginMember.m_Phone }		    			
+			    		</span>  		
 			    	</div>
 				</div>
-				
-		    	
-		    		    
+    
 		    </div>
+		  </c:if>
+		    
+		  <c:if test="${deliveryStatus eq 'Y'}">
+		  	<div class="card text-white bg-info mb-3">
+        		<div class="card-header justify-content-between d-flex">
+            		<div>
+                		<span>${del.store_Name}</span>
+            		</div>
+            	<div>
+                	<span>배달비 : 2500원</span>
+            	</div>
+        	</div>
+		        <div class="card-body">
+		            <div class="slider1">
+		                <div class="order-container">
+		                    <div class="item text-center">
+		                        <div class="row justify-content-between align-items-center alert-info p-3">
+		                            <div class="store-info col border border-dark p-0 mr-3 ">
+		                                <div class="store-name d-flex flex-column">
+		                                    <span class="h4">가게 명</span>
+		                                    <span class="h5">${del.store_Name}</span>
+		                                </div>
+		                                
+		                                <div class="store-addr d-flex flex-column">
+		                                    <span class="h4">가게 주소</span>
+		                                    <span class="h5">${del.store_Address }</span>
+		                                </div>
+		                            </div>
+		
+		                            <div class="client-info col border border-dark ml-3 p-0">
+		                                <div class="client-addr d-flex flex-column">
+		                                    <span class="h4">배달 주소</span>
+		                                    <span class="h5">${del.client_Address }</span>
+		                                </div>   
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+	      	</div>
+		  </c:if>  
+		    
 		  </div>
-		  <button id="bt-deliverProxy" class="btn btn-info btn-lg btn-block" type="button">배달 검색</button>
-		  <button id="bt-delivery"type="button" style="display:none;" data-toggle="modal" data-target="#del-modal"></button>
 		  
+		  <c:if test="${deliveryStatus eq 'N'}">
+		  	<button id="bt-deliverProxy" class="btn btn-info btn-lg btn-block" type="button">배달 검색</button>
+		  	<button id="bt-delivery"type="button" style="display:none;" data-toggle="modal" data-target="#del-modal"></button>
+		  </c:if>
   
+  		  <c:if test="${deliveryStatus eq 'Y'}">
+  		  	<button id="bt-deliveryComplete" class="btn btn-info btn-lg btn-block" type="button">배달 완료</button> 
+  		  </c:if>
 		</div>
 		
 		<!-- Modal -->
@@ -185,6 +234,14 @@
 	</style>
 	<script>
 	let checkState;
+	
+	var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
+	//var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+	
+	websocket.onopen = function(data){
+		
+	}
+	
 	$(function(){
 		//type
 		var type = "delivery";
@@ -204,7 +261,8 @@
 		var phoneMessage = "${loginMember.m_Phone }";
 		
 		//배달원 상태
-		var deliveryState
+		var deliveryState;
+		
 		
 		console.log("전화번호");
 		console.log(phoneMessage);
@@ -236,11 +294,10 @@
 				//order 화면 없애기
 				$("#order").addClass("d-none");
 				
-				//var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
-				var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+				
 				
 				//서버가 실행되었을때				
-				websocket.onopen = function(data){
+				/* websocket.onopen = function(data){
 					console.log(data);
 					
 					//배달원 주소 (현재위치)
@@ -254,7 +311,21 @@
 					
 					deliveryState = "W";
 					websocket.send(JSON.stringify(new SocketMessage("delivery", deliveryNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, "")));
-				}
+				} */
+				
+				//console.log(data);
+				
+				//배달원 주소 (현재위치)
+				deliveryAddr = $("#keyword").val();
+				//배달원 x 좌표
+				xl = $("#xl").val();
+				//배달원 y 좌표
+				yl = $("#yl").val();
+				//고객 주소
+				clientAddr = "";
+				
+				deliveryState = "W";
+				websocket.send(JSON.stringify(new SocketMessage("delivery", deliveryNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, "")));
 				
 				//server에서 데이터 보냈을 때 실행하는 메소드
 				websocket.onmessage = function(data){
@@ -270,13 +341,14 @@
 							break;
 						case "business":
 							var orderNo = msg.no;
-							var storeName = msg.name;
+							var storeName = msg.name;				
 							var storeAddr = msg.addr;
 							var storeXl = msg.xl;
 							var storeYl = msg.yl;
-							var clientAddr = msg.clientAddr;
+							var clientAddr = msg.clientAddr;					
 							var state = msg.state;
 							var message = msg.msg;
+											
 							checkState=msg.state;
 							console.log("사업자 상태값");
 							console.log(state);	//S
@@ -425,7 +497,25 @@
 									
 									$("#delevery-container").append(deliveryCompleteBtn);
 									
-									//
+									//db에 삽입
+									$.ajax({
+										url:"${pageContext.request.contextPath}/delivery/updateDelivery.do",
+										data:{
+											"m_No" : ${loginMember.m_No},
+											"d_Status" : deliveryState,
+											"d_X" : xl,
+											"d_Y" : yl,
+											"o_No" : orderNo,
+											"store_Name" : storeName,
+											"store_Address" : storeAddr,
+											"client_Address" : clientAddr
+										},
+										success: function(data){
+											if(data['result']>0)
+											console.log("delivery update 성공");
+										}
+									});
+									
 									
 									//배달 완료 눌렀을 때
 									$("#bt-deliveryComplete").click(function(e){
@@ -453,8 +543,18 @@
 											deliveryState = "C";
 											websocket.send(JSON.stringify(new SocketMessage("delivery", orderNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, phoneMessage)));
 											
-											//페이지 리로드
-											location.reload();
+											$.ajax({
+												url:"${pageContext.request.contextPath}/delivery/updateDeliveryComplete.do",
+												data:{
+													"m_No" : ${loginMember.m_No},
+													"d_Status" : "N"
+												},
+												success: function(data){
+													if(data['result']>0)
+													console.log("delivery update 성공 배달 완료 ^^");
+												}
+											});
+											
 											break;
 										
 										default:
