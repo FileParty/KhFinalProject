@@ -37,4 +37,29 @@ public class AdminServiceImpl implements AdminService {
 		return aasi;
 	}
 
+	@Override
+	public int updateStoreStatus(int s_no) {
+		return dao.updateStoreStatus(session, s_no);
+	}
+
+	@Override
+	public List<AdminApplyStore> selectStore() {
+		List<AdminApplyStore> rList = dao.selectStore(session);
+		for(AdminApplyStore aas : rList) {
+			aas.setS_category(dao.selectApplyStoreCategory(session,aas.getS_No()));
+		}
+		return rList;
+	}
+
+	@Override
+	public int deleteStoreStatus(int s_no) {
+		return dao.deleteStoreStatus(session, s_no);
+	}
+	
+	
+	
+	
+	
+	
+
 }
