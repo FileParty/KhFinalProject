@@ -16,7 +16,7 @@
    	<style>
    		
    		.foot{
-   			padding-top:20px;text-align:center;background-color:#E7E7E7;font-size:20px;margin-top:50px
+   			padding-top:20px;text-align:center;background-color:#E7E7E7;font-size:20px;margin-top:25px
    		}
    		
    		.footer_div{

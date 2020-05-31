@@ -19,7 +19,7 @@
 		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
 <%-- 		<a href="${path }/pay/paylist.do">결제 리스트</a>
 		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a> --%>
-		<a href="${path }/menu/menuDetailView">참새올드 하약물빵</a>
+		<a href="${path }/banner/couponBanner">쿠폰배너</a>
 		<a href="${path }/common/juso">주소</a>
 		<a href="${path }/mypage/mypage.do">마이페이지</a>
 		<a href="${path }/admin/adminMain.do">관리자페이지</a>

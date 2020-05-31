@@ -1,0 +1,28 @@
+@charset "UTF-8";
+p.report-login-modal-header{
+	font-size:18px;
+	margin:5px;
+	font-weight:600;
+}
+
+p.report-login-modal-content{
+	font-size:15px;
+	margin:8px;
+	margin-bottom:15px;
+}
+
+button.report-login-modal-btn{
+	font-size:16px;
+	width:45%;
+	margin-left:auto;
+	margin-right:auto;
+	height:50px;
+	background-color:white;
+	border:2px solid red;
+	color:red;
+}
+
+button.report-login-modal-btn-bg{
+	background-color:red;
+	color:white;
+}
