@@ -125,6 +125,7 @@ ${sysdate }  --%>
         </div>
         
         <div id="modal" style="display: none;">
+          
             <div class="modal_content">
                 <div class="row">
                     <div class="col-md-2"></div>
@@ -143,13 +144,12 @@ ${sysdate }  --%>
                         <table class="table" id="menu-tbl">
                         </table>
                         
-                        <div id="map" style="width:100%;height:350px;"></div>
-                        
                     </div>
                     <div class="col-md-2"></div>
             	</div>
             <div class="modal_layer"></div>
         	</div>
+        
         </div>
         
         <div id="modal2" style="display: none;">
@@ -218,11 +218,11 @@ ${sysdate }  --%>
 	                        
 	                    </div>
 	                    <div class="col-md-2"></div>
-            		</form>
+            			</form>
             	</div>
             <div class="modal_layer"></div>
         </div>
-        
+        </div>
         
         <!--  -->
         
@@ -815,67 +815,79 @@ ${sysdate }  --%>
 						}				
 					});
 					
-				$("#map").empty();	
-				
-				
-				
-				var mapDiv = $("<div>").attr({
-					"id":"map-"+orderNoFromBusiness,
-					"style":"width:100%;height:350px"
-				})
-				
-				$(".info-container").append(mapDiv);
-				
-				var mapContainer = document.getElementById('map-'+orderNoFromBusiness), // 지도를 표시할 div 		
-			    mapOption = {
-			        center: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    }; 
-				
-				// 지도를 생성합니다    
-				var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-				// 주소-좌표 변환 객체를 생성합니다
-				var geocoder = new kakao.maps.services.Geocoder();
-				
-				//주소 검색후 나온 좌표 값
-				var coords;
-				
-				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(clientAddressFromBusiness, function(result, status) {
-				    // 정상적으로 검색이 완료됐으면 
-				     if (status === kakao.maps.services.Status.OK) {
-				        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				        console.log(result[0].y, result[0].x);
-				    } 			  	     
-				});    
-				
-				console.log(coords);
-				
-				var positions = [
-					{
-						title: '우리집',
-						latlng: coords
-					},
-					{
-						title: storeNameFromBusiness,
-						latlng: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness)
-					}
-				];
-				
-				for(var i=0; i<positions.length; i++){
-					var marker = new kakao.maps.Marker({
-						map: map,
-						position: positions[i].latlng,
-						title: positions[i].title,
-					});
+					var mapDiv = $("<div>").attr({
+						"id":"map-"+orderNoFromBusiness,
+						"style":"width:100%;height:150px"
+					})
 					
-					var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+positions[i].title+'</div>'
-			        });
-			        infowindow.open(map, marker);
-				}
-				
+					$(".info-container").append(mapDiv);
+					
+					var createMap = function(){
+						
+						
+						var mapContainer = document.getElementById("map-"+orderNoFromBusiness), // 지도를 표시할 div 
+					    mapOption = {
+					        center: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness), // 지도의 중심좌표
+					        level:3 // 지도의 확대 레벨
+					    };  
+
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					var coords;
+					    
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch(clientAddressFromBusiness, function(result, status) {
+
+					    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+
+					        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							
+					         var bounds = new kakao.maps.LatLngBounds();    
+					         
+					         var positions = [
+										{
+											title: '우리집',
+											latlng: coords
+										},
+										{
+											title: storeNameFromBusiness,
+											latlng: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness)
+										}
+									];
+					         
+					         for(var i=0; i<positions.length; i++){
+										var marker = new kakao.maps.Marker({
+											map: map,
+											position: positions[i].latlng,
+											title: positions[i].title,
+										});
+					         			
+					             		marker.setMap(map);
+					       				bounds.extend(positions[i].latlng);
+
+					        // 인포윈도우로 장소에 대한 설명을 표시합니다
+					        var infowindow = new kakao.maps.InfoWindow({
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+positions[i].title+'</div>'
+					        });
+					        	infowindow.open(map, marker);
+					             
+					         }
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        //map.setCenter(coords);
+					         map.setBounds(bounds);
+					    } 
+					    
+					    
+					}); 
+					}
+					
+					setTimeout(createMap, 3000);
+
 					break;
 				}
 			}
