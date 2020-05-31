@@ -153,6 +153,9 @@
 	width:600px;
 	height:900px;
 	}
+	div.modal-body2 {
+		height:auto;
+	}
 
       </style>
       
@@ -211,9 +214,8 @@
 						         
 						        <div class="modal-body2" align=center>	
 						        
-						        <form id="form" action="${path }/licensee/menuUpdate" method="post" class="categoryForm"> 
-						        	<div id="menuUpdate">
-						        		
+						        <form id="form" action="${path }/licensee/menuUpdate" method="post" class="categoryForm" enctype="multipart/form-data"> 
+						        	<div id="menuUpdate">						        		
 						        	</div>
 						        	<button id="mUpdate" type="submit" class="btn btn-outline-success">등록합니다요!!!</button>
 						        </form>
@@ -465,15 +467,14 @@
    		function category() {
 
    			$(event.target).next().next().slideToggle(1000);
+   			console.log($(event.target).next().next());
    		}
    		function menuUpdate() {
    			$("#myModal2").modal('show');
    			$("#myModal1").modal('hide');  			
    			$("#menuUpdate").children().remove();
-   			console.log('메뉴업뎃버튼',$(event.target));
-   			let div = $("<div>")
    			
-   			
+   			let div = $("<div>");		
    			let prev2 =$(event.target).prev().prev().prev();
    			let prev3 =$(event.target).prev().prev().prev().prev();
    			console.log('이전div2',prev2);
@@ -482,6 +483,7 @@
    			
    			let copy2 = prev2.clone();
    			let copy3 = prev3.clone();
+   		
 		
    		 	let hide = $("<input>").attr({
    		 		'type':'hidden',
@@ -531,10 +533,62 @@
 	   					}
 					}
    			})
-   			$("#menuUpdate").append(copy3).append(copy2).append(div);
+   							let file = $("<input>").attr({
+   								'type':'file',
+   								'class':'custom-file-input',
+   								'id':'upFile',
+   								'name':'upFile'
+   							})
+   							let label = $("<label>").attr({
+   								'for':'upFile',
+   								'class':'custom-file-label fileName'
+   							}).css('margin-top','50').html('변경 할 메뉴 사진을 첨부해주세요.');
+   			
+   							let fileString = $("<input>").attr({
+   								'type':'hidden',
+   								'name':'oriFile',
+   								'value':copy3.find('img').attr('src')
+   									
+   							})
+   												
+   			$("#menuUpdate").append(fileString).append(file).append(label).append(copy3).append(copy2).append(div);
    			$(".menuNames").focus();
    			
+   			
+   	   		$("#upFile").change(function(){
+ 				console.log($(event.target).next().next().find('img'));
+   	   		let file = document.querySelector('#upFile');
+   	   		let img = $(event.target).next().next().find('img');
+			let fileList = file.files;
+			console.log('업팔',fileList[0]);
+			let reader = new FileReader();
+			if(fileList[0]!=null) {
+			
+			reader.readAsDataURL(fileList[0]);
+			 
+			}
+			
+			reader.onload = function  () {       
+				
+				img.attr('src', reader.result);
+				
+			};
+				
+   	   			let fileValue = $("#upFile").val().split("\\");
+   				let fileName = fileValue[fileValue.length-1]; 
+   				
+   				if(fileName.trim().length==0) {
+   					$(".fileName").html('<strong>'+'변경 할 메뉴 사진을 첨부해주세요.'+'</strong>');
+   				}else { 
+   					$(".fileName").html(fileName);
+   				}
+   	   		})
+   	   		
+   	   		
+   			
    		}
+   		
+   		
    		
    		function test() {
  			console.log('타겟?',$(event.target).parent().parent().find('div:eq(0)').find('input:eq(1)').val());

@@ -58,7 +58,7 @@
      </select>
 
      <update id="menuUpdate" parameterType="map">
-        UPDATE MENU SET ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
+        UPDATE MENU SET ME_LOGIMG = #{me_logImg} ,ME_NAME = #{me_name} , ME_PRICE = #{me_price} , ME_TEXT = #{me_text} WHERE ME_NO = #{me_no} AND MT_NO = #{mt_no} AND S_NO = #{s_no}
      </update>
      
      <delete id="menuSideDelete" parameterType="_int">
