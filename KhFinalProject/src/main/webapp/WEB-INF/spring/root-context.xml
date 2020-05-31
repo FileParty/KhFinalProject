@@ -62,6 +62,46 @@
     </props>
     </property>
   </bean>
+  
+  <!-- Facebook 소셜 로그인 연결 설정 -->
+ 
+    <bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <constructor-arg value="703342483825319" />
+        <constructor-arg value="c3ae5ea2136db54c649905b3ddea5a05" />
+    </bean>
+ 
+    <bean id="oAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope" value="email" />
+        <property name="redirectUri" value="https://localhost:9090/spring/member/login.do..." />
+    </bean>
+    
+    
+ 
+    <!-- Google 소셜 로그인 연결 설정 -->
+    <bean id="googleOAuth2Template"
+        class="org.springframework.social.google.connect.GoogleOAuth2Template">
+        <constructor-arg
+            value="102644363402-9m433jgh5619rflbkk5ot6tado0n0e39.apps.googleusercontent.com" />
+        <constructor-arg value="HPmMXc4bFRy-MNOjcRinljT0" />
+    </bean>
+ 
+ 
+    <bean id="googleOAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope"
+            value="profile"></property>
+        <property name="redirectUri"
+            value="http://localhost:9090/spring/" />
+    </bean>
+ 
+    <bean id="authInfo" class="com.kh.fp.common.AuthInfo">
+        <constructor-arg
+            value="102644363402-9m433jgh5619rflbkk5ot6tado0n0e39.apps.googleusercontent.com" />
+        <constructor-arg value="HPmMXc4bFRy-MNOjcRinljT0" />
+ 
+    </bean>
 
   
 	
