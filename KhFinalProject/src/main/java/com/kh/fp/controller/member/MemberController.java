@@ -2,6 +2,7 @@ package com.kh.fp.controller.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -1285,7 +1286,7 @@ public class MemberController {
  
  
  
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/member")
     public String doSessionAssignActionPage(HttpServletRequest request) throws Exception {
     	System.out.println("구글 로그인 메소드 들어옴");
         String code = request.getParameter("code");
@@ -1318,10 +1319,30 @@ public class MemberController {
         System.out.println(tokens.length);
         System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
         System.out.println(new String(Base64.decodeBase64(tokens[1]), "utf-8"));
+        
+        String mo=new String(Base64.decodeBase64(tokens[1]));
+        
+        System.out.println("이거나와?"+mo);
+        
+                
+        
+        
+        
+        
+        
+        
+        
+        
+        System.out.println("이거는??"+mo.charAt(2));
  
         //Jackson을 사용한 JSON을 자바 Map 형식으로 변환
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> result = mapper.readValue(body, Map.class);
+        
+        System.out.println(result);
+       
+        
+       
         System.out.println(result.get(""));
         
         

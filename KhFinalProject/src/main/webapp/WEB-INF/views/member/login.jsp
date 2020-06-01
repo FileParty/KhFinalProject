@@ -9,7 +9,7 @@
 	.login-form{
 	
 		width:500px; 
-		border:5px solid red; 
+		border:5px solid black; 
 		
 		margin:100px;	
 			
@@ -92,8 +92,8 @@ function testAPI() {
 		<div class="login-container">
 			<div class="login-form">
 				<div class="login-category d-flex">
-					<div class="text-center member-login" style="width:250px; 	border-bottom:5px solid red; border-right:5px solid red;">일반인</div>
-					<div class="text-center business-login" style="width:250px;  border-bottom:5px solid red;">사업자</div>
+					<div class="text-center member-login" style="width:250px; background-color:lightgray;	border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;">일반인</div>
+					<div class="text-center business-login" style="width:250px;  border-bottom:5px solid black; cursor: pointer;">사업자</div>
 				</div>
 				<div class="member-login-container">
 				<div class="d-flex justify-content-center flex-wrap text-center">
@@ -169,9 +169,9 @@ function testAPI() {
 		//사업자 로그인 div를 숨기고 일반인 로그인 div를 보여주는 기능
 		$(".member-login").click(()=>{	
 			$(".member-login-container").attr("style","display:block !important");
-			$(".member-login").attr("style","background-color:red; width:250px; border-bottom:5px solid red; border-right:5px solid red;");
+			$(".member-login").attr("style","background-color:lightgray; width:250px; border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;");
 			$(".business-login-container").attr("style","display:none !important");
-			$(".business-login").attr("style","background-color:white; width:250px; border-bottom:5px solid red;");
+			$(".business-login").attr("style","background-color:white; width:250px; border-bottom:5px solid black; cursor: pointer;");
 			
 		});
 		
@@ -179,9 +179,9 @@ function testAPI() {
 		//일반인 로그인 div를 숨기고 사업자 로그인 div를 보여주는 기능	
 		$(".business-login").click(()=>{
 			$(".member-login-container").attr("style","display:none !important");
-			$(".business-login").attr("style","background-color:red; width:250px; border-bottom:5px solid red; ");
+			$(".business-login").attr("style","background-color:lightgray; width:250px; border-bottom:5px solid black; cursor: pointer;");
 			$(".business-login-container").attr("style","display:block !important");
-			$(".member-login").attr("style","background-color:white; width:250px; border-bottom:5px solid red; border-right:5px solid red;");
+			$(".member-login").attr("style","background-color:white; width:250px; border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;");
 		});
 		//아이디 저장
 		$(document).ready(function(){
