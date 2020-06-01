@@ -1203,7 +1203,7 @@ $("#alloffHidden").click(function(){
 	//결제버튼 클릭시 결제 API 실행
 	$(".paymentBtn").on("click", function(){
 		
-	var totalPrice=$("#sum").val();
+	var totalPrice=$("#sum1").val();
 	console.log("총가격 : "+totalPrice);
 	alert("결제할 가격은 "+totalPrice+"원 입니다.");
     var userMail = "${loginMember['m_Email']}";
