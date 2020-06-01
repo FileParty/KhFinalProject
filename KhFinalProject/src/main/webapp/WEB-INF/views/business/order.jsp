@@ -230,8 +230,8 @@
       
      <script>
    //웹소켓 객체 생성
-  			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-  			//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+  			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  			const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
      
   			websocket.onopen = function(data){
   				

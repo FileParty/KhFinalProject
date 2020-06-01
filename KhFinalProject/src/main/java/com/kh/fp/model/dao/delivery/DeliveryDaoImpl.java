@@ -28,5 +28,11 @@ public class DeliveryDaoImpl implements DeliveryDao{
 		return session.selectOne("delivery.selectDeliveryxy", orderNo);
 	}
 
+	@Override
+	public int updateDeliveryPosition(SqlSessionTemplate session, Delivery d) {
+		// TODO Auto-generated method stub
+		return session.update("delivery.updateDeliveryPosition", d);
+	}
+
 	
 }
