@@ -1,0 +1,36 @@
+@charset "UTF-8";
+div.coupon-banner-mains{
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-start;
+	text-align:center;
+	width:100%;
+	padding:12px;
+	color:white;
+	background-size:100%;
+	background-repeat:no-repeat;
+}
+
+#coupon-banner-main-1-text-1{
+	text-align:right;
+	font-size:4em;
+	margin-top:100px;
+	margin-right:420px;
+	margin-bottom:15px;
+	color:red;
+	text-shadow:3px 3px 3px black;
+}
+
+#coupon-banner-main-1-text-2{
+	font-size:2em;
+	text-align:right;
+	margin-right:450px;
+	text-shadow:3px 3px 3px red;
+}
+
+#coupon-banner-main-1-text-3{
+	font-size:2em;
+	text-align:right;
+	margin-right:380px;
+	text-shadow:3px 3px 3px red;
+}

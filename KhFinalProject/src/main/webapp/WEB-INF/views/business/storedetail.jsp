@@ -175,35 +175,7 @@
    	
     </section>
     
-    <script>
-    	var sno; 
-    		
-    	function checkpw(){
-    		var pw = $("#pw").val();
-    		
-    		$.ajax({
-    			url : "${path}/store/checkPw",
-    			data : {userpw:pw},
-    			success : function(data){
-    				console.log(data);
-    				if(data){
-    					location.replace('${path}/store/storeupdate?no='+sno);
-    				}else{
-    					alert("비밀번호가 틀렸습니다");
-    				}
-    				
-    			}
-    		})
-    		
-    		
-    	}
-    	
-    	function saveNo(data){
-    		sno=data;
-    	}
     
     
-    </script>
-    
-    
+     <jsp:include page="/WEB-INF/views/business/Js/storedetailJs.jsp"/>
     <%@include file="../common/footer.jsp" %>
