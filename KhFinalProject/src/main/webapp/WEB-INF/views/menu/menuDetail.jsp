@@ -11,6 +11,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<style>
+	*{
+		font-family:'Do Hyeon';
+	}
+</style>
 <section>
 <div class="s-store-list-return">
 	<button onclick="returnList()" class="snip1535">돌아가기</button>
