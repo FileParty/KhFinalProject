@@ -30,6 +30,9 @@
    span.ok4{color:green;}
    span.no4{color:red;}
    span.error{color:red;}
+   * {
+		    font-family:'Do Hyeon';
+		    }
 </style>
 <section>
 	<div class="container d-flex justify-content-center">

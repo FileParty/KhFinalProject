@@ -9,10 +9,30 @@
 	.login-form{
 	
 		width:500px; 
-		border:5px solid black; 
-		
+		border:1px solid lightgray; 		
 		margin:100px;	
 			
+	}
+	
+	* {
+	font-family:'Do Hyeon';
+	}
+	
+	/* #kakao {
+	background-color:#FFF136;
+	}
+	#naver{
+	background-color:#41FF3A;
+	
+	}
+	#google{
+	background-color:#FF4848;
+	}
+	#facebook{
+	background-color:#5AAEFF;
+	} */
+	.member-login:hover {
+		
 	}
 </style>
 <script>
@@ -92,8 +112,8 @@ function testAPI() {
 		<div class="login-container">
 			<div class="login-form">
 				<div class="login-category d-flex">
-					<div class="text-center member-login" style="width:250px; background-color:lightgray;	border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;">일반인</div>
-					<div class="text-center business-login" style="width:250px;  border-bottom:5px solid black; cursor: pointer;">사업자</div>
+					<div class="text-center member-login" style="width:250px; 	border-bottom:1px solid black; border-right:1px solid black; cursor: pointer;">일반인</div>
+					<div class="text-center business-login" style="width:250px;  border-bottom:1px solid black; cursor: pointer;">사업자</div>
 				</div>
 				<div class="member-login-container">
 				<div class="d-flex justify-content-center flex-wrap text-center">
@@ -121,13 +141,13 @@ function testAPI() {
 						<input type="submit" class="btn btn-outline-dark" value="로그인" style="width:400px; margin-top:30px;">
 					</form>
 					<div class="d-flex flex-wrap" style="margin-top:30px; margin-left:10px; margin-right:10px; width:400px;">
-						<button class="btn btn-outline-dark" onclick="location.replace('${url }')" style="width:200px;">Naver 로그인</button>
-						<button class="btn btn-outline-dark" onclick="location.replace('${kakao_url}')" style="width:200px;">Kakao 로그인</button>
-						<button class="btn btn-outline-dark" onclick="location.replace('${google_url}')" style="width:200px;">Google 로그인</button>	
-						<button class="btn btn-outline-dark" onclick="location.replace('${facebook_url}')" style="width:200px;">Facebook 로그인</button>
+						<button id="naver" class="btn btn-outline-dark" onclick="location.replace('${url }')" style="width:200px;">Naver 로그인</button>
+						<button id="kakao" class="btn btn-outline-dark" onclick="location.replace('${kakao_url}')" style="width:200px;">Kakao 로그인</button>
+						<button id="google" class="btn btn-outline-dark" onclick="location.replace('${google_url}')" style="width:200px;">Google 로그인</button>	
+						<button id="facebook" class="btn btn-outline-dark" onclick="location.replace('${facebook_url}')" style="width:200px;">Facebook 로그인</button>
 					</div>
 					<div class="" style="margin:30px;">
-						<span>배달킹이 처음이신가요? <a href="${path }/member/memberEnroll1.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a style="color:red;"href="${path }/member/memberEnroll1.do"><u>회원가입</u></a>을 해보세요!</span>
 					</div>
 				</div>
 				</div>
@@ -158,7 +178,7 @@ function testAPI() {
 					</form>
 				
 					<div class="" style="margin:30px;">
-						<span>배달킹이 처음이신가요? <a href="${path}/member/businessEnroll1.do">회원가입</a>을 해보세요!</span>
+						<span>배달킹이 처음이신가요? <a style="color:red;"href="${path}/member/businessEnroll1.do">회원가입</a>을 해보세요!</span>
 					</div>
 					</div>
 				</div>
@@ -169,9 +189,9 @@ function testAPI() {
 		//사업자 로그인 div를 숨기고 일반인 로그인 div를 보여주는 기능
 		$(".member-login").click(()=>{	
 			$(".member-login-container").attr("style","display:block !important");
-			$(".member-login").attr("style","background-color:lightgray; width:250px; border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;");
+			$(".member-login").attr("style","background-color:lightgray; width:250px;border-bottom:1px solid black; border-right:1px solid black; cursor: pointer;");
 			$(".business-login-container").attr("style","display:none !important");
-			$(".business-login").attr("style","background-color:white; width:250px; border-bottom:5px solid black; cursor: pointer;");
+			$(".business-login").attr("style","background-color:white; width:250px; border-bottom:1px solid black; cursor: pointer;");
 			
 		});
 		
@@ -179,9 +199,9 @@ function testAPI() {
 		//일반인 로그인 div를 숨기고 사업자 로그인 div를 보여주는 기능	
 		$(".business-login").click(()=>{
 			$(".member-login-container").attr("style","display:none !important");
-			$(".business-login").attr("style","background-color:lightgray; width:250px; border-bottom:5px solid black; cursor: pointer;");
+			$(".business-login").attr("style","background-color:lightgray; width:250px; border-bottom:1px solid black; cursor: pointer;");
 			$(".business-login-container").attr("style","display:block !important");
-			$(".member-login").attr("style","background-color:white; width:250px; border-bottom:5px solid black; border-right:5px solid black; cursor: pointer;");
+			$(".member-login").attr("style","background-color:white; width:250px; border-bottom:1px solid black; border-right:1px solid black; cursor: pointer;");
 		});
 		//아이디 저장
 		$(document).ready(function(){
