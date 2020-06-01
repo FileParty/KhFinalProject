@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,26 +60,19 @@ public class AdminController {
 	public ModelAndView updateStoreStatus(ModelAndView mv, HttpServletRequest req) {
 		
 		Map<String, String> map = new HashMap<String, String>();
-		
 		int flag = 0;
 		
 		for(int i=0; i<req.getParameterValues("s_no").length; i++) {
-			
 			int result = service.updateStoreStatus(Integer.parseInt(req.getParameterValues("s_no")[i]));
-			
 			if(result<=0) {
 				flag++;
 			}
-			
 		}
 		
-		if(flag<=0)
-			mv.addObject("msg", "성공");
-		else
-			mv.addObject("msg", "실패");
+		if(flag<=0) mv.addObject("msg", "성공");
+		else mv.addObject("msg", "실패");
 		
 		mv.setViewName("redirect:/admin/applyStoreList.do");
-		
 		return mv;
 	}
 	
@@ -102,26 +96,19 @@ public class AdminController {
 	public ModelAndView deleteStoreStatus(ModelAndView mv, HttpServletRequest req) {
 		
 		Map<String, String> map = new HashMap<String, String>();
-		
 		int flag = 0;
 		
 		for(int i=0; i<req.getParameterValues("s_no").length; i++) {
-			
 			int result = service.deleteStoreStatus(Integer.parseInt(req.getParameterValues("s_no")[i]));
-			
 			if(result<=0) {
 				flag++;
 			}
-			
 		}
 		
-		if(flag<=0)
-			mv.addObject("msg", "성공");
-		else
-			mv.addObject("msg", "실패");
+		if(flag<=0) mv.addObject("msg", "성공");
+		else mv.addObject("msg", "실패");
 		
 		mv.setViewName("redirect:/admin/storeList.do");
-		
 		return mv;
 	}
 	

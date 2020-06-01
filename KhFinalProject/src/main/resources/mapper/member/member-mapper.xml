@@ -48,6 +48,14 @@
   <select id="selectNaverM" parameterType="string" resultType="member">
   	SELECT * FROM MEMBER WHERE M_Id = #{email}
   </select>
+  <!-- 구글 로그인 -->
+  <select id="selectGoogle" parameterType="string" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_Id = #{name}
+  </select>
+  <!-- 페이스북 로그인 -->
+  <select id="selectFacebook" parameterType="string" resultType="member">
+  	SELECT * FROM MEMBER WHERE M_Id = #{email}
+  </select>
   <select id="selectDelivery" parameterType="member" resultType="member">
   	SELECT * FROM MEMBER WHERE M_LEVEL = 2 AND M_STATUS = 'N' AND M_ID = #{m_Id}
   </select>  

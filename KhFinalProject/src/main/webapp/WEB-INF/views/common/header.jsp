@@ -59,8 +59,6 @@
 			<a href="${path }/banner/point">포인트</a>
 			
 			
-			
-			
 		
 		</div>
 		<div class="row headerrow">
@@ -74,5 +72,6 @@
 
 		</div>
 	</header>
+	
 	
 	
