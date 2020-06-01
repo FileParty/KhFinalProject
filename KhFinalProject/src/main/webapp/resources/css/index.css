@@ -193,12 +193,12 @@ hr{
    /* banner 사이즈 */
   .carousel-inner img {
       width: 100%;
-      height: 150px;
+      height: 300px;
      
   }
   .carousel{
   	  width: 100%;
-  	  height:150px;
+  	  height:300px;
   }
   
   /*  스크롤바 */
@@ -208,7 +208,7 @@ hr{
 #list::-webkit-scrollbar-track { background-color: white; }
 /* 스크롤바의 전체 배경색 */
 #list::-webkit-scrollbar-thumb { 
-    background: linear-gradient(to bottom, #47C83E, #7DFE74); 
+    background: linear-gradient(to bottom, #FF0000, #FF9090); 
 }
 /* 스크롤바 색 */
 #list::-webkit-scrollbar-button { display: none; }

@@ -11,9 +11,12 @@
        <div class="row" >
        
        <%@ include file="sideBar.jsp" %>
-       
+     
+			
+			
+			
             <div class="col-lg-10" id="main">
-            
+            	<button onclick="ordersocket();">소켓</button>
                     <h1>주문 내역</h1>
                     <pre>* 최근순으로 주문내역이 나타납니다.<br>* 상세보기를 통하여 자세한 내용을 확인 할 수 있습니다.
                     </pre>
@@ -600,13 +603,18 @@
             }
          }
          
-         var select = $("select#storeNo");
-
-       select.change(function() {
-         var select_name = $(this).children("option:selected").text();
-         $(this).siblings("label").text(select_name);
-       });
-
+         $(function(){
+        	 var select = $("select#storeNo");
+        	 var select_name = $("#storeNo").children("option:selected").text();
+        	 select.siblings("label").text(select_name);
+         });
+         
+       
+         function  ordersocket() {
+        	 	var sno= $("#storeNo").val();
+				window.open("${path}/store/orderChatting?no="+sno,"_blank","width=800,height=700");
+			}
+         
       
       </script>
 

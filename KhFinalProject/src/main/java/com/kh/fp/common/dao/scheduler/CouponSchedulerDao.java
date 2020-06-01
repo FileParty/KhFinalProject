@@ -1,0 +1,11 @@
+package com.kh.fp.common.dao.scheduler;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+
+public interface CouponSchedulerDao {
+
+	void checkCouponDate(SqlSessionTemplate session);
+	
+}

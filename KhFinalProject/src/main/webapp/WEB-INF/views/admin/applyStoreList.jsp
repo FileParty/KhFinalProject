@@ -4,37 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<%
-	/* session.setAttribute("userId", "user01"); */
-%>
+<link rel="stylesheet" type="text/css" href="${path }/resources/css/applyStoreList.css"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<style>
-	    /*중복아이디체크관련*/
-		    div#idMsg-container{position:relative; padding:0px;}
-		    div#idMsg-container span.idMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
-		    div#idMsg-container span.ok{color:green;}
-		    div#idMsg-container span.no{color:red;}
-		    
-		    #notice{
-		    	color:rgb(34, 190, 241);
-		    }
-		    
-		    #content{
-		    	width:100%;
-		    	text-align:center;
-		    	table-layout: fixed;
-		    }
-		    
-		    #content td{
-		    	overflow:hidden;
-		    	text-overflow: ellipsis;
-		    	white-space: nowrap;
-		    }
-		    
-		    
-		    
-		    
-</style>
 
 <section>
 
@@ -66,7 +37,7 @@
 						</style>
 					
 						<tr>
-							<th><input id="all" type="checkbox" name="all"></td></th>
+							<th><input class="apply-store-ok-btns"  id="all" type="checkbox" name="all"></td></th>
 							<th>가게명</th>
 							<th>가게위치</th>
 							<th>가게소개</th>
@@ -77,7 +48,7 @@
 						<form action="${path}/admin/updateStoreStatus.do" method="post" onsubmit="return confirm();">
 							<c:forEach items="${sList }" var="s">
 								<tr class="apply-store-data">
-									<td><input type="checkbox" name="s_no" value="${s['s_No'] }"></td>
+									<td><input class="apply-store-ok-btns" type="checkbox" name="s_no" value="${s['s_No'] }"></td>
 									<td><c:out value="${s['s_Name'] }"/></td>
 									<td><c:out value="${s['s_Addr'] }"/></td>
 									<td><c:out value="${s['s_Text'] }"/></td>
@@ -92,7 +63,6 @@
 									</td>
 								</tr>
 							</c:forEach>
-							
 							<tr>
 								<td colspan="7">
 									<input type="submit" value="승인"/>
@@ -118,8 +88,8 @@
 	        <div class="modal_content">
 	            <div class="row">
 	
-	                <div class="col-md-2"></div>
-	                <div class="col-md-8">
+	                <div class="col-md-1"></div>
+	                <div class="col-md-10">
 	
 	                   <table id="table_con" class="table" style="table-layout:fixed">
            					<tr>
@@ -169,7 +139,7 @@
            					</tr>
            					<tr>
            						<th class="store-enroll-info-title">소개글</th>
-           						<th class="store-enroll-info"><pre id="s_text"><c:out value="${s.S_TEXT }" /></pre></th>
+           						<th class="store-enroll-info"><pre id="s_text"></pre></th>
            					</tr>
            					<tr>
            						<th class="store-enroll-info-title">원산지</th>
@@ -189,7 +159,8 @@
            					</tr>
            					<tr>
            						<th class="store-enroll-info-title">휴무일</th>
-           						<th class="store-enroll-info" id="s_holiday"><c:out value="${s.S_HOLIDAY }" /></th>
+           						<th class="store-enroll-info" id="s_holiday">
+           						<c:out value="${s.S_HOLIDAY }" /></th>
            					</tr>
            					<tr>
            						<th class="store-enroll-info-title">오픈시간/마감시간</th>
@@ -203,10 +174,17 @@
            						<th class="store-enroll-info" id="s_enrolldate">
            						</th>
            					</tr>
+           					<tr>
+           						<th colspan="2">
+           							<div id="store-enroll-close-btn">
+           								<button id="modal-close" onclick="modalClose()">닫기</button>
+           							</div>
+           						</th>
+           					</tr>
            				</table>
 	
 	                </div>
-	                <div class="col-md-2"></div>
+	                <div class="col-md-1"></div>
 	            </div>
 	            <div class="modal_layer"></div>
 	        </div>
@@ -255,11 +233,15 @@
     					$("#s_logimg").attr("src", "${path }/resources/upload/store/" + data.s_logimg);
     					
     					$("#s_time").html(data.s_time);
+    					$("#s_orifoodinfo").html(data.s_orifoodinfo);
     					$("#s_holiday").html(data.s_holiday);
-    					$("#s_starttime").html(data.s_starttime);
-    					$("#s_endtime").html(data.s_endtime);
-    					
-    					$("#s_enrolldate").html(data.s_enrolldate);
+    					console.log(new Date(data['s_startTime']),new Date(data['s_endTime']));
+    					let start = new Date(data['s_startTime']);
+    					$("#s_starttime").text(start.getHours()+"시");
+    					start = new Date(data['s_endTime']);
+    					$("#s_endtime").text(start.getHours()+"시");
+    					start = new Date(data['s_enrollDate']);
+    					$("#s_enrolldate").html(start.getFullYear()+"/"+start.getMonth()+"/"+start.getDate());
     					
     					$("#modal").show();
     				},
@@ -296,63 +278,12 @@
     				alert("${msg}");
     		});
     		
+    		function modalClose(){
+    			$("#modal").modal("hide");
+    		}
+    		
     	
     	</script>
-    	
-    	<style>
-    	
-    		 #modal {
-		      position:fixed;
-		      top: 50px;
-		      width:100%;
-		      height:100%;
-		      z-index:10;
-		    }
-    
-		    #modal h2 {
-		      margin:0;   
-		    }
-		    
-		    #modal button {
-		      display:inline-block;
-		      width:100px;
-		      margin-left:calc(100% - 100px - 10px);
-		    }
-		    
-		    #modal .modal_content {
-		      width:600px;
-		      height: 50%;
-		      margin:100px auto;
-		      padding:20px 10px;
-		      background:#fff;
-		      border:2px solid #666;
-		      overflow-y: scroll;
-		      overflow-x: hidden;
-		    }
-		    
-		    #modal .modal_layer {
-		      position:fixed;
-		      top:0;
-		      left:0;
-		      width:100%;
-		      height:100%;
-		      background:rgba(0, 0, 0, 0.5);
-		      z-index:-1;
-		    }   
-		    
-		    #modal th{
-		    	text-align:center;
-		    }
-		    
-		    table td{
-		    	text-align:center;
-		    }
-		    
-		    #table_con th,tr{
-		    	vertical-align:middle;
-		    }
-    	
-    	</style>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

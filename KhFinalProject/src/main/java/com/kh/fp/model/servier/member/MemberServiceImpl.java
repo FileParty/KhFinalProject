@@ -101,6 +101,23 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.selectDeliveryI(session,m);
 	}
+
+	@Override
+	public Member selectGoogle(String name) {
+		// TODO Auto-generated method stub
+		return dao.selectGoogle(session,name);
+	}
+
+	@Override
+	public Member selectFacebook(String email) {
+		// TODO Auto-generated method stub
+		return dao.selectFacebook(session,email);
+	}
+	
+	
+	
+	
+	
 	
 	
 

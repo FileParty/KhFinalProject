@@ -6,6 +6,11 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/adminMain.css"/>
+<style>
+	* {
+		font-family:'Do Hyeon';
+	}
+</style>
 <section>
 	<div class="container">
 		<div class="row">

@@ -13,25 +13,15 @@
 <section >
 
 
-	 <div class="topnav">
 
-		<a href="${path }/store/mypage">사업자 피파 바페도아닌 마페</a>
-		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
-<%-- 		<a href="${path }/pay/paylist.do">결제 리스트</a>
-		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a> --%>
-		<a href="${path }/menu/menuDetailView">참새올드 하약물빵</a>
-		<a href="${path }/common/juso">주소</a>
-		<a href="${path }/mypage/mypage.do">마이페이지</a>
-		<a href="${path }/admin/adminMain.do">관리자페이지</a>
 
-	</div>
 	
 	<div class="foodimg" style="background-image: url('${path}/resources/img/index/in11.jpg') ">
 		<div class="index-search-title contr"  >
 					
 					<h2 style="color: white;" >`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
 					<h6 style="color: white;">배달 받을 동을 검색해주세요</h6><br>
-					<p style="color: white;">정확한 주소를 입력하시거나 나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
+					<p style="color: white;font-size: 20px;">정확한 주소를 입력하시거나 나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
 			</div>
 	
 	
@@ -125,6 +115,7 @@
 		</div>
 		</div>
 		
+	
 
 </section>
 <jsp:include page="/WEB-INF/views/common/jusoJs.jsp"/>

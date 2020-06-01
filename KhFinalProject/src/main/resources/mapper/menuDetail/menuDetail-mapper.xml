@@ -29,7 +29,7 @@
 			TRUNC(((R.R_SCORE_TASTE+R.R_SCORE_AMOUNT+R.R_SCORE_DELIVERY)/3),1) AS R_SCORE,
 			(SELECT M_NICKNAME FROM MEMBER WHERE M_NO=R.M_NO) AS M_NICKNAME
 		FROM REVIEW R
-		WHERE R.S_NO=#{no}
+		WHERE R.S_NO=#{no} AND R.R_STATUS='Y'
 		<choose>
 			<when test="type=='photo'">AND R.R_NO IN(SELECT R_NO FROM REVIEW_IMG)</when>
 			<when test="type=='report'">AND R.R_NO = #{r_no}</when>
@@ -43,7 +43,7 @@
 		SELECT R_IMG FROM REVIEW_IMG WHERE R_NO=#{r_no}
 	</select>
 	<select id="selectStoreReviewCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*) FROM REVIEW WHERE S_NO=#{no}
+		SELECT COUNT(*) FROM REVIEW WHERE S_NO=#{no} AND R_STATUS='Y'
 		<if test="type=='photo'">
 			AND R_NO IN(SELECT R_NO FROM REVIEW_IMG)
 		</if>
@@ -52,7 +52,7 @@
 		<selectKey resultType="_int" keyProperty="m_receiver" order="BEFORE">
 			SELECT M_NO FROM REVIEW WHERE R_NO=#{r_no}
 		</selectKey>
-		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no})
+		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no},DEFAULT)
 	</insert>
 	<select id="selectBookMarkCheck" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM PREFER WHERE M_NO=#{m_no} AND S_NO=#{s_no}

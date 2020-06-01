@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 
@@ -107,8 +108,8 @@
 			        	${a['count']}   <!--${orderList[0]['count']}  -->
 			        		${a['menuCount']}
 			        </td>
-			        <td style="font-size: 21px;">
-			        	${a['price']} ${a['finalPrice']}원	<br>
+			        <td style="font-size: 21px;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
+			        <br>
 
 			        </td><!-- ${newOrder[0]['price']} -->
 
@@ -117,7 +118,7 @@
      	</c:if>  
      	    <c:if test="${status.last}"> 
                 
-           			<input type="hidden" name="sNo" value="${a['s_no'] }">     <!--가게코드 불러오기 -->
+           			<input type="hidden" name="sNo" id="sNo" value="${a['s_no'] }">     <!--가게코드 불러오기 -->
            </c:if>
            			
          
@@ -160,14 +161,14 @@
           <tr>
             <td style="padding-right:30px;">주문자 이름 <b style="color:red">*</b></td>
             <td>
-            	<input type="text" name="ordername123" id="name_1"  style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
+            	<input type="text" name="ordername123" id="name_1"  style="border:1px solid lightgray;padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);" value="${loginMember['m_Name']}" readonly><br>
 		          <input type="hidden" name="mNo" value="${loginMember['m_No']}"/>
 		          <input type="hidden"  id="name_1" name="orderName" value="${loginMember['m_Name']}">
             </td>
           </tr>
           <tr>
             <td>주문자 연락처  <b style="color:red">*</b></td>
-            <td><br><input type="text" id="phone_1" name="orderPhone" style="padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
+            <td><br><input type="text" id="phone_1" name="orderPhone" style="border:1px solid lightgray;padding-left: 10;width:300px;height:45px;background-color:rgb(243, 243, 243);"value="${loginMember['m_Phone']}"readonly>
               <br> <br></td>
           </tr>
         
@@ -281,27 +282,27 @@
     <table style="margin-left: 10px;"> 
 <tr>
   <td style="padding-right:40px;">받으시는 분  <b style="color:red">*</b></td>
-  <td><input type="text"  id="name_2" name="receiveName" style="width:300px;height:45px; padding-left: 10;"required><br>
+  <td><input type="text"  id="name_2" name="receiveName" style="border:1px solid lightgray;width:300px;height:45px; padding-left: 10;"required><br>
   	<p id="text1" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
   </td>
 
 </tr>
 <tr>
   <td>연락처  <b style="color:red">*</b></td>
-  <td><br><input type="text"  id="phone_2"  name="receivePhone" style="width:300px;height:45px; padding-left: 10;"required><br>
+  <td><br><input type="text"  id="phone_2"  name="receivePhone" style="border:1px solid lightgray;width:300px;height:45px; padding-left: 10;"required><br>
     	<p id="text2" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
   </td>
 </tr>
 <tr>
   <td>주소  <b style="color:red">*</b></td>
  
-  <td><br><input type="text" id="address0" name="address"  style="width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
+  <td><br><input type="text" id="address0" name="address"  style="border:1px solid lightgray;width:300px;height:45px;background-color:rgb(243, 243, 243);padding-left: 10;" 
 			value="${addr } "  readonly><br> <br></td>
 </tr>
 <tr>
   <td></td>
   <td>
-  		<input type="text" id="address" name="address2" id="address" style="width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
+  		<input type="text" id="address" name="address2" id="address" style="border:1px solid lightgray;width:300px;height:45px;padding-left: 10;" placeholder=" (필수) 상세정보 입력" required><br>
   		<input type="hidden" name="addr123" id="addr"/>
   		<p id="text3" style="display:none;color:red;margin-top:5px;">필수항목입니다.</p>
   </td>
@@ -314,7 +315,7 @@
 </tr>
 
     </table>            
-      <input type="button" value="다음 "id="nextTime" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+      <input type="button" value="다음 "id="nextTime" style="float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;margin-top: 37px;background-color: black;">
  
   <h4 style="font-size: 30px;">➋ 할인/배송비</h4>
      <hr>
@@ -335,13 +336,13 @@
         </button>
 
          <!-- ================================클릭했을떄 모달========================================== -->
-            <dialog>
+            <dialog id="closego">
                 <div class="dialog__inner">
                 
                     <div class="dialog__content">
                         <h3>쿠폰적용</h3>  <p style="text-align: right;">* 쿠폰은 한 주문당 한개만 사용 가능합니다.</p><hr>
                        	
-                          <table id="example-table-2" border="1" style="width:1150px;">
+                          <table id="example-table-2" border="1" style="width:1150px;border:1px solid green;">
                               <tr>
                               <th id="th1">쿠폰코드</th>
                                 <th id="th1">쿠폰이름</th>
@@ -368,16 +369,16 @@
 	                                <td id="td1">
 	                           <c:choose>
         						  <c:when test="${c['cn_limitprice'] <= priceSum+250}" >   <!--${c['cn_limitprice'] } =< ${priceSum+2500}  -->
-									  <input type="button" id="clickevent" class="checkBtn" value="쿠폰적용" /> 
+									  <input type="button" style="background-color:white;color:black;display:inline;height: 32px;"id="clickevent" class="checkBtn" value="쿠폰적용" /> 
 								  </c:when>         
        							 <c:otherwise>
-       							 	<p>쿠폰이용한도금액보다 작아 사용할수없습니다. </p> 
+       							 	<p style="color:darkgray;">최소주문금액보다 작아 <br><b style="color:darkgray">사용할수없습니다.</b> </p> 
 								 </c:otherwise>
    							  </c:choose>
 								 
 								  <c:choose>
         						 	 <c:when test="${c['cn_limitprice'] <= priceSum+250}" >
-								  		<input type="button" style="display:none;" id="alloffHidden" class="alloff" value="적용취소" />
+								  		<input type="button" style="display:none;height: 32px;" id="alloffHidden" class="alloff" value="적용취소" />
 	                               	</c:when>  
 	                               </c:choose>
 	                               <input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
@@ -436,9 +437,9 @@
 <tr>
   <td style="padding-right:40px;">포인트 사용</td>
     <td width="680px">
-    <input style="padding-right:20px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
+    <input style="padding-right:15px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
-         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -4px;">
+         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
         	포인트취소
         </button>
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 
@@ -456,7 +457,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 290px;height:45px;text-align:right;" value="2500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="margin-top: -1px;background-color: rgb(243, 243, 243);width: 290px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -468,7 +469,7 @@
       </div> -->
       <br>
       <h2>➌ 결제 방법</h2>
-       <input type="button" value="다음 "id="nextTime4" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+       <input type="button" value="다음 "id="nextTime4" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;margin-top: -14px;">
         	
 
 <hr><div class="nextTime5" style="display:none;">
@@ -504,12 +505,13 @@
     <div>
     <h1 style="font-weight: bold;color:red">
     <div style="display:flex;">
-    <input style="text-align:right;margin-left: 18px;width: 220px;border:white;"type="text" value="${priceSum+2500}" id="sum" name="sum" readonly/>
+    <input style="text-align:right;margin-left: 18px;width: 220px;border:white;"type="text" value="  <fmt:formatNumber value="${priceSum+2500}" pattern="###,###,###,###"/>" id="sum" name="sum" readonly/>
+    
     <div style="width:60px">&nbsp;원</div>
     </div>
-    
+   
     <input type="hidden" value="${priceSum+2500}" id="sum1" />
-    
+     <input type="hidden" value="${priceSum+2500}" id="sum2" />
     </h1>
     </div>
    
@@ -524,7 +526,8 @@
                <c:forEach items="${orderList }" var="a" varStatus="status">
                	<c:if test="${status.count==1}">
             		<td id="td1234"style="width: 155px;text-align: right;font-size: 21px;"> 
-            			<c:out value="${priceSum}"/> 원 
+            			<%-- <c:out value="${priceSum}"/> 원  --%>
+            			   <fmt:formatNumber value="${priceSum}" pattern="###,###,###,###"/>원
             			<!--******************************hidden***********************************************  -->
             			<input type="hidden" id="priceSum" name="priceSum" value="${priceSum}"/>      	
             		</td>
@@ -551,12 +554,12 @@
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
-      <td style="text-align: right;font-size: 21px;">2500 원</td>
+      <td style="text-align: right;font-size: 21px;">2,500 원</td>
       <!--******************************hidden***********************************************  -->
       <input type="hidden" id="del" value="2500"/>    
   </tr>
           </table><br><hr>
-                            <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -25px;height: 116px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
+                            <div id="agree5"style="width: 426px;margin-left: -41px;margin-top: -27px;height: 116px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;border: 1px solid lightgray;">
                             <p style="margin-top:10px;color:rgb(95, 95, 95);">주문할 상품의 상품명, 상품가격,배송정보<br>를 확인하였으며, 구매를 동의 하십니까?   
                               <a id="agree1" onclick="" data-toggle="modal" data-target="#myModal" href="#modal">약관보기</a> </p>
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
@@ -1052,7 +1055,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 <script>  // 선택버튼 (id="pick")을 누르면 왼쪽 옆옆 의 값( cn_price)이 input태그(id="pickresult")에 나오게.
 //버튼 클릭시 Row 값 가져오기
 $(".checkBtn").click(function(){ 
-	 $('.alloff').css("display","inline");
+	 
+	
 	var str = "";
 	var strNo ="";  
 	var tdArr = new Array();	// 배열 선언
@@ -1084,20 +1088,40 @@ $(".checkBtn").click(function(){
 	
 
 	var totaldate=document.getElementById('sum').value;
+	var totaldate1=document.getElementById('sum1').value;
 	var priceSum=document.getElementById('priceSum').value;
 	var del=document.getElementById('del').value;
 	var coupon=document.getElementById('ex2_Result3').innerHTML;
 	var point=document.getElementById('allpay3').value;
-	
+	var totaldate2=document.getElementById('sum2').value;
 	console.log("총가격: "+totaldate);
 	console.log("상품가격: "+priceSum);
 	console.log("배송비: "+del);
 	console.log("쿠폰할인가: "+coupon);
 
-	$("#sum").val(totaldate-coupon);
+	var coma=totaldate2-coupon;
+	var coma1=Number(coma).toLocaleString('en');
+
+	$("#sum1").val(totaldate2-coupon);
+	$("#sum").val(coma1);
+
+/*   //누르면 모달창 사라지게 
+	const btnClose = document.querySelectorAll('.dialog__inner');
+	btnClose.forEach((elm) => elm.addEventListener('click', () => closeModal()));
+	closeModal = () => {
+	    modal.classList.add("dialog__animate-out");
+	    modal.addEventListener('animationend', handleClose, false);
+	} */
+
 	
-	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
-	$(event.target).parent().parent().css("border","solid 5px red");  
+
+
+
+	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px green").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+	$(event.target).parent().parent().css("border","solid 5px salmon");  
+	$(event.target).css("background-color","lightgray"); 
+	$(event.target).next().css("display","inline").css("background-color","salmon").css("color","white").css("border","none");
+	$(event.target).attr("type","hidden")
 });
 <!--=====================쿠폰체크 취소=========================================== -->
 
@@ -1114,7 +1138,8 @@ $("#alloffHidden").click(function(){
 
 
 	$(".alloff").click(function(){
-		 $('.alloff').css("display","none");
+		 $('.alloff').css("display","none"); 
+		 $('#clickevent').css("display","inline");
 		var str = ""
 		var tdArr = new Array();	// 배열 선언
 		var checkBtn = $(this);
@@ -1145,11 +1170,19 @@ $("#alloffHidden").click(function(){
 		var totaldate=document.getElementById('sum').value;
 		var totaldate1=document.getElementById('sum1').value;
 		var point=document.getElementById('allpay3').value;
-	console.log('totaldate1');
-		$("#sum").val(totaldate1-point); 
+		var totaldate2=document.getElementById('sum2').value;
+	
+	var coma=totaldate2-point;
+	var coma1=Number(coma).toLocaleString('en');
 
-		$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+
+	$("#sum").val(coma1);
+	
+
+		$(event.target).parent().parent().parent().children("tr").css("border","solid 1px green").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 		 $(event.target).parent().parent().parent().css("border","solid 1px black").css("border-collapse","collapse");
+		$(event.target).prev().css("background-color","white").css("color","black").attr("type","button");  
+		
 });
 
 </script>
@@ -1170,7 +1203,7 @@ $("#alloffHidden").click(function(){
 	//결제버튼 클릭시 결제 API 실행
 	$(".paymentBtn").on("click", function(){
 		
-	var totalPrice=$("#sum").val();
+	var totalPrice=$("#sum1").val();
 	console.log("총가격 : "+totalPrice);
 	alert("결제할 가격은 "+totalPrice+"원 입니다.");
     var userMail = "${loginMember['m_Email']}";
@@ -1190,9 +1223,15 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
-        	
+        	var recevier=$("#sNo").val();
+        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
+            websocket.onopen=function(data){
+            	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
+    		}
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
+            
+            
             
         } else {
             var msg = '결제에 실패하였습니다.';
@@ -1203,6 +1242,17 @@ $("#alloffHidden").click(function(){
      });   
     
 });
+	
+	function SocketMessage(type,sender,receiver,msg){
+		this.type=type;
+		this.sender=sender;
+		this.receiver=receiver;
+		this.msg= msg;
+	};
+	
+	
+	
+	
   </script>
 <!--============================================================결제하기버튼css======================================================================-->
   <style>
@@ -1507,9 +1557,15 @@ main {
 		var allpay3=document.getElementById('allpay3').value;
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
-		
+		var totaldate3=document.getElementById('sum2').value;
 		$("#allpay4").val(basicpoint1); 
-		$("#sum").val(totaldate2-basicpoint1-coupon); 
+		
+		var coma=totaldate3-basicpoint1-coupon;
+		var coma1=Number(coma).toLocaleString('en');	
+
+		$("#sum1").val(totaldate3-basicpoint1-coupon);
+		$("#sum").val(coma1);
+		
 		$("#allpay2").val('0'); 
 	/* 	
 		$("#allpay3").val(totaldate); 
@@ -1535,9 +1591,15 @@ main {
 	var basicpoint=document.getElementById('allpay2').value;
 	var point=document.getElementById('def123').innerHTML;
 	var basicpoint1=document.getElementById('point19').value;
+	var totaldate3=document.getElementById('sum2').value;
 	
+	var coma=totaldate3-coupon;
+	var coma1=Number(coma).toLocaleString('en');
+
+	$("#sum1").val(totaldate3-coupon);
+	$("#sum").val(coma1);
+
 	
-	$("#sum").val(totaldate2-coupon); 
 	$("#allpay2").val(basicpoint1); 
 
     $(document).ready(function(){
@@ -1620,10 +1682,14 @@ main {
 		var coupon=document.getElementById('ex2_Result3').innerHTML;
 		var basicpoint=document.getElementById('allpay2').value;
 		
+		var coma=totaldate2-point;
+		var coma1=Number(coma).toLocaleString('en');	
 
+		$("#sum1").val(totaldate2-point);
+		$("#sum").val(coma1);
  	
  
- 		$("#sum").val(totaldate-point); 
+ 	
  		$("#allpay2").val(basicpoint-point); 
  		$("#allpoint6").val(basicpoint-point); 
  		
@@ -1674,11 +1740,17 @@ main {
 		var allpay4=document.getElementById('allpay4').value;
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
-		
+		 var totaldate3=document.getElementById('sum2').value;
 		 $("#allpay3").val('').attr("readonly",false).css("background-color","white");
 		$("#def123").html('0');
 		$("#allpay4").html('0');
-		$("#sum").val(totaldate2-coupon); 
+		
+		var coma=totaldate3-coupon;
+		var coma1=Number(coma).toLocaleString('en');	
+
+		$("#sum1").val(totaldate3-coupon);
+		$("#sum").val(coma1);
+
 		$("#allpay2").val(basicpoint1); 
 		 $("#checkbox123").prop('checked', false);
 
