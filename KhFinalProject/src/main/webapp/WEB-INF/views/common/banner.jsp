@@ -7,15 +7,19 @@
   <ul class="carousel-indicators">
     <li data-target="#banner" data-slide-to="0" class="active"></li>
     <li data-target="#banner" data-slide-to="1" class="active"></li>
+    <li data-target="#banner" data-slide-to="2" class="active"></li>
   </ul>
   
   <!-- The slideshow -->
-  <div class="carousel-inner">
+  <div class="carousel-inner" style="height:400px;">
     <div class="carousel-item active">
-      <img src="${pageContext.request.contextPath }/resources/img/star.jpg" alt="Los Angeles" width="1000" height="300">
+      <img src="${pageContext.request.contextPath }/resources/img/star.jpg" alt="Los Angeles" width="1000" height="400">
     </div>
     <div class="carousel-item">
-      <img src="${pageContext.request.contextPath }/resources/img/seoul.jpg" alt="Los Angeles" width="1000" height="300">
+      <img src="${pageContext.request.contextPath }/resources/img/seoul.jpg" alt="Los Angeles" width="1000" height="400">
+    </div>
+     <div class="carousel-item" onclick="point();">
+      <img src="${pageContext.request.contextPath }/resources/img/banner/coupon-banner/포인트지급.png" alt="Los Angeles" width="1000" height="400">
     </div>
   </div>
   
@@ -28,3 +32,9 @@
   </a>
   
 </div>
+
+<script>
+	function point() {
+		location.replace('${pageContext.request.contextPath}/banner/point');
+	}
+</script>
