@@ -107,8 +107,8 @@
 			        	${a['count']}   <!--${orderList[0]['count']}  -->
 			        		${a['menuCount']}
 			        </td>
-			        <td style="font-size: 21px;">
-			        	${a['price']} ${a['finalPrice']}원	<br>
+			        <td style="font-size: 21px;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
+			        <br>
 
 			        </td><!-- ${newOrder[0]['price']} -->
 
@@ -322,7 +322,7 @@
 
      
 
-    <table id="nextTime1" style="display: none;"> 
+    <table id="nextTime1" style="display: inline;"> 
     <tr>
     <td style="padding-right:40px;">쿠폰 사용</td>
     
@@ -341,7 +341,7 @@
                     <div class="dialog__content">
                         <h3>쿠폰적용</h3>  <p style="text-align: right;">* 쿠폰은 한 주문당 한개만 사용 가능합니다.</p><hr>
                        	
-                          <table id="example-table-2" border="1" style="width:1150px;">
+                          <table id="example-table-2" border="1" style="width:1150px;border:1px solid green;">
                               <tr>
                               <th id="th1">쿠폰코드</th>
                                 <th id="th1">쿠폰이름</th>
@@ -368,7 +368,7 @@
 	                                <td id="td1">
 	                           <c:choose>
         						  <c:when test="${c['cn_limitprice'] <= priceSum+250}" >   <!--${c['cn_limitprice'] } =< ${priceSum+2500}  -->
-									  <input type="button" id="clickevent" class="checkBtn" value="쿠폰적용" /> 
+									  <input type="button" style="background-color:white;color:black;display:inline;height: 32px;"id="clickevent" class="checkBtn" value="쿠폰적용" /> 
 								  </c:when>         
        							 <c:otherwise>
        							 	<p>쿠폰이용한도금액보다 작아 사용할수없습니다. </p> 
@@ -377,7 +377,7 @@
 								 
 								  <c:choose>
         						 	 <c:when test="${c['cn_limitprice'] <= priceSum+250}" >
-								  		<input type="button" style="display:none;" id="alloffHidden" class="alloff" value="적용취소" />
+								  		<input type="button" style="display:none;height: 32px;" id="alloffHidden" class="alloff" value="적용취소" />
 	                               	</c:when>  
 	                               </c:choose>
 	                               <input type="hidden" name="cn_no" id="cn_no" value="c['cn_no']">
@@ -436,9 +436,9 @@
 <tr>
   <td style="padding-right:40px;">포인트 사용</td>
     <td width="680px">
-    <input style="padding-right:20px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
+    <input style="padding-right:15px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
-         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -4px;">
+         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
         	포인트취소
         </button>
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 
@@ -456,7 +456,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 290px;height:45px;text-align:right;" value="2500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="margin-top: -1px;background-color: rgb(243, 243, 243);width: 290px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -524,7 +524,8 @@
                <c:forEach items="${orderList }" var="a" varStatus="status">
                	<c:if test="${status.count==1}">
             		<td id="td1234"style="width: 155px;text-align: right;font-size: 21px;"> 
-            			<c:out value="${priceSum}"/> 원 
+            			<%-- <c:out value="${priceSum}"/> 원  --%>
+            			   <fmt:formatNumber value="${priceSum}" pattern="###,###,###,###"/>원
             			<!--******************************hidden***********************************************  -->
             			<input type="hidden" id="priceSum" name="priceSum" value="${priceSum}"/>      	
             		</td>
@@ -551,7 +552,7 @@
          </tr>
          <tr style="height:40px">
       <td>배송비</td>
-      <td style="text-align: right;font-size: 21px;">2500 원</td>
+      <td style="text-align: right;font-size: 21px;">2,500 원</td>
       <!--******************************hidden***********************************************  -->
       <input type="hidden" id="del" value="2500"/>    
   </tr>
@@ -1052,7 +1053,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 <script>  // 선택버튼 (id="pick")을 누르면 왼쪽 옆옆 의 값( cn_price)이 input태그(id="pickresult")에 나오게.
 //버튼 클릭시 Row 값 가져오기
 $(".checkBtn").click(function(){ 
-	 $('.alloff').css("display","inline");
+	 
+	
 	var str = "";
 	var strNo ="";  
 	var tdArr = new Array();	// 배열 선언
@@ -1096,8 +1098,12 @@ $(".checkBtn").click(function(){
 
 	$("#sum").val(totaldate-coupon);
 	
-	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+
+	$(event.target).parent().parent().parent().children("tr").css("border","solid 1px green").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 	$(event.target).parent().parent().css("border","solid 5px red");  
+	$(event.target).css("background-color","lightgray"); 
+	$(event.target).next().css("display","inline").css("background-color","red").css("color","white");
+	$(event.target).attr("type","hidden")
 });
 <!--=====================쿠폰체크 취소=========================================== -->
 
@@ -1114,7 +1120,8 @@ $("#alloffHidden").click(function(){
 
 
 	$(".alloff").click(function(){
-		 $('.alloff').css("display","none");
+		 $('.alloff').css("display","none"); 
+		 $('#clickevent').css("display","inline");
 		var str = ""
 		var tdArr = new Array();	// 배열 선언
 		var checkBtn = $(this);
@@ -1148,8 +1155,10 @@ $("#alloffHidden").click(function(){
 	console.log('totaldate1');
 		$("#sum").val(totaldate1-point); 
 
-		$(event.target).parent().parent().parent().children("tr").css("border","solid 1px black").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
+		$(event.target).parent().parent().parent().children("tr").css("border","solid 1px green").css("border-collapse","collapse");  //체크한거 말고는 다 테두리 검정색으로
 		 $(event.target).parent().parent().parent().css("border","solid 1px black").css("border-collapse","collapse");
+		$(event.target).prev().css("background-color","white").css("color","black").attr("type","button");  
+		
 });
 
 </script>
