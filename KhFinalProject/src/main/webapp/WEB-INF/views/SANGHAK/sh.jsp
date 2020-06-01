@@ -511,7 +511,7 @@
     </div>
    
     <input type="hidden" value="${priceSum+2500}" id="sum1" />
-    
+     <input type="hidden" value="${priceSum+2500}" id="sum2" />
     </h1>
     </div>
    
@@ -1093,16 +1093,16 @@ $(".checkBtn").click(function(){
 	var del=document.getElementById('del').value;
 	var coupon=document.getElementById('ex2_Result3').innerHTML;
 	var point=document.getElementById('allpay3').value;
-	
+	var totaldate2=document.getElementById('sum2').value;
 	console.log("총가격: "+totaldate);
 	console.log("상품가격: "+priceSum);
 	console.log("배송비: "+del);
 	console.log("쿠폰할인가: "+coupon);
 
-	var coma=totaldate1-coupon;
+	var coma=totaldate2-coupon;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+	$("#sum1").val(totaldate2-coupon);
 	$("#sum").val(coma1);
 
 /*   //누르면 모달창 사라지게 
@@ -1170,12 +1170,12 @@ $("#alloffHidden").click(function(){
 		var totaldate=document.getElementById('sum').value;
 		var totaldate1=document.getElementById('sum1').value;
 		var point=document.getElementById('allpay3').value;
-	console.log('totaldate1');
+		var totaldate2=document.getElementById('sum2').value;
 	
-	var coma=totaldate1-point;
+	var coma=totaldate2-point;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+
 	$("#sum").val(coma1);
 	
 
@@ -1557,13 +1557,13 @@ main {
 		var allpay3=document.getElementById('allpay3').value;
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
-		
+		var totaldate3=document.getElementById('sum2').value;
 		$("#allpay4").val(basicpoint1); 
 		
-		var coma=totaldate2-basicpoint1-coupon;
+		var coma=totaldate3-basicpoint1-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate3-basicpoint1-coupon);
 		$("#sum").val(coma1);
 		
 		$("#allpay2").val('0'); 
@@ -1591,11 +1591,12 @@ main {
 	var basicpoint=document.getElementById('allpay2').value;
 	var point=document.getElementById('def123').innerHTML;
 	var basicpoint1=document.getElementById('point19').value;
+	var totaldate3=document.getElementById('sum2').value;
 	
-	var coma=totaldate2-coupon;
+	var coma=totaldate3-coupon;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+	$("#sum1").val(totaldate3-coupon);
 	$("#sum").val(coma1);
 
 	
@@ -1684,7 +1685,7 @@ main {
 		var coma=totaldate2-point;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate2-point);
 		$("#sum").val(coma1);
  	
  
@@ -1739,15 +1740,15 @@ main {
 		var allpay4=document.getElementById('allpay4').value;
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
-		
+		 var totaldate3=document.getElementById('sum2').value;
 		 $("#allpay3").val('').attr("readonly",false).css("background-color","white");
 		$("#def123").html('0');
 		$("#allpay4").html('0');
 		
-		var coma=totaldate2-coupon;
+		var coma=totaldate3-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate3-coupon);
 		$("#sum").val(coma1);
 
 		$("#allpay2").val(basicpoint1); 
