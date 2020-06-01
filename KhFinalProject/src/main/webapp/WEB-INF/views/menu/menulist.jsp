@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="${path }/resources/css/menulist.css" type="text/css">
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+<style>
+	*{
+		font-family:'Do Hyeon';
+	}
+</style>
 
 	<section>
 	

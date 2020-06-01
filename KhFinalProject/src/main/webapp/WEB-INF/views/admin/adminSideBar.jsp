@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+	
+
 		<style>
 			.table td{
 			    	text-align:center;
@@ -13,6 +15,7 @@
 		    
 		    *{
 		    	font-weight: 700;
+		    	font-family:'Do Hyeon';
 		    }
 		    
 		    .table td{
