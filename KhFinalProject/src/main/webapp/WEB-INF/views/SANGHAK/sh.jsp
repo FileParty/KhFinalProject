@@ -1200,7 +1200,7 @@ $("#alloffHidden").click(function(){
     }, function (rsp) { //callback 함수
         if (rsp.success) {
         	var recevier=$("#sNo").val();
-        	const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/orderalert");
+        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
             websocket.onopen=function(data){
             	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
     		}

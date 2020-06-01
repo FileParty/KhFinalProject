@@ -19,7 +19,7 @@
 
 
 <script type="text/javascript">
-const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/orderalert")
+const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert")
 websocket.onopen=function(data){
 	websocket.send(JSON.stringify(new SocketMessage("business","${no}","","")));
 }

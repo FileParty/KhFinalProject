@@ -30,13 +30,11 @@ public class OrderAlert extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("옴");
 		SocetMessageOrder msg = getMessage(message.getPayload());
 		switch (msg.getType()) {
 		case "user" : sendMessage(msg, session);break;
 		case "business" : addClinet(msg, session); break;
 		}
-		sendMessage(msg,session);
 		
 	}
 	
