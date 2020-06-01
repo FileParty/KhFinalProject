@@ -323,7 +323,7 @@
 
      
 
-    <table id="nextTime1" style="display: none;"> 
+    <table id="nextTime1" style="display: inline;"> 
     <tr>
     <td style="padding-right:40px;">쿠폰 사용</td>
     
@@ -511,7 +511,7 @@
     </div>
    
     <input type="hidden" value="${priceSum+2500}" id="sum1" />
-    
+     <input type="text" value="${priceSum+2500}" id="sum2" />
     </h1>
     </div>
    
@@ -1102,7 +1102,7 @@ $(".checkBtn").click(function(){
 	var coma=totaldate1-coupon;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+	$("#sum1").val(totaldate1-coupon);
 	$("#sum").val(coma1);
 
 /*   //누르면 모달창 사라지게 
@@ -1170,12 +1170,12 @@ $("#alloffHidden").click(function(){
 		var totaldate=document.getElementById('sum').value;
 		var totaldate1=document.getElementById('sum1').value;
 		var point=document.getElementById('allpay3').value;
-	console.log('totaldate1');
+		var totaldate2=document.getElementById('sum2').value;
 	
-	var coma=totaldate1-point;
+	var coma=totaldate2-point;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+
 	$("#sum").val(coma1);
 	
 
@@ -1563,7 +1563,7 @@ main {
 		var coma=totaldate2-basicpoint1-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate2-basicpoint1-coupon);
 		$("#sum").val(coma1);
 		
 		$("#allpay2").val('0'); 
@@ -1595,7 +1595,7 @@ main {
 	var coma=totaldate2-coupon;
 	var coma1=Number(coma).toLocaleString('en');
 
-	
+	$("#sum1").val(totaldate2-coupon);
 	$("#sum").val(coma1);
 
 	
@@ -1684,7 +1684,7 @@ main {
 		var coma=totaldate2-point;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate2-point);
 		$("#sum").val(coma1);
  	
  
@@ -1747,7 +1747,7 @@ main {
 		var coma=totaldate2-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
 
-		
+		$("#sum1").val(totaldate2-coupon);
 		$("#sum").val(coma1);
 
 		$("#allpay2").val(basicpoint1); 
