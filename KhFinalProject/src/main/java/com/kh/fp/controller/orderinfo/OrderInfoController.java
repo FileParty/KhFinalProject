@@ -49,7 +49,6 @@ public class OrderInfoController {
 	
 	@RequestMapping("/orderInfo/selectOrderInfoStore.do")
 	@ResponseBody
-	@Scheduled(fixedDelay=10000)
 	public Map selectOrderInfoStore(int orderNo, int storeNo) {
 		String address = service.selectOrderInfoAddress(orderNo);
 		Map store = mnService.selectStorexy(storeNo);
