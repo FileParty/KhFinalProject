@@ -5,6 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<style>
+	* {
+		    font-family:'Do Hyeon';
+		    }
+</style>
 <section>
 	<div class="container d-flex justify-content-center">
 		<div class="terms-container" style="width:600px; border:1px solid black; margin-top:50px;">

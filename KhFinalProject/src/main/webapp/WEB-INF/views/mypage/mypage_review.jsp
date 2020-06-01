@@ -16,6 +16,9 @@
 		    #review{
 		    	color:rgb(34, 190, 241);
 		    }
+		    * {
+		    font-family:'Do Hyeon';
+		    }
 </style>
 
 <section>

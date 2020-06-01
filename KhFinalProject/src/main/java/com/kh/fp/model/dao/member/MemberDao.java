@@ -36,6 +36,10 @@ public interface MemberDao {
 	
 	Delivery selectDeliveryI(SqlSessionTemplate session,Member m);
 	
+	Member selectGoogle(SqlSessionTemplate session,String name);
+	
+	Member selectFacebook(SqlSessionTemplate session,String email);
+	
 
 
 }
