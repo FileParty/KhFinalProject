@@ -499,7 +499,8 @@ public class LicenseeController {
 	}
 	
 	@RequestMapping("/licensee/menuUpdate")
-	public String menuUpdate(HttpServletRequest req,Model m) {
+	public String menuUpdate(HttpSession session,HttpServletRequest req,Model m,MultipartFile upFile) {
+		String path = session.getServletContext().getRealPath("/resources/upload/business/");
 		int s_no = Integer.parseInt(req.getParameter("s_no"));
 		int me_no = Integer.parseInt(req.getParameter("me_no"));
 		int mt_no = Integer.parseInt(req.getParameter("mt_no"));
@@ -507,6 +508,10 @@ public class LicenseeController {
 		String me_name = req.getParameter("me_name");
 		int me_price = Integer.parseInt(req.getParameter("me_price"));
 		String me_text = req.getParameter("me_text");
+		String origin = req.getParameter("oriFile");
+		String origin1 = origin.substring(34);
+		System.out.println("오"+origin);
+	
 		int sd_no[] = null;
 		if(sd!=null) {
 		sd_no = new int[sd.length];
@@ -521,6 +526,7 @@ public class LicenseeController {
 		log.debug("메뉴명"+me_name);
 		log.debug("메뉴가격"+me_price);
 		log.debug("메뉴설명"+me_text);
+		
 		Map<String,Object> map = new HashMap();
 		map.put("me_name",me_name);
 		map.put("me_no",me_no);
@@ -528,8 +534,25 @@ public class LicenseeController {
 		map.put("mt_no",mt_no);
 		map.put("me_text",me_text);
 		map.put("s_no",s_no);
-		List<MenuSide> list = new ArrayList<MenuSide>();
 		
+		List<MenuSide> list = new ArrayList<MenuSide>();
+		File f = new File(path);
+		if(!f.exists()) {
+			f.mkdirs();
+		}
+		if(!upFile.isEmpty()) {
+			String ori = upFile.getOriginalFilename();
+			String ext = ori.substring(ori.lastIndexOf("."));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rnd = (int)(Math.random()*1000);
+			String rename = "menu_"+sdf.format(System.currentTimeMillis())+"_"+rnd+ext;
+			try {
+				upFile.transferTo(new File(path+rename));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			map.put("me_logImg",rename);
+			}
 			
 		if(sd_no.length !=0 ) {
 		for(int i=0;i<sd_no.length;i++) {
@@ -544,6 +567,10 @@ public class LicenseeController {
 		int result = service.menuUpdate(map,me_no,optionCount);
 		if(optionCount == 0 ) {
 			if(result>0) {
+				File delF = new File(origin);
+				if(delF.exists()) {
+					delF.delete();
+				}
 				result = service.menuSideAdd(list);
 			}
 		}else {
