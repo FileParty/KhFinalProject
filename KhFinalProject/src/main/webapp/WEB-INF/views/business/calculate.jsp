@@ -29,7 +29,7 @@
 		 			
 		 			<div class="graph">
 		 				<c:if test="${not empty sales}">
-		 				<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+		 				<div id="columnchart_material" style="width: 1000px; height: 500px;"></div>
 		 				</c:if>
 		 				<c:if test="${empty sales}">
 		 					<img id='ready' src='${path}/resources/img/index/ready.jpg'>

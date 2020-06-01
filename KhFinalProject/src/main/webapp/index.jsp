@@ -14,13 +14,14 @@
 
 
 
+
 	
 	<div class="foodimg" style="background-image: url('${path}/resources/img/index/in11.jpg') ">
 		<div class="index-search-title contr"  >
 					
 					<h2 style="color: white;" >`<span style="color: #6F6CD2;">야식</span>이 필요할 <span style="color: orange;">때는</span> 배달킹`</h2><br>
 					<h6 style="color: white;">배달 받을 동을 검색해주세요</h6><br>
-					<p style="color: white;">정확한 주소를 입력하시거나 나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
+					<p style="color: white;font-size: 20px;">정확한 주소를 입력하시거나 나침반을 클릭하면 현재 위치를 받을수 있습니다</p>
 			</div>
 	
 	

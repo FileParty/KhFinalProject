@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.fp.model.vo.Business;
+import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 @Repository
@@ -87,6 +88,14 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.selectDelivery", m);
 	}
+
+	@Override
+	public Delivery selectDeliveryI(SqlSessionTemplate session, Member m) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectDeliveryI",m);
+	}
+	
+	
 
 
 	

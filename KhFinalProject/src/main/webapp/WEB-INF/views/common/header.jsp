@@ -56,7 +56,7 @@
 				
 			
 				<a href="${path }/admin/adminMain.do">관리자페이지</a>
-			
+			<a href="${path }/banner/couponBanner">쿠폰배너</a>
 			
 			
 			

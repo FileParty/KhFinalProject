@@ -123,32 +123,8 @@ function testAPI() {
 					<div class="d-flex flex-wrap" style="margin-top:30px; margin-left:10px; margin-right:10px; width:400px;">
 						<button class="btn btn-outline-dark" onclick="location.replace('${url }')" style="width:200px;">Naver 로그인</button>
 						<button class="btn btn-outline-dark" onclick="location.replace('${kakao_url}')" style="width:200px;">Kakao 로그인</button>
-						<input type="button" class="btn btn-outline-dark" id="authBtn" value="Facebook 로그인"  style="width:200px;" onclick="
-							if(this.value === 'login'){
-								FB.login(function(res){
-									console.log('login',res);
-								});
-							}else{
-								FB.logout(function(res){
-									console.log('logout',res);
-								});
-							}
-						">
-						<input type="button" class="btn btn-outline-dark" id="loginBtn" value="Google 로그인"  style="width:200px;" onclick="
-							if(this.value === 'Google 로그인'){
-								gauth.signIn().then(function(){
-									console.log('gauth.signIn()');
-									 checkLoginStatus();
-								})
-							}else{
-								gauth.signOut().then(function(){
-									console.log('gauth.signOut()');
-									 checkLoginStatus()
-								})
-							}
-						">
-						
-						<div class="g-signin2" data-onsuccess="onSignIn"></div>	
+						<button class="btn btn-outline-dark" onclick="location.replace('${google_url}')" style="width:200px;">Google 로그인</button>	
+						<button class="btn btn-outline-dark" onclick="location.replace('${facebook_url}')" style="width:200px;">Facebook 로그인</button>
 					</div>
 					<div class="" style="margin:30px;">
 						<span>배달킹이 처음이신가요? <a href="${path }/member/memberEnroll1.do">회원가입</a>을 해보세요!</span>

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="${path }/resources/css/beom.css" type="text/css">
-
+<link rel="stylesheet" href="${path }/resources/css/loginModal.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
@@ -1101,23 +1101,23 @@
         
         /* 리뷰 신고하기 */
         function reviewReport(r_no){
-        	if("${loginType['type']}"=='m'){
-	        	let check = "${loginType['no']}";
-		        if(check.length!=0){
+        	let check = "${loginType['no']}";
+	        if(check.length!=0){
+        		if("${loginType['type']}"=='m'){
 		        	$("#report-modal").modal("show");
 		        	$("#report-modal-report-type-select").val('욕설');
 		        	$("#report-modal").find("#report-modal-report-writer").remove();
 		        	
 		        	if($("#report-modal").find(".report-modal-report-end").length==0){
 		        		$("#report-modal").find(".modal-footer")
-		        			.append("<button class='report-modal-report-end' onclick='reportEn("+r_no+")'>신고하기</button>");
-		        	} else {
-		        		$("#report-login-modal").modal("show");
+		        			.append("<button class='report-modal-report-end' onclick='reportEnd("+r_no+")'>신고하기</button>");
 		        	}
 	        	
+	        	} else {
+	        		alert("일반 회원만 사용할 수 있습니다.");
 	        	}
         	} else {
-        		alert("일반 회원만 사용할 수 있습니다.");
+        		$("#report-login-modal").modal("show");
         	}
         }
         
