@@ -1,5 +1,8 @@
 package com.kh.fp.common.service.scheduler;
 
-public class CouponSchedulerServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class CouponSchedulerServiceImpl implements CouponSchedulerService{
 
 }

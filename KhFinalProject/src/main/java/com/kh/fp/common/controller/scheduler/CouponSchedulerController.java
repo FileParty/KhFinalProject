@@ -14,7 +14,7 @@ public class CouponSchedulerController {
 	
 	@Scheduled(fixedDelay=5000)
 	public void couponDateCheck() {
-		
+		System.out.println("성탄소년단의 리더 성연형만세");
 	}
 
 }
