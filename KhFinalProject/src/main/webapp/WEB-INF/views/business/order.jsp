@@ -592,13 +592,12 @@
             }
          }
          
-         var select = $("select#storeNo");
-
-       select.change(function() {
-         var select_name = $(this).children("option:selected").text();
-         $(this).siblings("label").text(select_name);
-       });
-
+         $(function(){
+        	 var select = $("select#storeNo");
+        	 var select_name = $("#storeNo").children("option:selected").text();
+        	 select.siblings("label").text(select_name);
+         });
+         
       
       </script>
 

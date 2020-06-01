@@ -25,7 +25,7 @@
 <body>
 	<header class="container-fluid">
 		<div class="login">
-		
+			
 			 <c:if test="${loginMember==null}">
 				<div >
 					<span onclick="location.replace('${path}/member/login.do')">로그인</span>
@@ -55,7 +55,7 @@
 			</c:if>
 				
 			
-			
+				<a href="${path }/admin/adminMain.do">관리자페이지</a>
 			
 			
 			

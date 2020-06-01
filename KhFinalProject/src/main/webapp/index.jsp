@@ -13,18 +13,7 @@
 <section >
 
 
-	 <div class="topnav">
 
-		<a href="${path }/store/mypage">사업자 피파 바페도아닌 마페</a>
-		<a href="${path }/menu/menuList.do?menuCategory=치킨">메뉴 리스트</a>
-<%-- 		<a href="${path }/pay/paylist.do">결제 리스트</a>
-		<a href="${path }/pay/paylist2.do">결제 완료 주문내역Modal</a> --%>
-		<a href="${path }/menu/menuDetailView">참새올드 하약물빵</a>
-		<a href="${path }/common/juso">주소</a>
-		<a href="${path }/mypage/mypage.do">마이페이지</a>
-		<a href="${path }/admin/adminMain.do">관리자페이지</a>
-
-	</div>
 	
 	<div class="foodimg" style="background-image: url('${path}/resources/img/index/in11.jpg') ">
 		<div class="index-search-title contr"  >
