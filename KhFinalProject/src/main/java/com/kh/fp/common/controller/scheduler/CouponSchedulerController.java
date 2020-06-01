@@ -16,5 +16,7 @@ public class CouponSchedulerController {
 	public void couponDateCheck() {
 		service.checkCouponDate();
 	}
+	
+	
 
 }

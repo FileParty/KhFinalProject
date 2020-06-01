@@ -82,6 +82,10 @@ public class DeliveryServer extends TextWebSocketHandler{
 					addClient(msg,session);
 				}
 				
+				//고객이 주소를 요구했을 때
+				if(msg.getState().equals("A")) {
+					
+				}
 				
 				break;
 		}

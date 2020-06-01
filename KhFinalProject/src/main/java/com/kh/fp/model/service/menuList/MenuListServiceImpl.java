@@ -54,8 +54,15 @@ public class MenuListServiceImpl implements MenuListService {
 		return dao.selectMenuList(session, map);
 	}
 
-	
+	//store 위도 경도
+	@Override
+	public Map<String, String> selectStorexy(int storeNo) {
+		// TODO Auto-generated method stub
+		return dao.selectStorexy(session, storeNo);
+	}
 
+	
+	
 	
 	
 	

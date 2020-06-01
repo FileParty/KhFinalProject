@@ -1,5 +1,7 @@
 package com.kh.fp.model.dao.delivery;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,12 @@ public class DeliveryDaoImpl implements DeliveryDao{
 	public int updateDeliveryComplete(SqlSessionTemplate session, Delivery d) {
 		// TODO Auto-generated method stub
 		return session.update("delivery.updateDeliveryComplete",d);
+	}
+
+	@Override
+	public Map<String, String> selectDeliveryxy(SqlSessionTemplate session, int orderNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("delivery.selectDeliveryxy", orderNo);
 	}
 
 	

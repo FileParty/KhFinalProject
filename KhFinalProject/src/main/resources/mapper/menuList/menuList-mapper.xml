@@ -61,5 +61,8 @@
 		</if>
 	</select> 	
 	
+	<select id="selectStorexy" resultType="map" parameterType="_int">
+		select s_name,s_x,s_y from store where s_no=#{storeNo}
+	</select>
 	
 </mapper>

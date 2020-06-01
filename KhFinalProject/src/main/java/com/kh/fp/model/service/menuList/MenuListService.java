@@ -22,5 +22,7 @@ public interface MenuListService {
 	//검색
 	public List<Store> selectMenuList(Map map);
 	
+	//위도 경도 조회
+	public Map<String,String> selectStorexy(int storeNo);
 	
 }

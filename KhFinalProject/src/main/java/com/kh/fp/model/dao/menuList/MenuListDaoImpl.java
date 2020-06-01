@@ -47,6 +47,15 @@ public class MenuListDaoImpl implements MenuListDao {
 		return session.selectList("menuList.searchMenuList", map);
 	}
 
+	//store위도 경도
+	
+	@Override
+	public Map<String, String> selectStorexy(SqlSessionTemplate session, int storeNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("menuList.selectStorexy", storeNo);
+	}
+
+	
 	
 	
 	
