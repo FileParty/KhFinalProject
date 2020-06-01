@@ -323,7 +323,7 @@
 
      
 
-    <table id="nextTime1" style="display: inline;"> 
+    <table id="nextTime1" style="display: none;"> 
     <tr>
     <td style="padding-right:40px;">쿠폰 사용</td>
     
