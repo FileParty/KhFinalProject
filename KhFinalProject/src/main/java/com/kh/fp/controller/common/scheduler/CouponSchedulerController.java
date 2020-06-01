@@ -1,4 +1,4 @@
-package com.kh.fp.common.controller.scheduler;
+package com.kh.fp.controller.common.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

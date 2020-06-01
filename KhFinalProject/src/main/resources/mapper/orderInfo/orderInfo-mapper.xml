@@ -8,4 +8,8 @@
   <update id="updateStateComplete" parameterType="_int">
   	update order_info set o_status='배달완료' where o_no=#{orderNo}
   </update>
+  
+  <select id="selectOrderInfoAddress" parameterType="_int" resultType="string">
+  	select o_addr from order_info where o_no=#{orderNo}
+  </select>
 </mapper>
