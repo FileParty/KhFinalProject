@@ -307,6 +307,12 @@ public class StoreController {
 		
 	}
 	
+	@RequestMapping("/store/orderChatting")
+	public ModelAndView orderChatting(int no,ModelAndView mv) {
+		mv.addObject("no",no);
+		mv.setViewName("/business/orderChatting");
+		return mv;
+	}
 	
 	
 	

@@ -463,6 +463,7 @@
               data:{'no':menuNo},
               success:function(data){
                  $('#modalBox').modal('show');
+                 $("#menu-modal-footer-tootip").hide();
                  $("#modalMenuNo").val(menuNo);
                  $("#menu-modal-menu-count-text").html("1");
                  $("#modal-menu-img-src").val(data['me_logimg']);

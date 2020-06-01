@@ -18,6 +18,7 @@
  		
  		<div>
  			<div class="first-storepage" >
+ 			
  			<h2>나의 매장</h2>
  				<hr/>
  				<c:if test="${empty stores }">

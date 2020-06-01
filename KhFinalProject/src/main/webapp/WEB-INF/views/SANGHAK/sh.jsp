@@ -118,7 +118,7 @@
      	</c:if>  
      	    <c:if test="${status.last}"> 
                 
-           			<input type="hidden" name="sNo" value="${a['s_no'] }">     <!--가게코드 불러오기 -->
+           			<input type="hidden" name="sNo" id="sNo" value="${a['s_no'] }">     <!--가게코드 불러오기 -->
            </c:if>
            			
          
@@ -1223,9 +1223,15 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
-        	
+        	var recevier=$("#sNo").val();
+        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
+            websocket.onopen=function(data){
+            	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
+    		}
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
+            
+            
             
         } else {
             var msg = '결제에 실패하였습니다.';
@@ -1236,6 +1242,17 @@ $("#alloffHidden").click(function(){
      });   
     
 });
+	
+	function SocketMessage(type,sender,receiver,msg){
+		this.type=type;
+		this.sender=sender;
+		this.receiver=receiver;
+		this.msg= msg;
+	};
+	
+	
+	
+	
   </script>
 <!--============================================================결제하기버튼css======================================================================-->
   <style>

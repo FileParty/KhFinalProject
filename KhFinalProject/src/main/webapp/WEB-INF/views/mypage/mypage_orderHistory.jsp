@@ -36,6 +36,9 @@ ${sysdate }  --%>
 			#order{
 		    	color:rgb(34, 190, 241);
 		    }
+		    * {
+		    font-family:'Do Hyeon';
+		    }
 		    
 </style>
 
@@ -124,7 +127,7 @@ ${sysdate }  --%>
 
         </div>
         
-        <div id="modal" style="display: none;">
+<!--         <div id="modal" style="display: none;">
           
             <div class="modal_content">
                 <div class="row">
@@ -150,7 +153,41 @@ ${sysdate }  --%>
             <div class="modal_layer"></div>
         	</div>
         
-        </div>
+        </div> -->
+        
+        <!--  -->
+        
+        <div id="modalBox" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<h4 class="modal-title" id="myModalLabel">모달 타이틀</h4>
+					</div>
+					<div class="modal-body info-container">
+                        <p style="text-align: center;"><strong></strong></p>
+                        <table id="modal-tbl" style="width:100%">
+                            <tr>
+                                <td><img/></td>
+                                <td style="text-align: right;">
+                                    <p style="text-align: right;"><strong></strong></p>
+                                    <p style="text-align: right;"><strong></strong></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table class="table" id="menu-tbl">
+                        </table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">확인</button>
+						<button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  -->
         
         <div id="modal2" style="display: none;">
             <div class="modal_content">
@@ -223,6 +260,7 @@ ${sysdate }  --%>
             <div class="modal_layer"></div>
         </div>
         </div>
+
         
         <!--  -->
         
@@ -558,9 +596,152 @@ ${sysdate }  --%>
 	        }
 	        
 	        
+	        $(".order_content").on("click", function(){
+	        	$("#modalBox").data("thdata", this);
+	        	$('#modalBox').modal('show');
+	        });
+	        
+	        $('#modalBox').on('show.bs.modal', function (e) {
+	        	
+	        	var thdata = $("#modalBox").data("thdata"); 
+	        	
+	        	if(event.target.className!='')
+                    return;
+            	
+            	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
+            	
+            	console.log(e.target.className);
+            	
+            	var o_no = ($(thdata).find("input"))[0].value;
+            	
+            	const strong = $(thdata).find("strong");
+            	const modalStrong=$("#modalBox").find("strong");
+            	let src = $(thdata).find("img").attr("src");
+            	
+            	
+           		
+           		$("#modalBox").find("img").attr("src", src);
+           		$("#modalBox").find("img").attr("width", "100");
+           		$("#modalBox").find("img").attr("height", "100");
+            	
+				$.ajax({
+			
+				    url: "${path}/mypage/orderMenu.do",
+				    type: "POST",
+				    data: {"o_no":o_no},
+				    success: function(data){
+				    	
+				    	if(($($("#o_state_" + o_no)[0]).html().trim())=="주문완료"){
+				    		//주문 완료일때 서버에 접속해야 함
+				    		
+				    		
+				    	}
+				    		
+				    	
+						/* console.log(data[0]['1_1']); */
+						
+						var option = new Array();
+						
+						var addOption="";
+						
+						
+						for(let i=0; i<data.length; i++){
+							option = data[i]['SD_ARRAY'].split(',');
+							
+							for(let j=0; j<option.length; j++){
+								if(j>0)
+									addOption += " / ";
+								addOption += option[j]; 
+							}
+							
+							$("#menu-tbl").append("<tr><td style='text-align: left;' class='menu_con'><img width='100' height='100' src='${path}/resources/upload/business/" + data[i]['ME_LOGIMG'] + "'></td><td style='text-align: right; vertical-align:middle;' class='menu_con'><h5 style='margin-top:-20px; margin-bottom:-20px;'> " + data[i]['ME_NAME'] + "</h5><br>" + addOption + "</td></tr>");
+						}
+						
+						/* if(data.length>0){
+							$("#menu-tbl").append("<tr><th colspan='2' style='text-align:center;'>추가옵션");
+							$("#menu-tbl").append("<tr><td colspan='2' style='text-align:right;' class='modalOption' style='text-align: left'>");
+						}
+						
+						for(let i=0; i<data.length; i++){
+							option = data[i]['SD_ARRAY'].split(',');
+							
+							for(let j=0; j<option.length; j++){
+								
+								$($(".modalOption")[0]).append(option[j] + " / ");
+								
+							
+							}
+							
+						}
+						 */
+						
+						
+						
+						let sName = strong[0].innerHTML;
+		            	let date = strong[1].innerHTML;
+		            	let price = strong[2].innerHTML;
+		           		
+		           		modalStrong[0].innerHTML = sName;
+		           		modalStrong[1].innerHTML = date;
+		           		modalStrong[2].innerHTML = price;
+		            	
+		            	
+		                $("#modal").attr("style", "display:flex");
+		                $("body").attr("style","overflow-y:hidden");
+		                
+		                //by 승연
+		                console.log("모찍히냐");
+		                console.log();
+				    },
+			
+				    error: function (request, status, error){
+				    	
+				    	alert("리뷰 조회 실패");
+				    	
+				    }
+			
+				});
+	        	
+        	});
+	        
+	        
+        	$('#modalBox').on('shown.bs.modal', function (e) {
+   		
+        		var mapDiv = $("<div>").attr({
+        			"id" : "map",
+        			"style" : "width:100%; height:350px"
+        		});
+        		
+        		console.log(mapDiv);
+        		
+        		$(".info-container").append(mapDiv);
+        		
+        		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        	    mapOption = { 
+        	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        	        level: 3 // 지도의 확대 레벨
+        	    };
+
+	        	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	        	// 마커가 표시될 위치입니다 
+	        	var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+	
+	        	// 마커를 생성합니다
+	        	var marker = new kakao.maps.Marker({
+	        	    position: markerPosition
+	        	});
+	
+	        	// 마커가 지도 위에 표시되도록 설정합니다
+	        	marker.setMap(map);
+					
+        	});
+        	
+        	
+	        
     
         
-            $(".order_content").on("click",function(e){
+             $(".order_content_order_content").on("click",function(e){
             	
             	if(event.target.className!='')
                     return;
@@ -755,8 +936,8 @@ ${sysdate }  --%>
    				this.msg = msg;	//메시지
    			}
 			
-			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-  	   		//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  	   		const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 		
 			websocket.onopen = function(data){
 				websocket.send(JSON.stringify(new SocketMessage(type, clientNo, clientName, clientAddress, clientXl, clientYl, storeAddress, clientState, clientMessage)));

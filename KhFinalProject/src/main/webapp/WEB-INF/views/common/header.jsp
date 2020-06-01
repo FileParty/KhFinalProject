@@ -30,7 +30,6 @@
 				<div >
 					<span onclick="location.replace('${path}/member/login.do')">로그인</span>
 					<span onclick="location.replace('${path}/member/memberEnroll1.do')">회원가입</span>
-					<span onclick="location.replace('${path}/#')">주문표</span>
 				</div>
 			</c:if>
 			
@@ -41,14 +40,14 @@
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
 						<span onclick="location.replace('${path }/mypage/mypage.do')">마이페이지</span>
-						<span onclick="location.replace('${path}/#')">주문표</span>
+						<span>현재 포인트 : ${loginMember.m_Point }</span>
 					</div>
 				</c:if>
 				<c:if test="${flag!=null }">	
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-						<span onclick="location.replace('${path }/store/mypage')">사업자 마이페이지</span>
-						<span onclick="location.replace('${path}/#')">주문표</span>
+						<span onclick="location.replace('${path }/store/mypage')">마이페이지(사업자)</span>
+						
 					</div>
 				</c:if>
 				
@@ -57,8 +56,6 @@
 			
 				<a href="${path }/admin/adminMain.do">관리자페이지</a>
 			<a href="${path }/banner/couponBanner">쿠폰배너</a>
-			
-			
 			
 			
 		
@@ -74,5 +71,6 @@
 
 		</div>
 	</header>
+	
 	
 	

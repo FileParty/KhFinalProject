@@ -28,11 +28,18 @@ public interface MemberService {
 	
 	Member selectNaverM(String email);
 	
+	Member selectGoogle(String name);
+	
+	Member selectFacebook(String email);
+	
+	
 	int insertDelivery(Member mb);
 	
 	Member selectDelivery(Member m);
 	
 	Delivery selectDeliveryI(Member m);
+	
+	
 	
 
 	
