@@ -1,6 +1,7 @@
 package com.kh.fp.model.dao.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -40,6 +41,31 @@ public class AdminDaoImpl implements AdminDao {
 	public int deleteStoreStatus(SqlSessionTemplate session, int s_no) {
 		return session.update("admin.deleteStoreStatus", s_no);
 	}
+
+	@Override
+	public List<Map<String, String>> selectReport(SqlSessionTemplate session) {
+		return session.selectList("admin.selectReport");
+	}
+
+	@Override
+	public int updateReportY(SqlSessionTemplate session, int re_no) {
+		return session.update("admin.updateReportY", re_no);
+	}
+
+	@Override
+	public int updateReportM(SqlSessionTemplate session, int re_no) {
+		return session.update("admin.updateReportM", re_no);
+	}
+
+	@Override
+	public int updateReviewStatus(SqlSessionTemplate session, int r_no) {
+		return session.update("admin.updateReviewStatus", r_no);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

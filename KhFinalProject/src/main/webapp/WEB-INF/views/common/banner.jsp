@@ -11,7 +11,7 @@
   </ul>
   
   <!-- The slideshow -->
-  <div class="carousel-inner" style="height:400px;">
+  <div class="carousel-inner" style="height:300px;">
     <div class="carousel-item active">
       <img src="${pageContext.request.contextPath }/resources/img/star.jpg" alt="Los Angeles" width="1000" height="400">
     </div>
@@ -34,7 +34,7 @@
 </div>
 
 <script>
-	function point() {
+	 function point() {
 		location.replace('${pageContext.request.contextPath}/banner/point');
-	}
+	} 
 </script>
