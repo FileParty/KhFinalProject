@@ -12,7 +12,7 @@ public class CouponSchedulerController {
 	@Autowired
 	private CouponSchedulerService service;
 	
-	@Scheduled(fixedDelay=7000)
+	@Scheduled(fixedDelay=10000)
 	public void couponDateCheck() {
 		service.checkCouponDate();
 	}

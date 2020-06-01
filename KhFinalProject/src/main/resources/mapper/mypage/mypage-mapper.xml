@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id="insertReview" parameterType="map">
-		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{reviewCon} , #{taste}, #{amount}, #{delivery}, DEFAULT, #{m_no}, #{s_no}, #{o_no}, NULL)
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{reviewCon} , #{taste}, #{amount}, #{delivery}, DEFAULT, #{m_no}, #{s_no}, #{o_no}, NULL, DEFAULT)
 		
 		<selectKey resultType="_int" keyProperty="no" order="AFTER">
 			SELECT REVIEW_SEQ.CURRVAL FROM DUAL
@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectReview" parameterType="_int" resultType="map">
-		SELECT RE.*, STO.S_NAME AS S_NAME FROM REVIEW RE JOIN STORE STO ON RE.S_NO=STO.S_NO WHERE M_NO=#{m_no}
+		SELECT RE.*, STO.S_NAME AS S_NAME FROM REVIEW RE JOIN STORE STO ON RE.S_NO=STO.S_NO WHERE M_NO=#{m_no} AND R_STATUS='Y'
 	</select>
 	
 	<select id="selectReviewImg" parameterType="map" resultType="string">

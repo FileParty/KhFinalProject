@@ -10,7 +10,7 @@ public class CouponSchedulerDaoImpl implements CouponSchedulerDao {
 
 	@Override
 	public void checkCouponDate(SqlSessionTemplate session) {
-		session.delete("coupon_scheduler.couponScheduler");
+		session.delete("couponScheduler.couponScheduler");
 	}
 
 }

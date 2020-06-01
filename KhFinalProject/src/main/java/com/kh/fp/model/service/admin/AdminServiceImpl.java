@@ -1,6 +1,7 @@
 package com.kh.fp.model.service.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,29 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteStoreStatus(int s_no) {
 		return dao.deleteStoreStatus(session, s_no);
 	}
+
+	@Override
+	public List<Map<String, String>> selectReport() {
+		return dao.selectReport(session);
+	}
+
+	@Override
+	public int updateReportY(int re_no) {
+		return dao.updateReportY(session, re_no);
+	}
+
+	@Override
+	public int updateReportM(int re_no) {
+		return dao.updateReportM(session, re_no);
+	}
+
+	@Override
+	public int updateReviewStatus(int r_no) {
+		return dao.updateReviewStatus(session, r_no);
+	}
+	
+	
+	
 	
 	
 	
