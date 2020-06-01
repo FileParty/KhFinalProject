@@ -94,6 +94,21 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.selectDeliveryI",m);
 	}
+
+	@Override
+	public Member selectGoogle(SqlSessionTemplate session, String name) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectGoogle", name);
+	}
+
+	@Override
+	public Member selectFacebook(SqlSessionTemplate session, String email) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectFacebook", email);
+	}
+	
+	
+	
 	
 	
 
