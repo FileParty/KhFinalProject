@@ -59,8 +59,6 @@
 			<a href="${path }/banner/couponBanner">쿠폰배너</a>
 			
 			
-			
-			
 		
 		</div>
 		<div class="row headerrow">
@@ -74,5 +72,6 @@
 
 		</div>
 	</header>
+	
 	
 	
