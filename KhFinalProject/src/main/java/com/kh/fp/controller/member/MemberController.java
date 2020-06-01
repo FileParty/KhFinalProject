@@ -1226,8 +1226,8 @@ public class MemberController {
     
     
     @RequestMapping(value = "/facebookSignInCallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String facebookSignInCallback(@RequestParam String code) throws Exception {
- 
+    public ModelAndView facebookSignInCallback(@RequestParam String code , HttpSession session) throws Exception {
+    	 ModelAndView mav = new ModelAndView();
         try {
              String redirectUri = oAuth2Parameters.getRedirectUri();
             System.out.println("Redirect URI : " + redirectUri);
@@ -1249,7 +1249,7 @@ public class MemberController {
             Connection<Facebook> connection = connectionFactory.createConnection(accessGrant);
             Facebook facebook = connection == null ? new FacebookTemplate(accessToken) : connection.getApi();
             UserOperations userOperations = facebook.userOperations();
-            
+           
             try
  
             {            
@@ -1258,6 +1258,20 @@ public class MemberController {
                 System.out.println("유저이메일 : " + userProfile.getEmail());
                 System.out.println("유저 id : " + userProfile.getId());
                 System.out.println("유저 name : " + userProfile.getName());
+                
+                String email=userProfile.getEmail();
+                
+               
+                
+                Member m = service.selectFacebook(email);
+                
+                if(m!=null) {
+        			session.setAttribute("loginMember", m);
+        			mav.setViewName("redirect:/");
+        		}else {
+        			session.setAttribute("name", email); 
+        			mav.setViewName("member/facebookEnroll");
+        		}
                 
             } catch (MissingAuthorizationException e) {
                 e.printStackTrace();
@@ -1269,7 +1283,7 @@ public class MemberController {
             e.printStackTrace();
  
         }
-        return "redirect:/";
+        return mav;
  
     }
     
@@ -1287,7 +1301,7 @@ public class MemberController {
  
  
     @RequestMapping(value = "/member")
-    public String doSessionAssignActionPage(HttpServletRequest request) throws Exception {
+    public ModelAndView doSessionAssignActionPage(HttpServletRequest request , HttpSession session) throws Exception {
     	System.out.println("구글 로그인 메소드 들어옴");
         String code = request.getParameter("code");
         System.out.println(code);
@@ -1340,6 +1354,22 @@ public class MemberController {
         Map<String, String> result = mapper.readValue(body, Map.class);
         
         System.out.println(result);
+        
+        System.out.println(result.get("name"));
+        
+        String name=result.get("name");
+        
+        ModelAndView mav = new ModelAndView();
+        
+        Member m = service.selectGoogle(name);
+        
+        if(m!=null) {
+			session.setAttribute("loginMember", m);
+			mav.setViewName("redirect:/");
+		}else {
+			session.setAttribute("name", name); 
+			mav.setViewName("member/googleEnroll");
+		}
        
         
        
@@ -1348,9 +1378,59 @@ public class MemberController {
         
         
         
-        return "redirect:/";
+        return mav;
  
     }
+    
+    //구글 추가 회원가입
+  	@RequestMapping("member/googleEnroll.do")
+  	public String googleEnroll(Member m,Model md) {
+  		
+  		m.setM_Pw(encoder.encode(m.getM_Pw()));
+  		
+  		int result=service.insertMember(m);
+  		
+  		String page="";
+  		
+  		if(result==0) {
+  			page="common/msg";
+  			md.addAttribute("msg","회원가입 실패");
+  			md.addAttribute("loc","/");
+  		}else {
+  			page="common/msg";
+  			md.addAttribute("msg","회원가입 성공");
+  			md.addAttribute("loginMember",m);
+  			md.addAttribute("loc","/");
+  			
+  		}
+  		
+  		return page;
+  	}
+  	
+  	//페이스북 추가 회원가입
+  	@RequestMapping("member/facebookEnroll.do")
+  	public String facebookEnroll(Member m,Model md) {
+  		
+  		m.setM_Pw(encoder.encode(m.getM_Pw()));
+  		
+  		int result=service.insertMember(m);
+  		
+  		String page="";
+  		
+  		if(result==0) {
+  			page="common/msg";
+  			md.addAttribute("msg","회원가입 실패");
+  			md.addAttribute("loc","/");
+  		}else {
+  			page="common/msg";
+  			md.addAttribute("msg","회원가입 성공");
+  			md.addAttribute("loginMember",m);
+  			md.addAttribute("loc","/");
+  			
+  		}
+  		
+  		return page;
+  	}
 
 	
 	

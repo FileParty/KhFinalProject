@@ -9,9 +9,11 @@
 	<!-- 웹소켓 서버 등록하기(서버의 주소값을 매핑시켜주는 것) -->
 	<websocket:handlers>
 		<websocket:mapping path="/delivery" handler="DeliveryServer"/>
+		<websocket:mapping handler="OrderAlert" path="/orderalert"/>
 	</websocket:handlers>
 	
 	<bean id="DeliveryServer" class="com.kh.fp.common.websocket.DeliveryServer"/>
+	<bean id="OrderAlert" class="com.kh.fp.common.websocket.OrderAlert"/>
 	
 	<bean class="com.fasterxml.jackson.databind.ObjectMapper"/> 
 	
