@@ -46,7 +46,7 @@
 				<c:if test="${flag!=null }">	
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-						<span onclick="location.replace('${path }/store/mypage')">사업자 마이페이지</span>
+						<span onclick="location.replace('${path }/store/mypage')">마이페이지(사업자)</span>
 						
 					</div>
 				</c:if>

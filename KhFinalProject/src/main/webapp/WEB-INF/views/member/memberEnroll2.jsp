@@ -13,6 +13,9 @@
    span.emailNoMsg{display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
    span.ok4{color:green;}
    span.no4{color:red;}
+   * {
+		    font-family:'Do Hyeon';
+		    }
 </style>
 <section>
 	<div class="container d-flex justify-content-center">
