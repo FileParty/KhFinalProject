@@ -16,6 +16,7 @@
 		    
 		    *{
 		    	font-weight: 700;
+		    	font-famliy:'Do Hyeon';
 		    }
 		    
 		    
