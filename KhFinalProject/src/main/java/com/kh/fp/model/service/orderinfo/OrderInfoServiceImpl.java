@@ -25,6 +25,12 @@ public class OrderInfoServiceImpl implements OrderInfoService{
 		// TODO Auto-generated method stub
 		return dao.updateOrderStateComplete(session, orderNo);
 	}
+
+	@Override
+	public String selectOrderInfoAddress(int orderNo) {
+		// TODO Auto-generated method stub
+		return dao.selectOrderInfoAddress(session, orderNo);
+	}
 	
 	
 }

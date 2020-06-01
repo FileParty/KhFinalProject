@@ -8,4 +8,8 @@
   <update id="updateDeliveryComplete" parameterType="delivery">
   	update delivery set d_status=#{d_Status} where m_no=#{m_No}
   </update>
+  
+  <select id="selectDeliveryxy" parameterType="_int" resultType="map">
+  	select d_status, d_x, d_y from delivery where o_no=#{o_no}
+  </select>
 </mapper>

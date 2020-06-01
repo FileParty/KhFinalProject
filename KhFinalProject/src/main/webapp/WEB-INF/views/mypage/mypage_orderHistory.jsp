@@ -58,7 +58,9 @@ ${sysdate }  --%>
 
                        <div class="col-md-2"></div>
                        <div class="col-md-8 order_content" style="border: 1px solid black; height:170px;">
-							<input type="hidden" value="${m['O_NO']}"/>
+							<input class="orderNo" type="hidden" value="${m['O_NO']}"/>
+							<input class="storeNo"type="hidden" value="${m['S_NO']}"/>
+							
 							
                            <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
@@ -178,6 +180,8 @@ ${sysdate }  --%>
                         <br>
                         <table class="table" id="menu-tbl">
                         </table>
+                        
+                        <div id="map" style="width:100%;height:350px"></div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary">확인</button>
@@ -602,16 +606,14 @@ ${sysdate }  --%>
 	        });
 	        
 	        $('#modalBox').on('show.bs.modal', function (e) {
-	        	
+	        		        	
 	        	var thdata = $("#modalBox").data("thdata"); 
 	        	
 	        	if(event.target.className!='')
                     return;
             	
             	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
-            	
-            	console.log(e.target.className);
-            	
+            	           	
             	var o_no = ($(thdata).find("input"))[0].value;
             	
             	const strong = $(thdata).find("strong");
@@ -690,8 +692,10 @@ ${sysdate }  --%>
 		                $("body").attr("style","overflow-y:hidden");
 		                
 		                //by 승연
-		                console.log("모찍히냐");
-		                console.log();
+		                var type="client";
+		                var orderNo = o_no;
+		           		
+		                //websocket.send(websocket.send(JSON.stringify(new SocketMessage(type, orderNo, "", "", "", "", "", "A", "")));)
 				    },
 			
 				    error: function (request, status, error){
@@ -704,38 +708,136 @@ ${sysdate }  --%>
 	        	
         	});
 	        
-	        
-        	$('#modalBox').on('shown.bs.modal', function (e) {
-   		
-        		var mapDiv = $("<div>").attr({
-        			"id" : "map",
-        			"style" : "width:100%; height:350px"
-        		});
-        		
-        		console.log(mapDiv);
-        		
-        		$(".info-container").append(mapDiv);
-        		
-        		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        	    mapOption = { 
-        	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        	        level: 3 // 지도의 확대 레벨
-        	    };
+	        $('#modalBox').on('shown.bs.modal', function (e) {
+		   		
+	        	var thdata = $("#modalBox").data("thdata");
+	        	
+	        	var orderNoDiv = $(thdata).find(".orderNo").val();
+	        	var	storeNoDiv = $(thdata).find(".storeNo").val();
+	        		       
+	        	//orderNo, storeNo 를 가지고 db 조회
+	        	//가게 위도 경도, 배달할 주소 가지고 옴        	
+	        	$.ajax({
+	        		url : "${pageContext.request.contextPath}/orderInfo/selectOrderInfoStore.do",
+	        		data : {
+	        			"orderNo" : orderNoDiv,
+	        			"storeNo" : storeNoDiv
+	        		},
+	        		success: function(data){
+	        			console.log(data);
+	        			console.log(data['clientAddress']);
+	        			
+	        			var clientAddress = data['clientAddress'];
+	        			var storeX = data['storeX'];
+	        			var storeY = data['storeY'];
+	        			var storeName = data['storeName'];
+	        			var deliveryX = data['deliveryX'];
+	        			var deliveryY = data['deliveryY'];
+	        			var deliveryState = data['deliveryState'];
+	        			
+	        			//delivery x,y도 가져와야한다.
+	        			var deliveryXy;
+	        			
+	        			/* var mapDiv = $("<div>").attr({
+	    					"id":"map-"+orderNoFromBusiness,
+	    					"style":"width:100%;height:350px"
+	    				}) */
+	    				
+	    				//$(".info-container").append(mapDiv);
+	    				
+	            		//
+	            		
+	            		//$(".info-container").children("div").addClass("d-none");
+	            		//$(".info-container").children("#map-"+orderNoFromBusiness).removeClass("d-none");
+	    				
+	    				var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
+	    				
+	    				mapOption = {
+	    				        center: new kakao.maps.LatLng(storeY, storeX), // 지도의 중심좌표
+	    				        level:3 // 지도의 확대 레벨
+	    				    };  
 
-	        	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-	        	// 마커가 표시될 위치입니다 
-	        	var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-	
-	        	// 마커를 생성합니다
-	        	var marker = new kakao.maps.Marker({
-	        	    position: markerPosition
+	    				// 지도를 생성합니다    
+	    				var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	    				// 주소-좌표 변환 객체를 생성합니다
+	    				var geocoder = new kakao.maps.services.Geocoder();
+
+	    				var coords;
+	    				  
+	    				if(deliveryState == 'N'){
+	        				deliveryXy=null;
+	        			}else{
+	        				deliveryXy= new kakao.maps.LatLng(deliveryY, deliveryX);
+	        			}
+	    				
+	    				console.log("확인");
+	    				console.log(deliveryXy);
+	    				// 주소로 좌표를 검색합니다
+	    				geocoder.addressSearch(clientAddress, function(result, status) {
+
+	    				    // 정상적으로 검색이 완료됐으면 
+	    				     if (status === kakao.maps.services.Status.OK) {
+
+	    				        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	    						
+	    				         var bounds = new kakao.maps.LatLngBounds();    
+	    				         
+	    				         var positions = [
+	    									{
+	    										title: '우리집',
+	    										latlng: coords
+	    									},
+	    									{
+	    										title: storeName,
+	    										latlng: new kakao.maps.LatLng(storeY, storeX)
+	    									},
+	    									{
+	    										title: '배달원',
+	    										latlng: deliveryXy
+	    									}
+	    								];
+	    				         
+	    				         for(var i=0; i<positions.length; i++){
+	    				        	 
+	    				        	 if(positions[i].latlng != null){
+	    									var marker = new kakao.maps.Marker({
+	    										map: map,
+	    										position: positions[i].latlng,
+	    										title: positions[i].title,
+	    									});
+	    									
+	    									marker.setMap(map);
+	    				       				bounds.extend(positions[i].latlng);
+	    				        	 }
+	    				        	 
+	    				             		
+
+	    				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	    				        
+	    				        if(positions[i].latlng != null){
+	    				        var infowindow = new kakao.maps.InfoWindow({
+	    				            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+positions[i].title+'</div>'
+	    				        });
+	    				        	infowindow.open(map, marker);
+	    				        }   
+	    				         }
+	    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    				        //map.setCenter(coords);
+	    				         map.setBounds(bounds);
+	    				    } 
+	    				    
+	    				    
+	    				});
+	        			
+	        		}
 	        	});
-	
-	        	// 마커가 지도 위에 표시되도록 설정합니다
-	        	marker.setMap(map);
+	        	
+	        	
+        		  
 					
         	});
+        	
         	
         	
 	        
@@ -943,6 +1045,8 @@ ${sysdate }  --%>
 				websocket.send(JSON.stringify(new SocketMessage(type, clientNo, clientName, clientAddress, clientXl, clientYl, storeAddress, clientState, clientMessage)));
 			}  
 		
+			
+			
 			websocket.onmessage = function(data){
 				const msg = JSON.parse(data.data);
 				
@@ -950,7 +1054,7 @@ ${sysdate }  --%>
 				console.log(msg);
 				console.log(msg.type);
 				
-				
+
 				switch(msg.type){
 				case "business":
 					var businessMsg = msg.msg;
@@ -996,79 +1100,6 @@ ${sysdate }  --%>
 						}				
 					});
 					
-					var mapDiv = $("<div>").attr({
-						"id":"map-"+orderNoFromBusiness,
-						"style":"width:100%;height:150px"
-					})
-					
-					$(".info-container").append(mapDiv);
-					
-					var createMap = function(){
-						
-						
-						var mapContainer = document.getElementById("map-"+orderNoFromBusiness), // 지도를 표시할 div 
-					    mapOption = {
-					        center: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness), // 지도의 중심좌표
-					        level:3 // 지도의 확대 레벨
-					    };  
-
-					// 지도를 생성합니다    
-					var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-					// 주소-좌표 변환 객체를 생성합니다
-					var geocoder = new kakao.maps.services.Geocoder();
-
-					var coords;
-					    
-					// 주소로 좌표를 검색합니다
-					geocoder.addressSearch(clientAddressFromBusiness, function(result, status) {
-
-					    // 정상적으로 검색이 완료됐으면 
-					     if (status === kakao.maps.services.Status.OK) {
-
-					        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-							
-					         var bounds = new kakao.maps.LatLngBounds();    
-					         
-					         var positions = [
-										{
-											title: '우리집',
-											latlng: coords
-										},
-										{
-											title: storeNameFromBusiness,
-											latlng: new kakao.maps.LatLng(storeYlFromBusiness, storeXlFromBusiness)
-										}
-									];
-					         
-					         for(var i=0; i<positions.length; i++){
-										var marker = new kakao.maps.Marker({
-											map: map,
-											position: positions[i].latlng,
-											title: positions[i].title,
-										});
-					         			
-					             		marker.setMap(map);
-					       				bounds.extend(positions[i].latlng);
-
-					        // 인포윈도우로 장소에 대한 설명을 표시합니다
-					        var infowindow = new kakao.maps.InfoWindow({
-					            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+positions[i].title+'</div>'
-					        });
-					        	infowindow.open(map, marker);
-					             
-					         }
-					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-					        //map.setCenter(coords);
-					         map.setBounds(bounds);
-					    } 
-					    
-					    
-					}); 
-					}
-					
-					setTimeout(createMap, 3000);
-
 					break;
 				}
 			}

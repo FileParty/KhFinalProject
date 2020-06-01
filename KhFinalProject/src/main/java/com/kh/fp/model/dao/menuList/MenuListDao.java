@@ -24,5 +24,6 @@ public interface MenuListDao {
 	//검색
 	public List<Store> selectMenuList(SqlSessionTemplate session, Map map);
 	
-	
+	//store 위도 경도
+	public Map<String, String> selectStorexy(SqlSessionTemplate session, int storeNo);
 }
