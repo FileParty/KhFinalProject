@@ -17,6 +17,9 @@
     <div class="carousel-item">
       <img src="${pageContext.request.contextPath }/resources/img/seoul.jpg" alt="Los Angeles" width="1000" height="300">
     </div>
+     <div class="carousel-item" onclick="point();">
+      <img src="${pageContext.request.contextPath }/resources/img/banner/coupon-banner/포인트지급.png" alt="Los Angeles" width="1000" height="300">
+    </div>
   </div>
   
   <!-- Left and right controls -->
@@ -28,3 +31,9 @@
   </a>
   
 </div>
+
+<script>
+	function point() {
+		location.replace('${pageContext.request.contextPath}/banner/point');
+	}
+</script>
