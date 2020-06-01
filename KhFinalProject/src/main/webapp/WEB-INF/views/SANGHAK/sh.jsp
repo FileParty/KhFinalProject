@@ -315,7 +315,7 @@
 </tr>
 
     </table>            
-      <input type="button" value="다음 "id="nextTime" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+      <input type="button" value="다음 "id="nextTime" style="float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;margin-top: 37px;background-color: black;">
  
   <h4 style="font-size: 30px;">➋ 할인/배송비</h4>
      <hr>
@@ -469,7 +469,7 @@
       </div> -->
       <br>
       <h2>➌ 결제 방법</h2>
-       <input type="button" value="다음 "id="nextTime4" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;">
+       <input type="button" value="다음 "id="nextTime4" style=" float:right;font-weight: bold;width:90px;height:45px;color:white;padding: 5px;background-color: black;margin-top: -14px;">
         	
 
 <hr><div class="nextTime5" style="display:none;">
