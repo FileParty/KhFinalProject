@@ -52,7 +52,7 @@
 		<selectKey resultType="_int" keyProperty="m_receiver" order="BEFORE">
 			SELECT M_NO FROM REVIEW WHERE R_NO=#{r_no}
 		</selectKey>
-		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no})
+		INSERT INTO REPORT VALUES(REPORT_SEQ.NEXTVAL,#{re_content},#{m_send},#{m_receiver},#{r_no},DEFAULT)
 	</insert>
 	<select id="selectBookMarkCheck" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM PREFER WHERE M_NO=#{m_no} AND S_NO=#{s_no}
