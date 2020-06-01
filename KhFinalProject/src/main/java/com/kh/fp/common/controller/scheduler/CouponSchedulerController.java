@@ -1,4 +1,4 @@
-package com.kh.fp.controller.common.scheduler;
+package com.kh.fp.common.controller.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,5 +16,7 @@ public class CouponSchedulerController {
 	public void couponDateCheck() {
 		service.checkCouponDate();
 	}
+	
+	
 
 }

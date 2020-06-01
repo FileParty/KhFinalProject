@@ -6,6 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="${path }/resources/css/loginModal.css" type="text/css">
 <link rel="stylesheet" href="${path }/resources/css/couponBanner.css" type="text/css">
+<script type="text/javascript" src="${path }/resources/js/jquery.slideto.min.js"></script>
 <style>
 	@font-face{
 		font-family:BMHANNA;
@@ -16,21 +17,22 @@
 	}
 </style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<section>
-	<div id="coupon-banner-main-1" class="coupon-banner-mains">
+<div id="main">
+	<section id="coupon-banner-main-1" class="coupon-banner-mains">
 		<h1 id="coupon-banner-main-1-text-1">배달킹</h1>
 		<h2 id="coupon-banner-main-1-text-2">런칭 이벤트</h2>
 		<h2 id="coupon-banner-main-1-text-3">배달킹 쿠폰팩!</h2>
 		<h2 id="coupon-banner-main-1-text-end">스크롤을 내려보세요!</h2>
-	</div>
-	<div id="coupon-banner-main-2" class="coupon-banner-mains">
+	</section>
+	<section id="coupon-banner-main-2" class="coupon-banner-mains">
 		<h1 id="coupon-banner-main-2-text-1">배달킹 쿠폰팩을 열어보세요!</h1>
 		<h2 id="coupon-banner-main-2-text-2">하루에 3개씩 열 수 있습니다!</h2>
 		<div id="coupon-banner-main-pack">
 			<img width="250px" height="400px" src="">
 			<h2 id="coupon-banner-main-2-text-3">← 쿠폰팩 열기!</h2>
 		</div>
-	</div>
+	</section>
+</div>
 <!-- login modal -->
 <div id="report-login-modal" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -52,12 +54,12 @@
 		</div>
 	</div>
 </div>
-</section>
 <script>
 
 	var scrollCheck = 0;
+	var divIndex = 1;
 	$(function(){
-		let pageHeihgt = ($(window).height())-340;
+		let pageHeihgt = ($(window).height())-343;
 		$(".coupon-banner-mains").css({
 			height:pageHeihgt
 		})
@@ -65,11 +67,6 @@
 			backgroundImage:"url('${path}/resources/img/banner/coupon-banner/coupon-banner-1.jpg')",
 		});
 		
-		$(window).scroll(function(){
-			let flag = $(window).scrollTop()-scrollCheck >= 0 ? 1 : -1;
-			srcollDivChange(flag);
-			scrollCheck = $(window).scrollTop();
-		})
 		
 	})
 	/* 로그인 페이지로 이동 */
@@ -77,9 +74,32 @@
 		location.replace("${path}/member/login.do");
 	}
 	
+	
+	
 	/* 스크롤 페이지 전환 */
+	$(window).scroll(function(){
+		let flag = $(window).scrollTop()-scrollCheck >= 0 ? 1 : -1;
+		srcollDivChange(flag);
+		scrollCheck = $(window).scrollTop();
+		$("#main").slideto();
+		//setTimeout(srcollDivChange(flag),150);
+	})
+	
 	function srcollDivChange(flag){
 		console.log(flag);
+		if(flag>0){
+			if(divIndex<2){
+				$("#coupon-banner-main-"+divIndex).hide();
+				divIndex++;
+				$("#coupon-banner-main-"+divIndex).show();
+			}
+		}else {
+			if(divIndex>1){
+				$("#coupon-banner-main-"+divIndex).hide();
+				divIndex--;
+				$("#coupon-banner-main-"+divIndex).show();
+			}
+		}
 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

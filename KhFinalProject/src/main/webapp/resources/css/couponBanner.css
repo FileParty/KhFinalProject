@@ -1,5 +1,5 @@
 @charset "UTF-8";
-div.coupon-banner-mains{
+.coupon-banner-mains{
 	display:flex;
 	flex-direction:column;
 	justify-content:flex-start;
@@ -40,8 +40,4 @@ div.coupon-banner-mains{
 	margin-top:300px;
 	font-size:1.5em;
 	text-shadow:3px 3px 3px lightgray;
-}
-
-#coupon-banner-main-2{
-	display:none;
 }
