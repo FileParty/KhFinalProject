@@ -14,7 +14,12 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}]%-5p: %l - %m%n" />
 		</layout>
+		<filter class="org.apache.log4j.varia.StringMatchFilter">
+			<param name="StringToMatch" value="IGNORE"/>
+			<param name="AcceptOnMatch" value="false"/>
+		</filter>
 	</appender>
+	
 	
 	<logger name="jdbc.sqlonly" additivity="false">
 		<level value="INFO"/>
