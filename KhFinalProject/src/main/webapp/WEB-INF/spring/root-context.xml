@@ -74,7 +74,7 @@
     <bean id="oAuth2Parameters"
         class="org.springframework.social.oauth2.OAuth2Parameters">
         <property name="scope" value="email" />
-        <property name="redirectUri" value="https://localhost:9090/spring/member/login.do..." />
+        <property name="redirectUri" value="https://rclass.iptime.org/20PM_deliveryKing_final/member/login.do..." />
     </bean>
     
     
