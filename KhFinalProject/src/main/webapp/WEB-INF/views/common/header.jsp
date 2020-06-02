@@ -40,7 +40,7 @@
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
 						<span onclick="location.replace('${path }/mypage/mypage.do')">마이페이지</span>
-						<span>현재 포인트 : ${loginMember.m_Point }</span>
+						<span style="color:gray;">현재 포인트 :<p style="display:inline;color:red"> ${loginMember.m_Point } point</p></span>
 					</div>
 				</c:if>
 				<c:if test="${flag!=null }">	
