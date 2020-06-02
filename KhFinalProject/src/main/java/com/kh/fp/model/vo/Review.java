@@ -20,4 +20,5 @@ public class Review {
 	private int M_NO;
 	private int S_NO;
 	private String R_REPLY;
+	private String R_STATUS;
 }

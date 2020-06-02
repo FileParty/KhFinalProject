@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.fp.model.dao.admin.AdminDao;
 import com.kh.fp.model.vo.AdminApplyStore;
 import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,6 +77,13 @@ public class AdminServiceImpl implements AdminService {
 	public int updateReviewStatus(int r_no) {
 		return dao.updateReviewStatus(session, r_no);
 	}
+
+	@Override
+	public Review reviewDetail(int r_no) {
+		return dao.reviewDetail(session, r_no);
+	}
+	
+	
 	
 	
 	
