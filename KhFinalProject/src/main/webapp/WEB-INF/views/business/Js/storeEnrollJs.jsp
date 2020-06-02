@@ -141,6 +141,12 @@
         	}else if(sstarttime==0 || sendtime==0){
         		alert("오픈시간/마감시간을 선택해주세요");
         		return false;
+        	}else if(sstarttime==sendtime){
+        		alert("오픈시간/마감시간을 다시 입력해주세요");
+        		return false;
+        	}else if(sendtime>=4&&sendtime<sstarttime){
+        		alert("오픈시간/마감시간을 다시 입력해주세요");
+        		return false;
         	}
         	
         	if(doubleSubmitCheck()) return;
