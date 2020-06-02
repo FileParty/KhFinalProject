@@ -7,8 +7,8 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 
-  
-
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,14 +22,20 @@
  
 <div class="header">
 <div style="display:flex;">
-				<a href="${path }"><img class="rounded-circle" style="margin:3px;width:85px;height:85px;"
-					alt="rogo" src="https://cdn.pixabay.com/photo/2016/02/23/00/06/pizza-1216738_960_720.png">
+				<a href="${path }"><img class="rounded-circle" style="margin:3px;width: 112px;height: 103px;"
+					alt="rogo" src="${pageContext.request.contextPath }/resources/img/deliverySH.png">
 				</a>
-				  <h1 style="padding-left:34%;">성탄소년단</h1>
-				
+				  <h1 style="padding-left: 374px;font-family: 'Black Han Sans', sans-serif;background-color:#666666;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+Background-clip: text;
+color: transparent;
+Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
+				  <h1 style="font-size: 71px;font-family: 'Black Han Sans', sans-serif;">KING</h1>
+				<h4>성탄소년단</h4>
 			</div>
 
-  <p>배달의 민족을 앞서가는 이성연외 6아이들</p>
+  <p>배달의 민족을 앞서가는 7명의 아이들</p>
 </div>
  
 <!-- <div class="topnav">
@@ -45,8 +51,8 @@
  <form  action="${path }/pay/payment.do" method="post" id="baguniForm" > <!--  -->
 
 <main>
-  <h2 style="text-align: center; ">주문/결제</h2>
-  <p><b style="font-size: 17px;">주문내역</b></p>
+  <h2 style="text-align: center;margin-left: 29px; ">주문/결제</h2>
+
  
   <table class="table1" style="width:1340px">
     <thead style="background-color: rgb(228, 227, 227);" >
@@ -124,7 +130,7 @@
          
       </c:forEach>
       
- 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#FFF8CA;">
+ 			<tr style="color: white;height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color: darkslategray;">
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -462,7 +468,7 @@
       </td>
     </tr>
  
-    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 80,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
+    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 100원 이상이어야 결제가 가능합니다.</em></p></td></tr>
 </table>
 <!-- <div style="display:flex; justify-content:center;padding-left: 550px;">
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
@@ -1654,8 +1660,9 @@ main {
   $(document).ready(function(){
 	    $("#check123").change(function(){
 	        if($("#check123").is(":checked")){
-	        	$('#dopay').css("color","white").css("background-color","black");
+	        	$('#dopay').css("color","white").css("background-color","darkslategray");
 	        	$('#agree5').css("color","white").css("border","1px solid black");
+	        	$('#dopay').css("color","white").css("border","1px solid black");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
 	        	$('#agree2').css("color","black");
 	        	$('#vlftn').prop("type", "hidden");
