@@ -76,7 +76,9 @@ ${sysdate }  --%>
 							
                            <p style="text-align: center;"><strong style="font-size:20px;">${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
-                           <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="ndate"/>
+                           
+                           <%-- <fmt:parseDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="ndate"/> --%>
+                           <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
                            <table style="width:100%;">
                            <tr>
