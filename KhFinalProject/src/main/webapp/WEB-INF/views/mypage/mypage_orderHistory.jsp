@@ -569,7 +569,8 @@ ${sysdate }  --%>
 								
 			    				
 			    				var geocoder = new kakao.maps.services.Geocoder();
-
+			    				var bounds = new kakao.maps.LatLngBounds(); 
+			    				
 			    				// 주소로 좌표를 검색합니다
 			    				geocoder.addressSearch(storeAddrD, function(result, status) {
 
@@ -578,7 +579,7 @@ ${sysdate }  --%>
 
 			    				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-			    				        var bounds = new kakao.maps.LatLngBounds(); 
+			    				        
 			    				        
 			    				        // 결과값으로 받은 위치를 마커로 표시합니다
 			    				        var marker = new kakao.maps.Marker({
@@ -586,6 +587,9 @@ ${sysdate }  --%>
 			    				            position: coords
 			    				        });
 										
+			    				        console.log("ㅇㅁㄻㄴ이함읾ㄶㅁㄴㄹ");
+			    				        console.log(coords);
+			    				        
 			    				        marker.setMap(map);
     									markers.push(marker);
     				       				bounds.extend(coords);
@@ -597,7 +601,7 @@ ${sysdate }  --%>
 			    				        infowindow.open(map, marker);
 
 			    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			    				         map.setCenter(coords);
+			    				        map.setCenter(coords);
 			    				    } 
 			    				}); 
 
@@ -612,8 +616,7 @@ ${sysdate }  --%>
 			    				     if (status === kakao.maps.services.Status.OK) {
 
 			    				        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			    						
-			    				         var bounds = new kakao.maps.LatLngBounds();    
+    
 			    				         
 			    				         var positions = [
 			    									{
@@ -652,8 +655,8 @@ ${sysdate }  --%>
 			    				        }   
 			    				         }
 			    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			    				        //map.setCenter(coords);
-			    				        // map.setBounds(bounds);
+			    				        map.setCenter(coords);
+			    				        map.setBounds(bounds);
 			    				    } 
 			    				    
 			    				    
@@ -1197,6 +1200,8 @@ ${sysdate }  --%>
 	    				console.log("확인");
 	    				console.log(deliveryXy);
 	    				console.log(clientAddress);
+	    				console.log(storeName);
+	    				
 	    				// 주소로 좌표를 검색합니다
 	    				geocoder.addressSearch(clientAddress, function(result, status) {
 
@@ -1248,7 +1253,7 @@ ${sysdate }  --%>
 	    				        }   
 	    				         }
 	    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	    				        //map.setCenter(coords);
+	    				         map.setCenter(coords);
 	    				         map.setBounds(bounds);
 	    				    } 
 	    				    
