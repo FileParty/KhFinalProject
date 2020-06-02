@@ -36,6 +36,12 @@ public class DeliveryServiceImpl implements DeliveryService{
 		// TODO Auto-generated method stub
 		return dao.selectDeliveryxy(session, orderNo);
 	}
+
+	@Override
+	public int updateDeliveryPosition(Delivery d) {
+		// TODO Auto-generated method stub
+		return dao.updateDeliveryPosition(session, d);
+	}
 	
 	
 	

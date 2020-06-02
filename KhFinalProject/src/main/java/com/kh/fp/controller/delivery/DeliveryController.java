@@ -44,4 +44,15 @@ public class DeliveryController {
 		
 		return map;
 	}
+	
+	@RequestMapping("/delivery/updateDeliveryPosition.do")
+	@ResponseBody
+	public Map updateDeliveryPosition(Delivery d) {
+		int result = service.updateDeliveryPosition(d);
+		
+		Map map = new HashMap();
+		map.put("result", result);
+		
+		return map;
+	}
 }

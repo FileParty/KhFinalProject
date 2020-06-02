@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="selectOrder" parameterType="_int" resultType="map">
-		SELECT A.*, B.S_LOGIMG, B.S_NAME FROM ORDER_INFO A JOIN STORE B ON A.S_NO = B.S_NO WHERE A.M_NO=#{m_no} ORDER BY O_DATE DESC
+		SELECT A.*, B.S_LOGIMG, B.S_NAME, B.S_ADDR FROM ORDER_INFO A JOIN STORE B ON A.S_NO = B.S_NO WHERE A.M_NO=#{m_no} ORDER BY O_DATE DESC
 	</select>
 	
 	<select id="selectOrderMenu" parameterType="_int" resultType="map">

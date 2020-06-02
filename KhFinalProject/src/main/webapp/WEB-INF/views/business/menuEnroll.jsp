@@ -500,9 +500,19 @@
 				}
 			}
 			
+			for(let i=0;i<$("#option2-container").find('div').length;i++) {
+				let valid = $("#option2-container").find('div:eq('+i+')').find('input[name=sd_name]:eq(0)');
+				let valid1 = $("#option2-container").find('div:eq('+i+')').find('input[name=sd_price]:eq(0)');
+				if(valid.val().trim()=="" || valid.val().length==0) {
+					count++;
+				}else if(valid1.val().trim()=="" || valid1.val().length==0) {
+					count++;
+				}
+			}
+			
 			
 			if(count>0) {
-				alert('옵션명을 적어주세요!');
+				alert('옵션명 또는 가격을 적어주세요!');
 				return false;
 			}
 			else {

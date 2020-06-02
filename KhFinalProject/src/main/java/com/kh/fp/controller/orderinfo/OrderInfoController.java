@@ -62,10 +62,15 @@ public class OrderInfoController {
 		map.put("storeY", store.get("S_Y"));
 		map.put("storeName", store.get("S_NAME"));
 		
-		map.put("deliveryX", delivery.get("D_X"));
-		map.put("deliveryY", delivery.get("D_Y"));
-		map.put("deliveryState", delivery.get("D_STATUS"));
-		
+		if(delivery==null) {
+			map.put("deliveryX", "");
+			map.put("deliveryY", "");
+			map.put("deliveryState", "N");
+		}else {
+			map.put("deliveryX", delivery.get("D_X"));
+			map.put("deliveryY", delivery.get("D_Y"));
+			map.put("deliveryState", delivery.get("D_STATUS"));
+		}
 		return map;
 	}
 }
