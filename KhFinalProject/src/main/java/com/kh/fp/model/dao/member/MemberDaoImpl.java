@@ -106,6 +106,25 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.selectFacebook", email);
 	}
+
+	@Override
+	public int selectAttendance(SqlSessionTemplate session, int m_no) {
+		return session.selectOne("member.selectAttendance", m_no);
+	}
+
+	@Override
+	public void insertAttendance(SqlSessionTemplate session, int m_no) {
+		session.insert("member.insertAttendance", m_no);		
+	}
+
+	@Override
+	public void updatePoint(SqlSessionTemplate session, int m_no) {
+		session.update("member.updatePoint", m_no);
+	}
+	
+	
+	
+	
 	
 	
 	

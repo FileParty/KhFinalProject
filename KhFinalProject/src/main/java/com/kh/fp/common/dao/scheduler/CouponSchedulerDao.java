@@ -9,5 +9,11 @@ public interface CouponSchedulerDao {
 	void checkCouponDate(SqlSessionTemplate session);
 
 	void deleteCouponCheck(SqlSessionTemplate session);
+
+	void deleteAttendance(SqlSessionTemplate session);
+	
+	
+	
+	
 	
 }

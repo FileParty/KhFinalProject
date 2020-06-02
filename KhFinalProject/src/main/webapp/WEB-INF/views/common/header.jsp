@@ -33,16 +33,26 @@
 				</div>
 			</c:if>
 			
-			
-			
 			<c:if test="${loginMember!=null}">
-				<c:if test="${flag==null }">
+				<c:if test="${flag==null}">
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
-						<span onclick="location.replace('${path }/mypage/mypage.do')">마이페이지</span>
+
+						<c:if test="${loginMember.m_Id eq 'admin' }">
+						<span onclick="location.replace('${path }/admin/adminMain.do')">관리자</span>
+						</c:if>
+						<c:if test="${loginMember.m_Id != 'admin' }">
+						<span onclick="location.replace('${path }/mypage/orderHistory.do')">마이페이지</span>
 						<span style="color:gray;">현재 포인트 :<p style="display:inline;color:red"> ${loginMember.m_Point } point</p></span>
+						</c:if>
+				
+
+						
+						
+
 					</div>
 				</c:if>
+				
 				<c:if test="${flag!=null }">	
 					<div>
 						<span onclick="location.replace('${path}/member/logout.do')">로그아웃</span>
@@ -51,10 +61,10 @@
 					</div>
 				</c:if>
 				
+				
 			</c:if>
 				
-			
-				<a href="${path }/admin/adminMain.do">관리자페이지</a>
+
 			
 			
 		

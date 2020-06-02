@@ -38,8 +38,14 @@ public interface MemberService {
 	Member selectDelivery(Member m);
 	
 	Delivery selectDeliveryI(Member m);
+
+	int selectAttendance(int m_no);
+
+	void insertAttendance(int m_no);
+
+	void updatePoint(int m_no);
 	
-	
+
 	
 
 	

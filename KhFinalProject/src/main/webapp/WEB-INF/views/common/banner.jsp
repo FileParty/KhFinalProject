@@ -10,7 +10,7 @@
   </ul>
   
   <!-- The slideshow -->
-  <div class="carousel-inner" style="height:300px;">
+  <div class="carousel-inner" style="height:300px;cursor:pointer;">
      <div class="carousel-item active" onclick="point();">
       <img src="${pageContext.request.contextPath }/resources/img/banner/coupon-banner/포인트지급.png" alt="Los Angeles" width="100%" height="400">
     </div>

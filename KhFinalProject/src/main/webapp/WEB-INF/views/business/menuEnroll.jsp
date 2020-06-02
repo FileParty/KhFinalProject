@@ -830,8 +830,12 @@
 					
 					$(".body-container2").append(hh3);
 					$(".body-container3").append(h3);
+					let tbl = $("<table>");
 					
 					for(let i=0;i<data.length;i++) {
+						let tr = $("<tr>");
+						let td =$("<td>");
+						let td2 =$("<td>");
 						if(data[i].sd_division=='Y') {
 					var input =  $("<input>").attr({
 						'type':'checkbox',
@@ -849,11 +853,13 @@
 						'name':'sdNo',
 						'value':data[i].sd_no
 					})	
-					var span = $("<span>").html(data[i].sd_price).css('margin-left','80');
-				
-						
-					$(".hh3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
-					
+					var span = $("<span>").html(data[i].sd_price);
+					td.append(input).append(label);
+					td2.append(span).append(sdNo);
+					tr.append(td).append(td2);
+					tbl.append(tr);
+					/* $(".hh3text").after(span).after(label).after(input).after(sdNo).after($("<br>")); */
+					$(".hh3text").after(tbl);
 					}else { 
 						var input =  $("<input>").attr({
 							'type':'checkbox',
@@ -874,7 +880,12 @@
 							'name':'sdNo',
 							'value':data[i].sd_no
 						})
-						$(".h3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
+						td.append(input).append(label);
+						td2.append(span).append(sdNo);
+						tr.append(td).append(td2);
+						tbl.append(tr);
+						/* $(".h3text").after(span).after(label).after(input).after(sdNo).after($("<br>")); */
+						$(".h3text").after(tbl);
 						
 					}
 					}

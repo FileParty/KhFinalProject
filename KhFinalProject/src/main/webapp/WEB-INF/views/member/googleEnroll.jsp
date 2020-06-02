@@ -57,6 +57,7 @@
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" name="m_Point" value="1000">
 				<div class="d-flex justify-content-center" style="margin:30px;">
 					<input class="btn btn-outline-dark" type="submit" value="완료">
 				</div>

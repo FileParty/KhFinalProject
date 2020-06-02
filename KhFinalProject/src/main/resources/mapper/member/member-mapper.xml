@@ -3,7 +3,7 @@
 <mapper namespace="member">
    <!-- 일반 아이디 회원가입 -->
   <insert id="insertMember" parameterType="member">
-  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,1000,#{m_Level},#{m_Phone},#{m_Name},#{m_Email})
+  	INSERT INTO MEMBER VALUES(member_seq.nextval,#{m_Id},#{m_Pw},'N',#{m_Nickname},SYSDATE,#{m_Point},#{m_Level},#{m_Phone},#{m_Name},#{m_Email})
   </insert>
   <!-- 사업자 아이디 회원가입 -->
   <insert id="insertBusiness" parameterType="business">
@@ -67,6 +67,18 @@
   <select id="selectDeliveryI" parameterType="member" resultType="delivery">
   	SELECT * FROM DELIVERY WHERE M_NO = #{m_No}
   </select>  
+  
+  <select id="selectAttendance" parameterType="_int" resultType="_int">
+  	SELECT COUNT(*) FROM ATTENDANCE WHERE M_NO=#{m_no}
+  </select>
+  
+  <insert id="insertAttendance" parameterType="_int">
+  	INSERT INTO ATTENDANCE VALUES(#{m_no}, DEFAULT)
+  </insert>
+  
+  <update id="updatePoint" parameterType="_int">
+  	UPDATE MEMBER SET M_POINT=(M_POINT+100) WHERE M_NO=#{m_no}
+  </update>
   
   
   
