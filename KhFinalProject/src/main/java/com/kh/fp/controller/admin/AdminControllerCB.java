@@ -1,6 +1,5 @@
 package com.kh.fp.controller.admin;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.fp.model.service.admin.AdminService;
-import com.kh.fp.model.vo.AdminApplyStore;
-import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -98,6 +96,12 @@ public class AdminControllerCB {
 		mv.setViewName("redirect:/admin/report.do");
 
 		return mv;
+	}
+	
+	@RequestMapping("/admin/reviewDetail.do")
+	@ResponseBody
+	public Review reviewDetail(@RequestParam int r_no) {
+		return service.reviewDetail(r_no);
 	}
 
 }

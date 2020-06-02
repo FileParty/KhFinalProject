@@ -460,14 +460,19 @@ ${sysdate }  --%>
 					var clientAddrD = msg.clientAddr;
 					var stateD = msg.state;
 					
+					console.log("배달원 지도 마크 찍을 때");
+					console.log(deliveryXl);
+					console.log(deliveryYl);
+					console.log(orderNoD);
+					
 					$.ajax({
 						//배달원 위도 경도 update
 						//지도 배달원 마크 찍어줌
 						url : "${pageContext.request.contextPath}/delivery/updateDeliveryPosition.do",
 						data:{
-							"D_X":msg.xl,
-							"D_Y":msg.yl,
-							"O_NO":msg.no
+							"d_X":deliveryXl,
+							"d_Y":deliveryYl,
+							"o_No":orderNoD
 						},	
 						success:function(data){
 							if(data['result']>0){
@@ -511,7 +516,7 @@ ${sysdate }  --%>
 			    	        		var orderNoDiv = $(thdata).find(".orderNo").val();
 			    	        		var storeNameDiv = $(thdata).find(".storeName").val();
 			    	        		var storeAddrDiv = $(thdata).find(".storeAddr").val();
-			    	        		var clientAddrDiv = $(thdata).find(".clientAddr").val();client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+			    	        		var clientAddrDiv = $(thdata).find(".clientAddr").val();
 			    	        		var orderStateDiv = $.trim($("#o_state_"+orderNoDiv).html());
 		    	        			
 									console.log("주문 상태 출력 해바");

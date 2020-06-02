@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.fp.model.vo.AdminApplyStore;
 import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 public interface AdminDao {
 
@@ -29,5 +30,7 @@ public interface AdminDao {
 	int updateReportM(SqlSessionTemplate session, int re_no);
 	
 	int updateReviewStatus(SqlSessionTemplate session, int r_no);
+	
+	Review reviewDetail(SqlSessionTemplate session, int r_no);
 
 }

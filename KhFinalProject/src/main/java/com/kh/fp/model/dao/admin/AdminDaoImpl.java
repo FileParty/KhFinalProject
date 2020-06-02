@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.fp.model.vo.AdminApplyStore;
 import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -61,6 +62,13 @@ public class AdminDaoImpl implements AdminDao {
 	public int updateReviewStatus(SqlSessionTemplate session, int r_no) {
 		return session.update("admin.updateReviewStatus", r_no);
 	}
+
+	@Override
+	public Review reviewDetail(SqlSessionTemplate session, int r_no) {
+		return session.selectOne("admin.reviewDetail", r_no);
+	}
+	
+	
 	
 	
 	
