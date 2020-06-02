@@ -68,6 +68,18 @@
   	SELECT * FROM DELIVERY WHERE M_NO = #{m_No}
   </select>  
   
+  <select id="selectAttendance" parameterType="_int" resultType="_int">
+  	SELECT COUNT(*) FROM ATTENDANCE WHERE M_NO=#{m_no}
+  </select>
+  
+  <insert id="insertAttendance" parameterType="_int">
+  	INSERT INTO ATTENDANCE VALUES(#{m_no}, DEFAULT)
+  </insert>
+  
+  <update id="updatePoint" parameterType="_int">
+  	UPDATE MEMBER SET M_POINT=(M_POINT+100) WHERE M_NO=#{m_no}
+  </update>
+  
   
   
   

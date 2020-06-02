@@ -7,4 +7,8 @@
   <delete id="deleteCouponCheck">
   	DELETE FROM COUPON_CHECK WHERE 'IGNORE'='IGNORE'
   </delete>
+  
+  <delete id="deleteAttendance">
+  	DELETE FROM ATTENDANCE WHERE 'IGNORE'='IGNORE'
+  </delete>
 </mapper>

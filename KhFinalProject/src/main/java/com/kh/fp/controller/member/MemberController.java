@@ -289,9 +289,20 @@ public class MemberController {
 				//로그인여부 확인하기
 				if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
 					//로그인성공
-					md.addAttribute("msg","로그인성공");
-					md.addAttribute("loginMember",m);
+					
+					if(service.selectAttendance(m.getM_No())==0) {
+						service.insertAttendance(m.getM_No());
+						service.updatePoint(m.getM_No());
+						m.setM_Point(m.getM_Point()+100);
+						md.addAttribute("msg","로그인성공 / 출석체크가 완료되었습니다.(point +100)");
+						md.addAttribute("loginMember",m);
+					}else {
+						md.addAttribute("loginMember",m);
+						md.addAttribute("msg","로그인성공");
+					}
+					
 					md.addAttribute("loc","/");
+					
 				}else {
 					//로그인실패
 					md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");

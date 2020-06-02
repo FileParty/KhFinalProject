@@ -17,4 +17,5 @@
   <select id="couponSelectCheck" parameterType="_int" resultType="_int">
   	SELECT COUNT(*) FROM COUPON_CHECK WHERE M_NO=#{m_No}
   </select>
+  
 </mapper>

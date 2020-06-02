@@ -113,6 +113,23 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.selectFacebook(session,email);
 	}
+
+	@Override
+	public int selectAttendance(int m_no) {
+		return dao.selectAttendance(session, m_no);
+	}
+
+	@Override
+	public void insertAttendance(int m_no) {
+		dao.insertAttendance(session, m_no);
+	}
+
+	@Override
+	public void updatePoint(int m_no) {
+		dao.updatePoint(session, m_no);
+	}
+	
+	
 	
 	
 	
