@@ -373,8 +373,8 @@ ${sysdate }  --%>
    				this.msg = msg;	//메시지
    			}
 			
-			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-  	   		const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  	   		//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 		
 			websocket.onopen = function(data){
 				websocket.send(JSON.stringify(new SocketMessage(type, clientNo, clientName, clientAddress, clientXl, clientYl, storeAddress, clientState, clientMessage)));
@@ -597,7 +597,7 @@ ${sysdate }  --%>
 			    				        infowindow.open(map, marker);
 
 			    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			    				        //map.setCenter(coords);
+			    				         map.setCenter(coords);
 			    				    } 
 			    				}); 
 
@@ -653,7 +653,7 @@ ${sysdate }  --%>
 			    				         }
 			    				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 			    				        //map.setCenter(coords);
-			    				         map.setBounds(bounds);
+			    				        // map.setBounds(bounds);
 			    				    } 
 			    				    
 			    				    
@@ -1196,6 +1196,7 @@ ${sysdate }  --%>
 	    				
 	    				console.log("확인");
 	    				console.log(deliveryXy);
+	    				console.log(clientAddress);
 	    				// 주소로 좌표를 검색합니다
 	    				geocoder.addressSearch(clientAddress, function(result, status) {
 
