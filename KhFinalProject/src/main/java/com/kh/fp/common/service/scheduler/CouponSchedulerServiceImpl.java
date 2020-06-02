@@ -21,4 +21,9 @@ public class CouponSchedulerServiceImpl implements CouponSchedulerService{
 		dao.checkCouponDate(session);
 	}
 
+	@Override
+	public void deleteCouponCheck() {
+		dao.deleteCouponCheck(session);
+	}
+
 }

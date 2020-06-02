@@ -7,8 +7,8 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 
-  
-
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,14 +22,20 @@
  
 <div class="header">
 <div style="display:flex;">
-				<a href="${path }"><img class="rounded-circle" style="margin:3px;width:85px;height:85px;"
-					alt="rogo" src="https://cdn.pixabay.com/photo/2016/02/23/00/06/pizza-1216738_960_720.png">
+				<a href="${path }"><img class="rounded-circle" style="margin:3px;width: 112px;height: 103px;"
+					alt="rogo" src="${pageContext.request.contextPath }/resources/img/deliverySH.png">
 				</a>
-				  <h1 style="padding-left:34%;">성탄소년단</h1>
-				
+				  <h1 style="padding-left: 374px;font-family: 'Black Han Sans', sans-serif;background-color:#666666;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+Background-clip: text;
+color: transparent;
+Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
+				  <h1 style="font-size: 71px;font-family: 'Black Han Sans', sans-serif;">KING</h1>
+				<h4>성탄소년단</h4>
 			</div>
 
-  <p>배달의 민족을 앞서가는 이성연외 6아이들</p>
+  <p>배달의 민족을 앞서가는 7명의 아이들</p>
 </div>
  
 <!-- <div class="topnav">
@@ -45,8 +51,8 @@
  <form  action="${path }/pay/payment.do" method="post" id="baguniForm" > <!--  -->
 
 <main>
-  <h2 style="text-align: center; ">주문/결제</h2>
-  <p><b style="font-size: 17px;">주문내역</b></p>
+  <h2 style="text-align: center;margin-left: 29px; ">주문/결제</h2>
+
  
   <table class="table1" style="width:1340px">
     <thead style="background-color: rgb(228, 227, 227);" >
@@ -124,7 +130,7 @@
          
       </c:forEach>
       
- 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#FFF8CA;">
+ 			<tr style="color: white;height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color: darkslategray;">
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -331,7 +337,7 @@
     
 		<div class="col-lg-12" id="ex2_Result2"></div> 
         <!-- ================================쿠폰적용========================================== -->
-       <button class="button123" style="width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
+       <button class="button123" style="width:98px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
         	쿠폰적용
         </button>
 
@@ -439,7 +445,7 @@
     <td width="680px">
     <input style="padding-right:15px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
-         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
+         <button onclick="cancle();" style="margin-left: -4px;width:97px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
         	포인트취소
         </button>
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 
@@ -457,12 +463,12 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="margin-top: -1px;background-color: rgb(243, 243, 243);width: 290px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 298px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
  
-    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 80,000원 이상일 경우 무료배송입니다.</em></p></td></tr>
+    <tr><td colspan="2"  ><p style="margin-top: 20px;">기본 배송비는 2,500원이며, <em style="color: red;">총결제 금액이 100원 이상이어야 결제가 가능합니다.</em></p></td></tr>
 </table>
 <!-- <div style="display:flex; justify-content:center;padding-left: 550px;">
            <button onsubmit="" style="width:70px;height:30px;background-color: black;color:white;">다음</button>
@@ -565,7 +571,7 @@
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
                               <div id="agree2" style="display:inline;text-align:center;">
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
-                             	 <input id="vlftn" type="text"  style="margin-right: -47px;border:1px solid rgb(243, 243, 243);background-color: rgb(243, 243, 243);width:69px;color:red;" value="(필수체크)" readonly>
+                             	 <input id="vlftn" type="text"  style="margin-right: -47px;border:1px solid rgb(243, 243, 243);background-color: rgb(243, 243, 243);width:77px;color:red;" value="(필수체크)" readonly>
                               </div>
                             </div>
                         <input type="hidden" value="결제하기" >  
@@ -1561,15 +1567,22 @@ main {
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
 		var totaldate3=document.getElementById('sum2').value;
-		$("#allpay4").val(basicpoint1); 
+		
 		
 		var coma=totaldate3-basicpoint1-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
-
+ 	if(totaldate2>=basicpoint1){
+ 		$("#allpay4").val(basicpoint1); 
 		$("#sum1").val(totaldate3-basicpoint1-coupon);
 		$("#sum").val(coma1);
-		
 		$("#allpay2").val('0'); 
+ 	}else if(totaldate2<basicpoint1){
+ 		$("#sum1").val('0');
+		$("#sum").val('0');	
+		$("#allpay2").val(basicpoint1-totaldate3); 	
+		$("#allpay3").val(totaldate2); 
+		$("#allpay4").val(totaldate2); 
+ 	}
 	/* 	
 		$("#allpay3").val(totaldate); 
 		$("#allpay2").val(basicpoint-totaldate); 
@@ -1647,8 +1660,9 @@ main {
   $(document).ready(function(){
 	    $("#check123").change(function(){
 	        if($("#check123").is(":checked")){
-	        	$('#dopay').css("color","white").css("background-color","black");
+	        	$('#dopay').css("color","white").css("background-color","darkslategray");
 	        	$('#agree5').css("color","white").css("border","1px solid black");
+	        	$('#dopay').css("color","white").css("border","1px solid black");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
 	        	$('#agree2').css("color","black");
 	        	$('#vlftn').prop("type", "hidden");

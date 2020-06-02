@@ -4,4 +4,7 @@
   <delete id="couponScheduler">
   	DELETE FROM COUPON WHERE 'IGNORE'='IGNORE' AND CN_EXPIRE<![CDATA[<=]]>SYSTIMESTAMP
   </delete>
+  <delete id="deleteCouponCheck">
+  	DELETE FROM COUPON_CHECK WHERE 'IGNORE'='IGNORE'
+  </delete>
 </mapper>

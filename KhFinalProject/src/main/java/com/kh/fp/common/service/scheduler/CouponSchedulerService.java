@@ -4,4 +4,6 @@ public interface CouponSchedulerService {
 
 	void checkCouponDate();
 
+	void deleteCouponCheck();
+
 }
