@@ -27,7 +27,7 @@
                 <div style="margin-bottom:10px;"></div>
                 <table id="myPage_category" class="table">
 
-                    <tr>
+                   <%--  <tr>
                         <th>공지사항</th>
                     </tr>
 
@@ -35,7 +35,7 @@
                         <td>
                             <a id="notice" href="${path}/mypage/mypage.do" >공지사항</a>
                         </td>
-                    </tr>
+                    </tr> --%>
 
 
                     <tr>
@@ -85,7 +85,7 @@
                     <tr>
                         <td>
                             <a id="accountEdit" href="${path}/mypage/accountEdit.do">회원정보수정</a><br>
-                            <a id="card" href="${path}/mypage/cardManagement.do">카드등록 및 삭제</a><br>
+                            <%-- <a id="card" href="${path}/mypage/cardManagement.do">카드등록 및 삭제</a><br> --%>
                             <a id="deleteMember" href="${path}/mypage/deleteMember.do">회원탈퇴</a>
                         </td>
                     </tr> 

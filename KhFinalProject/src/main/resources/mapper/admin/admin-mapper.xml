@@ -38,4 +38,8 @@
 	<update id="updateReviewStatus" parameterType="_int">
 		UPDATE REVIEW SET R_STATUS='N' WHERE R_NO=#{r_no}
 	</update>
+	
+	<select id="reviewDetail" parameterType="_int" resultType="review">
+		SELECT * FROM REVIEW WHERE R_NO=#{r_no}
+	</select>
 </mapper>
