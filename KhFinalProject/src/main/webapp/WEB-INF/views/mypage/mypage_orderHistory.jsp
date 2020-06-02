@@ -559,17 +559,21 @@ ${sysdate }  --%>
 			            		var stox;
 			            		console.log(storeNameD);
 			            		
-			            		geco.addressSearch(storeNameD, function(result, status) {
+			            		geco.addressSearch(storeAddrD, function(result, status) {
 			            		    // 정상적으로 검색이 완료됐으면 
 			            		     if (status === kakao.maps.services.Status.OK) {
 
 			            		        stoa = new kakao.maps.LatLng(result[0].y, result[0].x);
+			            		        console.log("주소 검색했을 때 나오냐");
+			            		        console.log(result[0].y);
+			            		        console.log(result[0].x);
 			            		        stoy = result[0].y;
 			            		        stox = result[0].x;
 			            		     }
 			            		});
 			            		
 			            		console.log("가게 정보");
+			            		console.log(stoa);
 			            		console.log(stoy);
 			            		console.log(stox);
 			            		
