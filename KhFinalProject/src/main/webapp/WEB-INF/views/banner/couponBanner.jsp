@@ -29,14 +29,6 @@
 				<input type="hidden" value="2000" class="slot-machine-value">
 				<p class="coupon-banner-slot-machine-val-text">2000원 쿠폰</p>
 			</div>
-			<div class="coupon-banner-slot-machine-val">
-				<input type="hidden" value="1000" class="slot-machine-value">
-				<p class="coupon-banner-slot-machine-val-text">1000원 쿠폰</p>
-			</div>
-			<div class="coupon-banner-slot-machine-val">
-				<input type="hidden" value="2000" class="slot-machine-value">
-				<p class="coupon-banner-slot-machine-val-text">2000원 쿠폰</p>
-			</div>
 		</div>
 	</div>
 	<button onclick="slotMachineStart()">추첨하기!</button>
@@ -89,31 +81,44 @@
 	
 	
 	function slotMachineStart(){
-		var SMtop = 0;
-		for(let i=0;i<15;i++){
-			if(SMtop<=600){
-				SMtop += 100;
-				console.log(SMtop);
-				if(SMtop<=600){
-					$("#slot-machine-value").animate({
-						top:"-"+SMtop+"px"
-					});
+		let loginCheck = "${loginType['type']}";
+		let param = 1;
+		if(loginCheck.length>0&&loginCheck=="m"){
+			var SMtop = 0;
+			let rnd = Math.floor(Math.random()*20)+20;
+			for(let i=0;i<rnd;i++){
+				if(SMtop<=400){
+					SMtop += 100;
+					if(SMtop<400){
+						param += 1;
+						$("#slot-machine-value").animate({
+							top:"-=100px"
+						},50);
+					} else {
+						param = 1;
+						SMtop = 0;
+						$("#slot-machine-value").animate({
+							top:"0px"
+						},0);
+					}
 				} else {
-					console.log("히얏호");
+					param = 1;
 					SMtop = 0;
 					$("#slot-machine-value").animate({
 						top:"0px"
-					});
+					},0);
 				}
-			} else {
-				SMtop = 0;
-				$("#slot-machine-value").animate({
-					top:"0px"
-				});
 			}
-			console.log(SMtop,$("#slot-machine-value"));
+			console.log(param);
+		} else if(loginCheck=="b"){
+			alert("일반 회원만 사용 가능합니다!")
+		} else {
+			$("#report-login-modal").modal("show");
 		}
+		
+		
 	}
+	
 	
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

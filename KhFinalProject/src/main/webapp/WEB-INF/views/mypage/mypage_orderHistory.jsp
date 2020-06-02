@@ -356,8 +356,8 @@ ${sysdate }  --%>
    				this.msg = msg;	//메시지
    			}
 			
-			//const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
-  	   		const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+			const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");
+  	   		//const websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 		
 			websocket.onopen = function(data){
 				websocket.send(JSON.stringify(new SocketMessage(type, clientNo, clientName, clientAddress, clientXl, clientYl, storeAddress, clientState, clientMessage)));

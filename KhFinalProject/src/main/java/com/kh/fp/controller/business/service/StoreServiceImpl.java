@@ -15,6 +15,7 @@ import com.kh.fp.controller.business.model.dao.StoreDaoImpl;
 import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
+import com.kh.fp.model.vo.Store;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Service
@@ -188,6 +189,12 @@ public class StoreServiceImpl implements StoreService {
 	public int orderSelectReject(int no) {
 		// TODO Auto-generated method stub
 		return dao.orderSelectReject(session,no);
+	}
+
+	@Override
+	public StoreEnroll getStore(int no) {
+		// TODO Auto-generated method stub
+		return dao.getStore(session,no);
 	}
 	
 	

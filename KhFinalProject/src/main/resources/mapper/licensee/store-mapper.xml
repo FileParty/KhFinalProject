@@ -92,4 +92,8 @@
 	<update id="orderSelectReject">
 		update order_info set o_status='주문취소' where o_no=#{no}
 	</update>
+	
+	<select id="getStore" resultType="storeEnroll">
+		select s_name as sname from store where s_no=#{no}
+	</select>
 </mapper>

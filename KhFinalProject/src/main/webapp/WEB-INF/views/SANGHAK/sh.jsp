@@ -124,7 +124,7 @@
          
       </c:forEach>
       
- 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
+ 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#FFF8CA;">
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -572,8 +572,7 @@
                      <button  id="dopay" class="paymentBtn" type="button" style="pointer-events: none; border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
                      </button>   
-                    
-  
+                     
 
     </div>
   </div>
@@ -1223,11 +1222,7 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
-        	var recevier=$("#sNo").val();
-        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
-            websocket.onopen=function(data){
-            	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
-    		}
+        	ordersocket();
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
             
@@ -1242,6 +1237,14 @@ $("#alloffHidden").click(function(){
      });   
     
 });
+	
+	function ordersocket(){
+		var recevier=$("#sNo").val();
+    	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
+        websocket.onopen=function(data){
+        	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
+		}
+	}
 	
 	function SocketMessage(type,sender,receiver,msg){
 		this.type=type;
@@ -1412,7 +1415,7 @@ main {
 }
 .topnava {
     
-    background-color: rgb(253, 68, 68);
+    background-color: salmon;
 
 }
 .topnava th {
