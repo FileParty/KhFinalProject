@@ -124,7 +124,7 @@
          
       </c:forEach>
       
- 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
+ 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#FFF8CA;">
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -1415,7 +1415,7 @@ main {
 }
 .topnava {
     
-    background-color: rgb(253, 68, 68);
+    background-color: salmon;
 
 }
 .topnava th {
