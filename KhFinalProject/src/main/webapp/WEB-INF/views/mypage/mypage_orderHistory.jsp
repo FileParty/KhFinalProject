@@ -523,6 +523,9 @@ ${sysdate }  --%>
 									console.log(orderStateDiv);
 			    	        		console.log("버튼 클릭했을 떄");
 			    	        		console.log(orderNoDiv);
+			    	        		console.log(storeNameDiv);
+			    	        		console.log(clientAddrDiv);
+			    	        		console.log(orderStateDiv);
 			    	        		
 			    	        		websocket.send(JSON.stringify(new SocketMessage("client", orderNoDiv, storeNameDiv, storeAddrDiv, "", "", clientAddrDiv, "A", "")));
 			            		});
@@ -1121,6 +1124,10 @@ ${sysdate }  --%>
 							console.log(orderStateDiv);
 	    	        		console.log("버튼 클릭했을 떄");
 	    	        		console.log(orderNoDiv);
+	    	        		console.log(storeNameDiv);
+	    	        		console.log(clientAddrDiv);
+	    	        		console.log(orderStateDiv);
+	    	        		
 	    	        		
 	    	        		console.log("버튼 클릭했을 떄");
 	    	        		console.log(orderNoDiv);
