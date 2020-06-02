@@ -516,7 +516,7 @@ ${sysdate }  --%>
 			    	        		var orderNoDiv = $(thdata).find(".orderNo").val();
 			    	        		var storeNameDiv = $(thdata).find(".storeName").val();
 			    	        		var storeAddrDiv = $(thdata).find(".storeAddr").val();
-			    	        		var clientAddrDiv = $(thdata).find(".clientAddr").val();client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+			    	        		var clientAddrDiv = $(thdata).find(".clientAddr").val();
 			    	        		var orderStateDiv = $.trim($("#o_state_"+orderNoDiv).html());
 		    	        			
 									console.log("주문 상태 출력 해바");
