@@ -113,7 +113,7 @@ function testAPI() {
 		<div class="login-container">
 			<div class="login-form">
 				<div class="login-category d-flex">
-					<div class="text-center member-login" style="width:250px; 	border-bottom:1px solid lightgray; border-right:1px solid lightgray; cursor: pointer;">일반인</div>
+					<div class="text-center member-login" style="width:250px; background-color:lightgray;	border-bottom:1px solid lightgray; border-right:1px solid lightgray; cursor: pointer;">일반인</div>
 					<div class="text-center business-login" style="width:250px;  border-bottom:1px solid lightgray; cursor: pointer;">사업자</div>
 				</div>
 				<div class="member-login-container">
