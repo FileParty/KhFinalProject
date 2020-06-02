@@ -554,21 +554,27 @@ ${sysdate }  --%>
 			            		//$(".info-container").children("#map-"+orderNoFromBusiness).removeClass("d-none");
 			    				
 			            		var geco = new kakao.maps.services.Geocoder();
-			            		var stoa;
+			            		
 			            		var stoy;
 			            		var stox;
-			            		console.log(storeNameD);
+			            		console.log(storeAddrD);
 			            		
 			            		geco.addressSearch(storeAddrD, function(result, status) {
 			            		    // 정상적으로 검색이 완료됐으면 
 			            		     if (status === kakao.maps.services.Status.OK) {
 
-			            		        stoa = new kakao.maps.LatLng(result[0].y, result[0].x);
-			            		        console.log("주소 검색했을 때 나오냐");
-			            		        console.log(result[0].y);
-			            		        console.log(result[0].x);
-			            		        stoy = result[0].y;
-			            		        stox = result[0].x;
+			            		        var stoa = new kakao.maps.LatLng(result[0].y, result[0].x);
+			            				
+			            		        var marker = new kakao.maps.Marker({
+			            		            map: map,
+			            		            position: stoa
+			            		        });
+			            		        
+			            		        var infowindow = new kakao.maps.InfoWindow({
+			            		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+storeNameD'+</div>'
+			            		        });
+			            		        
+			            		        infowindow.open(map, marker);
 			            		     }
 			            		});
 			            		
@@ -608,10 +614,6 @@ ${sysdate }  --%>
 			    									{
 			    										title: '우리집',
 			    										latlng: coords
-			    									},
-			    									{
-			    										title: storeNameD,
-			    										latlng: stoa
 			    									},
 			    									{
 			    										title: '배달원',
