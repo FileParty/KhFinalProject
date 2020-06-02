@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="couponScheduler">
+  <delete id="couponScheduler">
+  	DELETE FROM COUPON WHERE 'IGNORE'='IGNORE' AND CN_EXPIRE<![CDATA[<=]]>SYSTIMESTAMP
+  </delete>
+  <delete id="deleteCouponCheck">
+  	DELETE FROM COUPON_CHECK WHERE 'IGNORE'='IGNORE'
+  </delete>
+</mapper>

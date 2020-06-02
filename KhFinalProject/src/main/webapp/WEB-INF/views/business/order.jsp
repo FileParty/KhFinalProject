@@ -11,13 +11,16 @@
        <div class="row" >
        
        <%@ include file="sideBar.jsp" %>
-       
+     
+			
+			
+			
             <div class="col-lg-10" id="main">
-            
+            	
                     <h1>주문 내역</h1>
                     <pre>* 최근순으로 주문내역이 나타납니다.<br>* 상세보기를 통하여 자세한 내용을 확인 할 수 있습니다.
                     </pre>
-               
+               		<button onclick="ordersocket();" class="btn btn-info">주문 알람 페이지</button>
                     <div class="col-12 s-order-history">
                   <div id="select_box" style="margin-bottom: 50px;">
                      <label for="storeNo">${sno[0].s_Name }</label>
@@ -605,6 +608,12 @@
         	 var select_name = $("#storeNo").children("option:selected").text();
         	 select.siblings("label").text(select_name);
          });
+         
+       
+         function  ordersocket() {
+        	 	var sno= $("#storeNo").val();
+				window.open("${path}/store/orderChatting?no="+sno,"_blank","width=800,height=700");
+			}
          
       
       </script>

@@ -1,9 +1,11 @@
 package com.kh.fp.model.service.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.fp.model.vo.AdminApplyStore;
 import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 public interface AdminService {
 
@@ -16,5 +18,15 @@ public interface AdminService {
 	List<AdminApplyStore> selectStore();
 	
 	int deleteStoreStatus(int s_no);
+	
+	List<Map<String, String>> selectReport();
+	
+	int updateReportY(int re_no);
+	
+	int updateReportM(int re_no);
+	
+	int updateReviewStatus(int r_no);
+	
+	Review reviewDetail(int r_no);
 
 }

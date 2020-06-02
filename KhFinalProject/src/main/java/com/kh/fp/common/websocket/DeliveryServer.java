@@ -75,6 +75,12 @@ public class DeliveryServer extends TextWebSocketHandler{
 					log.debug("배달원이 배달을 완료했을때 찍히나요");
 					sendMessage(msg,session);
 				}
+				
+				//위도 경도 고객에게 보내주기
+				if(msg.getState().equals("A")) {
+					sendMessage(msg, session);
+				}
+				
 				break;
 			
 			case "client":
@@ -82,6 +88,10 @@ public class DeliveryServer extends TextWebSocketHandler{
 					addClient(msg,session);
 				}
 				
+				//고객이 주소를 요구했을 때
+				if(msg.getState().equals("A")) {
+					sendMessage(msg,session);
+				}
 				
 				break;
 		}
@@ -190,6 +200,17 @@ public class DeliveryServer extends TextWebSocketHandler{
 						}
 					}
 					
+					//고객에게 배달원 위치정보 주기
+					if(client.getKey().getType().equals("client") && client.getKey().getState().equals("A")) {
+						
+						log.debug("고객에게 배달원 위치정보 줄때 배달원의 메시지 no 값" + msg.getNo());
+						log.debug("고객에게 배달원 위치정보 줄때 고객의 메시지 no 값" + client.getKey().getNo());
+						
+						if(msg.getNo() == client.getKey().getNo()) {
+							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+						}
+					}
+					
 					if(msg.getState().equals("Y")) {
 						//배달자가 수락 눌렀을 때 no 값을 변경해야 한다.
 						if(session.getId().equals(client.getValue().getId())) {
@@ -218,6 +239,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 							client.getKey().setState("S");
 						}
 					}
+				
 					
 					if(msg.getState().equals("C")) {
 						log.debug("배달 완료 했을 때 찍혀야 합니다.");
@@ -231,8 +253,87 @@ public class DeliveryServer extends TextWebSocketHandler{
 								log.debug("현재 클라이언트 type" + msg.getType());
 								log.debug("현재 클라이언트 이름" + msg.getName());
 								log.debug("현재 클라이언트 message" + msg.getMsg());
+								log.debug("현재 클라이언트 state" + msg.getState());
 								
 								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							}
+						}
+						
+						//배달 완료 됬을 때 고객한테 보내줌
+						if(client.getKey().getType().equals("client") ) {
+							
+							String no[] = client.getKey().getMsg().split(",");
+							
+							int a[] = new int[no.length];
+							
+							for(int i=0; i<no.length; i++) {
+								a[i] = Integer.parseInt(no[i]); 
+							}
+							
+							for(int b : a) {
+								if(b == msg.getNo()) {
+									client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+									client.getKey().setState("C");
+								}
+							}							
+						}
+					}
+					
+					break;
+					
+				case "client":
+					
+					if(msg.getState().equals("A")) {
+						log.debug("고객이 주소를 요구할 때 입니다.");
+						
+						//배달원한테 줘야함					
+						//배달 출발한 배달원한테만 보내줘야함
+						
+						if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("Y")) {
+							if(client.getKey().getNo() == msg.getNo()) {
+								log.debug("아직 배달원이 출발을 안한 상태입니다.");
+								session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","","배달원이 음식을 받으러 가고 있어요!!"))));
+							}
+						}
+						
+						
+						/*
+						 * if(!msg.getMsg().equals("배달중")) { log.debug("배달중인데왜 찍히는건데" +
+						 * client.getKey().getMsg()); session.sendMessage(new
+						 * TextMessage(getJsonMessage(new
+						 * SocketMessage("server",0,"","","","","","","배달중이 아닙니다!!")))); }
+						 */
+							
+						
+						
+						
+						if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("S")) {
+							if(client.getKey().getNo() == msg.getNo()) {
+								log.debug("고객이 배달원한테 주는 메시지 입니다."+msg);
+								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
+							}
+						}
+						
+						//고객의 상태도 A로 바꿔줘야 한다.
+						//고객의 번호도 주문 번호로 바꿔줘야 한다.
+						if(client.getKey().getType().equals("client") && msg.getState().equals("A")){
+							
+							log.debug("고객의 번호를 찍어보자"+msg.getNo());
+							
+							String on[] =client.getKey().getMsg().split(",");
+							
+							int on2[] = new int[on.length];
+							
+							for(int i=0; i<on.length; i++) {
+								on2[i] = Integer.parseInt(on[i]);
+							}
+							
+							for(int a : on2) {
+								log.debug(a+"");
+								if(a == msg.getNo()) {
+									client.getKey().setState("A");
+									client.getKey().setNo(msg.getNo());
+								}
 							}
 						}
 					}

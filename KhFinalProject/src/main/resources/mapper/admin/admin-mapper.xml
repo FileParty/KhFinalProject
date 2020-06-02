@@ -22,4 +22,24 @@
 	<update id="deleteStoreStatus" parameterType="_int">
 		UPDATE STORE SET S_ENROLLSTATUS = 'N' WHERE S_NO=#{s_no}
 	</update>
+	
+	<select id="selectReport" resultType="map">
+		SELECT * FROM REPORT WHERE M_STATUS='M'
+	</select>
+	
+	<update id="updateReportY" parameterType="_int">
+		UPDATE REPORT SET M_STATUS='Y' WHERE RE_NO=#{re_no}
+	</update>
+	
+	<update id="updateReportM" parameterType="_int">
+		UPDATE REPORT SET M_STATUS='N' WHERE RE_NO=#{re_no}
+	</update>
+	
+	<update id="updateReviewStatus" parameterType="_int">
+		UPDATE REVIEW SET R_STATUS='N' WHERE R_NO=#{r_no}
+	</update>
+	
+	<select id="reviewDetail" parameterType="_int" resultType="review">
+		SELECT * FROM REVIEW WHERE R_NO=#{r_no}
+	</select>
 </mapper>

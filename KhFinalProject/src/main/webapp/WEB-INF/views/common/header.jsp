@@ -42,9 +42,9 @@
 						</c:if>
 						<c:if test="${loginMember.m_Id != 'admin' }">
 						<span onclick="location.replace('${path }/mypage/orderHistory.do')">마이페이지</span>
-						</c:if>
-						
 						<span>현재 포인트 : ${loginMember.m_Point }</span>
+						</c:if>
+				
 					</div>
 				</c:if>
 				
@@ -59,11 +59,7 @@
 				
 			</c:if>
 				
-			
-			
-			<a href="${path }/banner/couponBanner">쿠폰배너</a>
-			
-			
+
 			
 			
 		
@@ -79,5 +75,6 @@
 
 		</div>
 	</header>
+	
 	
 	

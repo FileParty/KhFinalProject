@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
+import com.kh.fp.model.vo.Store;
 import com.kh.fp.model.vo.StoreEnroll;
 
 public interface StoreDao {
@@ -30,4 +31,5 @@ public interface StoreDao {
    List<OrderMenu> orderMenu(SqlSessionTemplate session,int no);
    int orderSelectOk(SqlSessionTemplate session,int no);
    int orderSelectReject(SqlSessionTemplate session,int no);
+   StoreEnroll getStore(SqlSessionTemplate session,int no);
 }

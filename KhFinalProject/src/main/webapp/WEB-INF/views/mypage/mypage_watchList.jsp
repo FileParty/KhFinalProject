@@ -28,8 +28,10 @@
         <div class="row col-md-10">
 
             <jsp:include page="/WEB-INF/views/mypage/mypageSidebar.jsp"/>
+            
 
             <div class="col-md-10 row">
+            	
 
 					<c:forEach items="${list }" var="sto">
 	                    <div class="col-md-6 row" style="height:220px;" id="div_${sto['S_NO'] }">
@@ -40,10 +42,10 @@
 	                            <table style="width:100%">
 	                                <tr>
 	                                    <td>
-	                                        	${sto['S_SCORE'] } &nbsp;&nbsp;&nbsp;리뷰 ${sto['S_REVIEWCOUNT'] }
+	                                        	평균별점: ${sto['S_SCORE'] } &nbsp;&nbsp;&nbsp;리뷰갯수 ${sto['S_REVIEWCOUNT'] }
 	                                    </td>
 	                                    <td>
-	                                        <p style="text-align: right; width:100%"><svg class="bi bi-x" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onclick="delectWatchList('${sto['S_NO']}');">
+	                                        <p style="text-align: right; width:100%"><svg class="bi bi-x" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onclick="delectWatchList('${sto['S_NO']}', '${loginMember.m_No }');">
 	                                            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
 	                                            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
 	                                        </svg></p>
@@ -53,7 +55,7 @@
 	                                
 	                            </table>
 	                            <img style="margin-left: 50%; transform: translateX(-50%);" src="${path }/resources/upload/store/${sto['S_LOGIMG'] }" width="140px" height="95px"/>
-	                            <p style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap;">${sto['S_TEXT'] }</p>
+	                            <p style="overflow:hidden; text-overflow: ellipsis; white-space: nowrap; text-align:center;">${sto['S_TEXT'] }</p>
 	
 	                        </div>
 	                        <div class="col-md-1"></div>
@@ -63,18 +65,18 @@
 
                     <script>
                     
-                    	function delectWatchList(s_no){
-                    		console.log(s_no);
-
+                    	function delectWatchList(s_no, m_no){
+                    		
                     		$.ajax({
                     			
                 			    url: "${path}/mypage/delectWatchList.do",
                 			    type: "POST",
-                			    data: {"s_no":s_no, "m_no":1/* LoginMember.getM_no */},
+                			    data: {"s_no":s_no, "m_no": m_no},
                 			    success: function(data){
                 					                					
                 	           		$("#div_"+s_no).attr("style", "display:none");
-                			    },
+                			    }
+                			    ,
                 		
                 			    error: function (request, status, error){
                 			    	

@@ -5,4 +5,6 @@ public interface OrderInfoService {
 	public int updateOrderState(int orderNo);
 	
 	public int updateOrderStateComplete(int orderNo);
+	
+	public String selectOrderInfoAddress(int orderNo);
 }

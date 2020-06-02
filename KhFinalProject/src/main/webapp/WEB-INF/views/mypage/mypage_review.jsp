@@ -32,7 +32,8 @@
 
             <div class="col-md-10 row">
 
-                    <table class="table content table-striped">
+				<div class="col-md-12">
+                    <table class="table content table-striped" style="margin-top:10px;">
                     
                     	<tr></tr>
 
@@ -51,7 +52,7 @@
                         		<fmt:formatDate value="${rev['R_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
 	                            <td>${zdate }</td>
 	                            <td>${rev['S_NAME'] }</td>
-	                            <td>${rev['R_SCORE_TASTE'] } ${rev['R_SCORE_AMOUNT'] } ${rev['R_SCORE_DELIVERY'] } </td>
+	                            <td>맛: ${rev['R_SCORE_TASTE'] } 양: ${rev['R_SCORE_AMOUNT'] } 배달: ${rev['R_SCORE_DELIVERY'] } </td>
 	                            <td>${rev['R_TEXT'] } </td>
 	                            <td><button onclick="reviewDetail('${rev['R_NO']}');">상세보기</button></td>
 	                        </tr>

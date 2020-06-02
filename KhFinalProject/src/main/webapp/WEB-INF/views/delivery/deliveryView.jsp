@@ -235,6 +235,7 @@
 	<script>
 	let checkState;
 	
+	
 	var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
 	//var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 	
@@ -574,6 +575,32 @@
 							}
 							
 									
+							break;
+							
+						case "client":
+							
+							if(msg.state == 'A'){
+								
+								var orderNoC = msg.no;
+								var storeNameC = msg.name;
+								var storeAddrC = msg.addr;
+								var clientAddrC = msg.clientAddr;
+								
+								console.log("고객한테 온 메시지");
+								console.log(storeNameC);
+								console.log(storeAddrC);
+								console.log(clientAddrC);
+								
+								navigator.geolocation.getCurrentPosition(function(pos) {
+								    var latitude = pos.coords.latitude;
+								    var longitude = pos.coords.longitude;
+								    
+								    //websocket.send(JSON.stringify(new SocketMessage("delivery", deliveryNo, deliveryName ,deliveryAddr, xl, yl, clientAddr, deliveryState, "")));
+								    websocket.send(JSON.stringify(new SocketMessage("delivery", orderNoC, storeNameC, storeAddrC, longitude, latitude, clientAddrC, "A", "")));
+								});
+							}
+							
+							
 							break;
 					}
 				}

@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+	
+
 		<style>
 			.table td{
 			    	text-align:center;
@@ -13,6 +15,7 @@
 		    
 		    *{
 		    	font-weight: 700;
+		    	font-family:'Do Hyeon';
 		    }
 		    
 		    .table td{
@@ -42,6 +45,13 @@
                     <tr>
                         <td>
                             <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/storeList.do">등록된<br>가게현황</a>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                     
+                        <td>
+                            <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/report.do">신고현황</a>
                         </td>
                     </tr>
                     

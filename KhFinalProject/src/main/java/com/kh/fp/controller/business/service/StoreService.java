@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.Sales;
+import com.kh.fp.model.vo.Store;
 import com.kh.fp.model.vo.StoreEnroll;
 
 public interface StoreService {
@@ -23,5 +24,5 @@ public interface StoreService {
    List<Map<String, Object>> getSaleMonth(Object no);
    int orderSelectOk(int no);
    int orderSelectReject(int no);
-
+   StoreEnroll getStore(int no);
 }
