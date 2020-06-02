@@ -99,6 +99,7 @@
 						<td><label><input type="radio" name="m_Level" value="1">구매자</label>&emsp;<label><input type="radio" name="m_Level" value="2">배달원</label></td>
 					</tr>
 				</table>
+				<input type="hidden" name="m_Point" value="1000">
 				<div class="d-flex justify-content-center" style="margin:30px;">
 					<input class="btn btn-outline-dark" type="submit" value="회원가입">
 				</div>

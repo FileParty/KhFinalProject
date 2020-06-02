@@ -93,7 +93,7 @@
         <property name="scope"
             value="profile"></property>
         <property name="redirectUri"
-            value="https://rclass.iptime.org:9999/20PM_deliveryKing_final/member" />
+            value="https://rclass.iptime.org/20PM_deliveryKing_final/member" />
     </bean>
  
     <bean id="authInfo" class="com.kh.fp.common.AuthInfo">
