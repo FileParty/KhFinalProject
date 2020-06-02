@@ -21,6 +21,7 @@ public class CouponSchedulerController {
 	public void couponDayCheck() {
 		System.out.println("요릭장인 김인술");
 		service.deleteCouponCheck();
+		service.deleteAttendance();
 	}
 	
 	

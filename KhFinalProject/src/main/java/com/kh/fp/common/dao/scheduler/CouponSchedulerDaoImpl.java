@@ -18,4 +18,11 @@ public class CouponSchedulerDaoImpl implements CouponSchedulerDao {
 		session.delete("couponScheduler.deleteCouponCheck");
 	}
 
+	@Override
+	public void deleteAttendance(SqlSessionTemplate session) {
+		session.delete("couponScheduler.deleteAttendance");
+	}
+	
+	
+
 }

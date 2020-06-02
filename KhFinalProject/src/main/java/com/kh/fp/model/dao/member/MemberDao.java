@@ -39,6 +39,12 @@ public interface MemberDao {
 	Member selectGoogle(SqlSessionTemplate session,String name);
 	
 	Member selectFacebook(SqlSessionTemplate session,String email);
+
+	int selectAttendance(SqlSessionTemplate session, int m_no);
+
+	void insertAttendance(SqlSessionTemplate session, int m_no);
+
+	void updatePoint(SqlSessionTemplate session, int m_no);
 	
 
 

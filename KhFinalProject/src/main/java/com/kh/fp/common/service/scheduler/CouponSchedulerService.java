@@ -6,4 +6,6 @@ public interface CouponSchedulerService {
 
 	void deleteCouponCheck();
 
+	void deleteAttendance();
+
 }
