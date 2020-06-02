@@ -478,7 +478,10 @@ ${sysdate }  --%>
 					console.log("배달원 지도 마크 찍을 때");
 					console.log(deliveryXl);
 					console.log(deliveryYl);
-					console.log(orderNoD);
+					console.log(storeNameD);
+					console.log(storeAddrD);
+					console.log(clientAddrD);
+					console.log(stateD);
 					
 					$.ajax({
 						//배달원 위도 경도 update
@@ -551,24 +554,29 @@ ${sysdate }  --%>
 			            		//$(".info-container").children("#map-"+orderNoFromBusiness).removeClass("d-none");
 			    				
 			            		var geco = new kakao.maps.services.Geocoder();
-			            		var stoa;
+			            		
 			            		var stoy;
 			            		var stox;
+			            		console.log(storeAddrD);
 			            		
-			            		geco.addressSearch(storeNameD, function(result, status) {
-
+			            		geco.addressSearch(storeAddrD, function(result, status) {
 			            		    // 정상적으로 검색이 완료됐으면 
 			            		     if (status === kakao.maps.services.Status.OK) {
 
-			            		        stoa = new kakao.maps.LatLng(result[0].y, result[0].x);
-			            		        stoy = result[0].y;
-			            		        stox = result[0].x;
+			            		        var stoa = new kakao.maps.LatLng(result[0].y, result[0].x);
+			            				
+			            		        var marker = new kakao.maps.Marker({
+			            		            map: map,
+			            		            position: stoa
+			            		        });
+			            		        
+			            		        var infowindow = new kakao.maps.InfoWindow({
+			            		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+storeNameD+'</div>'
+			            		        });
+			            		        
+			            		        infowindow.open(map, marker);
 			            		     }
 			            		});
-			            		
-			            		console.log("가게 정보");
-			            		console.log(stoy);
-			            		console.log(stox);
 			            		
 			    				var mapContainer = document.getElementById("map-"+orderNoD), // 지도를 표시할 div 
 			    				
@@ -601,10 +609,6 @@ ${sysdate }  --%>
 			    									{
 			    										title: '우리집',
 			    										latlng: coords
-			    									},
-			    									{
-			    										title: storeNameD,
-			    										latlng: stoa
 			    									},
 			    									{
 			    										title: '배달원',
