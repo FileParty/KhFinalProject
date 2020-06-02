@@ -30,32 +30,33 @@
             <jsp:include page="/WEB-INF/views/mypage/mypageSidebar.jsp"/>
 
             <div class="col-md-10 row">
-                    
-                    <div class="col-md-12">
-                        <h4>현재포인트: ${loginMember.m_Point }</h4>
-                        <hr>
-                    </div>
 
-					<c:forEach items="${list }" var="cn">
-	                    <div class="col-md-6 row" style="margin-bottom:20px;"> 
-	                        
-	
-	                        <div class="col-md-2"></div>
-	                        <div class="col-md-8" style="border: 1px solid black; height:100%;">
-	
-	                    		<h4 style="text-align: center;">${cn['CN_NAME'] }</h4>
-	                            <h4 style="text-align: center;">${cn['CN_PRICE'] }원 할인</h4>
-	                            <fmt:formatDate value="${cn['CN_ENROLLDATE'] }" pattern="yyyy/MM/dd HH:mm" var="sdate"/>
-	                            <fmt:formatDate value="${cn['CN_EXPIRE'] }" pattern="yyyy/MM/dd HH:mm" var="edate"/>
-	                            <p style="text-align: center;"><strong>${sdate }<br> ~ <br>${edate }</strong></p>
-	                            
-	                            <p style="text-align: center;"><strong>${cn['CN_LIMITPRICE'] }원 이상 주문 시 사용가능</strong></p>
-	
-	                        </div>
-	                        <div class="col-md-2"></div>
-	
-	                    </div>
-                    </c:forEach>
+					<c:if test="${list.size()<=0 }">
+						<div class="col-md-12">
+							<img width="100%" height="100%" src="https://www.psmsolution.com/img/message_none.png">
+						</div>
+					</c:if>
+						<c:forEach items="${list }" var="cn">
+		                    <div class="col-md-6 row" style="margin-bottom:20px;"> 
+		                        
+		
+		                        <div class="col-md-2"></div>
+		                        <div class="col-md-8" style="border: 1px solid black; height:100%;">
+		
+		                    		<h4 style="text-align: center;">${cn['CN_NAME'] }</h4>
+		                            <h4 style="text-align: center;">${cn['CN_PRICE'] }원 할인</h4>
+		                            <fmt:formatDate value="${cn['CN_ENROLLDATE'] }" pattern="yyyy/MM/dd HH:mm" var="sdate"/>
+		                            <fmt:formatDate value="${cn['CN_EXPIRE'] }" pattern="yyyy/MM/dd HH:mm" var="edate"/>
+		                            <p style="text-align: center;"><strong>${sdate }<br> ~ <br>${edate }</strong></p>
+		                            
+		                            <p style="text-align: center;"><strong>${cn['CN_LIMITPRICE'] }원 이상 주문 시 사용가능</strong></p>
+		
+		                        </div>
+		                        <div class="col-md-2"></div>
+		
+		                    </div>
+	                    </c:forEach>
+                    
 
                 </div>
 

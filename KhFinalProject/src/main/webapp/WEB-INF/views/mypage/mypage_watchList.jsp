@@ -32,6 +32,11 @@
 
             <div class="col-md-10 row">
             	
+            		<c:if test="${list.size()<=0 }">
+						<div class="col-md-12">
+							<img width="100%" height="100%" src="https://www.psmsolution.com/img/message_none.png">
+						</div>
+					</c:if>
 
 					<c:forEach items="${list }" var="sto">
 	                    <div class="col-md-6 row" style="height:220px;" id="div_${sto['S_NO'] }">

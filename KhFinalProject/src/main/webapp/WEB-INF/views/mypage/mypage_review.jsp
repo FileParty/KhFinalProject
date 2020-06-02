@@ -36,6 +36,12 @@
                     <table class="table content table-striped" style="margin-top:10px;">
                     
                     	<tr></tr>
+                    	
+                    	<c:if test="${list.size()<=0 }">
+							<div class="col-md-12">
+								<img width="100%" height="100%" src="https://www.psmsolution.com/img/message_none.png">
+							</div>
+						</c:if>
 
 						<c:if test="${fn:length(list)!=0 }">
 	                        <tr style="background-color:cornflowerblue;">

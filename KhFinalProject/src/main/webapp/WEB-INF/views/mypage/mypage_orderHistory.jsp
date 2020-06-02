@@ -54,6 +54,12 @@ ${sysdate }  --%>
             <div class="col-md-10 row">
             
             	<div class="col-md-12 style="margin-bottom:10px;"></div>
+            	
+            	<c:if test="${list.size()<=0 }">
+						<div class="col-md-12">
+							<img width="100%" height="100%" src="https://www.psmsolution.com/img/message_none.png">
+						</div>
+					</c:if>
             
 				<c:forEach items="${list }" var="m">
 					<div class="col-md-6 row" style="margin-bottom:15px;">
@@ -313,6 +319,15 @@ ${sysdate }  --%>
 			
 			//숫자 count 주문대기 접수 or 배달중 인애들 만 
 			
+			var orderNoD;
+			var storeNameD;
+			var storeAddrD;
+			var deliveryXl;
+			var deliveryYl;
+			var clientAddrD;
+			var stateD;
+			
+			
 			
 			var orderState = $(".order-state");
 			
@@ -452,13 +467,13 @@ ${sysdate }  --%>
 					console.log("배달원한테 온 no 갑승ㄴ?");
 					console.log(msg.no);
 					
-					var orderNoD = msg.no;
-					var storeNameD = msg.name;
-					var storeAddrD = msg.addr;
-					var deliveryXl = msg.xl;
-					var deliveryYl = msg.yl;
-					var clientAddrD = msg.clientAddr;
-					var stateD = msg.state;
+					orderNoD = msg.no;
+					storeNameD = msg.name;
+					storeAddrD = msg.addr;
+					deliveryXl = msg.xl;
+					deliveryYl = msg.yl;
+					clientAddrD = msg.clientAddr;
+					stateD = msg.state;
 					
 					console.log("배달원 지도 마크 찍을 때");
 					console.log(deliveryXl);
