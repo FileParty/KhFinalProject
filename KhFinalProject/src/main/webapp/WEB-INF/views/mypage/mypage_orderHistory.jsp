@@ -54,6 +54,12 @@ ${sysdate }  --%>
             <div class="col-md-10 row">
             
             	<div class="col-md-12 style="margin-bottom:10px;"></div>
+            	
+            	<c:if test="${list.size()<=0 }">
+						<div class="col-md-12">
+							<img width="100%" height="100%" src="https://www.psmsolution.com/img/message_none.png">
+						</div>
+					</c:if>
             
 				<c:forEach items="${list }" var="m">
 					<div class="col-md-6 row" style="margin-bottom:15px;">
