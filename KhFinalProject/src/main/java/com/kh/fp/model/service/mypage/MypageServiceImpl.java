@@ -25,7 +25,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectOrder(int m_no, int cPage, int numPerPage) {
+	public List<Map<String, Object>> selectOrder(int m_no, int cPage, int numPerPage) {
 		return dao.selectOrder(session, m_no, cPage, numPerPage);
 	}
 
@@ -62,7 +62,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectCoupon(int m_no) {
+	public List<Map<String, Object>> selectCoupon(int m_no) {
 		return dao.selectCoupon(session, m_no);
 	}
 

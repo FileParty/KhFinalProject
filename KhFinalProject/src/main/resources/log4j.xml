@@ -22,20 +22,20 @@
 	
 	
 	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="sqlLogger"/>
 	</logger>
 	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="sqlLogger"/>
 	</logger>
 	
 	<!-- Application Loggers -->
 	<logger name="com.kh.fp">
-		<level value="info" />
+		<level value="WARN" />
 	</logger>
 	<logger name="com.kh.fp">
-		<level value="debug" />
+		<level value="WARN" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
