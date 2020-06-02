@@ -24,6 +24,7 @@
 
             <div class="col-md-2">
                 
+                <div style="margin-bottom:10px;"></div>
                 <table id="myPage_category" class="table">
 
                     <tr>
