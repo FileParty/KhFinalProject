@@ -578,11 +578,6 @@ ${sysdate }  --%>
 			            		     }
 			            		});
 			            		
-			            		console.log("가게 정보");
-			            		console.log(stoa);
-			            		console.log(stoy);
-			            		console.log(stox);
-			            		
 			    				var mapContainer = document.getElementById("map-"+orderNoD), // 지도를 표시할 div 
 			    				
 			    				mapOption = {
