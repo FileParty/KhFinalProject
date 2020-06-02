@@ -68,7 +68,9 @@ public class UserMypage {
 		String url = "/20PM_deliveryKing_final/mypage/orderHistory.do";
 		
 		
-		List<Map<String, String>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
+		List<Map<String, Object>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
+		
+		log.debug(list + ":");
 		
 		String pageBar = PageBarFactory(cPage, numPerPage, totalData, url);
 		
@@ -248,7 +250,7 @@ public class UserMypage {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		
-		List<Map<String, String>> list = service.selectCoupon(loginMember.getM_No());
+		List<Map<String, Object>> list = service.selectCoupon(loginMember.getM_No());
 		
 		m.addAttribute("list", list);
 		

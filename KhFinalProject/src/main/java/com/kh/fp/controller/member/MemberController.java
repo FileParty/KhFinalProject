@@ -434,7 +434,7 @@ public class MemberController {
         mv.addObject("dice", dice);
         mv.addObject("m_Email", m_Email);
         
-        System.out.println("mv : "+mv);
+        
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -565,7 +565,7 @@ public class MemberController {
         mv.addObject("dice", dice);
         mv.addObject("b_Email", b_Email);
         
-        System.out.println("mv : "+mv);
+        
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -694,7 +694,7 @@ public class MemberController {
         mv.setViewName("/member/findIdPwM");     //뷰의이름
         mv.addObject("m_Email", m_Email);
         
-        System.out.println("mv : "+mv);
+       
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -747,7 +747,7 @@ public class MemberController {
         mv.setViewName("/member/findIdPwB");     //뷰의이름
         mv.addObject("b_email", b_email);
         
-        System.out.println("mv : "+mv);
+        
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -810,7 +810,7 @@ public class MemberController {
         mv.addObject("m_Email", m_Email);
         mv.addObject("m_id",id);
         
-        System.out.println("mv : "+mv);
+     
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -874,7 +874,7 @@ public class MemberController {
         mv.addObject("b_Email", b_Email);
         mv.addObject("b_id",id);
         
-        System.out.println("mv : "+mv);
+        
 
         response_email.setContentType("text/html; charset=UTF-8");
         PrintWriter out_email = response_email.getWriter();
@@ -1065,20 +1065,20 @@ public class MemberController {
 	String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 	//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
 	//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
-	System.out.println("네이버:" + naverAuthUrl);
+	
 	//네이버
 	String kakaoUrl = KakaoController.getAuthorizationUrl(session);
 	
 	 //URL을 생성한다.
     String url = googleOAuth2Template.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-    System.out.println("/googleLogin, url : " + url);
+    
     model.addAttribute("google_url", url);
     
     OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
     String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
 
     model.addAttribute("facebook_url", facebook_url);
-    System.out.println("/facebook" + facebook_url);
+    
 
 	
 	model.addAttribute("url", naverAuthUrl);
@@ -1112,8 +1112,7 @@ public class MemberController {
 	//response의 nickname값 파싱
 	String nickname = (String)response_obj.get("nickname");
 	String email = (String)response_obj.get("email");
-	System.out.println("컨트롤로 닉네임"+nickname);
-	System.out.println("컨트롤로 이메일"+email);
+	
 	//4.파싱 닉네임 세션으로 저장
 
 	
@@ -1140,7 +1139,7 @@ public class MemberController {
 	//카카오 로그인
 	@RequestMapping(value = "/member/kakaoLogin", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST }) 
 	public ModelAndView kakaoLogin(@RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception { 
-		System.out.println("카카오로그인 메소드 들어옴");
+		
 		
 		ModelAndView mav = new ModelAndView(); // 결과값을 node에 담아줌 
 		JsonNode node = KakaoController.getAccessToken(code); // accessToken에 사용자의 로그인한 모든 정보가 들어있음 
@@ -1168,12 +1167,7 @@ public class MemberController {
 		session.setAttribute("kbirthday", kbirthday); 
 		session.setAttribute("kage", kage); 
 		
-		System.out.println("카카오 로그인 메소드 이메일 : "+kemail);
-		System.out.println("카카오 로그인 메소드 이메일 : "+kname);
-		System.out.println("카카오 로그인 메소드 이메일 : "+kimage);
-		System.out.println("카카오 로그인 메소드 이메일 : "+kgender);
-		System.out.println("카카오 로그인 메소드 이메일 : "+kbirthday);
-		System.out.println("카카오 로그인 메소드 이메일 : "+kage);
+		
 		
 		
 		Member m = service.selectKakao(kname);
@@ -1262,8 +1256,7 @@ public class MemberController {
     	 ModelAndView mav = new ModelAndView();
         try {
              String redirectUri = oAuth2Parameters.getRedirectUri();
-            System.out.println("Redirect URI : " + redirectUri);
-            System.out.println("Code : " + code);
+           
  
             OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
             AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, redirectUri, null);
@@ -1334,9 +1327,9 @@ public class MemberController {
  
     @RequestMapping(value = "/member")
     public ModelAndView doSessionAssignActionPage(HttpServletRequest request , HttpSession session) throws Exception {
-    	System.out.println("구글 로그인 메소드 들어옴");
+    
         String code = request.getParameter("code");
-        System.out.println(code);
+       
         
         //RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
         RestTemplate restTemplate = new RestTemplate();
@@ -1362,13 +1355,11 @@ public class MemberController {
         Base64 base64 = new Base64(true);
         String body = new String(base64.decode(tokens[1]));
         
-        System.out.println(tokens.length);
-        System.out.println(new String(Base64.decodeBase64(tokens[0]), "utf-8"));
-        System.out.println(new String(Base64.decodeBase64(tokens[1]), "utf-8"));
+ 
         
         String mo=new String(Base64.decodeBase64(tokens[1]));
         
-        System.out.println("이거나와?"+mo);
+       
         
                 
         
@@ -1379,15 +1370,13 @@ public class MemberController {
         
         
         
-        System.out.println("이거는??"+mo.charAt(2));
+      
  
         //Jackson을 사용한 JSON을 자바 Map 형식으로 변환
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> result = mapper.readValue(body, Map.class);
         
-        System.out.println(result);
-        
-        System.out.println(result.get("name"));
+  
         
         String name=result.get("name");
         
@@ -1405,7 +1394,7 @@ public class MemberController {
        
         
        
-        System.out.println(result.get(""));
+        
         
         
         
