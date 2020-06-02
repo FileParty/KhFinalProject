@@ -53,6 +53,8 @@ ${sysdate }  --%>
             <jsp:include page="/WEB-INF/views/mypage/mypageSidebar.jsp"/>
             <div class="col-md-10 row">
             
+            	<div class="col-md-12 style="margin-bottom:10px;"></div>
+            
 				<c:forEach items="${list }" var="m">
 					<div class="col-md-6 row" style="margin-bottom:15px;">
 
@@ -66,7 +68,7 @@ ${sysdate }  --%>
 							<input class="clientAddr" type="hidden" value="${m['O_ADDR'] }"/>
 							
 							
-                           <p style="text-align: center;"><strong>${m['S_NAME'] }</strong></p>
+                           <p style="text-align: center;"><strong style="font-size:20px;">${m['S_NAME'] }</strong></p>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm" var="zdate"/>
                            <fmt:formatDate value="${m['O_DATE'] }" pattern="yyyy/MM/dd HH:mm:ss" var="ndate"/>
                            <fmt:parseDate value="${ndate }" pattern="yyyy/MM/dd HH:mm:ss" var="rdate"/>
@@ -106,7 +108,7 @@ ${sysdate }  --%>
                                    <td><img width="80" height="80" src="${path }/resources/upload/store/${m['S_LOGIMG']}"/></td>
                                    <td style="text-align: right;">
                                        <p style="text-align: right;"><strong>${zdate}</strong></p>
-                                       <p style="text-align: right;"><strong>${m['O_PAYPRICE'] }원</strong></p>
+                                       <p style="text-align: right;"><strong class="money">${m['O_PAYPRICE'] }</strong></p>
                                    </td>
                                </tr>
                            </table>
@@ -167,8 +169,6 @@ ${sysdate }  --%>
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-						<h4 class="modal-title" id="myModalLabel">모달 타이틀</h4>
 					</div>
 					<div class="modal-body info-container">
                         <p style="text-align: center;"><strong></strong></p>
@@ -188,8 +188,6 @@ ${sysdate }  --%>
                        
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">확인</button>
-						<button type="button" class="btn btn-default" id="closeModalBtn">취소</button>
 					</div>
 				</div>
 			</div>
@@ -303,11 +301,11 @@ ${sysdate }  --%>
         
         <script>
 	
-			navigator.geolocation.getCurrentPosition(function(pos) {
+			/* navigator.geolocation.getCurrentPosition(function(pos) {
 			    var latitude = pos.coords.latitude;
 			    var longitude = pos.coords.longitude;
 			    alert("현재 위치는 : " + latitude + ", "+ longitude);
-			});
+			}); */
 
 
 			//현재 페이지의 모든 td 값 가져옴
@@ -931,8 +929,11 @@ ${sysdate }  --%>
 				}
 	        	
 	        	
+	        	
 	        	$("#modal2").attr("style", "display:flex");
 	            $("body").attr("style","overflow-y:hidden");
+	            event.stopPropagation();
+	            
 	        }
 	        
 	        
@@ -945,8 +946,10 @@ ${sysdate }  --%>
 	        		        	
 	        	var thdata = $("#modalBox").data("thdata"); 
 	        	
-	        	if(event.target.className!='')
+	        	/* if(event.target.className==' reviewInsertButton' && event.target.className=='order_content'){
                     return;
+	        	} */
+	        	
             	
             	$("#menu-tbl").html("<tr><th style='text-align: center;' colspan='2'>메뉴정보</th></tr>");
             	           	
@@ -1365,7 +1368,19 @@ ${sysdate }  --%>
             	 $("#modal2").attr("style", "display:none");
                  $("body").attr("style","overflow-y:scroll");
             })
-    
+            
+           $(function(){
+        	
+        		var money = $(".money");
+        		
+        		for(let i=0; i<money.length; i++){
+        			var m = money[i].innerHTML;
+        			money[i].innerHTML = parseInt(m).toLocaleString()+'원';
+        		}
+        	   
+           });
+            
+            
         </script>
     
     
