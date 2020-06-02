@@ -572,8 +572,7 @@
                      <button  id="dopay" class="paymentBtn" type="button" style="pointer-events: none; border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
                      </button>   
-                    
-  
+                     
 
     </div>
   </div>
@@ -1223,11 +1222,7 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
-        	var recevier=$("#sNo").val();
-        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
-            websocket.onopen=function(data){
-            	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
-    		}
+        	ordersocket();
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
             
@@ -1242,6 +1237,14 @@ $("#alloffHidden").click(function(){
      });   
     
 });
+	
+	function ordersocket(){
+		var recevier=$("#sNo").val();
+    	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
+        websocket.onopen=function(data){
+        	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
+		}
+	}
 	
 	function SocketMessage(type,sender,receiver,msg){
 		this.type=type;
