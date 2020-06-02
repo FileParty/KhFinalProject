@@ -445,7 +445,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
     <td width="680px">
     <input style="padding-right:15px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
-         <button onclick="cancle();" style="margin-left: -4px;width:97px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
+         <button onclick="cancle();" style="margin-left: -4px;width:97px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -1px;">
         	포인트취소
         </button>
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 

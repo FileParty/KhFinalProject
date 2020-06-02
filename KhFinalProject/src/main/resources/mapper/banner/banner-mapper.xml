@@ -5,8 +5,8 @@
   	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSTIMESTAMP+(INTERVAL '10' MINUTE),
   	<choose>
   		<when test="cpNo==1">1000</when>
-  		<when test="cpNo==2">5000</when>
-  		<when test="cpNo==3">10000</when>
+  		<when test="cpNo==2">3000</when>
+  		<when test="cpNo==3">7000</when>
   		<when test="cpNo==4">2000</when>
   	</choose>
   	,#{mNo},40000,'오늘의 슬롯머신 쿠폰! 10분내로 사용하세요')

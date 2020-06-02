@@ -64,7 +64,7 @@ import com.kh.fp.model.vo.Delivery;
 import com.kh.fp.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember" , "flag" , "del"})
+@SessionAttributes({ "loginMember" , "flag" , "del" , "admin"})
 public class MemberController {
 	
 	@Autowired
@@ -247,6 +247,27 @@ public class MemberController {
 		try {
 			
 			Delivery d = service.selectDeliveryI(m);
+			
+			String admin="";
+			
+			if(m.getM_Id()=="admin") {
+				
+				//로그인여부 확인하기
+				if(m!=null&&encoder.matches(userPw, m.getM_Pw())) {
+					//로그인성공
+					md.addAttribute("msg","로그인성공");
+					md.addAttribute("loginMember",m);
+					md.addAttribute("admin",admin);
+					md.addAttribute("loc","/");
+				}else {
+					//로그인실패
+					md.addAttribute("msg","아이디 또는 비밀번호가 일치하지 않습니다.");
+					md.addAttribute("loc","/member/login.do");
+				}
+				
+			}else {
+				
+			}
 			
 			if(m.getM_Level()==2) {
 				

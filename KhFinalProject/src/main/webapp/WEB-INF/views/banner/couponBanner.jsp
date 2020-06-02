@@ -19,11 +19,11 @@
 			</div>
 			<div class="coupon-banner-slot-machine-val">
 				<input type="hidden" value="5000" class="slot-machine-value">
-				<p class="coupon-banner-slot-machine-val-text">5000원 쿠폰</p>
+				<p class="coupon-banner-slot-machine-val-text">3000원 쿠폰</p>
 			</div>
 			<div class="coupon-banner-slot-machine-val">
 				<input type="hidden" value="10000" class="slot-machine-value">
-				<p class="coupon-banner-slot-machine-val-text">10000원 쿠폰</p>
+				<p class="coupon-banner-slot-machine-val-text">7000원 쿠폰</p>
 			</div>
 			<div class="coupon-banner-slot-machine-val">
 				<input type="hidden" value="2000" class="slot-machine-value">
