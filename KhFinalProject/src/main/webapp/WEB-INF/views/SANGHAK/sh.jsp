@@ -975,7 +975,10 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
         	 if($("#nextTime").val()=="접기"){
         		 $('#nextTime1').css("display","none"); 
 	  	  			$(this).val("다음");
+	  	  			
         	 }else{
+        		
+
         		 var address=document.getElementById('address').value;
         		 var name_2=document.getElementById('name_2').value;
         		 var phone_2=document.getElementById('phone_2').value;
@@ -1050,6 +1053,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 					  	 $("#text3").css("display","none");
 					  	 $("#text1").css("display","none");
 					     $("#text2").css("display","none");
+					     $('.nextTime5').css("display","inline"); 
+		        		 $('.nextTime5').val("접기");
 					  	  			}
 				  	
 						
@@ -1500,16 +1505,17 @@ main {
 
   $("#btn-container").click(function(){
 	 if($("#btn-container").val()=="1"){
-		   $('#btn-container').css("border","solid 1px black");
-		    $('#btn-button').css("color","black").css("font-weight","normal").html("신용카드");
+		   $('#btn-container').css("border","solid 1px black").css("background","white");
+		    $('#btn-button').css("color","black").css("background","white").css("font-weight","normal").html("신용카드");
 	    $(this).val("2");
 	  /*   var addMenu=document.getElementById('addMenu').value;
 	 
 	    $("#addMenu2").val(addMenu); */
 	 }else{
 		   $(this).val("1");
-		   $('#btn-container').css("border","solid 3px red");
-		    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
+		   $('#btn-container').css("border","solid 3px salmon").css("background","salmon");
+		    $('#btn-button').css("background","salmon").css("color","white").css("font-weight","bold").html("신용카드 (선택완료)");
+	
 		
 	 }
 	 });
@@ -1662,9 +1668,9 @@ main {
 	    $("#check123").change(function(){
 	        if($("#check123").is(":checked")){
 	        	$('#dopay').css("color","white").css("background-color","darkslategray");
-	        	$('#agree5').css("color","white").css("border","1px solid black");
+	        	$('#agree5').css("color","white").css("border","1px solid darkslategray");
 	        	$('#dopay').css("color","white").css("border","1px solid black");
-	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
+	        	$('.rightcolumn').css("color","white").css("border","1px solid darkslategray");
 	        	$('#agree2').css("color","black");
 	        	$('#vlftn').prop("type", "hidden");
 	        	$('.paymentBtn').html("결제 (클릭)").css("pointer-events","auto");
@@ -1675,6 +1681,7 @@ main {
 	        	$('#agree5').css("color","white").css("border","1px solid lightgray");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid lightgray");
 	        	$('.paymentBtn').html("결제하기").css("pointer-events","none").css("border","1px solid lightgray");
+	        	
 	        	$('#vlftn').prop("type", "text");
 	        	$('#last1').css("border-bottom","1px solid lightgray");
 	        	$('.rightcolumn').css("height","466px");
