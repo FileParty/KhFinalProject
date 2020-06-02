@@ -30,8 +30,9 @@ public class DeliveryServer extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		log.debug("사용자 접속");
-		log.debug(session+"");
+		/*
+		 * log.debug("사용자 접속"); log.debug(session+"");
+		 */
 		//session을 가지고 메세지를 보낸다.
 		
 		//session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"서버","","","","","","환영합니다."))));
@@ -66,18 +67,19 @@ public class DeliveryServer extends TextWebSocketHandler{
 				}
 				
 				if(msg.getState().equals("Y")) {
-					log.debug("배달원이 수락했을 때 찍히나요");		
+				/* log.debug("배달원이 수락했을 때 찍히나요"); */		
 					sendMessage(msg,session);
 				}
 				
 				//배달원이 배달을 완료했을 때
 				if(msg.getState().equals("C")) {
-					log.debug("배달원이 배달을 완료했을때 찍히나요");
+				/* log.debug("배달원이 배달을 완료했을때 찍히나요"); */
 					sendMessage(msg,session);
 				}
 				
 				//위도 경도 고객에게 보내주기
 				if(msg.getState().equals("A")) {
+					log.debug("배달원이 위도 경도 보내줄 때 찍히나요");
 					sendMessage(msg, session);
 				}
 				
@@ -101,7 +103,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 	//클라이언트 등록
 	private void addClient(SocketMessage sm, WebSocketSession session) {
 		this.clients.put(sm, session);
-		log.info("접속자 : " + clients);
+		/* log.info("접속자 : " + clients); */
 	}
 	
 	private void sendMessage(SocketMessage msg, WebSocketSession session) {
@@ -111,8 +113,10 @@ public class DeliveryServer extends TextWebSocketHandler{
 		
 		for(Map.Entry<SocketMessage, WebSocketSession> client : entry) {
 			
-				log.debug("key값:" + client.getKey());
-				log.debug("value값:" + client.getValue());
+			/*
+			 * log.debug("key값:" + client.getKey()); log.debug("value값:" +
+			 * client.getValue());
+			 */
 				
 			try {	
 				//사업자가 로그인했을 때
@@ -162,7 +166,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 								//해당하는 배달원의 상태값만 변경해줘야되
 								client.getKey().setState("S");	
 								//해당하는 배달원한테만 메세지 전송
-								log.debug("사업자가 출발버튼 눌렀을 때 배달원에게 보내는 메시지"+msg.getState());
+								/* log.debug("사업자가 출발버튼 눌렀을 때 배달원에게 보내는 메시지"+msg.getState()); */
 								client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
 							}
 						}
@@ -174,7 +178,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 							
 							for(int i=0; i<orderNo.length; i++) {
 								int no = Integer.parseInt(orderNo[i]);
-								log.debug(no+"");
+								/* log.debug(no+""); */
 								if(no == msg.getNo()) {			
 									client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));						
 								}
@@ -189,11 +193,12 @@ public class DeliveryServer extends TextWebSocketHandler{
 					//배달원이 로그인했을 때
 					if(client.getKey().getType().equals("business") && client.getKey().getState().equals("W")) {
 						if(client.getKey().getNo() == msg.getNo()) {
-							log.debug("접속자 no값"+client.getKey().getNo());
-							log.debug("현재 클라이언트 no값" + msg.getNo());
-							log.debug("현재 클라이언트 type" + msg.getType());
-							log.debug("현재 클라이언트 이름" + msg.getName());
-							log.debug("현재 클라이언트 message" + msg.getMsg());
+							/*
+							 * log.debug("접속자 no값"+client.getKey().getNo()); log.debug("현재 클라이언트 no값" +
+							 * msg.getNo()); log.debug("현재 클라이언트 type" + msg.getType());
+							 * log.debug("현재 클라이언트 이름" + msg.getName()); log.debug("현재 클라이언트 message" +
+							 * msg.getMsg());
+							 */
 							
 					
 							client.getValue().sendMessage(new TextMessage(getJsonMessage(msg)));
@@ -215,26 +220,27 @@ public class DeliveryServer extends TextWebSocketHandler{
 						//배달자가 수락 눌렀을 때 no 값을 변경해야 한다.
 						if(session.getId().equals(client.getValue().getId())) {
 							client.getKey().setNo(msg.getNo());;
-							log.debug("배달자의 no: " + client.getKey().getNo());
+							/* log.debug("배달자의 no: " + client.getKey().getNo()); */
 						}
 						
 						//배달자가 수락 눌렀을 때 상태값 Y로 변경해야 한다.
 						if(session.getId().equals(client.getValue().getId())) {
 							client.getKey().setState("Y");
-							log.debug("배달자의 상태 : " + client.getKey().getState());
+							/* log.debug("배달자의 상태 : " + client.getKey().getState()); */
 						}
 						
 						//사업자의 상태도 Y로 바꿔줘야 한다.
 						if(client.getKey().getType().equals("business") && client.getKey().getNo()==msg.getNo()){
 							client.getKey().setState("Y");
-							log.debug("사업자의 정보 : " + client.getKey());
+							/* log.debug("사업자의 정보 : " + client.getKey()); */
 						}					
 					}
 					
 					if(msg.getState().equals("S")) {
 						if(session == client.getValue()) {
-							log.debug("클라이언트의 상태 변경 전");
-							log.debug(""+client.getKey().getState());
+							/*
+							 * log.debug("클라이언트의 상태 변경 전"); log.debug(""+client.getKey().getState());
+							 */
 							
 							client.getKey().setState("S");
 						}
@@ -304,9 +310,6 @@ public class DeliveryServer extends TextWebSocketHandler{
 						 * SocketMessage("server",0,"","","","","","","배달중이 아닙니다!!")))); }
 						 */
 							
-						
-						
-						
 						if(client.getKey().getType().equals("delivery") && client.getKey().getState().equals("S")) {
 							if(client.getKey().getNo() == msg.getNo()) {
 								log.debug("고객이 배달원한테 주는 메시지 입니다."+msg);

@@ -45,10 +45,10 @@
 		
 		                    		<h4 style="text-align: center;">${cn['CN_NAME'] }</h4>
 		                            <h4 style="text-align: center;">${cn['CN_PRICE'] }원 할인</h4>
-		                            <%-- <fmt:formatDate value="${cn['CN_ENROLLDATE'] }" pattern="yyyy/MM/dd HH:mm" var="sdate"/>
+		                            <fmt:formatDate value="${cn['CN_ENROLLDATE'] }" pattern="yyyy/MM/dd HH:mm" var="sdate"/>
 		                            <fmt:formatDate value="${cn['CN_EXPIRE'] }" pattern="yyyy/MM/dd HH:mm" var="edate"/>
-		                            <p style="text-align: center;"><strong>${sdate }<br> ~ <br>${edate }</strong></p> --%>
-		                            <p style="text-align: center;"><strong>${cn['CN_ENROLLDATE'] }<br> ~ <br>${cn['CN_EXPIRE'] }</strong></p>
+		                            <p style="text-align: center;"><strong>${sdate }<br> ~ <br>${edate }</strong></p>
+		                            <%-- <p style="text-align: center;"><strong>${cn['CN_ENROLLDATE'] }<br> ~ <br>${cn['CN_EXPIRE'] }</strong></p> --%>
 		                            
 		                            <p style="text-align: center;"><strong>${cn['CN_LIMITPRICE'] }원 이상 주문 시 사용가능</strong></p>
 		
