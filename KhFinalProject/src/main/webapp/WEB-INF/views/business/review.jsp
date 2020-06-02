@@ -144,9 +144,7 @@
    							alert('등록 된 리뷰가 없습니다!');
    						}
    						for(let i=0;i<data.length;i++) {
-   							console.log('리뷰',data);
-   							console.log('리뷰',data[i].order_menu[0].me_name);
-   							console.log('리뷰',data[i].order_menu[1].me_name);
+
    							let div = $("<div>").attr('class','row');
    							let tbl = $("<table>").attr('class','tbl');
    							let tr = "<tr><td>";
