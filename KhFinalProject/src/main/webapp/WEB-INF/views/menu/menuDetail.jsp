@@ -702,6 +702,11 @@
         
         /* 모달창에서 주문하기 */
         function orderModal(){
+        	let flag = loginCheck();
+        	if(!flag){
+        		storeMenuModalClose();
+        		return false;
+        	}
         	let finalPrice = Number($("#finalPrice_").val());
         	let limitPrice = Number($("#limitPrice_").val());
         	if(finalPrice>=limitPrice){
@@ -872,6 +877,10 @@
         
         /* 주문표에서 주문하기 */
         function orderListEnd(){
+        	let flag = loginCheck();
+        	if(!flag){
+        		return false;
+        	}
         	let limitPrice = Number($("#order-limit-price").val());
         	let orderFinalPrice = Number($("#order-final-price").val());
         	if(orderFinalPrice>limitPrice){
@@ -1103,6 +1112,20 @@
         	name = name.substring(0,2);
         	name += "**";
         	return name;
+        }
+        
+        function loginCheck(){
+        	let check = "${loginType['no']}";
+        	if(check.length!=0){
+        		if("${loginType['type']}"=='m'){
+        			return true;
+	        	} else {
+	        		alert("일반 회원만 사용할 수 있습니다.");
+	        	}
+        	} else {
+        		$("#report-login-modal").modal("show");
+        	}
+        	return false;
         }
         
         /* 리뷰 신고하기 */
