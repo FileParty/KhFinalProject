@@ -1561,15 +1561,22 @@ main {
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
 		var totaldate3=document.getElementById('sum2').value;
-		$("#allpay4").val(basicpoint1); 
+		
 		
 		var coma=totaldate3-basicpoint1-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
-
+ 	if(totaldate2>=basicpoint1){
+ 		$("#allpay4").val(basicpoint1); 
 		$("#sum1").val(totaldate3-basicpoint1-coupon);
 		$("#sum").val(coma1);
-		
 		$("#allpay2").val('0'); 
+ 	}else if(totaldate2<basicpoint1){
+ 		$("#sum1").val('0');
+		$("#sum").val('0');	
+		$("#allpay2").val(basicpoint1-totaldate3); 	
+		$("#allpay3").val(totaldate2); 
+		$("#allpay4").val(totaldate2); 
+ 	}
 	/* 	
 		$("#allpay3").val(totaldate); 
 		$("#allpay2").val(basicpoint-totaldate); 

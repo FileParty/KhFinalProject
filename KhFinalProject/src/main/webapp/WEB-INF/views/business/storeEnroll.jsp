@@ -80,8 +80,8 @@
 	                  						<th class="store-enroll-info-title">결제방법</th>
 	                  						<th class="store-enroll-info">
 	                  							<label><input type="radio" name="spayopt" value="현금결제" checked>현금결제</label>&nbsp;&nbsp;
-	                  							<label><input type="radio" name="spayopt" value="카트결제">카트결제</label>&nbsp;&nbsp;
-	                  							<label><input type="radio" name="spayopt" value="현금결제/카트결제" checked>현금결제/카트결제</label>
+	                  							<label><input type="radio" name="spayopt" value="카드결제">카드결제</label>&nbsp;&nbsp;
+	                  							<label><input type="radio" name="spayopt" value="현금결제/카드결제" checked>현금결제/카드결제</label>
 	                  						</th>
 	                  					</tr>
 	                  					<tr>
