@@ -100,8 +100,8 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
 <!-- =============================================================================================================================== -->
 			       	</td>
 			        <td style="text-align:left;">
-			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
-			   			   <b style="color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
+			        <b style="font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
+			   			   <b style="font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
 			  
 			   <c:forEach items="${a['unReqOp']}" var="b"> 
 			                <b style="font-size: 17px;">[${b['unReqOpName']}]</b>
@@ -114,7 +114,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
 			        	${a['count']}   <!--${orderList[0]['count']}  -->
 			        		${a['menuCount']}
 			        </td>
-			        <td style="font-size: 21px;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
+			        <td style="font-size: 21px;font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
 			        <br>
 
 			        </td><!-- ${newOrder[0]['price']} -->
