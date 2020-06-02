@@ -571,7 +571,7 @@ ${sysdate }  --%>
 			            		        });
 			            		        
 			            		        var infowindow = new kakao.maps.InfoWindow({
-			            		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+storeNameD'+</div>'
+			            		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+storeNameD+'</div>'
 			            		        });
 			            		        
 			            		        infowindow.open(map, marker);
