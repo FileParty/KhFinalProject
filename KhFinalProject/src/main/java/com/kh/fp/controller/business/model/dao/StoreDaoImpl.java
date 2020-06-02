@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.OrderMenu;
 import com.kh.fp.model.vo.Sales;
+import com.kh.fp.model.vo.Store;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Repository
@@ -132,6 +133,12 @@ public class StoreDaoImpl implements StoreDao {
 	public int orderSelectReject(SqlSessionTemplate session, int no) {
 		// TODO Auto-generated method stub
 		return session.update("store.orderSelectReject",no);
+	}
+
+	@Override
+	public StoreEnroll getStore(SqlSessionTemplate session, int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("store.getStore",no);
 	}
 	
 	

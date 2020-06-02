@@ -380,7 +380,6 @@ public class LicenseeController {
 
 			}
 
-			System.out.println("리스트인데유" + list3);
 			result = service.insertMenu(list.get(i), list3);
 
 		}

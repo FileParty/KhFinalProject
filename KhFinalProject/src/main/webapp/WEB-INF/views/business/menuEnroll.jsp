@@ -373,7 +373,7 @@
                     		</c:forEach> 
                     		</select>
                     		         <br>
-                    		          <marquee><div>
+                    		          <div style="margin:auto;">
                        <span class="span">${store[0].s_Name}</span> <span class="span1">매장에 등록 된  </span><span class="span2"></span>
                         <br>
                          <span class="span4">${store[0].s_Name}</span> <span class="span5">매장에 등록 된  </span><span class="span10"></span>
@@ -384,7 +384,7 @@
                         <br>
                         <span style="color:black;">** 자세한 사항은 메뉴등록 창에서 확인해주세요! ** </span>
                          </div>
-                         </marquee>
+                         
                     		<br>
                     		<br>
                     	   <button type="button" id="subBtn" class="btnC" onclick="categoryPlus();">카테고리 추가</button> 
@@ -1047,7 +1047,7 @@
 				var div = $("<div>").attr('class','col-lg-5 bodyOne');
 				var div1 = $("<div>").attr('class','col-lg-4 bodyTwo'+num);
 				var div2 = $("<div>").attr('class','col-lg-3 bodyThree');
-				var div3 = $("<div>").attr('class','row categoryPlus'+num).append($("<input>").attr({'type':'button','value':'x','onclick':'canX();'}));
+				var div3 = $("<div>").attr('class','row categoryPlus'+num);
 				
 				
 					var img = $("<img>").attr({

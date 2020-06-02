@@ -28,6 +28,7 @@ import com.kh.fp.controller.business.service.StoreService;
 import com.kh.fp.model.vo.Business;
 import com.kh.fp.model.vo.OrderInfo;
 import com.kh.fp.model.vo.Sales;
+import com.kh.fp.model.vo.Store;
 import com.kh.fp.model.vo.StoreEnroll;
 
 @Controller
@@ -169,7 +170,7 @@ public class StoreController {
 	@RequestMapping("/store/storeupdateEnd")
 	public ModelAndView storeUpdate(ModelAndView mv,StoreEnroll s,HttpSession session) {
 		
-		System.out.println(s);
+		
 		
 		 int result = service.storeUpdate(s); 
 		
@@ -260,7 +261,7 @@ public class StoreController {
 			return mv;
 		}
 		
-		System.out.println(service.getSaleMonth(stores.get(0).get("S_NO")));
+		
 		mv.addObject("stores",stores);
 		mv.addObject("sales",service.getSales(stores.get(0).get("S_NO")));
 		mv.addObject("salesmonth",service.getSaleMonth(stores.get(0).get("S_NO")));
@@ -309,7 +310,9 @@ public class StoreController {
 	
 	@RequestMapping("/store/orderChatting")
 	public ModelAndView orderChatting(int no,ModelAndView mv) {
+		StoreEnroll s = service.getStore(no);
 		mv.addObject("no",no);
+		mv.addObject("sname",s.getSname());
 		mv.setViewName("/business/orderChatting");
 		return mv;
 	}

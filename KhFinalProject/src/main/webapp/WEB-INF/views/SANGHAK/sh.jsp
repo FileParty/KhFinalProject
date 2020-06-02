@@ -124,7 +124,7 @@
          
       </c:forEach>
       
- 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#fff8eb;">
+ 			<tr style="height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color:#FFF8CA;">
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -331,7 +331,7 @@
     
 		<div class="col-lg-12" id="ex2_Result2"></div> 
         <!-- ================================쿠폰적용========================================== -->
-       <button class="button123" style="width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
+       <button class="button123" style="width:98px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">
         	쿠폰적용
         </button>
 
@@ -439,7 +439,7 @@
     <td width="680px">
     <input style="padding-right:15px;border : 1px solid lightgray;width:200px;height:45px;text-align:right;" type="text" class="abc" id="allpay3"  >  
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
-         <button onclick="cancle();" style="margin-left: -4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
+         <button onclick="cancle();" style="margin-left: -4px;width:97px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -3px;">
         	포인트취소
         </button>
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 
@@ -457,7 +457,7 @@
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="margin-top: -1px;background-color: rgb(243, 243, 243);width: 290px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 298px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -565,15 +565,14 @@
                               <!-- 약관보기 클릭하면 input 태그 보이게 --> 
                               <div id="agree2" style="display:inline;text-align:center;">
                              	 <input id="check123" type="checkbox"  style="width: 15px; height: 15px;" required>&nbsp;동의합니다.
-                             	 <input id="vlftn" type="text"  style="margin-right: -47px;border:1px solid rgb(243, 243, 243);background-color: rgb(243, 243, 243);width:69px;color:red;" value="(필수체크)" readonly>
+                             	 <input id="vlftn" type="text"  style="margin-right: -47px;border:1px solid rgb(243, 243, 243);background-color: rgb(243, 243, 243);width:77px;color:red;" value="(필수체크)" readonly>
                               </div>
                             </div>
                         <input type="hidden" value="결제하기" >  
                      <button  id="dopay" class="paymentBtn" type="button" style="pointer-events: none; border: 1px solid lightgray;width: 426px;margin-left: -41px;margin-top: -2px;height: 105px;background-color: rgb(243, 243, 243);text-align: center;padding:13px;font-weight: bold;color: rgb(190, 190, 190);font-size: 25px;/* background-color: white; */">
                         	  결제하기
                      </button>   
-                    
-  
+                     
 
     </div>
   </div>
@@ -1223,11 +1222,7 @@ $("#alloffHidden").click(function(){
         buyer_addr: userAddr
     }, function (rsp) { //callback 함수
         if (rsp.success) {
-        	var recevier=$("#sNo").val();
-        	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
-            websocket.onopen=function(data){
-            	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
-    		}
+        	ordersocket();
             $("#baguniForm").submit();
             var msg = '결제에 성공하였습니다.';
             
@@ -1242,6 +1237,14 @@ $("#alloffHidden").click(function(){
      });   
     
 });
+	
+	function ordersocket(){
+		var recevier=$("#sNo").val();
+    	const websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/orderalert");
+        websocket.onopen=function(data){
+        	websocket.send(JSON.stringify(new SocketMessage("user","${loginMember.m_Name}",recevier,"${loginMember.m_Name}님이 주문하였습니다.")));
+		}
+	}
 	
 	function SocketMessage(type,sender,receiver,msg){
 		this.type=type;
@@ -1412,7 +1415,7 @@ main {
 }
 .topnava {
     
-    background-color: rgb(253, 68, 68);
+    background-color: salmon;
 
 }
 .topnava th {
@@ -1558,15 +1561,22 @@ main {
 		var point=document.getElementById('def123').innerHTML;
 		var basicpoint1=document.getElementById('point19').value;
 		var totaldate3=document.getElementById('sum2').value;
-		$("#allpay4").val(basicpoint1); 
+		
 		
 		var coma=totaldate3-basicpoint1-coupon;
 		var coma1=Number(coma).toLocaleString('en');	
-
+ 	if(totaldate2>=basicpoint1){
+ 		$("#allpay4").val(basicpoint1); 
 		$("#sum1").val(totaldate3-basicpoint1-coupon);
 		$("#sum").val(coma1);
-		
 		$("#allpay2").val('0'); 
+ 	}else if(totaldate2<basicpoint1){
+ 		$("#sum1").val('0');
+		$("#sum").val('0');	
+		$("#allpay2").val(basicpoint1-totaldate3); 	
+		$("#allpay3").val(totaldate2); 
+		$("#allpay4").val(totaldate2); 
+ 	}
 	/* 	
 		$("#allpay3").val(totaldate); 
 		$("#allpay2").val(basicpoint-totaldate); 

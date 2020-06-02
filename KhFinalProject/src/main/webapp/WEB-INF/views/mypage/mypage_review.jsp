@@ -32,7 +32,7 @@
 
             <div class="col-md-10 row">
 
-                    <table class="table content table-striped">
+                    <table class="table content table-striped" style="margin-top:10px;">
                     
                     	<tr></tr>
 

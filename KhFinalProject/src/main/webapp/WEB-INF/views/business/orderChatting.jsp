@@ -5,6 +5,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+	#headers{
+		width: 100%;
+		background: gray;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+	
+	h1{
+		margin: 0;
+	}
+	
+</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +26,9 @@
 <title>주문메세지</title>
 </head>
 <body>
-
+	<div id="headers">
+		<h1>${sname } 주문 알람 페이지</h1>
+	</div>
 	<div id="ss">
 		
 	</div>

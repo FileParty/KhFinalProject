@@ -19,7 +19,7 @@
 			order by S_REVIEWCOUNT DESC
 		</if>
 		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
-			order by trunc((s_taste+s_amount+s_delivery)/3/s_reviewcount,2) desc
+			order by trunc(decode((s_taste+s_amount+s_delivery),0,1,(s_taste+s_amount+s_delivery))/3/decode(s_reviewcount,0,1,s_reviewcount),2) desc
 		</if>
 	</select>
 	
@@ -41,7 +41,7 @@
 			order by S_REVIEWCOUNT DESC
 		</if>
 		<if test="sortType != null and sortType != '' and sortType=='별점순' and sortType != 'null'">
-			order by trunc((s_taste+s_amount+s_delivery)/3/s_reviewcount,2) desc
+			order by trunc(decode((s_taste+s_amount+s_delivery),0,1,(s_taste+s_amount+s_delivery))/3/decode(s_reviewcount,0,1,s_reviewcount),2) desc
 		</if>
 	</select>
  
