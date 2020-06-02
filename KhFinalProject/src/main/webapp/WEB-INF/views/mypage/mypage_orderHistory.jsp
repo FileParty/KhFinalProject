@@ -478,7 +478,10 @@ ${sysdate }  --%>
 					console.log("배달원 지도 마크 찍을 때");
 					console.log(deliveryXl);
 					console.log(deliveryYl);
-					console.log(orderNoD);
+					console.log(storeNameD);
+					console.log(storeAddrD);
+					console.log(clientAddrD);
+					console.log(stateD);
 					
 					$.ajax({
 						//배달원 위도 경도 update
@@ -554,9 +557,9 @@ ${sysdate }  --%>
 			            		var stoa;
 			            		var stoy;
 			            		var stox;
+			            		console.log(storeNameD);
 			            		
 			            		geco.addressSearch(storeNameD, function(result, status) {
-
 			            		    // 정상적으로 검색이 완료됐으면 
 			            		     if (status === kakao.maps.services.Status.OK) {
 
