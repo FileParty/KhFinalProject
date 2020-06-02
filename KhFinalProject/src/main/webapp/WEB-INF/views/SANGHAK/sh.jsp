@@ -16,7 +16,7 @@
   <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Stylish&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
 </head>
 <body>
  
@@ -51,11 +51,11 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
  <form  action="${path }/pay/payment.do" method="post" id="baguniForm" > <!--  -->
 
 <main>
-  <h2 style="text-align: center;margin-left: 29px; ">주문/결제</h2>
+  <p style="font-family: 'Playfair Display', serif;margin-left: 3px;text-align: center;margin-left: -4px;font-size:25px;">ORDER LIST</p>
 
  
   <table class="table1" style="width:1340px">
-    <thead style="background-color: rgb(228, 227, 227);" >
+    <thead style="background-color: rgb(228, 227, 227);" ><!--rgb(228, 227, 227);  -->
       <tr class="topnava">
         <th>주문상품 사진 </th>
         <th>주문상품정보</th>
@@ -100,11 +100,11 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
 <!-- =============================================================================================================================== -->
 			       	</td>
 			        <td style="text-align:left;">
-			        <b style="color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
-			   			   <b style="color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
+			        <b style="font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;color:rgb(95, 95, 95);font-size: 17px;">* 필수옵션</b> : <b style="font-size: 17px;">${a['reqOp']['reqOpName']}</b> <br>
+			   			   <b style="font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;color:rgb(95, 95, 95);font-size: 17px;">* 추가옵션</b> :
 			  
 			   <c:forEach items="${a['unReqOp']}" var="b"> 
-			                <b style="font-size: 17px;font-family: 'Stylish', sans-serif;">[${b['unReqOpName']}]</b>
+			                <b style="font-size: 17px;">[${b['unReqOpName']}]</b>
 			                  
 		   		</c:forEach>
 		   
@@ -114,7 +114,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
 			        	${a['count']}   <!--${orderList[0]['count']}  -->
 			        		${a['menuCount']}
 			        </td>
-			        <td style="font-size: 21px;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
+			        <td style="font-size: 21px;font-family: 맑은고딕, "malgun gothic", 돋움, Dotum, "Apple SD Gothic Neo", Helvetica, sans-serif;"><fmt:formatNumber value="${a['price']}${a['finalPrice']}" pattern="###,###,###,###"/>원
 			        <br>
 
 			        </td><!-- ${newOrder[0]['price']} -->
@@ -130,7 +130,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
          
       </c:forEach>
       
- 			<tr style="color: white;height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color: darkslategray;">
+ 			<tr style="color: white;height: 40px;border-bottom:1px solid rgb(228, 225, 225);background-color: darkslategray;"><!-- rgb(228, 227, 227); -->
 	     		<td colspan="5"> <b><marquee width="640px">  ★ 주문하신 정보가 맞는지 다시한번 확인해주시고 결제해주시기바랍니다 (ღゝ◡╹)ノ♡  </marquee></b></td>
      		</tr>
       
@@ -314,9 +314,9 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
   </td>
 </tr>
 <tr>
-  <td><div style="margin-top: -55px;">배송시 요청사항</div></td>
+  <td><div style="margin-top: -45px;">배송시 요청사항</div></td>
   <td><br>
-  <textarea name="ta2" rows="5" cols="80"  placeholder=" 코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요."></textarea>
+  <textarea style="border:1px solid lightgray;"name="ta2" rows="5" cols="80"  placeholder=" 코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요."></textarea>
   <!-- <input type="text" style="width:300px;height:100px;" placeholder="코로나19예방을 위해 비대면 배달 권장드립니다. 주문시 '문 앞 배달'을 요청사항에 남겨주세요.">  --><br><br></td>
 </tr>
 
@@ -447,7 +447,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
      <!--  <button id="allpay" style="margin-left:-4px;margin-top:-4px;width:90px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);">전액사용</button>  -->
          <button onclick="cancle();" style="margin-left: -4px;width:97px;height:45px;color:gray;border:1px solid lightgray;padding: 5px;background-color: rgb(253, 252, 252);margin-top: -1px;">
         	포인트취소
-        </button>
+        </button>&nbsp;&nbsp;
      <input type="checkbox"  id="checkbox123" onchange="check2(this)" > 
      
      <div style="display: inline;width:400px;margin-top:12px;">모두사용</div>
@@ -463,7 +463,7 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
   
   <tr>
     <td style="padding-right:40px;">배송비</td>
-      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 298px;height: 45px;text-align:right;border: 1px solid lightgray;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
+      <td width="680px"><input type="text" style="background-color: rgb(243, 243, 243);width: 298px;height: 45px;text-align:right;border: 1px solid lightgray;margin-top: -1px;" value="2,500&nbsp;원&nbsp;&nbsp;&nbsp;"readonly>
     <br> 
       </td>
     </tr>
@@ -505,8 +505,9 @@ Text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">배달</h1>  &nbsp;&nbsp;
         </script>
 
   <div style="margin-top:75px;" >
-    <h3 style="font-weight:bold;font-size:30px">최종 결제 금액 확인</h3>
+
   <div class="rightcolumn" style="padding-right:10px;" >
+  	 <div id="last">  <p id="last1"style="background: rgb(51, 51, 51);margin-top: -1px;font-weight: bold;text-align: center;font-size: 30px;border-bottom: 1px solid lightgray;padding: 19px;margin-left: -21px;width: 426px;color: white;">최종 결제 금액 확인</p></div>
     <h3 style="font-weight:bold;color:black;">총 합계</h3>
     <div>
     <h1 style="font-weight: bold;color:red">
@@ -974,7 +975,10 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
         	 if($("#nextTime").val()=="접기"){
         		 $('#nextTime1').css("display","none"); 
 	  	  			$(this).val("다음");
+	  	  			
         	 }else{
+        		
+
         		 var address=document.getElementById('address').value;
         		 var name_2=document.getElementById('name_2').value;
         		 var phone_2=document.getElementById('phone_2').value;
@@ -1049,6 +1053,8 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 					  	 $("#text3").css("display","none");
 					  	 $("#text1").css("display","none");
 					     $("#text2").css("display","none");
+					     $('.nextTime5').css("display","inline"); 
+		        		 $('.nextTime5').val("접기");
 					  	  			}
 				  	
 						
@@ -1448,7 +1454,7 @@ main {
 .rightcolumn {
     float: left;
     width: 31%;
-    height:369px;
+    height:452px;
     padding-left: 20px;
     border:1px solid lightgray;
 }
@@ -1499,16 +1505,17 @@ main {
 
   $("#btn-container").click(function(){
 	 if($("#btn-container").val()=="1"){
-		   $('#btn-container').css("border","solid 1px black");
-		    $('#btn-button').css("color","black").css("font-weight","normal").html("신용카드");
+		   $('#btn-container').css("border","solid 1px black").css("background","white");
+		    $('#btn-button').css("color","black").css("background","white").css("font-weight","normal").html("신용카드");
 	    $(this).val("2");
 	  /*   var addMenu=document.getElementById('addMenu').value;
 	 
 	    $("#addMenu2").val(addMenu); */
 	 }else{
 		   $(this).val("1");
-		   $('#btn-container').css("border","solid 3px red");
-		    $('#btn-button').css("color","red").css("font-weight","bold").html("신용카드 (선택완료)");
+		   $('#btn-container').css("border","solid 3px salmon").css("background","salmon");
+		    $('#btn-button').css("background","salmon").css("color","white").css("font-weight","bold").html("신용카드 (선택완료)");
+	
 		
 	 }
 	 });
@@ -1661,18 +1668,23 @@ main {
 	    $("#check123").change(function(){
 	        if($("#check123").is(":checked")){
 	        	$('#dopay').css("color","white").css("background-color","darkslategray");
-	        	$('#agree5').css("color","white").css("border","1px solid black");
+	        	$('#agree5').css("color","white").css("border","1px solid darkslategray");
 	        	$('#dopay').css("color","white").css("border","1px solid black");
-	        	$('.rightcolumn').css("color","white").css("border","1px solid black");
+	        	$('.rightcolumn').css("color","white").css("border","1px solid darkslategray");
 	        	$('#agree2').css("color","black");
 	        	$('#vlftn').prop("type", "hidden");
 	        	$('.paymentBtn').html("결제 (클릭)").css("pointer-events","auto");
+	        	$('#last1').css("border-bottom","1px solid black");
+	        	$('.rightcolumn').css("height","466px");
 	        }else{
 	        	$('#dopay').css("color","rgb(190, 190, 190").css("background-color","rgb(243, 243, 243)");
 	        	$('#agree5').css("color","white").css("border","1px solid lightgray");
 	        	$('.rightcolumn').css("color","white").css("border","1px solid lightgray");
-	        	$('.paymentBtn').html("결제하기").css("pointer-events","none");;
+	        	$('.paymentBtn').html("결제하기").css("pointer-events","none").css("border","1px solid lightgray");
+	        	
 	        	$('#vlftn').prop("type", "text");
+	        	$('#last1').css("border-bottom","1px solid lightgray");
+	        	$('.rightcolumn').css("height","466px");
 	        }
 	    });
 	});
