@@ -9,12 +9,13 @@
 	color:white;
 	background-size:100%;
 	background-repeat:no-repeat;
+	position:relative;
 }
 
 #coupon-banner-main-1-text-1{
 	text-align:right;
 	font-size:4em;
-	margin-top:100px;
+	margin-top:50px;
 	margin-right:420px;
 	margin-bottom:15px;
 	color:red;
@@ -33,11 +34,43 @@
 	text-align:right;
 	margin-right:380px;
 	text-shadow:3px 3px 3px red;
+	margin-bottom:50px;
 }
 
-#coupon-banner-main-1-text-end{
+#coupon-banner-main-bg{
+	position:absolute;
+	z-index:-2;
+	top:0;
+}
+
+/* 슬롯머신 */
+#coupon-banner-slot-machine{
+	border:1px solid black;
+	background-color:white;
+	width:700px;
+	height:100px;
+	margin-left:250px;
+	overflow:hidden;
+	position:relative
+}
+
+#slot-machine-value{
+	width:700px;
+	height:600px;
+	position:relative;
+	overflow:hidden;
+}
+
+.coupon-banner-slot-machine-val{
 	text-align:center;
-	margin-top:300px;
-	font-size:1.5em;
-	text-shadow:3px 3px 3px lightgray;
+	align-items:center;
+	height:100px;
+	width:100%;
+}
+
+.coupon-banner-slot-machine-val-text{
+	padding-top:30px;
+	font-size:25px;
+	font-weight:800;
+	color:black;
 }

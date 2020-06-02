@@ -6,33 +6,42 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="${path }/resources/css/loginModal.css" type="text/css">
 <link rel="stylesheet" href="${path }/resources/css/couponBanner.css" type="text/css">
-<script type="text/javascript" src="${path }/resources/js/jquery.slideto.min.js"></script>
-<style>
-	@font-face{
-		font-family:BMHANNA;
-		src:url("${path}/resources/font/BMHANNA.ttf").format("truetype");
-	}
-	section{
-		font-family:BMHANNA;
-	}
-</style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div id="main">
-	<section id="coupon-banner-main-1" class="coupon-banner-mains">
-		<h1 id="coupon-banner-main-1-text-1">배달킹</h1>
-		<h2 id="coupon-banner-main-1-text-2">런칭 이벤트</h2>
-		<h2 id="coupon-banner-main-1-text-3">배달킹 쿠폰팩!</h2>
-		<h2 id="coupon-banner-main-1-text-end">스크롤을 내려보세요!</h2>
-	</section>
-	<section id="coupon-banner-main-2" class="coupon-banner-mains">
-		<h1 id="coupon-banner-main-2-text-1">배달킹 쿠폰팩을 열어보세요!</h1>
-		<h2 id="coupon-banner-main-2-text-2">하루에 3개씩 열 수 있습니다!</h2>
-		<div id="coupon-banner-main-pack">
-			<img width="250px" height="400px" src="">
-			<h2 id="coupon-banner-main-2-text-3">← 쿠폰팩 열기!</h2>
+<section id="coupon-banner-main-1" class="coupon-banner-mains">
+	<h1 id="coupon-banner-main-1-text-1">배달킹</h1>
+	<h2 id="coupon-banner-main-1-text-2">런칭 이벤트! 하루에 무조건 쿠폰 한장!</h2>
+	<h2 id="coupon-banner-main-1-text-3">배달킹 쿠폰룰렛!</h2>
+	<div id="coupon-banner-slot-machine">
+		<div id="slot-machine-value">
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="1000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">1000원 쿠폰</p>
+			</div>
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="5000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">5000원 쿠폰</p>
+			</div>
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="10000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">10000원 쿠폰</p>
+			</div>
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="2000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">2000원 쿠폰</p>
+			</div>
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="1000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">1000원 쿠폰</p>
+			</div>
+			<div class="coupon-banner-slot-machine-val">
+				<input type="hidden" value="2000" class="slot-machine-value">
+				<p class="coupon-banner-slot-machine-val-text">2000원 쿠폰</p>
+			</div>
 		</div>
-	</section>
-</div>
+	</div>
+	<button onclick="slotMachineStart()">추첨하기!</button>
+	<img id="coupon-banner-main-bg" src="${path}/resources/img/banner/coupon-banner/coupon_bg.png" width="1366px">
+</section>
 <!-- login modal -->
 <div id="report-login-modal" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -56,15 +65,19 @@
 </div>
 <script>
 
+	$(function(){
+		$("#coupon-banner-main-1").show();
+	})
+
 	var scrollCheck = 0;
 	var divIndex = 1;
 	$(function(){
-		let pageHeihgt = ($(window).height())-343;
+		let pageHeight = $(window).height()-340;
 		$(".coupon-banner-mains").css({
-			height:pageHeihgt
-		})
-		$("#coupon-banner-main-1").css({
-			backgroundImage:"url('${path}/resources/img/banner/coupon-banner/coupon-banner-1.jpg')",
+			height:pageHeight
+		});
+		$("#coupon-banner-main-bg").css({
+			height:pageHeight
 		});
 		
 		
@@ -75,31 +88,32 @@
 	}
 	
 	
-	
-	/* 스크롤 페이지 전환 */
-	$(window).scroll(function(){
-		let flag = $(window).scrollTop()-scrollCheck >= 0 ? 1 : -1;
-		srcollDivChange(flag);
-		scrollCheck = $(window).scrollTop();
-		$("#main").slideto();
-		//setTimeout(srcollDivChange(flag),150);
-	})
-	
-	function srcollDivChange(flag){
-		console.log(flag);
-		if(flag>0){
-			if(divIndex<2){
-				$("#coupon-banner-main-"+divIndex).hide();
-				divIndex++;
-				$("#coupon-banner-main-"+divIndex).show();
+	function slotMachineStart(){
+		var SMtop = 0;
+		for(let i=0;i<15;i++){
+			if(SMtop<=600){
+				SMtop += 100;
+				console.log(SMtop);
+				if(SMtop<=600){
+					$("#slot-machine-value").animate({
+						top:"-"+SMtop+"px"
+					});
+				} else {
+					console.log("히얏호");
+					SMtop = 0;
+					$("#slot-machine-value").animate({
+						top:"0px"
+					});
+				}
+			} else {
+				SMtop = 0;
+				$("#slot-machine-value").animate({
+					top:"0px"
+				});
 			}
-		}else {
-			if(divIndex>1){
-				$("#coupon-banner-main-"+divIndex).hide();
-				divIndex--;
-				$("#coupon-banner-main-"+divIndex).show();
-			}
+			console.log(SMtop,$("#slot-machine-value"));
 		}
 	}
+	
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

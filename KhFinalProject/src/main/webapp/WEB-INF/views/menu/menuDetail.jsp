@@ -1025,7 +1025,7 @@
 	        				imgTr += "</div>";
 	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(-1)'>◁</button>";
 	        				imgTr += "<button class='review-slide-btns' onclick='SlideMove(1)'>▷</button>";
-	        				imgTr += "<</div></td></tr>";
+	        				imgTr += "</div></td></tr>";
 		        			table.append(imgTr);
 	        			} else if(data[i]['r_imgs'].length==1){
 	        				let imgTr = "<tr><td>";
