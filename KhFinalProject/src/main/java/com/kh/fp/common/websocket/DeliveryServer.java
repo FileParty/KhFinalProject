@@ -297,10 +297,12 @@ public class DeliveryServer extends TextWebSocketHandler{
 						}
 						
 						
-						if(!msg.getMsg().equals("배달중")) {
-							log.debug("배달중인데왜 찍히는건데" + client.getKey().getMsg());
-							session.sendMessage(new TextMessage(getJsonMessage(new SocketMessage("server",0,"","","","","","","배달중이 아닙니다!!"))));
-						}
+						/*
+						 * if(!msg.getMsg().equals("배달중")) { log.debug("배달중인데왜 찍히는건데" +
+						 * client.getKey().getMsg()); session.sendMessage(new
+						 * TextMessage(getJsonMessage(new
+						 * SocketMessage("server",0,"","","","","","","배달중이 아닙니다!!")))); }
+						 */
 							
 						
 						

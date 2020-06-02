@@ -949,10 +949,7 @@
 			   				url:"${path}/licensee/menuSelect",
 								data:{s_no:$("#store").val()},
 								success:function(data) {
-									if(data.length == 1) {							
-										alert('등록 된 메뉴가  없습니다!');
-										return;
-									}
+									
 									console.log('메뉴성공',data);
 									let remove = $(".row1").children().remove();
 									let modalDiv = $("<div>").attr('class','col-lg-12').css({'border':'1px solid black'});
