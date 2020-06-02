@@ -236,8 +236,8 @@
 	let checkState;
 	
 	
-	//var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
-	var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
+	var websocket = new WebSocket("wss://rclass.iptime.org${pageContext.request.contextPath}/delivery");				
+	//var websocket = new WebSocket("ws://localhost:9090${pageContext.request.contextPath}/delivery");
 	
 	websocket.onopen = function(data){
 		
