@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.fp.model.vo.AdminApplyStore;
 import com.kh.fp.model.vo.AdminApplyStoreInfo;
+import com.kh.fp.model.vo.Review;
 
 public interface AdminService {
 
@@ -25,5 +26,7 @@ public interface AdminService {
 	int updateReportM(int re_no);
 	
 	int updateReviewStatus(int r_no);
+	
+	Review reviewDetail(int r_no);
 
 }

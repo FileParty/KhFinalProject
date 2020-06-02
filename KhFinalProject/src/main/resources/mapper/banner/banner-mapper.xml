@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="banner">
+  <insert id="couponInsert" parameterType="map">
+  	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSTIMESTAMP+(INTERVAL '10' MINUTE),
+  	<choose>
+  		<when test="cpNo==1">1000</when>
+  		<when test="cpNo==2">5000</when>
+  		<when test="cpNo==3">10000</when>
+  		<when test="cpNo==4">2000</when>
+  	</choose>
+  	,#{mNo},40000,'오늘의 슬롯머신 쿠폰! 10분내로 사용하세요')
+  </insert>
+  <insert id="couponInsertCheck">
+  	INSERT INTO COUPON_CHECK VALUES(#{mNo},DEFAULT)
+  </insert>
+  <select id="couponSelectCheck" parameterType="_int" resultType="_int">
+  	SELECT COUNT(*) FROM COUPON_CHECK WHERE M_NO=#{m_No}
+  </select>
+</mapper>

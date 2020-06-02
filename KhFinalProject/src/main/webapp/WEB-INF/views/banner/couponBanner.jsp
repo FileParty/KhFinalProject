@@ -31,8 +31,8 @@
 			</div>
 		</div>
 	</div>
-	<button onclick="slotMachineStart()">추첨하기!</button>
-	<img id="coupon-banner-main-bg" src="${path}/resources/img/banner/coupon-banner/coupon_bg.png" width="1366px">
+	<button id="slot-start-btn" onclick="slotMachineStart()">추첨하기!</button>
+	<p class="slot-start-end">오늘은 이미 추첨을 했어요!</p>
 </section>
 <!-- login modal -->
 <div id="report-login-modal" class="modal" tabindex="-1" role="dialog">
@@ -56,20 +56,23 @@
 	</div>
 </div>
 <script>
-
+	
+	var fCheck = false;
 	$(function(){
 		$("#coupon-banner-main-1").show();
+		let lcpCheck = "${loginType['cCheck']}";
+		if(lcpCheck.length>0&&lcpCheck=='1'){
+			$("#slot-start-btn").hide();
+			$(".slot-start-end").show();
+			fCheck = true;
+		}
 	})
 
 	var scrollCheck = 0;
 	var divIndex = 1;
 	$(function(){
-		let pageHeight = $(window).height()-340;
 		$(".coupon-banner-mains").css({
-			height:pageHeight
-		});
-		$("#coupon-banner-main-bg").css({
-			height:pageHeight
+			backgroundImage:"url('${path}/resources/img/banner/coupon-banner/coupon_bg.png')"
 		});
 		
 		
@@ -79,13 +82,19 @@
 		location.replace("${path}/member/login.do");
 	}
 	
-	
 	function slotMachineStart(){
+		if(fCheck){
+			alert("오늘은 이미 추첨을 하셨어요!");
+			return false;
+		}
+		fCheck = true;
 		let loginCheck = "${loginType['type']}";
 		let param = 1;
+		let flag = false;
 		if(loginCheck.length>0&&loginCheck=="m"){
+			$(event.target).stop();
 			var SMtop = 0;
-			let rnd = Math.floor(Math.random()*20)+20;
+			let rnd = Math.floor(Math.random()*5)+25;
 			for(let i=0;i<rnd;i++){
 				if(SMtop<=400){
 					SMtop += 100;
@@ -93,30 +102,62 @@
 						param += 1;
 						$("#slot-machine-value").animate({
 							top:"-=100px"
-						},50);
+						},50,function(){
+							flag = iCheck(i,rnd,param);
+							if(flag){
+								return;
+							}
+						});
 					} else {
 						param = 1;
 						SMtop = 0;
 						$("#slot-machine-value").animate({
 							top:"0px"
-						},0);
+						},0,function(){
+							flag = iCheck(i,rnd,param);
+							if(flag){
+								return;
+							}
+						});
 					}
 				} else {
 					param = 1;
 					SMtop = 0;
 					$("#slot-machine-value").animate({
 						top:"0px"
-					},0);
+					},0,function(){
+						flag = iCheck(i,rnd,param);
+						if(flag){
+							return;
+						}
+					});
 				}
 			}
-			console.log(param);
+			/* 라스트체크 */
 		} else if(loginCheck=="b"){
-			alert("일반 회원만 사용 가능합니다!")
+			alert("일반 회원만 사용 가능합니다!");
 		} else {
 			$("#report-login-modal").modal("show");
 		}
-		
-		
+
+	}
+	
+	function iCheck(i,rnd,param){
+		if(i>=Number(rnd)-1){
+			$.ajax({
+				url:"${path}/banner/couponAdd.do",
+				data:{"cpNo":param,"mNo":"${loginType['no']}"},
+				success:function(data){
+					console.log(data);
+					alert("축하합니다! 쿠폰을 받으셨어요!\n 마이페이지에서 확인하세요!");
+					$("#slot-start-btn").hide();
+					$(".slot-start-end").show();
+					return true;
+				}
+			})
+		} else {
+			return false;
+		}
 	}
 	
 	

@@ -7,5 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 public interface CouponSchedulerDao {
 
 	void checkCouponDate(SqlSessionTemplate session);
+
+	void deleteCouponCheck(SqlSessionTemplate session);
 	
 }

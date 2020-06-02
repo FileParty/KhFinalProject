@@ -49,6 +49,7 @@
                     </tr>
                     
                     <tr>
+                     
                         <td>
                             <a class="menuDetail list-group-item list-group-item-action " href="${path }/admin/report.do">신고현황</a>
                         </td>

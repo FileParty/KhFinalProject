@@ -17,6 +17,12 @@ public class CouponSchedulerController {
 		service.checkCouponDate();
 	}
 	
+	@Scheduled(cron = "0-1 59 23 * * *")
+	public void couponDayCheck() {
+		System.out.println("요릭장인 김인술");
+		service.deleteCouponCheck();
+	}
+	
 	
 
 }

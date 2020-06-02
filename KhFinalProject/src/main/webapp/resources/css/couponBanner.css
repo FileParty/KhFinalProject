@@ -2,9 +2,10 @@
 .coupon-banner-mains{
 	display:flex;
 	flex-direction:column;
-	justify-content:flex-start;
+	justify-content:center;
 	text-align:center;
 	width:100%;
+	height:699px;
 	padding:12px;
 	color:white;
 	background-size:100%;
@@ -14,8 +15,7 @@
 
 #coupon-banner-main-1-text-1{
 	text-align:right;
-	font-size:4em;
-	margin-top:50px;
+	font-size:3.5em;
 	margin-right:420px;
 	margin-bottom:15px;
 	color:red;
@@ -23,24 +23,18 @@
 }
 
 #coupon-banner-main-1-text-2{
-	font-size:2em;
+	font-size:1.5em;
 	text-align:right;
 	margin-right:450px;
 	text-shadow:3px 3px 3px red;
 }
 
 #coupon-banner-main-1-text-3{
-	font-size:2em;
+	font-size:1.5em;
 	text-align:right;
 	margin-right:380px;
 	text-shadow:3px 3px 3px red;
 	margin-bottom:50px;
-}
-
-#coupon-banner-main-bg{
-	position:absolute;
-	z-index:-2;
-	top:0;
 }
 
 /* 슬롯머신 */
@@ -72,5 +66,28 @@
 	padding-top:30px;
 	font-size:25px;
 	font-weight:800;
+	color:black;
+}
+
+#slot-start-btn{
+	width:155px;
+	height:60px;
+	background-color:white;
+	border:2px solid gray;
+	border-radius:24px;
+	margin-top:25px;
+	margin-left:545px;
+}
+
+.slot-start-end{
+	padding-top:15px;
+	display:none;
+	width:250px;
+	height:60px;
+	background-color:white;
+	border:2px solid gray;
+	border-radius:24px;
+	margin-top:25px;
+	margin-left:500px;
 	color:black;
 }
