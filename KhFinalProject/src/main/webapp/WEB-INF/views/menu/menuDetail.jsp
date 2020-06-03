@@ -1027,9 +1027,10 @@
 	        			let sliLen = 0;
 	        			if(data[i]['r_imgs'].length>1){
 		        			sliLen = data[i]['r_imgs'].length;
+	        				console.log(sliLen+"i");
 		        			
 		        			let imgTr = "<tr><td>";
-		        			imgTr += "<div class='review-slide-td' data-cPage='1' data-max-page='"+sliLen+"'>";
+		        			imgTr += "<div class='review-slide-td' data-cPage='1' data-max-page='"+sliLen+"' width='"+650*sliLen+"'>";
 		        			imgTr += "<div class='review-slide-div'>";
 	        				for(let j=0;j<data[i]['r_imgs'].length;j++){
 	        					imgTr += "<img style='display:inline-block' src='${path}/resources/img/mypage/review/"
@@ -1061,7 +1062,9 @@
 	        			let hr= $("<hr>").css("margin","5px");
 	        			reviewDiv.append(table);
 	        			reviewDiv.append(hr);
-	        			$(".review-slide-div").last().css("width",sliLen*650);
+	        			console.log(sliLen+"j");
+	        			console.log(data[i]['r_imgs'],data[i]['r_imgs'].length);
+	        			//$(".review-slide-div").last().css("width",650*data[i]['r_imgs'].length);
 	        			if(data[i]['r_reply']!=null){
 	        				let reply = "<div class='s-store-review-reply'>";
 	        				reply += "<span class='s-store-review-reply-text'>☞&nbsp;사장님&nbsp;☜</span>";
