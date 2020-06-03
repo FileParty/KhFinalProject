@@ -2,6 +2,7 @@ package com.kh.fp.common.websocket;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimerTask;
@@ -422,9 +423,16 @@ public class DeliveryServer extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		log.debug("세션이 끊어졌습니다.");
-		log.debug("세션 값"+session);
-		log.debug("접속자: " + clients);
+		Set<Map.Entry<SocketMessage, WebSocketSession>> entry = clients.entrySet();
+		Iterator<Map.Entry<SocketMessage, WebSocketSession>> it=entry.iterator();
+		System.out.println("전 : "+clients.size());
+		while(it.hasNext()) {
+			Map.Entry<SocketMessage, WebSocketSession> temp=it.next();
+			if(session==temp.getValue()) {
+				it.remove();
+			}
+		}
+		System.out.println("후 : "+clients.size());
 	}
 
     
