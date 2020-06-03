@@ -180,6 +180,9 @@
                                 <div class="s-store-detail"><img src="${path}/resources/img/king.png" width="30px;" height="30px;">
                                 	&nbsp;<h5>사장님 알림</h5></div>
                                 <hr>
+                                <c:forEach items="${store['storeImgs'] }" var="ssimg">
+                                	<img src="${path }/resources/upload/store/${ssimg}" width="100%" height="350px"><br/>
+                                </c:forEach>
                                 <pre>${store['s_text'] }</pre>
                                 <br>
                                 <div class="s-store-detail"><img src="${path}/resources/img/search.svg" width="30px;" 
@@ -613,91 +616,88 @@
         
         /* 주문표에 추가 */
         function addOrderList(){
+        	let limitPrice = Number($("#order-limit-price").val());
         	let finalPrice = Number($("#finalPrice_").val());
-        	let limitPrice = Number($("#limitPrice_").val());
-        	if(finalPrice>=limitPrice){
-        		let no = $("#modalMenuNo").val();
-        		let menuImgSrc = $("#modal-menu-img-src").val();
-	        	let menuName = $("#modal-menu-name").text();
-	        	let reqOp;
-	        	let reqOps = $(".menu-modal-content-required-option-radio");
-	        	for(let i=0;i<reqOps.length;i++){
-	        		if($(reqOps[i]).is(":checked")==true){
-	        			reqOp = {"reqOpNo":$(reqOps[i]).val(),
-	        					"reqOpName":$(reqOps[i]).parent().text().trim()};
+	      	let no = $("#modalMenuNo").val();
+	      	let menuImgSrc = $("#modal-menu-img-src").val();
+	       	let menuName = $("#modal-menu-name").text();
+	       	let reqOp;
+	       	let reqOps = $(".menu-modal-content-required-option-radio");
+	       	for(let i=0;i<reqOps.length;i++){
+	       		if($(reqOps[i]).is(":checked")==true){
+	       			reqOp = {"reqOpNo":$(reqOps[i]).val(),
+	       					"reqOpName":$(reqOps[i]).parent().text().trim()};
+	       		}
+	       	}
+	       	let unReqOps = $(".menu-modal-content-required-option-checkbox");
+	       	let unReqOp = new Array();
+	       	for(let i=0;i<unReqOps.length;i++){
+	       		let j = 0;
+	       		if($(unReqOps[i]).is(":checked")==true){
+	       			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
+	       						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
+	       		}
+	       	}
+	       	let menuCount = Number($("#menu-modal-menu-count-text").text());
+	       	
+	       	const oContent = $(".s-store-order-content");
+	       	let orderAdd = new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
+	       	let flag = false;
+	       	let flagIndex = 0;
+	       	for(let i=0;i<orderListArr.length;i++){
+	       		flag = equlasObject(orderListArr[i],orderAdd);
+	       		flagIndex = i;
+	       		if(flag){
+	       			break;
+	       		}
+	       	}
+	       	
+	      		if(!flag){
+	       		let orderDiv = $("#order-content-2");
+	        	if($(oContent).children('#order-content-1').length>0){
+	        		$(oContent).children('#order-content-1').hide();
+	        	}
+	        	let orderContent = '<div data-index="'+$(".s-store-order-button").length+'" class="s-store-order-button">';
+	        	orderContent += "<h4>"+menuName+"</h4>"
+	        	orderContent += "<span>";
+	        	orderContent += "&nbsp;&nbsp;옵션 : ";
+	        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
+	        	if(unReqOp!=null){
+		        	unReqOp.forEach(e=>{
+		        		orderContent += ", "+e['unReqOpName'];
+		        	});
+	        	}
+	        	orderContent += "</span>";
+	        	orderContent += "<br/>";
+	        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
+	        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
+	        	orderContent += '<input type="hidden" class="s-store-order-count" name="count" value="'+menuCount+'">';
+	        	orderContent += '<div class="s-store-order-count-controller-div">';
+	        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
+	        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
+	        	orderContent += '<div><button class="order-count-btns" onclick="orderCountMinus(this)">-</button>';
+	        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
+	        	orderContent += '<button class="orderCountPlusBtn order-count-btns" onclick="orderCountPlus(this)">+</button></div>';
+	        	orderContent += '</div>';
+	        	orderContent += '</div>';
+	        	let finalPriceCheck = Number($(".order-final-price").val());
+	        	finalPriceCheck += finalPrice
+	        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
+	        	$(".order-final-price").val(finalPriceCheck);
+	        	$("#s-store-order-title-delete-btn").show();
+	        	orderDiv.append(orderContent);
+	        	oContent.append(orderDiv);
+	        	orderListArr.push(orderAdd);
+	        	} else{
+	        		let tarDiv = $("div[data-index="+flagIndex+"]");
+	        		for(let i=0;i<Number(orderAdd['count']);i++){
+	        			orderCountPlus($(tarDiv).find(".orderCountPlusBtn"));
 	        		}
 	        	}
-	        	let unReqOps = $(".menu-modal-content-required-option-checkbox");
-	        	let unReqOp = new Array();
-	        	for(let i=0;i<unReqOps.length;i++){
-	        		let j = 0;
-	        		if($(unReqOps[i]).is(":checked")==true){
-	        			unReqOp[unReqOp.length]={"unReqOpNo":$(unReqOps[i]).val(),
-	        						"unReqOpName":$(unReqOps[i]).parent().text().trim()};
-	        		}
-	        	}
-	        	let menuCount = Number($("#menu-modal-menu-count-text").text());
-	        	
-	        	const oContent = $(".s-store-order-content");
-	        	let orderAdd = new newOrder(no,menuImgSrc,menuName,reqOp,unReqOp,menuCount,finalPrice);
-	        	let flag = false;
-	        	let flagIndex = 0;
-	        	for(let i=0;i<orderListArr.length;i++){
-	        		flag = equlasObject(orderListArr[i],orderAdd);
-	        		flagIndex = i;
-	        		if(flag){
-	        			break;
-	        		}
-	        	}
-	        	
-        		if(!flag){
-	        		let orderDiv = $("#order-content-2");
-		        	if($(oContent).children('#order-content-1').length>0){
-		        		$(oContent).children('#order-content-1').hide();
-		        	}
-		        	let orderContent = '<div data-index="'+$(".s-store-order-button").length+'" class="s-store-order-button">';
-		        	orderContent += "<h4>"+menuName+"</h4>"
-		        	orderContent += "<span>";
-		        	orderContent += "&nbsp;&nbsp;옵션 : ";
-		        	orderContent += (reqOp!=null?reqOp['reqOpName']:"");
-		        	if(unReqOp!=null){
-			        	unReqOp.forEach(e=>{
-			        		orderContent += ", "+e['unReqOpName'];
-			        	});
-		        	}
-		        	orderContent += "</span>";
-		        	orderContent += "<br/>";
-		        	orderContent += '<input type="hidden" name="imgName" value="'+menuImgSrc+'">';
-		        	orderContent += '<input type="hidden" class="s-store-order-prices" name="menuPrice" value="'+finalPrice+'">';
-		        	orderContent += '<input type="hidden" class="s-store-order-count" name="count" value="'+menuCount+'">';
-		        	orderContent += '<div class="s-store-order-count-controller-div">';
-		        	orderContent += '<button class="btn btn-success" onclick="orderDeleteThis(this)">X</button>';
-		        	orderContent += '<span class="s-store-order-menu-price">'+numberFormatting(finalPrice)+"</span>";
-		        	orderContent += '<div><button class="order-count-btns" onclick="orderCountMinus(this)">-</button>';
-		        	orderContent += '<span class="order-count-check">'+menuCount+'</span>';
-		        	orderContent += '<button class="orderCountPlusBtn order-count-btns" onclick="orderCountPlus(this)">+</button></div>';
-		        	orderContent += '</div>';
-		        	orderContent += '</div>';
-		        	let finalPriceCheck = Number($(".order-final-price").val());
-		        	finalPriceCheck += finalPrice
-		        	$("#s-store-order-final-price").html(numberFormatting(finalPriceCheck));
-		        	$(".order-final-price").val(finalPriceCheck);
-		        	$("#s-store-order-title-delete-btn").show();
-		        	orderDiv.append(orderContent);
-		        	oContent.append(orderDiv);
-		        	orderListArr.push(orderAdd);
-		        	} else{
-		        		let tarDiv = $("div[data-index="+flagIndex+"]");
-		        		for(let i=0;i<Number(orderAdd['count']);i++){
-		        			orderCountPlus($(tarDiv).find(".orderCountPlusBtn"));
-		        		}
-		        	}
-		        	storeMenuModalClose();
-		        	orderListHeightCheck();
-		        	orderAllFinalPriceCacr();
-        	} else {
-        		ShowlimitPriceTooTip();
-        	}
+	        	storeMenuModalClose();
+	        	orderListHeightCheck();
+	        	orderAllFinalPriceCacr();
+        	
         }
         
         /* 모달창에서 주문하기 */
@@ -929,18 +929,22 @@
         	if(x['name']!=y['name']){
         		return false;
         	}
-       		if(x['reqOp']['reqOpNo']!=y['reqOp']['reqOpNo']){
-       			return false;
-       		}
-       		if(x['unReqOp'].length==y['unReqOp'].length){
-	       		for(let i=0;i<x['unReqOp'].length||i<y['unReqOp'].length;i++){
-	       			if(x['unReqOp'][i]['unReqOpNo']!=y['unReqOp'][i]['unReqOpNo']){
-	       				return false;
-	       			}
+        	if(x['reqOp']!=null&&y['reqOp']!=null){
+	       		if(x['reqOp']['reqOpNo']!=y['reqOp']['reqOpNo']){
+	       			return false;
 	       		}
-       		} else {
-       			return false;
-       		}
+        	}
+        	if(x['unReqOp']!=null&&y['unReqOp']!=null){
+	       		if(x['unReqOp'].length==y['unReqOp'].length){
+		       		for(let i=0;i<x['unReqOp'].length||i<y['unReqOp'].length;i++){
+		       			if(x['unReqOp'][i]['unReqOpNo']!=y['unReqOp'][i]['unReqOpNo']){
+		       				return false;
+		       			}
+		       		}
+	       		} else {
+	       			return false;
+	       		}
+        	}
         	return true;
         }
         

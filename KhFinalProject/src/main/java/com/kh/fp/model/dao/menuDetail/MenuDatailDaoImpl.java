@@ -90,6 +90,11 @@ public class MenuDatailDaoImpl implements MenuDatailDao {
 	public int deleteBookMarking(SqlSessionTemplate session, Map<String, Integer> bm) {
 		return session.delete("storeMenuDetail.deleteBookMark",bm);
 	}
+
+	@Override
+	public List<String> selectStoreDetailImgs(SqlSessionTemplate session, int no) {
+		return session.selectList("storeMenuDetail.selectStoreDetailImgs",no);
+	}
 	
 	
 

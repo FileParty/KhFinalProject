@@ -42,4 +42,6 @@ public interface MenuDatailDao {
 
 	int deleteBookMarking(SqlSessionTemplate session, Map<String, Integer> bm);
 
+	List<String> selectStoreDetailImgs(SqlSessionTemplate session, int no);
+
 }

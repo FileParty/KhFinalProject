@@ -63,4 +63,7 @@
 	<delete id="deleteBookMark" parameterType="map">
 		DELETE PREFER WHERE M_NO=#{m_no} AND S_NO=#{s_no}
 	</delete>
+	<select id="selectStoreDetailImgs" parameterType="_int" resultType="string">
+		SELECT S_IMG FROM STORE_IMG WHERE S_NO=#{no}
+	</select>
 </mapper>

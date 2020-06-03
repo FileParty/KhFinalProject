@@ -37,6 +37,7 @@ public class StoreDetailInfo {
 	private double s_delivery_tru;
 	private List<StoreCategory> storeCategory;
 	private List<StoreMenu> bestMenu;
+	private List<String> storeImgs;
 	
 
 }

@@ -29,6 +29,7 @@ public class MenuDatailServiceImpl implements MenuDatailService {
 		StoreDetailInfo smd = dao.selectStroeDetailInfo(session,no);
 		smd.setStoreCategory(dao.selectStoreDetailCategory(session, no));
 		smd.setBestMenu(dao.selectStoreDetailBestMenu(session, no));
+		smd.setStoreImgs(dao.selectStoreDetailImgs(session,no));
 		return smd;
 	}
 
