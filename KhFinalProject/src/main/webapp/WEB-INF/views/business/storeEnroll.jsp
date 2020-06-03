@@ -161,7 +161,7 @@
 	                  					<tr>
 	                  						<th class="store-enroll-info-title">소개글이미지</th>
 	                  						<th class="store-enroll-info">
-											    <input type="file" id="input_imgs" name="input_imgs" multiple />		 
+											    <input type="file" id="input_imgs" name="slogimg" multiple />		 
 										        <div class="imgs_wrap flex-wrap d-flex">
 										            
 										        </div>
