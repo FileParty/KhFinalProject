@@ -428,7 +428,7 @@ public class DeliveryServer extends TextWebSocketHandler{
 		System.out.println("전 : "+clients.size());
 		while(it.hasNext()) {
 			Map.Entry<SocketMessage, WebSocketSession> temp=it.next();
-			if(session==temp.getValue()) {
+			if(!temp.getValue().isOpen()) {
 				it.remove();
 			}
 		}
