@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="banner">
   <insert id="couponInsert" parameterType="map">
-  	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSTIMESTAMP+(INTERVAL '10' MINUTE),
+  	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSDATE,
   	<choose>
   		<when test="cpNo==1">1000</when>
   		<when test="cpNo==2">3000</when>
