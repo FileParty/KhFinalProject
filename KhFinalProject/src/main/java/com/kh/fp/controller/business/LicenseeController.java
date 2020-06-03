@@ -243,22 +243,27 @@ public class LicenseeController {
 		String[] counts = req.getParameterValues("count");
 		String[] counts1 = req.getParameterValues("counts");
 		int storeNo = Integer.parseInt(req.getParameter("storeNum"));
-
+		
 		int menuPrice[] = new int[mPrice.length];
 		int mtNoEnd[] = new int[mtNo.length];
 		int sdNo[] = null;
 		int sdNo2[] = null;
+		
 		if (sdNoEnd != null) {
 			sdNo = new int[sdNoEnd.length];
 			for (int i = 0; i < sdNoEnd.length; i++) {
 				sdNo[i] = Integer.parseInt(sdNoEnd[i]);
+				//필수옵션
+				System.out.println("필수"+sdNo[i]);
 			}
 		}
-
+		
 		if (sdNoEnds != null) {
 			sdNo2 = new int[sdNoEnds.length];
 			for (int i = 0; i < sdNoEnds.length; i++) {
 				sdNo2[i] = Integer.parseInt(sdNoEnds[i]);
+				//추가옵션
+				System.out.println("추가"+sdNo2[i]);
 			}
 		}
 		int count[] = new int[counts.length];

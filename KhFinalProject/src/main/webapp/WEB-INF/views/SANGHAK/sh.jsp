@@ -1054,7 +1054,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 					  	 $("#text1").css("display","none");
 					     $("#text2").css("display","none");
 					     $('.nextTime5').css("display","inline"); 
-		        		 $('.nextTime5').val("접기");
+		        		 $('#nextTime4').val('접기');
 					  	  			}
 				  	
 						

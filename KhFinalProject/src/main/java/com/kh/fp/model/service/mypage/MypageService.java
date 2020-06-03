@@ -9,7 +9,7 @@ public interface MypageService {
 	
 	int getTotalCount(int m_no);
 	
-	List<Map<String, String>> selectOrder(int m_no, int cPage, int numPerPage);
+	List<Map<String, Object>> selectOrder(int m_no, int cPage, int numPerPage);
 	
 	List<Map<String, String>> selectOrderMenu(int m_no);
 	

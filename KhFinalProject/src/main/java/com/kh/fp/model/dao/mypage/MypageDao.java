@@ -12,7 +12,7 @@ public interface MypageDao {
 	
 	int getTotalCount(SqlSessionTemplate session, int m_no);
 	
-	List<Map<String, String>> selectOrder(SqlSessionTemplate session, int m_no, int cPage, int numPerPage);
+	List<Map<String, Object>> selectOrder(SqlSessionTemplate session, int m_no, int cPage, int numPerPage);
 	
 	List<Map<String, String>> selectOrderMenu(SqlSessionTemplate session, int o_no);
 	

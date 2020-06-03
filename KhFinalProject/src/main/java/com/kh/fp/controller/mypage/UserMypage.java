@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,9 @@ public class UserMypage {
 		String url = "/20PM_deliveryKing_final/mypage/orderHistory.do";
 		
 		
-		List<Map<String, String>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
+		List<Map<String, Object>> list = service.selectOrder(loginMember.getM_No(), cPage, numPerPage);
+		
+		log.debug(list + ":");
 		
 		String pageBar = PageBarFactory(cPage, numPerPage, totalData, url);
 		
@@ -249,6 +252,11 @@ public class UserMypage {
 		
 		
 		List<Map<String, String>> list = service.selectCoupon(loginMember.getM_No());
+		
+		/*
+		 * for(Map<String, Object> map : list) { map.put("O_DATE",
+		 * (Date)map.get("O_DATE")); }
+		 */
 		
 		m.addAttribute("list", list);
 		
