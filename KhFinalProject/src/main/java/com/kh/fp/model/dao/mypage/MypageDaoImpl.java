@@ -54,7 +54,7 @@ public class MypageDaoImpl implements MypageDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectCoupon(SqlSessionTemplate session, int m_no) {
+	public List<Map<String, String>> selectCoupon(SqlSessionTemplate session, int m_no) {
 		return session.selectList("mypage.selectCoupon", m_no);
 	}
 

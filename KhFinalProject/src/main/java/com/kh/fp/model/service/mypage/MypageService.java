@@ -23,7 +23,7 @@ public interface MypageService {
 	
 	int delectWatchList(Map<String, String> map);
 	
-	List<Map<String, Object>> selectCoupon(int m_no);
+	List<Map<String, String>> selectCoupon(int m_no);
 	
 	int memberUpdate(Map<String, String> map);
 	

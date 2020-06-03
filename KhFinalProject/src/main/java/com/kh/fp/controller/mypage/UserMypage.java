@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -250,7 +251,12 @@ public class UserMypage {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		
-		List<Map<String, Object>> list = service.selectCoupon(loginMember.getM_No());
+		List<Map<String, String>> list = service.selectCoupon(loginMember.getM_No());
+		
+		/*
+		 * for(Map<String, Object> map : list) { map.put("O_DATE",
+		 * (Date)map.get("O_DATE")); }
+		 */
 		
 		m.addAttribute("list", list);
 		
