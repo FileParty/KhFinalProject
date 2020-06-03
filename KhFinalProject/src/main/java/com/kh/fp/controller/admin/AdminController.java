@@ -30,6 +30,8 @@ public class AdminController {
 	
 	@RequestMapping("/admin/adminMain.do")
 	public ModelAndView adminMainPage(ModelAndView mv) {
+		List<Map> aa = service.selectAdminMain();
+		mv.addObject("AB",aa);
 		mv.setViewName("/admin/main");
 		return mv;
 	}

@@ -20,7 +20,6 @@
 				<hr/>
 				<div id="main-statistics-type-btns">
 					<button id="stat-sales-btn" onclick="stat_sales()">매출 통계</button>
-					<button id="stat-apply-btn" onclick="stat_apply()">가입자 통계</button>
 				</div>
 				<div id="main-statistics-div">
 					<table id="stat-tbl">
@@ -29,21 +28,21 @@
 								<th>유형</th>
 								<th>일 평균</th>
 								<th>일 종합</th>
-								<th>주 평균</th>
-								<th>주 종합</th>
 								<th>월 평균</th>
 								<th>월 종합</th>
+								<th>년 평균</th>
+								<th>년 종합</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<th><p>전체</p></th>
-								<td><p>1</p></td>
-								<td><p>2</p></td>
-								<td><p>3</p></td>
-								<td><p>4</p></td>
-								<td><p>5</p></td>
-								<td><p>6</p></td>
+								<td><p>${AB[0]['DAY_1']}</p></td>
+								<td><p>${AB[0]['DAY_2']}</p></td>
+								<td><p>${AB[0]['MONTH_1']}</p></td>
+								<td><p>${AB[0]['MONTH_2']}</p></td>
+								<td><p>${AB[0]['YEAR_1']}</p></td>
+								<td><p>${AB[0]['YEAR_2']}</p></td>
 							</tr>
 						</tbody>
 					</table>

@@ -67,6 +67,11 @@ public class AdminDaoImpl implements AdminDao {
 	public Review reviewDetail(SqlSessionTemplate session, int r_no) {
 		return session.selectOne("admin.reviewDetail", r_no);
 	}
+
+	@Override
+	public List<Map> selectAdminMain(SqlSessionTemplate session) {
+		return session.selectList("admin.selectAdminMain");
+	}
 	
 	
 	
