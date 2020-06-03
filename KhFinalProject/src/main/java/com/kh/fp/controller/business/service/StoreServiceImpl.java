@@ -33,10 +33,10 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	@Transactional
-	public int insertStore(StoreEnroll se, String storeimg) throws MyException {
+	public int insertStore(StoreEnroll se, List<String> files) throws MyException {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<String, Object>();
 		
+		Map<String, Object> map = new HashMap<String, Object>();
 		int result = dao.insertStore(session,se);
 		
 		if(result==0) {
@@ -59,14 +59,16 @@ public class StoreServiceImpl implements StoreService {
 		if(result==0) {
 			throw new MyException("대표 메뉴 카테고리 등록 에러!");
 		}
-		
-		if(!storeimg.isEmpty()) {
-			map.put("sno", se.getSno());
-			map.put("simg",storeimg);
-			result = dao.insertStoreImage(session,map);
-			if(result==0) {
-				throw new MyException("사진 등록 에러!");
-			}				
+		for(String name : files) {
+			
+				Map<String, Object> map2 = new HashMap<String, Object>();
+				
+				map2.put("sno", se.getSno());
+				map2.put("simg",name);
+				result = dao.insertStoreImage(session,map2);
+				if(result==0) {
+					throw new MyException("사진 등록 에러!");
+				}				
 		}
 		
 		return result;
