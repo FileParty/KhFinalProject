@@ -111,6 +111,9 @@ public class DeliveryServer extends TextWebSocketHandler{
 		
 		Set<Map.Entry<SocketMessage, WebSocketSession>> entry = clients.entrySet();
 		
+		System.out.println("==============확인=========");
+		System.out.println(msg);
+		
 		for(Map.Entry<SocketMessage, WebSocketSession> client : entry) {
 			
 			/*

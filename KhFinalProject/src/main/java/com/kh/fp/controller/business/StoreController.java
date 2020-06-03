@@ -44,54 +44,72 @@ public class StoreController {
 	BCryptPasswordEncoder encoder;
 
 	@RequestMapping("/store/storeEnroll.do")
-	public ModelAndView insertStore(ModelAndView mv, MultipartFile slogimg, MultipartFile[] input_imgs,
-			HttpSession session, StoreEnroll s) {
 
+	public ModelAndView insertStore(ModelAndView mv,MultipartFile slogimg,MultipartFile input_imgs,HttpSession session,
+			StoreEnroll s ) {
+	
 		String path = session.getServletContext().getRealPath("/resources/upload/store/");
 		Business b = (Business) session.getAttribute("loginMember");
 		System.out.println(slogimg.getName());
-		for (MultipartFile m : input_imgs) {
-			System.out.println(m.getName());
-		}
 
+
+		s.setBno(b.getB_No());
+		String storeimg="";
+		int result=0;
+		File f= new File(path);
 		
-		  if(b==null) { mv.addObject("msg", "로그인해주세요"); mv.addObject("loc", "/");
-		  mv.setViewName("common/msg"); return mv; } s.setBno(b.getB_No());
-		  List<String> files = new ArrayList<String>(); int result=0; File f= new
-		  File(path);
-		  
-		  if(!f.exists()) { f.mkdirs(); }
-		  
-		  if(!slogimg.isEmpty()) {
-		  
-		  try { String orilog = slogimg.getOriginalFilename(); String ext =
-		  orilog.substring(orilog.lastIndexOf(".")); SimpleDateFormat sdf = new
-		  SimpleDateFormat("yyyyMMdd_HHmmssSSS"); String
-		  rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+ext;
-		  s.setLogimg(rename);
-		  
-		  slogimg.transferTo(new File(path+rename));
-		  
-		  } catch (IOException e) { e.printStackTrace(); }
-		  
-		  for(MultipartFile mf : input_imgs) {
-		  
-		  if(!mf.isEmpty()) { String ori= mf.getOriginalFilename(); String ext =
-		  ori.substring(ori.lastIndexOf(".")); SimpleDateFormat sdf = new
-		  SimpleDateFormat("yyyyMMdd_HHmmssSSS"); String
-		  rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+ext; try {
-		  mf.transferTo(new File(path+rename)); }catch(IOException e) {
-		  e.printStackTrace(); } files.add(rename); }
-		  
-		  }
-		  
-		  }
-		  
-		  try { result =service.insertStore(s,files); }catch (RuntimeException e) {
-		  File delFlog = new File(path+s.getLogimg()); if(delFlog.exists()) {
-		  delFlog.delete(); } for(String sf: files) { File delF = new File(path+sf);
-		  if(delF.exists()) { delF.delete(); } } }
-		 
+
+		if(!f.exists()) {
+			f.mkdirs();
+		}
+		
+		if(!slogimg.isEmpty()) {
+			
+			try {
+				String orilog = slogimg.getOriginalFilename();
+				String ext = orilog.substring(orilog.lastIndexOf("."));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				String rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+"_"+ext;
+				s.setLogimg(rename);
+				
+				slogimg.transferTo(new File(path+rename));
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+				
+				if(!input_imgs.isEmpty()) {
+					String ori= input_imgs.getOriginalFilename();
+					String ext = ori.substring(ori.lastIndexOf("."));
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+					String rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+"_"+ext;
+					try {
+						input_imgs.transferTo(new File(path+rename));
+						storeimg=rename;
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+			
+				
+		}
+		
+		try {
+			result =service.insertStore(s,storeimg);
+		}catch (RuntimeException e) {
+			File delFlog = new File(path+s.getLogimg());
+			if(delFlog.exists()) {
+				delFlog.delete();
+			}
+			File delF = new File(path+storeimg);
+			if(delF.exists()) {
+				delF.delete();
+			}
+		}
+		
 
 		mv.addObject("msg", "가게 등록성공!");
 		mv.addObject("loc", "/store/mypage");

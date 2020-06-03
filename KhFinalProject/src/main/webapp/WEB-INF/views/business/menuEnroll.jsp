@@ -830,12 +830,8 @@
 					
 					$(".body-container2").append(hh3);
 					$(".body-container3").append(h3);
-					let tbl = $("<table>");
 					
 					for(let i=0;i<data.length;i++) {
-						let tr = $("<tr>");
-						let td =$("<td>");
-						let td2 =$("<td>");
 						if(data[i].sd_division=='Y') {
 					var input =  $("<input>").attr({
 						'type':'checkbox',
@@ -853,13 +849,11 @@
 						'name':'sdNo',
 						'value':data[i].sd_no
 					})	
-					var span = $("<span>").html(data[i].sd_price);
-					td.append(input).append(label);
-					td2.append(span).append(sdNo);
-					tr.append(td).append(td2);
-					tbl.append(tr);
-					/* $(".hh3text").after(span).after(label).after(input).after(sdNo).after($("<br>")); */
-					$(".hh3text").after(tbl);
+					var span = $("<span>").html(data[i].sd_price).css('margin-left','80');
+				
+						
+					$(".hh3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
+					
 					}else { 
 						var input =  $("<input>").attr({
 							'type':'checkbox',
@@ -880,12 +874,7 @@
 							'name':'sdNo',
 							'value':data[i].sd_no
 						})
-						td.append(input).append(label);
-						td2.append(span).append(sdNo);
-						tr.append(td).append(td2);
-						tbl.append(tr);
-						/* $(".h3text").after(span).after(label).after(input).after(sdNo).after($("<br>")); */
-						$(".h3text").after(tbl);
+						$(".h3text").after(span).after(label).after(input).after(sdNo).after($("<br>"));
 						
 					}
 					}
@@ -1102,9 +1091,11 @@
 				let mPrice = [];
 				let sdNum = [];
 				 $("input[name=radio]:checked").each(function(i) { 
-
+						
 					 mCheck[i]=$(this).val();
 					 mPrice[i]=$(this).next().next().html();
+					 console.log(';dddd',mCheck[i]);
+					 console.log(';dddd',mPrice[i]);
 					 sdNum[i]=$(this).prev().val();
 					 console.log('옵옵'+sdNum[i]);
 				        var mCheckbox = $("<input>").attr({
@@ -1121,7 +1112,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(mCheck[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':mPrice[i],'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
@@ -1164,7 +1155,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(check[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':price[i],'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
