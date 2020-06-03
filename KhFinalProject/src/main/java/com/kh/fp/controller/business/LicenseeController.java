@@ -378,7 +378,7 @@ public class LicenseeController {
 						break;
 					} else {
 						mss = new MenuSide();
-						mss.setSd_no(sdNo[k]);
+						mss.setSd_no(sdNo2[k]);
 						list3.add(mss);
 					}
 				}

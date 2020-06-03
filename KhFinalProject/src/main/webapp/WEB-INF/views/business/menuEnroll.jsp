@@ -1091,9 +1091,11 @@
 				let mPrice = [];
 				let sdNum = [];
 				 $("input[name=radio]:checked").each(function(i) { 
-
+						
 					 mCheck[i]=$(this).val();
 					 mPrice[i]=$(this).next().next().html();
+					 console.log(';dddd',mCheck[i]);
+					 console.log(';dddd',mPrice[i]);
 					 sdNum[i]=$(this).prev().val();
 					 console.log('옵옵'+sdNum[i]);
 				        var mCheckbox = $("<input>").attr({
@@ -1110,7 +1112,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(mCheck[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=radio]:checked").next().next().html(),'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':mPrice[i],'class':'form-control','readonly':'true'}).css({'display':'inline','width':'100','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',
@@ -1153,7 +1155,7 @@
 				        	'for':'addEnd'+i,
 				        	
 				        }).html(check[i]).css({'display':'inline'});
-				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':$("input[name=check]:checked").next().next().html(),'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
+				        var spanValues = $("<input>").attr({'type':'number','name':'endPrice','value':price[i],'class':'form-control'}).css({'display':'inline','width':'80','height':'20'});
 				    	
 				       let sdNoInput = $("<input>").attr({
 							'type':'hidden',

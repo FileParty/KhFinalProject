@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class KakaoController {
 	
 	private final static String K_CLIENT_ID = "be8eabd7617ea110eae29e877bae9a2c"; //이런식으로 REDIRECT_URI를 써넣는다.   
-	private final static String K_REDIRECT_URI = "http://localhost:9090/spring/member/kakaoLogin"; 
+	private final static String K_REDIRECT_URI = "https://rclass.iptime.org/20PM_deliveryKing_final/member/kakaoLogin"; 
 	public static String getAuthorizationUrl(HttpSession session) { 
 		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?" + "client_id=" + K_CLIENT_ID + "&redirect_uri=" + K_REDIRECT_URI + "&response_type=code"; 
 		return kakaoUrl; 
