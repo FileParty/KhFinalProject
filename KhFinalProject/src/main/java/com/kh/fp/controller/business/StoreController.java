@@ -45,16 +45,13 @@ public class StoreController {
 
 	@RequestMapping("/store/storeEnroll.do")
 
-	public ModelAndView insertStore(ModelAndView mv,MultipartFile slogimg,MultipartFile input_imgs,HttpSession session,
-			StoreEnroll s ) {
+	public ModelAndView insertStore(ModelAndView mv,MultipartFile[] slogimg,HttpSession session,StoreEnroll s ) {
 	
 		String path = session.getServletContext().getRealPath("/resources/upload/store/");
 		Business b = (Business) session.getAttribute("loginMember");
-		System.out.println(slogimg.getName());
-
-
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		s.setBno(b.getB_No());
-		String storeimg="";
+		List<String> files = new ArrayList<String>();
 		int result=0;
 		File f= new File(path);
 		
@@ -63,51 +60,43 @@ public class StoreController {
 			f.mkdirs();
 		}
 		
-		if(!slogimg.isEmpty()) {
+		for(int i=0;i<slogimg.length;i++){
 			
-			try {
-				String orilog = slogimg.getOriginalFilename();
+			if(!slogimg[i].isEmpty()) {
+				
+				String orilog = slogimg[i].getOriginalFilename();
 				String ext = orilog.substring(orilog.lastIndexOf("."));
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 				String rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+"_"+ext;
-				s.setLogimg(rename);
-				
-				slogimg.transferTo(new File(path+rename));
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-				
-				if(!input_imgs.isEmpty()) {
-					String ori= input_imgs.getOriginalFilename();
-					String ext = ori.substring(ori.lastIndexOf("."));
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-					String rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+"_"+ext;
-					try {
-						input_imgs.transferTo(new File(path+rename));
-						storeimg=rename;
-					}catch(IOException e) {
-						e.printStackTrace();
-					}
-					
+				try {
+					slogimg[i].transferTo(new File(path+rename));
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(i==0) {
+					s.setLogimg(rename);
+				}else {
+					files.add(rename);
 				}
 				
-			
 				
+			}
+			
 		}
 		
+
+		
 		try {
-			result =service.insertStore(s,storeimg);
+			result =service.insertStore(s,files);
 		}catch (RuntimeException e) {
 			File delFlog = new File(path+s.getLogimg());
 			if(delFlog.exists()) {
 				delFlog.delete();
 			}
-			File delF = new File(path+storeimg);
-			if(delF.exists()) {
-				delF.delete();
-			}
+//			File delF = new File(path+storeimg);
+//			if(delF.exists()) {
+//				delF.delete();
+//			}
 		}
 		
 

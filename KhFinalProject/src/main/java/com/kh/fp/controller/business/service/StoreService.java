@@ -11,7 +11,7 @@ import com.kh.fp.model.vo.StoreEnroll;
 
 public interface StoreService {
 
-   int insertStore(StoreEnroll s,String storeimg);
+   int insertStore(StoreEnroll s,List<String> files);
    List<Map<String, Object>> getStoresDetail(int no);
    List<Map<String, Object>> getStoresDetailcategory(int no);
    List<Map<String, Object>> getStoresDetailfiles(int no);
