@@ -26,7 +26,7 @@ public interface MypageDao {
 	
 	int delectWatchList(SqlSessionTemplate session, Map<String, String> map);
 	
-	List<Map<String, Object>> selectCoupon(SqlSessionTemplate session, int m_no);
+	List<Map<String, String>> selectCoupon(SqlSessionTemplate session, int m_no);
 	
 	int memberUpdate(SqlSessionTemplate session, Map<String, String> map);
 	

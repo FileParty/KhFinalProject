@@ -44,7 +44,7 @@ public class StoreController {
 	BCryptPasswordEncoder encoder;
 	
 	@RequestMapping("/store/storeEnroll.do")
-	public ModelAndView insertStore(ModelAndView mv,MultipartFile slogimg,MultipartFile[] input_imgs,HttpSession session,
+	public ModelAndView insertStore(ModelAndView mv,MultipartFile slogimg,MultipartFile input_imgs,HttpSession session,
 			StoreEnroll s ) {
 	
 		String path = session.getServletContext().getRealPath("/resources/upload/store/");
@@ -57,7 +57,7 @@ public class StoreController {
 			return mv;
 		}
 		s.setBno(b.getB_No());
-		List<String> files = new ArrayList<String>();
+		String storeimg="";
 		int result=0;
 		File f= new File(path);
 		
@@ -80,37 +80,35 @@ public class StoreController {
 				e.printStackTrace();
 			}
 			
-			for(MultipartFile mf : input_imgs) {
 				
-				if(!mf.isEmpty()) {
-					String ori= mf.getOriginalFilename();
+				if(!input_imgs.isEmpty()) {
+					String ori= input_imgs.getOriginalFilename();
 					String ext = ori.substring(ori.lastIndexOf("."));
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 					String rename="deliveryKing_"+sdf.format(System.currentTimeMillis())+"_"+ext;
 					try {
-					mf.transferTo(new File(path+rename));
+						input_imgs.transferTo(new File(path+rename));
+						storeimg=rename;
 					}catch(IOException e) {
 						e.printStackTrace();
 					}
-					files.add(rename);
+					
 				}
 				
-			}
+			
 				
 		}
 		
 		try {
-			result =service.insertStore(s,files);
+			result =service.insertStore(s,storeimg);
 		}catch (RuntimeException e) {
 			File delFlog = new File(path+s.getLogimg());
 			if(delFlog.exists()) {
 				delFlog.delete();
 			}
-			for(String sf: files) {
-				File delF = new File(path+sf);
-				if(delF.exists()) {
-					delF.delete();
-				}
+			File delF = new File(path+storeimg);
+			if(delF.exists()) {
+				delF.delete();
 			}
 		}
 		
