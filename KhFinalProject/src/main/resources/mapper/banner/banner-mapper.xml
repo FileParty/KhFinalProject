@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="banner">
   <insert id="couponInsert" parameterType="map">
-  	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSDATE,
+  	INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL,SYSDATE,SYSDATE+1,
   	<choose>
   		<when test="cpNo==1">1000</when>
   		<when test="cpNo==2">3000</when>
   		<when test="cpNo==3">7000</when>
   		<when test="cpNo==4">2000</when>
   	</choose>
-  	,#{mNo},40000,'오늘의 슬롯머신 쿠폰! 10분내로 사용하세요')
+  	,#{mNo},40000,'오늘의 슬롯머신 쿠폰! 오늘만 쓸수있는 쿠폰찬스!')
   </insert>
   <insert id="couponInsertCheck">
   	INSERT INTO COUPON_CHECK VALUES(#{mNo},DEFAULT)

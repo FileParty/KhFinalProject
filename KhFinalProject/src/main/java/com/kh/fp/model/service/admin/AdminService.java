@@ -29,4 +29,6 @@ public interface AdminService {
 	
 	Review reviewDetail(int r_no);
 
+	List<Map> selectAdminMain();
+
 }

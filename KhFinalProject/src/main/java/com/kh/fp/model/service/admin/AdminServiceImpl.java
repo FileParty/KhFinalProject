@@ -82,6 +82,12 @@ public class AdminServiceImpl implements AdminService {
 	public Review reviewDetail(int r_no) {
 		return dao.reviewDetail(session, r_no);
 	}
+
+	@Override
+	public List<Map> selectAdminMain() {
+		// TODO Auto-generated method stub
+		return dao.selectAdminMain(session);
+	}
 	
 	
 	

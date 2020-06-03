@@ -33,4 +33,6 @@ public interface AdminDao {
 	
 	Review reviewDetail(SqlSessionTemplate session, int r_no);
 
+	List<Map> selectAdminMain(SqlSessionTemplate session);
+
 }
